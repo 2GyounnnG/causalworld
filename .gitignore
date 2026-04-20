@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Virtual env
+venv/
+.venv/
+env/
+
+# Data files (should not be in git)
+rmd17/
+*.npz
+*.hdf5
+*.h5
+
+# Local IDE / tool caches
+.vscode/
+.idea/
+.codex/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large model checkpoints
+*.ckpt
+*.pt
+*.pth
