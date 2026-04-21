@@ -1,0 +1,37 @@
+{
+  "aspirin|flat|spectral|seed=0": {
+    "rollout_errors": {
+      "1": 0.29903037689626216,
+      "2": 0.3946490794420242,
+      "4": 0.6509912210702896,
+      "8": 1.190117716193199,
+      "16": 2.566139508485794
+    },
+    "final_loss": 119.24907466343471,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "spectral",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 200,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 3,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 0,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 19.89808750152588
+  }
+}

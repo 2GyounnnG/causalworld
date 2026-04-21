@@ -1,0 +1,416 @@
+import os
+import json
+import time
+import argparse
+from dataclasses import dataclass
+from pathlib import Path
+import sys
+from typing import Dict, List
+
+os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+import numpy as np
+import torch
+import torch.nn.functional as F
+import networkx as nx
+from torch_geometric.data import HeteroData
+from torch_geometric.utils import to_networkx
+import matplotlib.pyplot as plt
+
+from scripts.rmd17_loader import (
+    RMD17Trajectory,
+    collect_rmd17_transitions,
+    MOLECULES,
+    atoms_to_pyg,
+)
+from model import (
+    WorldModel,
+    build_causal_laplacian,
+    euclidean_cov_penalty,
+    spectral_laplacian_penalty,
+)
+
+
+def build_molecular_laplacian(obs: HeteroData, latent_dim: int) -> torch.Tensor:
+    """
+    Build a (latent_dim, latent_dim) Laplacian from the atom-bond graph
+    of the current frame. Reuses the same projection strategy as
+    build_causal_laplacian in model.py.
+    """
+    edge_index = obs["atom", "bonded", "atom"].edge_index
+    edge_attr = obs["atom", "bonded", "atom"].edge_attr
+    n_atoms = obs["atom"].x.shape[0]
+
+    graph = nx.Graph()
+    graph.add_nodes_from(range(n_atoms))
+    ei = edge_index.cpu().numpy()
+    ea = edge_attr.cpu().numpy().flatten()
+    for k in range(ei.shape[1]):
+        i, j = int(ei[0, k]), int(ei[1, k])
+        if i < j:
+            weight = 1.0 / max(float(ea[k]), 1e-6)
+            graph.add_edge(i, j, weight=weight)
+
+    graph_di = graph.to_directed()
+    return build_causal_laplacian(graph_di, latent_dim)
+
+
+def adapt_obs_for_world_model(obs: HeteroData) -> HeteroData:
+    """Map atom/bonded graphs into the node/hyperedge schema expected by WorldModel."""
+    data = HeteroData()
+    atomic_numbers = obs["atom"].atomic_number.view(-1, 1).to(dtype=torch.float32)
+    data["node"].x = atomic_numbers
+    data["node"].node_id = torch.arange(atomic_numbers.shape[0], dtype=torch.long)
+
+    edge_index = obs["atom", "bonded", "atom"].edge_index
+    edge_attr = obs["atom", "bonded", "atom"].edge_attr
+    undirected_pairs: List[tuple[int, int]] = []
+    distances: List[float] = []
+    seen: set[tuple[int, int]] = set()
+
+    for k in range(edge_index.shape[1]):
+        i = int(edge_index[0, k].item())
+        j = int(edge_index[1, k].item())
+        if i == j:
+            continue
+        pair = (i, j) if i < j else (j, i)
+        if pair in seen:
+            continue
+        seen.add(pair)
+        undirected_pairs.append(pair)
+        distances.append(float(edge_attr[k].view(-1)[0].item()))
+
+    if undirected_pairs:
+        hyperedge_x = torch.tensor(
+            [[2.0, -1.0] for _ in undirected_pairs],
+            dtype=torch.float32,
+        )
+        incidence_pairs = []
+        for bond_index, (i, j) in enumerate(undirected_pairs):
+            incidence_pairs.append((i, bond_index))
+            incidence_pairs.append((j, bond_index))
+        incidence_index = torch.tensor(incidence_pairs, dtype=torch.long).t().contiguous()
+    else:
+        hyperedge_x = torch.empty((0, 2), dtype=torch.float32)
+        incidence_index = torch.empty((2, 0), dtype=torch.long)
+
+    data["hyperedge"].x = hyperedge_x
+    data["hyperedge"].distance = torch.tensor(distances, dtype=torch.float32) if distances else torch.empty((0,), dtype=torch.float32)
+    data["hyperedge"].edge_tuple = undirected_pairs
+    data["node", "member_of", "hyperedge"].edge_index = incidence_index
+    data["hyperedge", "has_member", "node"].edge_index = incidence_index.flip(0)
+    return data
+
+
+def move_obs_to_device(obs: HeteroData, device: torch.device) -> HeteroData:
+    return adapt_obs_for_world_model(obs).to(device)
+
+
+@dataclass
+class Config:
+    molecule: str = "aspirin"
+    encoder: str = "flat"
+    prior: str = "spectral"
+    prior_weight: float = 0.1
+    latent_dim: int = 16
+    hidden_dim: int = 32
+    n_transitions: int = 2000
+    stride: int = 10
+    horizon: int = 1
+    eval_horizons: tuple = (1, 2, 4, 8, 16)
+    num_epochs: int = 50
+    batch_size: int = 32
+    lr: float = 1e-3
+    seed: int = 0
+    device: str = "cuda"
+    transition_hidden_dim: int = 128
+
+
+def evaluate_rollout(model, eval_transitions, horizons, device, latent_dim) -> Dict:
+    traj_cache = {}
+    errors_by_h = {H: [] for H in horizons}
+    zero_actions = [0.0] * max(horizons)
+    was_training = model.training
+    model.eval()
+
+    with torch.no_grad():
+        for transition in eval_transitions:
+            molecule = transition["molecule"]
+            if molecule not in traj_cache:
+                traj_cache[molecule] = RMD17Trajectory(molecule)
+            traj = traj_cache[molecule]
+            idx = transition["frame_idx"]
+
+            if idx + max(horizons) >= traj.n_frames:
+                continue
+
+            obs_0 = move_obs_to_device(traj[idx], device)
+            z0 = model.encode(obs_0)
+
+            for horizon in horizons:
+                z_rollout = model.rollout_latent(z0, zero_actions[:horizon])
+                z_pred_h = z_rollout[-1]
+                obs_h = move_obs_to_device(traj[idx + horizon], device)
+                z_true = model.encode(obs_h)
+                err = torch.norm(z_pred_h - z_true, p=2) / (latent_dim ** 0.5)
+                errors_by_h[horizon].append(float(err.detach().cpu()))
+
+    if was_training:
+        model.train()
+    return {H: float(np.mean(v)) if v else float("nan") for H, v in errors_by_h.items()}
+
+
+def quick_rollout_eval(model, samples, horizon, device, latent_dim) -> float:
+    was_training = model.training
+    model.eval()
+    errs = []
+    traj_cache = {}
+
+    with torch.no_grad():
+        for transition in samples:
+            molecule = transition["molecule"]
+            if molecule not in traj_cache:
+                traj_cache[molecule] = RMD17Trajectory(molecule)
+            traj = traj_cache[molecule]
+            idx = transition["frame_idx"]
+            if idx + horizon >= traj.n_frames:
+                continue
+
+            obs_0 = move_obs_to_device(traj[idx], device)
+            z0 = model.encode(obs_0)
+            z_rollout = model.rollout_latent(z0, [0.0] * horizon)
+            z_pred = z_rollout[-1]
+            z_true = model.encode(move_obs_to_device(traj[idx + horizon], device))
+            errs.append(float((torch.norm(z_pred - z_true, p=2) / (latent_dim ** 0.5)).detach().cpu()))
+
+    if was_training:
+        model.train()
+    return float(np.mean(errs)) if errs else float("nan")
+
+
+def train_one_seed(config: Config) -> Dict:
+    """
+    Returns a dict with:
+      "rollout_errors": {H: float}  (per eval horizon)
+      "final_loss": float
+      "config": asdict
+      "wall_time_sec": float
+    """
+    t0 = time.time()
+
+    np.random.seed(config.seed)
+    torch.manual_seed(config.seed)
+    if config.device == "cuda":
+        torch.cuda.manual_seed_all(config.seed)
+
+    transitions = collect_rmd17_transitions(
+        molecule=config.molecule,
+        n_transitions=config.n_transitions,
+        stride=config.stride,
+        horizon=config.horizon,
+        seed=config.seed,
+    )
+
+    eval_transitions = collect_rmd17_transitions(
+        molecule=config.molecule,
+        n_transitions=200,
+        stride=config.stride * 10,
+        horizon=max(config.eval_horizons),
+        seed=config.seed + 1000,
+    )
+
+    device = torch.device(config.device)
+    model = WorldModel(
+        encoder=config.encoder,
+        hidden_dim=config.hidden_dim,
+        latent_dim=config.latent_dim,
+        action_dim=1,
+        transition_hidden_dim=config.transition_hidden_dim,
+    ).to(device)
+    optimizer = torch.optim.Adam(model.parameters(), lr=config.lr)
+    action_zero = torch.zeros(1, dtype=torch.float32, device=device)
+
+    epoch_loss = float("nan")
+    for epoch in range(config.num_epochs):
+        model.train()
+        order = np.random.permutation(len(transitions))
+        total_values = []
+        transition_values = []
+        reward_values = []
+        prior_values = []
+
+        for batch_start in range(0, len(transitions), config.batch_size):
+            batch_idx = order[batch_start : batch_start + config.batch_size]
+            optimizer.zero_grad()
+            base_totals = []
+            transition_losses = []
+            reward_losses = []
+            prior_losses = []
+            batch_latents = []
+
+            for index in batch_idx:
+                transition = transitions[int(index)]
+                obs_raw = transition["obs"]
+                next_obs_raw = transition["next_obs"]
+                obs = move_obs_to_device(obs_raw, device)
+                next_obs = move_obs_to_device(next_obs_raw, device)
+
+                if config.prior == "spectral":
+                    laplacian = build_molecular_laplacian(obs_raw, config.latent_dim).to(device)
+                    loss_dict = model.loss(
+                        observation=obs,
+                        action=action_zero,
+                        next_observation=next_obs,
+                        reward=0.0,
+                        done=0.0,
+                        prior="spectral",
+                        prior_weight=config.prior_weight,
+                        laplacian=laplacian,
+                    )
+                elif config.prior == "euclidean":
+                    loss_dict = model.loss(
+                        observation=obs,
+                        action=action_zero,
+                        next_observation=next_obs,
+                        reward=0.0,
+                        done=0.0,
+                        prior="none",
+                        prior_weight=0.0,
+                    )
+                    batch_latents.append(model.encode(obs))
+                elif config.prior == "none":
+                    loss_dict = model.loss(
+                        observation=obs,
+                        action=action_zero,
+                        next_observation=next_obs,
+                        reward=0.0,
+                        done=0.0,
+                        prior="none",
+                        prior_weight=0.0,
+                    )
+                else:
+                    raise ValueError("prior must be one of 'none', 'euclidean', or 'spectral'")
+
+                base_totals.append(loss_dict["total"])
+                transition_losses.append(loss_dict["transition"])
+                reward_losses.append(loss_dict["reward"])
+                prior_losses.append(loss_dict["prior"])
+
+            total = torch.stack(base_totals).mean()
+            if config.prior == "euclidean":
+                latent_batch = torch.stack(batch_latents)
+                prior_loss = euclidean_cov_penalty(latent_batch)
+                total = total + config.prior_weight * prior_loss
+            elif config.prior == "spectral":
+                prior_loss = torch.stack(prior_losses).mean()
+            else:
+                prior_loss = total.new_tensor(0.0)
+
+            total.backward()
+            optimizer.step()
+
+            total_values.append(float(total.detach().cpu()))
+            transition_values.append(float(torch.stack(transition_losses).mean().detach().cpu()))
+            reward_values.append(float(torch.stack(reward_losses).mean().detach().cpu()))
+            prior_values.append(float(prior_loss.detach().cpu()))
+
+        epoch_loss = float(np.mean(total_values)) if total_values else float("nan")
+
+        if (epoch + 1) % 5 == 0 or epoch == 0:
+            mid_err = quick_rollout_eval(
+                model,
+                eval_transitions[:20],
+                horizon=8,
+                device=device,
+                latent_dim=config.latent_dim,
+            )
+            print(
+                f"[{config.molecule}|{config.encoder}|{config.prior}|seed={config.seed}] "
+                f"epoch {epoch + 1:3d}/{config.num_epochs} "
+                f"loss={epoch_loss:.4f} H8_eval={mid_err:.4f}",
+                flush=True,
+            )
+
+    rollout_errors = evaluate_rollout(
+        model,
+        eval_transitions,
+        horizons=config.eval_horizons,
+        device=device,
+        latent_dim=config.latent_dim,
+    )
+
+    return {
+        "rollout_errors": rollout_errors,
+        "final_loss": float(epoch_loss),
+        "config": config.__dict__,
+        "wall_time_sec": time.time() - t0,
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--molecule", default="aspirin", choices=MOLECULES)
+    parser.add_argument(
+        "--smoke",
+        action="store_true",
+        help="Quick 1-seed 3-epoch test for pipeline verification",
+    )
+    args = parser.parse_args()
+
+    if args.smoke:
+        configs = [
+            Config(
+                molecule=args.molecule,
+                prior="spectral",
+                num_epochs=3,
+                n_transitions=200,
+                seed=0,
+            )
+        ]
+    else:
+        configs = []
+        for prior in ["none", "euclidean", "spectral"]:
+            for seed in [0, 1, 2]:
+                configs.append(Config(molecule=args.molecule, prior=prior, seed=seed))
+
+    if not torch.cuda.is_available():
+        print("WARNING: CUDA unavailable, falling back to CPU")
+        for config in configs:
+            config.device = "cpu"
+    else:
+        print(f"device=cuda ({torch.cuda.get_device_name(0)})")
+
+    all_results = {}
+    for config in configs:
+        key = f"{config.molecule}|{config.encoder}|{config.prior}|seed={config.seed}"
+        print(f"\n=== Starting {key} ===", flush=True)
+        result = train_one_seed(config)
+        all_results[key] = result
+
+        out_path = ROOT / f"rmd17_{args.molecule}_results.json"
+        if args.smoke:
+            out_path = ROOT / f"rmd17_{args.molecule}_smoke.json"
+        with out_path.open("w", encoding="utf-8") as file:
+            json.dump(all_results, file, indent=2, default=str)
+        print(f"  -> saved partial results to {out_path.name}")
+
+    print("\n=== Summary ===")
+    print(f"molecule: {args.molecule}")
+    print(f"{'prior':12s} {'seed':5s} " + " ".join(f"H={H:<4d}" for H in [1, 2, 4, 8, 16]))
+    for key, result in all_results.items():
+        parts = key.split("|")
+        prior = parts[2]
+        seed = parts[3].split("=")[1]
+        errs = result["rollout_errors"]
+        print(
+            f"{prior:12s} {seed:5s} "
+            + " ".join(f"{errs.get(H, float('nan')):.4f}" for H in [1, 2, 4, 8, 16])
+        )
+
+
+if __name__ == "__main__":
+    main()
