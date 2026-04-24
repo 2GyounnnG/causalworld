@@ -25,13 +25,11 @@ from scripts.rmd17_loader import (
     RMD17Trajectory,
     collect_rmd17_transitions,
     MOLECULES,
-    atoms_to_pyg,
 )
 from model import (
     WorldModel,
     build_causal_laplacian,
     euclidean_cov_penalty,
-    spectral_laplacian_penalty,
 )
 
 
@@ -272,6 +270,12 @@ def train_one_seed(config: Config) -> Dict:
                         laplacian=laplacian,
                     )
                 elif config.prior == "euclidean":
+                    # This script trains one transition at a time, so calling
+                    # model.loss(... prior="euclidean") here would hand model.py a
+                    # single latent vector, producing a degenerate 1-row covariance
+                    # and a zero penalty. Collecting latents across the minibatch
+                    # and applying euclidean_cov_penalty once restores the intended
+                    # batch-level prior used by the Wolfram training path.
                     loss_dict = model.loss(
                         observation=obs,
                         action=action_zero,
@@ -302,8 +306,7 @@ def train_one_seed(config: Config) -> Dict:
 
             total = torch.stack(base_totals).mean()
             if config.prior == "euclidean":
-                latent_batch = torch.stack(batch_latents)
-                prior_loss = euclidean_cov_penalty(latent_batch)
+                prior_loss = euclidean_cov_penalty(torch.stack(batch_latents, dim=0))
                 total = total + config.prior_weight * prior_loss
             elif config.prior == "spectral":
                 prior_loss = torch.stack(prior_losses).mean()
