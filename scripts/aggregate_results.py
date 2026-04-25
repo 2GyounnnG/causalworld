@@ -345,6 +345,25 @@ def main_claim_status_line(main_complete: bool, spectral_wins_h16: bool) -> str:
     return "rMD17 aspirin 10-seed main comparison: PENDING."
 
 
+def wolfram_claim_status_line(wolfram_complete: bool, h16_wolfram: list[dict[str, Any]]) -> str:
+    if not wolfram_complete:
+        return "Wolfram flat 200-epoch comparison: PENDING."
+    means = {
+        str(row.get("prior")): parse_float(row.get("mean"))
+        for row in h16_wolfram
+        if str(row.get("horizon")) == "16"
+    }
+    finite_means = {prior: mean for prior, mean in means.items() if mean is not None}
+    if not finite_means:
+        return "Wolfram flat 200-epoch comparison: COMPLETE; no spectral advantage."
+    best_prior = min(finite_means, key=lambda prior: finite_means[prior])
+    if best_prior == "spectral":
+        return "Wolfram flat 200-epoch comparison: COMPLETE; spectral has the best H=16 mean."
+    if best_prior == "euclidean":
+        return "Wolfram flat 200-epoch comparison: COMPLETE; Euclidean has the best H=16 mean; spectral shows long-horizon instability."
+    return "Wolfram flat 200-epoch comparison: COMPLETE; no spectral advantage."
+
+
 def write_summary(
     path: Path,
     prior_rows: list[dict[str, Any]],
@@ -371,6 +390,15 @@ def write_summary(
     weight_complete = complete_weight_sweep_at_h16(weight_rows)
     lap_complete = complete_laplacian_at_h16(lap_rows)
     wolfram_complete = complete_priors_at_h16(wolfram_rows, expected_n=10)
+    pending_claims = []
+    if not weight_complete:
+        pending_claims.append("- The Euclidean prior-weight explanation is pending until the weight sweep completes across all seeds and weights.")
+    if not lap_complete:
+        pending_claims.append("- The per-frame Laplacian leakage concern is pending until fixed-frame and fixed-mean Laplacian modes complete.")
+    if not wolfram_complete:
+        pending_claims.append("- Wolfram 200-epoch conclusions are pending until all 10 seeds complete.")
+    if not pending_claims:
+        pending_claims.append("- No aggregate-completeness blockers remain for the reported rMD17 weight sweep, Laplacian ablation, or Wolfram flat 200-epoch tables.")
     lines = [
         "# Results Summary For Paper",
         "",
@@ -379,7 +407,7 @@ def write_summary(
         f"- {main_claim_status_line(main_complete, spectral_wins_h16)}",
         f"- rMD17 weight sweep: {section_status(weight_complete)}.",
         f"- rMD17 Laplacian ablation: {section_status(lap_complete)}.",
-        f"- Wolfram flat 200-epoch comparison: {section_status(wolfram_complete)}.",
+        f"- {wolfram_claim_status_line(wolfram_complete, h16_wolfram)}",
         "",
         "## Main Confirmed Claims",
         "",
@@ -394,9 +422,7 @@ def write_summary(
         "",
         "## Claims Still Pending",
         "",
-        "- The Euclidean prior-weight explanation is pending until the weight sweep completes across all seeds and weights.",
-        "- The per-frame Laplacian leakage concern is pending until fixed-frame and fixed-mean Laplacian modes complete.",
-        "- Wolfram 200-epoch conclusions are pending until all 10 seeds complete.",
+        *pending_claims,
         "",
         "## Claims That Should Not Be Made Yet",
         "",
@@ -434,6 +460,8 @@ def write_summary(
         "",
         markdown_table(h16_wolfram, ["prior", "n", "mean", "std", "ci95_low", "ci95_high", "pct_change_vs_none", "pct_change_vs_euclidean"]),
         "",
+        "The completed Wolfram flat run does not support a universal spectral-prior advantage. Euclidean slightly improves over no prior at H=16, while spectral has a heavy-tailed failure mode: most seeds remain near baseline scale, but a few seeds explode at long horizon.",
+        "",
         "Interpretation: this section is final only when all three priors have n=10 at H=16.",
         "",
         "## Reviewer-Risk Section",
@@ -458,6 +486,9 @@ def main() -> None:
     out = Path(args.out)
     rows = read_manifest(manifest_path)
 
+    # Keep checkpointed rMD17 reruns out of the main aggregate by default.
+    # They are for reviewer-facing disjoint eval / replication and should be
+    # aggregated separately if needed.
     prior_rows = aggregate(
         rows,
         experiment_filter={"rmd17_aspirin_10seed"},

@@ -4,6 +4,7 @@ import time
 import argparse
 from dataclasses import dataclass
 from pathlib import Path
+import subprocess
 import sys
 from typing import Dict, List
 
@@ -126,6 +127,64 @@ class Config:
     seed: int = 0
     device: str = "cuda"
     transition_hidden_dim: int = 128
+    laplacian_mode: str = "per_frame"
+    save_checkpoint: bool = False
+    checkpoint_dir: str = "checkpoints/rmd17"
+    save_frame_indices: bool = True
+
+
+def get_git_commit() -> str:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except Exception:
+        return "unknown"
+    commit = result.stdout.strip()
+    return commit or "unknown"
+
+
+def checkpoint_path(config: Config) -> Path:
+    filename = (
+        f"{config.molecule}_{config.encoder}_{config.prior}_"
+        f"seed{config.seed}_w{config.prior_weight}_mode{config.laplacian_mode}.pt"
+    )
+    checkpoint_dir = Path(config.checkpoint_dir)
+    if not checkpoint_dir.is_absolute():
+        checkpoint_dir = ROOT / checkpoint_dir
+    return checkpoint_dir / filename
+
+
+def frame_index_metadata(transitions: list[dict], eval_transitions: list[dict]) -> dict:
+    train_frame_idx = [int(transition["frame_idx"]) for transition in transitions if "frame_idx" in transition]
+    eval_frame_idx = [int(transition["frame_idx"]) for transition in eval_transitions if "frame_idx" in transition]
+    overlap = sorted(set(train_frame_idx).intersection(eval_frame_idx))
+    return {
+        "train_frame_idx": train_frame_idx,
+        "eval_frame_idx": eval_frame_idx,
+        "train_eval_overlap_count": len(overlap),
+        "train_eval_overlap_examples": overlap[:20],
+    }
+
+
+def save_checkpoint(config: Config, model: WorldModel, final_loss: float, rollout_errors: dict) -> Path:
+    path = checkpoint_path(config)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    torch.save(
+        {
+            "model_state_dict": {key: value.detach().cpu() for key, value in model.state_dict().items()},
+            "config": dict(config.__dict__),
+            "final_loss": float(final_loss),
+            "rollout_errors": rollout_errors,
+            "git_commit": get_git_commit(),
+        },
+        path,
+    )
+    return path
 
 
 def evaluate_rollout(model, eval_transitions, horizons, device, latent_dim) -> Dict:
@@ -222,6 +281,22 @@ def train_one_seed(config: Config) -> Dict:
     )
 
     device = torch.device(config.device)
+    if config.laplacian_mode not in {"per_frame", "fixed_frame0", "fixed_mean"}:
+        raise ValueError("laplacian_mode must be one of 'per_frame', 'fixed_frame0', or 'fixed_mean'")
+
+    fixed_laplacian = None
+    if config.prior == "spectral" and config.laplacian_mode != "per_frame":
+        traj = RMD17Trajectory(config.molecule)
+        if config.laplacian_mode == "fixed_frame0":
+            fixed_laplacian = build_molecular_laplacian(traj[0], config.latent_dim).to(device)
+        elif config.laplacian_mode == "fixed_mean":
+            n_frames = min(500, traj.n_frames)
+            frame_laplacians = [
+                build_molecular_laplacian(traj[frame_idx], config.latent_dim)
+                for frame_idx in range(n_frames)
+            ]
+            fixed_laplacian = torch.stack(frame_laplacians, dim=0).mean(dim=0).to(device)
+
     model = WorldModel(
         encoder=config.encoder,
         hidden_dim=config.hidden_dim,
@@ -258,7 +333,10 @@ def train_one_seed(config: Config) -> Dict:
                 next_obs = move_obs_to_device(next_obs_raw, device)
 
                 if config.prior == "spectral":
-                    laplacian = build_molecular_laplacian(obs_raw, config.latent_dim).to(device)
+                    if fixed_laplacian is None:
+                        laplacian = build_molecular_laplacian(obs_raw, config.latent_dim).to(device)
+                    else:
+                        laplacian = fixed_laplacian
                     loss_dict = model.loss(
                         observation=obs,
                         action=action_zero,
@@ -345,13 +423,26 @@ def train_one_seed(config: Config) -> Dict:
         device=device,
         latent_dim=config.latent_dim,
     )
+    metadata = frame_index_metadata(transitions, eval_transitions) if config.save_frame_indices else {}
+    config_dict = dict(config.__dict__)
+    checkpoint = None
+    if config.save_checkpoint:
+        checkpoint = save_checkpoint(config, model, float(epoch_loss), rollout_errors)
 
-    return {
+    result = {
         "rollout_errors": rollout_errors,
         "final_loss": float(epoch_loss),
-        "config": config.__dict__,
+        "config": config_dict,
         "wall_time_sec": time.time() - t0,
     }
+    if metadata:
+        result["metadata"] = metadata
+    if checkpoint is not None:
+        try:
+            result["checkpoint_path"] = str(checkpoint.relative_to(ROOT))
+        except ValueError:
+            result["checkpoint_path"] = str(checkpoint)
+    return result
 
 
 def main():
