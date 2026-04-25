@@ -1,0 +1,47 @@
+#!/bin/bash
+# Usage: ./run_in_tmux.sh <session_name> <script_path> [script_args]
+# Example: ./run_in_tmux.sh flat_200ep scripts/run_10seed_flat.py
+
+set -e
+
+SESSION="$1"
+SCRIPT="$2"
+shift 2
+ARGS="$@"
+
+if [ -z "$SESSION" ] || [ -z "$SCRIPT" ]; then
+  echo "Usage: $0 <session_name> <script_path> [args]"
+  exit 1
+fi
+
+# 检查 session 是否已存在
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  echo "Session '$SESSION' already exists. Attach with: tmux attach -t $SESSION"
+  echo "Or kill it first: tmux kill-session -t $SESSION"
+  exit 1
+fi
+
+# 日志文件
+LOG="logs/${SESSION}_$(date +%Y%m%d_%H%M%S).log"
+mkdir -p logs
+
+# 激活 conda 环境并启动
+tmux new-session -d -s "$SESSION" -c "$(pwd)" \
+  "source ~/miniconda3/etc/profile.d/conda.sh 2>/dev/null || source ~/anaconda3/etc/profile.d/conda.sh 2>/dev/null; \
+   conda activate causalworld; \
+   echo '=== Starting $SCRIPT at $(date) ===' | tee -a $LOG; \
+   echo '=== GPU: ' \$(nvidia-smi --query-gpu=name --format=csv,noheader) | tee -a $LOG; \
+   python -u $SCRIPT $ARGS 2>&1 | tee -a $LOG; \
+   echo '=== Finished at $(date) (exit=\$?) ===' | tee -a $LOG; \
+   echo; echo 'Task complete. Press any key to close this tmux window.'; read -n 1"
+
+echo ""
+echo "✓ Started tmux session '$SESSION'"
+echo "  Log file: $LOG"
+echo ""
+echo "Monitor progress:"
+echo "  tmux attach -t $SESSION       # live view, Ctrl+B then D to detach"
+echo "  tail -f $LOG                  # log tail (survives detach)"
+echo ""
+echo "List all sessions:  tmux ls"
+echo "Kill this session:  tmux kill-session -t $SESSION"

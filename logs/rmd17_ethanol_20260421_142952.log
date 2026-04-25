@@ -1,0 +1,144 @@
+=== Starting scripts/train_rmd17.py at Tue Apr 21 14:29:52 CST 2026 ===
+=== Python: /home/user/miniforge3/envs/causalworld/bin/python
+=== GPU: NVIDIA GeForce RTX 5060 Ti
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+
+=== Starting ethanol|flat|none|seed=0 ===
+[ethanol|flat|none|seed=0] epoch   1/50 loss=0.0584 H8_eval=0.0872
+[ethanol|flat|none|seed=0] epoch   5/50 loss=0.0016 H8_eval=0.0327
+[ethanol|flat|none|seed=0] epoch  10/50 loss=0.0015 H8_eval=0.0100
+[ethanol|flat|none|seed=0] epoch  15/50 loss=0.0008 H8_eval=0.0004
+[ethanol|flat|none|seed=0] epoch  20/50 loss=0.0006 H8_eval=0.0538
+[ethanol|flat|none|seed=0] epoch  25/50 loss=0.0006 H8_eval=0.0006
+[ethanol|flat|none|seed=0] epoch  30/50 loss=0.0004 H8_eval=0.0085
+[ethanol|flat|none|seed=0] epoch  35/50 loss=0.0002 H8_eval=0.0005
+[ethanol|flat|none|seed=0] epoch  40/50 loss=0.0002 H8_eval=0.0021
+[ethanol|flat|none|seed=0] epoch  45/50 loss=0.0001 H8_eval=0.0129
+[ethanol|flat|none|seed=0] epoch  50/50 loss=0.0001 H8_eval=0.0253
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Starting ethanol|flat|none|seed=1 ===
+[ethanol|flat|none|seed=1] epoch   1/50 loss=0.0532 H8_eval=0.1032
+[ethanol|flat|none|seed=1] epoch   5/50 loss=0.0021 H8_eval=0.0003
+[ethanol|flat|none|seed=1] epoch  10/50 loss=0.0018 H8_eval=0.0029
+[ethanol|flat|none|seed=1] epoch  15/50 loss=0.0013 H8_eval=0.0294
+[ethanol|flat|none|seed=1] epoch  20/50 loss=0.0007 H8_eval=0.0001
+[ethanol|flat|none|seed=1] epoch  25/50 loss=0.0005 H8_eval=0.0003
+[ethanol|flat|none|seed=1] epoch  30/50 loss=0.0004 H8_eval=0.0148
+[ethanol|flat|none|seed=1] epoch  35/50 loss=0.0002 H8_eval=0.0260
+[ethanol|flat|none|seed=1] epoch  40/50 loss=0.0002 H8_eval=0.0411
+[ethanol|flat|none|seed=1] epoch  45/50 loss=0.0001 H8_eval=0.0145
+[ethanol|flat|none|seed=1] epoch  50/50 loss=0.0004 H8_eval=0.1194
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Starting ethanol|flat|none|seed=2 ===
+[ethanol|flat|none|seed=2] epoch   1/50 loss=0.0607 H8_eval=0.0753
+[ethanol|flat|none|seed=2] epoch   5/50 loss=0.0008 H8_eval=0.0002
+[ethanol|flat|none|seed=2] epoch  10/50 loss=0.0006 H8_eval=0.0003
+[ethanol|flat|none|seed=2] epoch  15/50 loss=0.0005 H8_eval=0.0001
+[ethanol|flat|none|seed=2] epoch  20/50 loss=0.0004 H8_eval=0.0000
+[ethanol|flat|none|seed=2] epoch  25/50 loss=0.0004 H8_eval=0.0550
+[ethanol|flat|none|seed=2] epoch  30/50 loss=0.0003 H8_eval=0.0085
+[ethanol|flat|none|seed=2] epoch  35/50 loss=0.0002 H8_eval=0.0145
+[ethanol|flat|none|seed=2] epoch  40/50 loss=0.0002 H8_eval=0.0028
+[ethanol|flat|none|seed=2] epoch  45/50 loss=0.0001 H8_eval=0.0319
+[ethanol|flat|none|seed=2] epoch  50/50 loss=0.0001 H8_eval=0.0469
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Starting ethanol|flat|euclidean|seed=0 ===
+[ethanol|flat|euclidean|seed=0] epoch   1/50 loss=0.4584 H8_eval=0.0872
+[ethanol|flat|euclidean|seed=0] epoch   5/50 loss=0.4016 H8_eval=0.0327
+[ethanol|flat|euclidean|seed=0] epoch  10/50 loss=0.4015 H8_eval=0.0100
+[ethanol|flat|euclidean|seed=0] epoch  15/50 loss=0.4008 H8_eval=0.0004
+[ethanol|flat|euclidean|seed=0] epoch  20/50 loss=0.4006 H8_eval=0.0538
+[ethanol|flat|euclidean|seed=0] epoch  25/50 loss=0.4006 H8_eval=0.0006
+[ethanol|flat|euclidean|seed=0] epoch  30/50 loss=0.4004 H8_eval=0.0085
+[ethanol|flat|euclidean|seed=0] epoch  35/50 loss=0.4002 H8_eval=0.0005
+[ethanol|flat|euclidean|seed=0] epoch  40/50 loss=0.4002 H8_eval=0.0021
+[ethanol|flat|euclidean|seed=0] epoch  45/50 loss=0.4001 H8_eval=0.0129
+[ethanol|flat|euclidean|seed=0] epoch  50/50 loss=0.4001 H8_eval=0.0253
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Starting ethanol|flat|euclidean|seed=1 ===
+[ethanol|flat|euclidean|seed=1] epoch   1/50 loss=0.4532 H8_eval=0.1032
+[ethanol|flat|euclidean|seed=1] epoch   5/50 loss=0.4021 H8_eval=0.0003
+[ethanol|flat|euclidean|seed=1] epoch  10/50 loss=0.4018 H8_eval=0.0029
+[ethanol|flat|euclidean|seed=1] epoch  15/50 loss=0.4013 H8_eval=0.0294
+[ethanol|flat|euclidean|seed=1] epoch  20/50 loss=0.4007 H8_eval=0.0001
+[ethanol|flat|euclidean|seed=1] epoch  25/50 loss=0.4005 H8_eval=0.0003
+[ethanol|flat|euclidean|seed=1] epoch  30/50 loss=0.4004 H8_eval=0.0148
+[ethanol|flat|euclidean|seed=1] epoch  35/50 loss=0.4002 H8_eval=0.0260
+[ethanol|flat|euclidean|seed=1] epoch  40/50 loss=0.4002 H8_eval=0.0411
+[ethanol|flat|euclidean|seed=1] epoch  45/50 loss=0.4001 H8_eval=0.0145
+[ethanol|flat|euclidean|seed=1] epoch  50/50 loss=0.4004 H8_eval=0.1194
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Starting ethanol|flat|euclidean|seed=2 ===
+[ethanol|flat|euclidean|seed=2] epoch   1/50 loss=0.4607 H8_eval=0.0753
+[ethanol|flat|euclidean|seed=2] epoch   5/50 loss=0.4008 H8_eval=0.0002
+[ethanol|flat|euclidean|seed=2] epoch  10/50 loss=0.4006 H8_eval=0.0003
+[ethanol|flat|euclidean|seed=2] epoch  15/50 loss=0.4005 H8_eval=0.0001
+[ethanol|flat|euclidean|seed=2] epoch  20/50 loss=0.4004 H8_eval=0.0000
+[ethanol|flat|euclidean|seed=2] epoch  25/50 loss=0.4004 H8_eval=0.0550
+[ethanol|flat|euclidean|seed=2] epoch  30/50 loss=0.4003 H8_eval=0.0085
+[ethanol|flat|euclidean|seed=2] epoch  35/50 loss=0.4002 H8_eval=0.0145
+[ethanol|flat|euclidean|seed=2] epoch  40/50 loss=0.4002 H8_eval=0.0028
+[ethanol|flat|euclidean|seed=2] epoch  45/50 loss=0.4001 H8_eval=0.0319
+[ethanol|flat|euclidean|seed=2] epoch  50/50 loss=0.4001 H8_eval=0.0469
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Starting ethanol|flat|spectral|seed=0 ===
+[ethanol|flat|spectral|seed=0] epoch   1/50 loss=5.2357 H8_eval=0.0610
+[ethanol|flat|spectral|seed=0] epoch   5/50 loss=0.0009 H8_eval=0.0051
+[ethanol|flat|spectral|seed=0] epoch  10/50 loss=0.0007 H8_eval=0.0033
+[ethanol|flat|spectral|seed=0] epoch  15/50 loss=0.0007 H8_eval=0.0198
+[ethanol|flat|spectral|seed=0] epoch  20/50 loss=0.0006 H8_eval=0.0870
+[ethanol|flat|spectral|seed=0] epoch  25/50 loss=0.0005 H8_eval=0.0776
+[ethanol|flat|spectral|seed=0] epoch  30/50 loss=0.0004 H8_eval=0.0013
+[ethanol|flat|spectral|seed=0] epoch  35/50 loss=0.0004 H8_eval=0.0027
+[ethanol|flat|spectral|seed=0] epoch  40/50 loss=0.0003 H8_eval=0.0051
+[ethanol|flat|spectral|seed=0] epoch  45/50 loss=0.0003 H8_eval=0.0028
+[ethanol|flat|spectral|seed=0] epoch  50/50 loss=0.0002 H8_eval=0.0172
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Starting ethanol|flat|spectral|seed=1 ===
+[ethanol|flat|spectral|seed=1] epoch   1/50 loss=4.7031 H8_eval=0.0723
+[ethanol|flat|spectral|seed=1] epoch   5/50 loss=0.0015 H8_eval=0.0006
+[ethanol|flat|spectral|seed=1] epoch  10/50 loss=0.0010 H8_eval=0.0009
+[ethanol|flat|spectral|seed=1] epoch  15/50 loss=0.0007 H8_eval=0.0057
+[ethanol|flat|spectral|seed=1] epoch  20/50 loss=0.0005 H8_eval=0.0058
+[ethanol|flat|spectral|seed=1] epoch  25/50 loss=0.0004 H8_eval=0.0072
+[ethanol|flat|spectral|seed=1] epoch  30/50 loss=0.0003 H8_eval=0.0192
+[ethanol|flat|spectral|seed=1] epoch  35/50 loss=0.0003 H8_eval=0.0363
+[ethanol|flat|spectral|seed=1] epoch  40/50 loss=0.0002 H8_eval=0.0023
+[ethanol|flat|spectral|seed=1] epoch  45/50 loss=0.0002 H8_eval=0.0169
+[ethanol|flat|spectral|seed=1] epoch  50/50 loss=0.0001 H8_eval=0.0032
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Starting ethanol|flat|spectral|seed=2 ===
+[ethanol|flat|spectral|seed=2] epoch   1/50 loss=1.3370 H8_eval=0.0566
+[ethanol|flat|spectral|seed=2] epoch   5/50 loss=0.0006 H8_eval=0.0717
+[ethanol|flat|spectral|seed=2] epoch  10/50 loss=0.0007 H8_eval=0.0183
+[ethanol|flat|spectral|seed=2] epoch  15/50 loss=0.0004 H8_eval=0.0021
+[ethanol|flat|spectral|seed=2] epoch  20/50 loss=0.0003 H8_eval=0.0024
+[ethanol|flat|spectral|seed=2] epoch  25/50 loss=0.0003 H8_eval=0.0672
+[ethanol|flat|spectral|seed=2] epoch  30/50 loss=0.0002 H8_eval=0.0139
+[ethanol|flat|spectral|seed=2] epoch  35/50 loss=0.0003 H8_eval=0.0354
+[ethanol|flat|spectral|seed=2] epoch  40/50 loss=0.0002 H8_eval=0.0034
+[ethanol|flat|spectral|seed=2] epoch  45/50 loss=0.0002 H8_eval=0.0057
+[ethanol|flat|spectral|seed=2] epoch  50/50 loss=0.0001 H8_eval=0.0203
+  -> saved partial results to rmd17_ethanol_results.json
+
+=== Summary ===
+molecule: ethanol
+prior        seed  H=1    H=2    H=4    H=8    H=16  
+none         0     0.0029 0.0058 0.0119 0.0253 0.0597
+none         1     0.0154 0.0305 0.0603 0.1194 0.2452
+none         2     0.0048 0.0099 0.0209 0.0469 0.1238
+euclidean    0     0.0029 0.0058 0.0119 0.0253 0.0597
+euclidean    1     0.0154 0.0305 0.0603 0.1194 0.2452
+euclidean    2     0.0048 0.0099 0.0209 0.0469 0.1238
+spectral     0     0.0021 0.0041 0.0083 0.0172 0.0377
+spectral     1     0.0004 0.0007 0.0015 0.0032 0.0076
+spectral     2     0.0024 0.0048 0.0096 0.0203 0.0509
+=== Finished at Tue Apr 21 17:51:42 CST 2026 (exit=0)

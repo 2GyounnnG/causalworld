@@ -1,0 +1,317 @@
+{
+  "ethanol|flat|none|seed=0": {
+    "rollout_errors": {
+      "1": 0.0028807474300265312,
+      "2": 0.005810613743960857,
+      "4": 0.011886956170201302,
+      "8": 0.025302506983280182,
+      "16": 0.05965457111597061
+    },
+    "final_loss": 0.0001007564957641686,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "none",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 0,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1251.0891785621643
+  },
+  "ethanol|flat|none|seed=1": {
+    "rollout_errors": {
+      "1": 0.015365670435130596,
+      "2": 0.0305004995316267,
+      "4": 0.06029980257153511,
+      "8": 0.11938165128231049,
+      "16": 0.24517489969730377
+    },
+    "final_loss": 0.0004400064296085417,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "none",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 1,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1262.2639832496643
+  },
+  "ethanol|flat|none|seed=2": {
+    "rollout_errors": {
+      "1": 0.004832994658499956,
+      "2": 0.009907487779855728,
+      "4": 0.020873770117759705,
+      "8": 0.04685541242361069,
+      "16": 0.12383145093917847
+    },
+    "final_loss": 9.291986821659116e-05,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "none",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 2,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1236.075076341629
+  },
+  "ethanol|flat|euclidean|seed=0": {
+    "rollout_errors": {
+      "1": 0.0028807474300265312,
+      "2": 0.005810613743960857,
+      "4": 0.011886956170201302,
+      "8": 0.025302506983280182,
+      "16": 0.05965457111597061
+    },
+    "final_loss": 0.4001007614627717,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "euclidean",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 0,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1471.413566350937
+  },
+  "ethanol|flat|euclidean|seed=1": {
+    "rollout_errors": {
+      "1": 0.015365670435130596,
+      "2": 0.0305004995316267,
+      "4": 0.06029980257153511,
+      "8": 0.11938165128231049,
+      "16": 0.24517489969730377
+    },
+    "final_loss": 0.400440013597882,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "euclidean",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 1,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1470.9577071666718
+  },
+  "ethanol|flat|euclidean|seed=2": {
+    "rollout_errors": {
+      "1": 0.004832994658499956,
+      "2": 0.009907487779855728,
+      "4": 0.020873770117759705,
+      "8": 0.04685541242361069,
+      "16": 0.12383145093917847
+    },
+    "final_loss": 0.40009292534419466,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "euclidean",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 2,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1436.8853924274445
+  },
+  "ethanol|flat|spectral|seed=0": {
+    "rollout_errors": {
+      "1": 0.0020563022699207067,
+      "2": 0.004125530831515789,
+      "4": 0.00832821149379015,
+      "8": 0.01715010777115822,
+      "16": 0.03767489641904831
+    },
+    "final_loss": 0.0002306302032795631,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "spectral",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 0,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1320.6715288162231
+  },
+  "ethanol|flat|spectral|seed=1": {
+    "rollout_errors": {
+      "1": 0.0003703715046867728,
+      "2": 0.0007443257491104305,
+      "4": 0.0015114127891138196,
+      "8": 0.0031831259839236736,
+      "16": 0.007608032785356045
+    },
+    "final_loss": 0.00010088538542659657,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "spectral",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 1,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1332.3048334121704
+  },
+  "ethanol|flat|spectral|seed=2": {
+    "rollout_errors": {
+      "1": 0.002410321496427059,
+      "2": 0.0047843484207987785,
+      "4": 0.009590128436684608,
+      "8": 0.020330261439085007,
+      "16": 0.05090203881263733
+    },
+    "final_loss": 0.00012475102994358167,
+    "config": {
+      "molecule": "ethanol",
+      "encoder": "flat",
+      "prior": "spectral",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 2,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1324.4385209083557
+  }
+}

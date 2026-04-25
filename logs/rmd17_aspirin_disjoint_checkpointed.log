@@ -1,0 +1,126 @@
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+SKIP existing aspirin|flat|none|seed=0
+SKIP existing aspirin|flat|none|seed=1
+SKIP existing aspirin|flat|none|seed=2
+SKIP existing aspirin|flat|none|seed=3
+SKIP existing aspirin|flat|none|seed=4
+SKIP existing aspirin|flat|euclidean|seed=0
+
+=== Starting aspirin|flat|euclidean|seed=1 ===
+[aspirin|flat|euclidean|seed=1] epoch   5/50 loss=0.5346 H8_eval=0.4989
+[aspirin|flat|euclidean|seed=1] epoch  10/50 loss=0.4490 H8_eval=0.1978
+[aspirin|flat|euclidean|seed=1] epoch  15/50 loss=0.4311 H8_eval=0.2415
+[aspirin|flat|euclidean|seed=1] epoch  20/50 loss=0.4233 H8_eval=0.2123
+[aspirin|flat|euclidean|seed=1] epoch  25/50 loss=0.4220 H8_eval=0.1669
+[aspirin|flat|euclidean|seed=1] epoch  30/50 loss=0.4262 H8_eval=0.7842
+[aspirin|flat|euclidean|seed=1] epoch  35/50 loss=0.4196 H8_eval=0.1990
+[aspirin|flat|euclidean|seed=1] epoch  40/50 loss=0.4193 H8_eval=0.2004
+[aspirin|flat|euclidean|seed=1] epoch  45/50 loss=0.4506 H8_eval=0.8185
+[aspirin|flat|euclidean|seed=1] epoch  50/50 loss=0.4321 H8_eval=0.2031
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+
+=== Starting aspirin|flat|euclidean|seed=2 ===
+[aspirin|flat|euclidean|seed=2] epoch   5/50 loss=0.4730 H8_eval=0.2154
+[aspirin|flat|euclidean|seed=2] epoch  10/50 loss=0.4397 H8_eval=0.1710
+[aspirin|flat|euclidean|seed=2] epoch  15/50 loss=0.4367 H8_eval=0.2129
+[aspirin|flat|euclidean|seed=2] epoch  20/50 loss=0.4367 H8_eval=0.3463
+[aspirin|flat|euclidean|seed=2] epoch  25/50 loss=0.4282 H8_eval=0.1794
+[aspirin|flat|euclidean|seed=2] epoch  30/50 loss=0.4177 H8_eval=0.2153
+[aspirin|flat|euclidean|seed=2] epoch  35/50 loss=0.4228 H8_eval=0.1735
+[aspirin|flat|euclidean|seed=2] epoch  40/50 loss=0.4275 H8_eval=0.1960
+[aspirin|flat|euclidean|seed=2] epoch  45/50 loss=0.4378 H8_eval=0.1635
+[aspirin|flat|euclidean|seed=2] epoch  50/50 loss=0.4300 H8_eval=0.1642
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+
+=== Starting aspirin|flat|euclidean|seed=3 ===
+[aspirin|flat|euclidean|seed=3] epoch   5/50 loss=0.5124 H8_eval=0.5361
+[aspirin|flat|euclidean|seed=3] epoch  10/50 loss=0.4512 H8_eval=0.1475
+[aspirin|flat|euclidean|seed=3] epoch  15/50 loss=0.4513 H8_eval=0.2670
+[aspirin|flat|euclidean|seed=3] epoch  20/50 loss=0.4251 H8_eval=0.1758
+[aspirin|flat|euclidean|seed=3] epoch  25/50 loss=0.4224 H8_eval=0.1351
+[aspirin|flat|euclidean|seed=3] epoch  30/50 loss=0.4426 H8_eval=0.2749
+[aspirin|flat|euclidean|seed=3] epoch  35/50 loss=0.4252 H8_eval=0.1209
+[aspirin|flat|euclidean|seed=3] epoch  40/50 loss=0.4262 H8_eval=0.1538
+[aspirin|flat|euclidean|seed=3] epoch  45/50 loss=0.4254 H8_eval=0.1534
+[aspirin|flat|euclidean|seed=3] epoch  50/50 loss=0.4233 H8_eval=0.2794
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+
+=== Starting aspirin|flat|euclidean|seed=4 ===
+[aspirin|flat|euclidean|seed=4] epoch   5/50 loss=0.5156 H8_eval=0.2602
+[aspirin|flat|euclidean|seed=4] epoch  10/50 loss=0.4359 H8_eval=0.1622
+[aspirin|flat|euclidean|seed=4] epoch  15/50 loss=0.4337 H8_eval=0.2742
+[aspirin|flat|euclidean|seed=4] epoch  20/50 loss=0.4306 H8_eval=0.1966
+[aspirin|flat|euclidean|seed=4] epoch  25/50 loss=0.4259 H8_eval=0.3463
+[aspirin|flat|euclidean|seed=4] epoch  30/50 loss=0.4412 H8_eval=0.4284
+[aspirin|flat|euclidean|seed=4] epoch  35/50 loss=0.4192 H8_eval=0.1654
+[aspirin|flat|euclidean|seed=4] epoch  40/50 loss=0.4356 H8_eval=0.2894
+[aspirin|flat|euclidean|seed=4] epoch  45/50 loss=0.4260 H8_eval=0.1405
+[aspirin|flat|euclidean|seed=4] epoch  50/50 loss=0.4240 H8_eval=0.1444
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+
+=== Starting aspirin|flat|spectral|seed=0 ===
+[aspirin|flat|spectral|seed=0] epoch   5/50 loss=0.1252 H8_eval=0.1518
+[aspirin|flat|spectral|seed=0] epoch  10/50 loss=0.0301 H8_eval=0.0893
+[aspirin|flat|spectral|seed=0] epoch  15/50 loss=0.0076 H8_eval=0.0484
+[aspirin|flat|spectral|seed=0] epoch  20/50 loss=0.0043 H8_eval=0.0447
+[aspirin|flat|spectral|seed=0] epoch  25/50 loss=0.0035 H8_eval=0.0349
+[aspirin|flat|spectral|seed=0] epoch  30/50 loss=0.0032 H8_eval=0.0433
+[aspirin|flat|spectral|seed=0] epoch  35/50 loss=0.0031 H8_eval=0.0408
+[aspirin|flat|spectral|seed=0] epoch  40/50 loss=0.0030 H8_eval=0.0306
+[aspirin|flat|spectral|seed=0] epoch  45/50 loss=0.0030 H8_eval=0.0718
+[aspirin|flat|spectral|seed=0] epoch  50/50 loss=0.0030 H8_eval=0.0430
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+
+=== Starting aspirin|flat|spectral|seed=1 ===
+[aspirin|flat|spectral|seed=1] epoch   5/50 loss=0.0125 H8_eval=0.0920
+[aspirin|flat|spectral|seed=1] epoch  10/50 loss=0.0065 H8_eval=0.0514
+[aspirin|flat|spectral|seed=1] epoch  15/50 loss=0.0060 H8_eval=0.0778
+[aspirin|flat|spectral|seed=1] epoch  20/50 loss=0.0057 H8_eval=0.1404
+[aspirin|flat|spectral|seed=1] epoch  25/50 loss=0.0054 H8_eval=0.1140
+[aspirin|flat|spectral|seed=1] epoch  30/50 loss=0.0056 H8_eval=0.0818
+[aspirin|flat|spectral|seed=1] epoch  35/50 loss=0.0048 H8_eval=0.0671
+[aspirin|flat|spectral|seed=1] epoch  40/50 loss=0.0051 H8_eval=0.0931
+[aspirin|flat|spectral|seed=1] epoch  45/50 loss=0.0048 H8_eval=0.0608
+[aspirin|flat|spectral|seed=1] epoch  50/50 loss=0.0048 H8_eval=0.0945
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+
+=== Starting aspirin|flat|spectral|seed=2 ===
+[aspirin|flat|spectral|seed=2] epoch   5/50 loss=0.0221 H8_eval=0.0943
+[aspirin|flat|spectral|seed=2] epoch  10/50 loss=0.0094 H8_eval=0.0613
+[aspirin|flat|spectral|seed=2] epoch  15/50 loss=0.0074 H8_eval=0.0885
+[aspirin|flat|spectral|seed=2] epoch  20/50 loss=0.0067 H8_eval=0.0586
+[aspirin|flat|spectral|seed=2] epoch  25/50 loss=0.0061 H8_eval=0.0525
+[aspirin|flat|spectral|seed=2] epoch  30/50 loss=0.0065 H8_eval=0.1028
+[aspirin|flat|spectral|seed=2] epoch  35/50 loss=0.0060 H8_eval=0.1118
+[aspirin|flat|spectral|seed=2] epoch  40/50 loss=0.0058 H8_eval=0.1401
+[aspirin|flat|spectral|seed=2] epoch  45/50 loss=0.0050 H8_eval=0.0457
+[aspirin|flat|spectral|seed=2] epoch  50/50 loss=0.0046 H8_eval=0.0565
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+
+=== Starting aspirin|flat|spectral|seed=3 ===
+[aspirin|flat|spectral|seed=3] epoch   5/50 loss=0.1721 H8_eval=0.1223
+[aspirin|flat|spectral|seed=3] epoch  10/50 loss=0.0214 H8_eval=0.0937
+[aspirin|flat|spectral|seed=3] epoch  15/50 loss=0.0096 H8_eval=0.0633
+[aspirin|flat|spectral|seed=3] epoch  20/50 loss=0.0080 H8_eval=0.0733
+[aspirin|flat|spectral|seed=3] epoch  25/50 loss=0.0090 H8_eval=0.1163
+[aspirin|flat|spectral|seed=3] epoch  30/50 loss=0.0074 H8_eval=0.0703
+[aspirin|flat|spectral|seed=3] epoch  35/50 loss=0.0067 H8_eval=0.0529
+[aspirin|flat|spectral|seed=3] epoch  40/50 loss=0.0059 H8_eval=0.0551
+[aspirin|flat|spectral|seed=3] epoch  45/50 loss=0.0062 H8_eval=0.0644
+[aspirin|flat|spectral|seed=3] epoch  50/50 loss=0.0051 H8_eval=0.0483
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+
+=== Starting aspirin|flat|spectral|seed=4 ===
+[aspirin|flat|spectral|seed=4] epoch   5/50 loss=0.2195 H8_eval=0.0931
+[aspirin|flat|spectral|seed=4] epoch  10/50 loss=0.0400 H8_eval=0.0621
+[aspirin|flat|spectral|seed=4] epoch  15/50 loss=0.0119 H8_eval=0.0735
+[aspirin|flat|spectral|seed=4] epoch  20/50 loss=0.0102 H8_eval=0.0895
+[aspirin|flat|spectral|seed=4] epoch  25/50 loss=0.0083 H8_eval=0.0685
+[aspirin|flat|spectral|seed=4] epoch  30/50 loss=0.0077 H8_eval=0.0546
+[aspirin|flat|spectral|seed=4] epoch  35/50 loss=0.0070 H8_eval=0.0607
+[aspirin|flat|spectral|seed=4] epoch  40/50 loss=0.0062 H8_eval=0.0645
+[aspirin|flat|spectral|seed=4] epoch  45/50 loss=0.0058 H8_eval=0.0438
+[aspirin|flat|spectral|seed=4] epoch  50/50 loss=0.0056 H8_eval=0.0592
+  -> saved partial results to rmd17_aspirin_disjoint_checkpointed.json
+wrote analysis_out/aggregate_rmd17_aspirin_disjoint_checkpointed.csv
+wrote analysis_out/RMD17_ASPIRIN_DISJOINT_CHECKPOINTED.md

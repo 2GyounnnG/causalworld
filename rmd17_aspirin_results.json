@@ -1,0 +1,317 @@
+{
+  "aspirin|flat|none|seed=0": {
+    "rollout_errors": {
+      "1": 0.07350515498779714,
+      "2": 0.0761030893214047,
+      "4": 0.09626181349158287,
+      "8": 0.1189567007869482,
+      "16": 0.1650391161441803
+    },
+    "final_loss": 0.007821008858699647,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "none",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 0,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1660.7493987083435
+  },
+  "aspirin|flat|none|seed=1": {
+    "rollout_errors": {
+      "1": 0.210894548073411,
+      "2": 0.21113346971571445,
+      "4": 0.26258660294115543,
+      "8": 0.3774679332971573,
+      "16": 0.650083335340023
+    },
+    "final_loss": 0.10043728180111401,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "none",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 1,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1659.0862829685211
+  },
+  "aspirin|flat|none|seed=2": {
+    "rollout_errors": {
+      "1": 0.11289256433025002,
+      "2": 0.13996486276388168,
+      "4": 0.1939212514460087,
+      "8": 0.2970180739462376,
+      "16": 0.43646469071507454
+    },
+    "final_loss": 0.016301584075249377,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "none",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 2,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1649.997588634491
+  },
+  "aspirin|flat|euclidean|seed=0": {
+    "rollout_errors": {
+      "1": 0.17002886531874536,
+      "2": 0.16847874622792006,
+      "4": 0.19970744973048568,
+      "8": 0.21197850927710532,
+      "16": 0.26388543464243414
+    },
+    "final_loss": 0.4291130072540707,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "euclidean",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 0,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1865.7720561027527
+  },
+  "aspirin|flat|euclidean|seed=1": {
+    "rollout_errors": {
+      "1": 0.1430333784967661,
+      "2": 0.14078676692210138,
+      "4": 0.15609550707042216,
+      "8": 0.17160091442987324,
+      "16": 0.2074053478613496
+    },
+    "final_loss": 0.4320640062528943,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "euclidean",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 1,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1859.136842250824
+  },
+  "aspirin|flat|euclidean|seed=2": {
+    "rollout_errors": {
+      "1": 0.164555057939142,
+      "2": 0.1493557977490127,
+      "4": 0.16088718042708933,
+      "8": 0.16543731655925512,
+      "16": 0.24358459435403346
+    },
+    "final_loss": 0.43002692101493717,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "euclidean",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 2,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1839.4137434959412
+  },
+  "aspirin|flat|spectral|seed=0": {
+    "rollout_errors": {
+      "1": 0.033372023813426493,
+      "2": 0.03335538847837597,
+      "4": 0.04116809599101543,
+      "8": 0.04689862241968513,
+      "16": 0.06247591465711594
+    },
+    "final_loss": 0.0029730344605114725,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "spectral",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 0,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1830.2383654117584
+  },
+  "aspirin|flat|spectral|seed=1": {
+    "rollout_errors": {
+      "1": 0.030780624025501312,
+      "2": 0.03504633223637939,
+      "4": 0.051131378840655085,
+      "8": 0.09096519701182842,
+      "16": 0.2420923438668251
+    },
+    "final_loss": 0.004839526415462532,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "spectral",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 1,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1547.1663699150085
+  },
+  "aspirin|flat|spectral|seed=2": {
+    "rollout_errors": {
+      "1": 0.040379529506899416,
+      "2": 0.03926141838543117,
+      "4": 0.04662059341557324,
+      "8": 0.05835715791210532,
+      "16": 0.08560729451477528
+    },
+    "final_loss": 0.004611532750820357,
+    "config": {
+      "molecule": "aspirin",
+      "encoder": "flat",
+      "prior": "spectral",
+      "prior_weight": 0.1,
+      "latent_dim": 16,
+      "hidden_dim": 32,
+      "n_transitions": 2000,
+      "stride": 10,
+      "horizon": 1,
+      "eval_horizons": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "num_epochs": 50,
+      "batch_size": 32,
+      "lr": 0.001,
+      "seed": 2,
+      "device": "cuda",
+      "transition_hidden_dim": 128
+    },
+    "wall_time_sec": 1559.5724883079529
+  }
+}

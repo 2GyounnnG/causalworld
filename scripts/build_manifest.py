@@ -161,6 +161,10 @@ def parse_key(key: str) -> dict[str, Any]:
 
 def classify_file(path: Path) -> tuple[str, str, str, str, str]:
     name = path.name
+    if name == "rmd17_aspirin_disjoint_checkpointed.json":
+        return "rmd17_aspirin_disjoint_checkpointed", "rmd17", "rmd17", "aspirin", "current"
+    if name == "rmd17_multimolecule_disjoint_checkpointed.json":
+        return "rmd17_multimolecule_disjoint_checkpointed", "rmd17", "rmd17", "", "current"
     if name == "rmd17_aspirin_10seed_checkpointed_results.json":
         return "rmd17_aspirin_10seed_checkpointed", "rmd17", "rmd17", "aspirin", "current"
     if name.startswith("rmd17_aspirin_10seed_results"):

@@ -1,0 +1,144 @@
+=== Starting scripts/train_rmd17.py at Tue Apr 21 14:29:52 CST 2026 ===
+=== Python: /home/user/miniforge3/envs/causalworld/bin/python
+=== GPU: NVIDIA GeForce RTX 5060 Ti
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+
+=== Starting malonaldehyde|flat|none|seed=0 ===
+[malonaldehyde|flat|none|seed=0] epoch   1/50 loss=0.0584 H8_eval=0.0872
+[malonaldehyde|flat|none|seed=0] epoch   5/50 loss=0.0016 H8_eval=0.0327
+[malonaldehyde|flat|none|seed=0] epoch  10/50 loss=0.0015 H8_eval=0.0100
+[malonaldehyde|flat|none|seed=0] epoch  15/50 loss=0.0008 H8_eval=0.0004
+[malonaldehyde|flat|none|seed=0] epoch  20/50 loss=0.0006 H8_eval=0.0538
+[malonaldehyde|flat|none|seed=0] epoch  25/50 loss=0.0006 H8_eval=0.0006
+[malonaldehyde|flat|none|seed=0] epoch  30/50 loss=0.0004 H8_eval=0.0085
+[malonaldehyde|flat|none|seed=0] epoch  35/50 loss=0.0002 H8_eval=0.0005
+[malonaldehyde|flat|none|seed=0] epoch  40/50 loss=0.0002 H8_eval=0.0021
+[malonaldehyde|flat|none|seed=0] epoch  45/50 loss=0.0001 H8_eval=0.0129
+[malonaldehyde|flat|none|seed=0] epoch  50/50 loss=0.0001 H8_eval=0.0253
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Starting malonaldehyde|flat|none|seed=1 ===
+[malonaldehyde|flat|none|seed=1] epoch   1/50 loss=0.0532 H8_eval=0.1045
+[malonaldehyde|flat|none|seed=1] epoch   5/50 loss=0.0021 H8_eval=0.0140
+[malonaldehyde|flat|none|seed=1] epoch  10/50 loss=0.0017 H8_eval=0.0078
+[malonaldehyde|flat|none|seed=1] epoch  15/50 loss=0.0011 H8_eval=0.0257
+[malonaldehyde|flat|none|seed=1] epoch  20/50 loss=0.0008 H8_eval=0.0253
+[malonaldehyde|flat|none|seed=1] epoch  25/50 loss=0.0005 H8_eval=0.0316
+[malonaldehyde|flat|none|seed=1] epoch  30/50 loss=0.0003 H8_eval=0.0281
+[malonaldehyde|flat|none|seed=1] epoch  35/50 loss=0.0003 H8_eval=0.0410
+[malonaldehyde|flat|none|seed=1] epoch  40/50 loss=0.0002 H8_eval=0.0230
+[malonaldehyde|flat|none|seed=1] epoch  45/50 loss=0.0001 H8_eval=0.0315
+[malonaldehyde|flat|none|seed=1] epoch  50/50 loss=0.0003 H8_eval=0.0811
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Starting malonaldehyde|flat|none|seed=2 ===
+[malonaldehyde|flat|none|seed=2] epoch   1/50 loss=0.0607 H8_eval=0.0753
+[malonaldehyde|flat|none|seed=2] epoch   5/50 loss=0.0008 H8_eval=0.0002
+[malonaldehyde|flat|none|seed=2] epoch  10/50 loss=0.0006 H8_eval=0.0003
+[malonaldehyde|flat|none|seed=2] epoch  15/50 loss=0.0005 H8_eval=0.0001
+[malonaldehyde|flat|none|seed=2] epoch  20/50 loss=0.0004 H8_eval=0.0000
+[malonaldehyde|flat|none|seed=2] epoch  25/50 loss=0.0004 H8_eval=0.0550
+[malonaldehyde|flat|none|seed=2] epoch  30/50 loss=0.0003 H8_eval=0.0085
+[malonaldehyde|flat|none|seed=2] epoch  35/50 loss=0.0002 H8_eval=0.0145
+[malonaldehyde|flat|none|seed=2] epoch  40/50 loss=0.0002 H8_eval=0.0028
+[malonaldehyde|flat|none|seed=2] epoch  45/50 loss=0.0001 H8_eval=0.0319
+[malonaldehyde|flat|none|seed=2] epoch  50/50 loss=0.0001 H8_eval=0.0469
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Starting malonaldehyde|flat|euclidean|seed=0 ===
+[malonaldehyde|flat|euclidean|seed=0] epoch   1/50 loss=0.4584 H8_eval=0.0872
+[malonaldehyde|flat|euclidean|seed=0] epoch   5/50 loss=0.4016 H8_eval=0.0327
+[malonaldehyde|flat|euclidean|seed=0] epoch  10/50 loss=0.4015 H8_eval=0.0100
+[malonaldehyde|flat|euclidean|seed=0] epoch  15/50 loss=0.4008 H8_eval=0.0004
+[malonaldehyde|flat|euclidean|seed=0] epoch  20/50 loss=0.4006 H8_eval=0.0538
+[malonaldehyde|flat|euclidean|seed=0] epoch  25/50 loss=0.4006 H8_eval=0.0006
+[malonaldehyde|flat|euclidean|seed=0] epoch  30/50 loss=0.4004 H8_eval=0.0085
+[malonaldehyde|flat|euclidean|seed=0] epoch  35/50 loss=0.4002 H8_eval=0.0005
+[malonaldehyde|flat|euclidean|seed=0] epoch  40/50 loss=0.4002 H8_eval=0.0021
+[malonaldehyde|flat|euclidean|seed=0] epoch  45/50 loss=0.4001 H8_eval=0.0129
+[malonaldehyde|flat|euclidean|seed=0] epoch  50/50 loss=0.4001 H8_eval=0.0253
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Starting malonaldehyde|flat|euclidean|seed=1 ===
+[malonaldehyde|flat|euclidean|seed=1] epoch   1/50 loss=0.4532 H8_eval=0.1045
+[malonaldehyde|flat|euclidean|seed=1] epoch   5/50 loss=0.4021 H8_eval=0.0140
+[malonaldehyde|flat|euclidean|seed=1] epoch  10/50 loss=0.4017 H8_eval=0.0078
+[malonaldehyde|flat|euclidean|seed=1] epoch  15/50 loss=0.4011 H8_eval=0.0257
+[malonaldehyde|flat|euclidean|seed=1] epoch  20/50 loss=0.4008 H8_eval=0.0253
+[malonaldehyde|flat|euclidean|seed=1] epoch  25/50 loss=0.4005 H8_eval=0.0316
+[malonaldehyde|flat|euclidean|seed=1] epoch  30/50 loss=0.4003 H8_eval=0.0281
+[malonaldehyde|flat|euclidean|seed=1] epoch  35/50 loss=0.4003 H8_eval=0.0410
+[malonaldehyde|flat|euclidean|seed=1] epoch  40/50 loss=0.4002 H8_eval=0.0230
+[malonaldehyde|flat|euclidean|seed=1] epoch  45/50 loss=0.4001 H8_eval=0.0315
+[malonaldehyde|flat|euclidean|seed=1] epoch  50/50 loss=0.4003 H8_eval=0.0811
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Starting malonaldehyde|flat|euclidean|seed=2 ===
+[malonaldehyde|flat|euclidean|seed=2] epoch   1/50 loss=0.4607 H8_eval=0.0753
+[malonaldehyde|flat|euclidean|seed=2] epoch   5/50 loss=0.4008 H8_eval=0.0002
+[malonaldehyde|flat|euclidean|seed=2] epoch  10/50 loss=0.4006 H8_eval=0.0003
+[malonaldehyde|flat|euclidean|seed=2] epoch  15/50 loss=0.4005 H8_eval=0.0001
+[malonaldehyde|flat|euclidean|seed=2] epoch  20/50 loss=0.4004 H8_eval=0.0000
+[malonaldehyde|flat|euclidean|seed=2] epoch  25/50 loss=0.4004 H8_eval=0.0550
+[malonaldehyde|flat|euclidean|seed=2] epoch  30/50 loss=0.4003 H8_eval=0.0085
+[malonaldehyde|flat|euclidean|seed=2] epoch  35/50 loss=0.4002 H8_eval=0.0145
+[malonaldehyde|flat|euclidean|seed=2] epoch  40/50 loss=0.4002 H8_eval=0.0028
+[malonaldehyde|flat|euclidean|seed=2] epoch  45/50 loss=0.4001 H8_eval=0.0319
+[malonaldehyde|flat|euclidean|seed=2] epoch  50/50 loss=0.4001 H8_eval=0.0469
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Starting malonaldehyde|flat|spectral|seed=0 ===
+[malonaldehyde|flat|spectral|seed=0] epoch   1/50 loss=5.2737 H8_eval=0.0607
+[malonaldehyde|flat|spectral|seed=0] epoch   5/50 loss=0.0009 H8_eval=0.0029
+[malonaldehyde|flat|spectral|seed=0] epoch  10/50 loss=0.0009 H8_eval=0.0123
+[malonaldehyde|flat|spectral|seed=0] epoch  15/50 loss=0.0007 H8_eval=0.0163
+[malonaldehyde|flat|spectral|seed=0] epoch  20/50 loss=0.0005 H8_eval=0.0006
+[malonaldehyde|flat|spectral|seed=0] epoch  25/50 loss=0.0005 H8_eval=0.0024
+[malonaldehyde|flat|spectral|seed=0] epoch  30/50 loss=0.0005 H8_eval=0.0022
+[malonaldehyde|flat|spectral|seed=0] epoch  35/50 loss=0.0003 H8_eval=0.0057
+[malonaldehyde|flat|spectral|seed=0] epoch  40/50 loss=0.0003 H8_eval=0.0111
+[malonaldehyde|flat|spectral|seed=0] epoch  45/50 loss=0.0003 H8_eval=0.0036
+[malonaldehyde|flat|spectral|seed=0] epoch  50/50 loss=0.0002 H8_eval=0.0330
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Starting malonaldehyde|flat|spectral|seed=1 ===
+[malonaldehyde|flat|spectral|seed=1] epoch   1/50 loss=4.5993 H8_eval=0.0741
+[malonaldehyde|flat|spectral|seed=1] epoch   5/50 loss=0.0015 H8_eval=0.0125
+[malonaldehyde|flat|spectral|seed=1] epoch  10/50 loss=0.0011 H8_eval=0.0037
+[malonaldehyde|flat|spectral|seed=1] epoch  15/50 loss=0.0008 H8_eval=0.0050
+[malonaldehyde|flat|spectral|seed=1] epoch  20/50 loss=0.0006 H8_eval=0.0282
+[malonaldehyde|flat|spectral|seed=1] epoch  25/50 loss=0.0004 H8_eval=0.0281
+[malonaldehyde|flat|spectral|seed=1] epoch  30/50 loss=0.0003 H8_eval=0.0277
+[malonaldehyde|flat|spectral|seed=1] epoch  35/50 loss=0.0002 H8_eval=0.0296
+[malonaldehyde|flat|spectral|seed=1] epoch  40/50 loss=0.0004 H8_eval=0.0415
+[malonaldehyde|flat|spectral|seed=1] epoch  45/50 loss=0.0001 H8_eval=0.0081
+[malonaldehyde|flat|spectral|seed=1] epoch  50/50 loss=0.0001 H8_eval=0.0060
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Starting malonaldehyde|flat|spectral|seed=2 ===
+[malonaldehyde|flat|spectral|seed=2] epoch   1/50 loss=1.4125 H8_eval=0.0566
+[malonaldehyde|flat|spectral|seed=2] epoch   5/50 loss=0.0007 H8_eval=0.0093
+[malonaldehyde|flat|spectral|seed=2] epoch  10/50 loss=0.0007 H8_eval=0.0033
+[malonaldehyde|flat|spectral|seed=2] epoch  15/50 loss=0.0004 H8_eval=0.0010
+[malonaldehyde|flat|spectral|seed=2] epoch  20/50 loss=0.0003 H8_eval=0.0156
+[malonaldehyde|flat|spectral|seed=2] epoch  25/50 loss=0.0003 H8_eval=0.0054
+[malonaldehyde|flat|spectral|seed=2] epoch  30/50 loss=0.0003 H8_eval=0.0152
+[malonaldehyde|flat|spectral|seed=2] epoch  35/50 loss=0.0003 H8_eval=0.0292
+[malonaldehyde|flat|spectral|seed=2] epoch  40/50 loss=0.0002 H8_eval=0.0119
+[malonaldehyde|flat|spectral|seed=2] epoch  45/50 loss=0.0001 H8_eval=0.0049
+[malonaldehyde|flat|spectral|seed=2] epoch  50/50 loss=0.0001 H8_eval=0.0094
+  -> saved partial results to rmd17_malonaldehyde_results.json
+
+=== Summary ===
+molecule: malonaldehyde
+prior        seed  H=1    H=2    H=4    H=8    H=16  
+none         0     0.0029 0.0058 0.0119 0.0253 0.0597
+none         1     0.0113 0.0223 0.0432 0.0811 0.1443
+none         2     0.0048 0.0099 0.0209 0.0469 0.1238
+euclidean    0     0.0029 0.0058 0.0119 0.0253 0.0597
+euclidean    1     0.0113 0.0223 0.0432 0.0811 0.1443
+euclidean    2     0.0048 0.0099 0.0209 0.0469 0.1238
+spectral     0     0.0041 0.0082 0.0164 0.0330 0.0689
+spectral     1     0.0006 0.0013 0.0027 0.0060 0.0162
+spectral     2     0.0011 0.0022 0.0044 0.0094 0.0242
+=== Finished at Tue Apr 21 17:56:03 CST 2026 (exit=0)

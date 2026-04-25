@@ -1,0 +1,103 @@
+{
+  "config": {
+    "batch_size": 32,
+    "env_profile": "branching",
+    "hidden_dim": 32,
+    "horizons": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "latent_dim": 16,
+    "lr": 0.001,
+    "n_eval": 50,
+    "n_train": 200,
+    "num_epochs": 200,
+    "optimizer": "Adam",
+    "prior_weight_source": "results.json confirmed pilot keys; full_summary.json supplied prior_weights",
+    "prior_weights": {
+      "euclidean": 0.01,
+      "none": 0.0,
+      "spectral": 0.01
+    },
+    "priors": [
+      "none",
+      "euclidean",
+      "spectral"
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "transition_hidden_dim": 128
+  },
+  "encoder": "hypergraph",
+  "hidden_dim": 32,
+  "max_steps": 16,
+  "prior_weight": 0.01,
+  "results": {
+    "hypergraph|euclidean": {
+      "1": [
+        0.04092739261686802
+      ],
+      "16": [
+        7.626148157119751
+      ],
+      "2": [
+        0.07578442208468913
+      ],
+      "4": [
+        0.1947791039943695
+      ],
+      "8": [
+        1.317885068655014
+      ]
+    },
+    "hypergraph|none": {
+      "1": [
+        0.038894522078335284
+      ],
+      "16": [
+        2.414501591324806
+      ],
+      "2": [
+        0.06286024384200573
+      ],
+      "4": [
+        0.1116056576371193
+      ],
+      "8": [
+        0.2625682491064072
+      ]
+    },
+    "hypergraph|spectral": {
+      "1": [
+        0.024549002591520548
+      ],
+      "16": [
+        0.8832540398836136
+      ],
+      "2": [
+        0.04492182269692421
+      ],
+      "4": [
+        0.0764281465113163
+      ],
+      "8": [
+        0.13472710728645323
+      ]
+    }
+  },
+  "task": "hypergraph_10seed_200ep",
+  "wall_time_sec": 29829.46335053444
+}

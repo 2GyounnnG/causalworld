@@ -1,0 +1,342 @@
+{
+  "task": "weight_sweep",
+  "molecule": "aspirin",
+  "encoder": "flat",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "weights": [
+    0.001,
+    0.01,
+    0.1,
+    1.0
+  ],
+  "results": {
+    "aspirin|flat|none|w=0.001|seed=0": {
+      "rollout_errors": {
+        "1": 0.07350515498779714,
+        "2": 0.0761030893214047,
+        "4": 0.09626181349158287,
+        "8": 0.1189567007869482,
+        "16": 0.1650391161441803
+      },
+      "final_loss": 0.007821008858699647,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "none",
+        "prior_weight": 0.0,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1043.5055825710297
+    },
+    "aspirin|flat|none|w=0.01|seed=0": {
+      "rollout_errors": {
+        "1": 0.07350515498779714,
+        "2": 0.0761030893214047,
+        "4": 0.09626181349158287,
+        "8": 0.1189567007869482,
+        "16": 0.1650391161441803
+      },
+      "final_loss": 0.007821008858699647,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "none",
+        "prior_weight": 0.0,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1043.5055825710297
+    },
+    "aspirin|flat|none|w=0.1|seed=0": {
+      "rollout_errors": {
+        "1": 0.07350515498779714,
+        "2": 0.0761030893214047,
+        "4": 0.09626181349158287,
+        "8": 0.1189567007869482,
+        "16": 0.1650391161441803
+      },
+      "final_loss": 0.007821008858699647,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "none",
+        "prior_weight": 0.0,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1043.5055825710297
+    },
+    "aspirin|flat|none|w=1.0|seed=0": {
+      "rollout_errors": {
+        "1": 0.07350515498779714,
+        "2": 0.0761030893214047,
+        "4": 0.09626181349158287,
+        "8": 0.1189567007869482,
+        "16": 0.1650391161441803
+      },
+      "final_loss": 0.007821008858699647,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "none",
+        "prior_weight": 0.0,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1043.5055825710297
+    },
+    "aspirin|flat|euclidean|w=0.001|seed=0": {
+      "rollout_errors": {
+        "1": 0.07361240866128355,
+        "2": 0.08232986726798117,
+        "4": 0.11364147262647747,
+        "8": 0.15905633788555862,
+        "16": 0.2920906562358141
+      },
+      "final_loss": 0.012225430414435409,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "euclidean",
+        "prior_weight": 0.001,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1159.5334868431091
+    },
+    "aspirin|flat|euclidean|w=0.01|seed=0": {
+      "rollout_errors": {
+        "1": 0.1056572806974873,
+        "2": 0.1041282869130373,
+        "4": 0.11961048942990601,
+        "8": 0.12151672506704926,
+        "16": 0.15042334120720624
+      },
+      "final_loss": 0.05510468851952326,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "euclidean",
+        "prior_weight": 0.01,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1162.5354115962982
+    },
+    "aspirin|flat|euclidean|w=0.1|seed=0": {
+      "rollout_errors": {
+        "1": 0.17002886531874536,
+        "2": 0.16847874622792006,
+        "4": 0.19970744973048568,
+        "8": 0.21197850927710532,
+        "16": 0.26388543464243414
+      },
+      "final_loss": 0.4291130072540707,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "euclidean",
+        "prior_weight": 0.1,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1169.9430680274963
+    },
+    "aspirin|flat|euclidean|w=1.0|seed=0": {
+      "rollout_errors": {
+        "1": 0.2184275732282549,
+        "2": 0.2129661383293569,
+        "4": 0.24705901434645056,
+        "8": 0.24789783604443072,
+        "16": 0.2728729808330536
+      },
+      "final_loss": 3.941590767058115,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "euclidean",
+        "prior_weight": 1.0,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1191.7540452480316
+    },
+    "aspirin|flat|spectral|w=0.001|seed=0": {
+      "rollout_errors": {
+        "1": 0.030584177849814296,
+        "2": 0.029650931688956918,
+        "4": 0.032879667347297074,
+        "8": 0.03441700155846775,
+        "16": 0.04056369846686721
+      },
+      "final_loss": 0.0015867867669652378,
+      "config": {
+        "molecule": "aspirin",
+        "encoder": "flat",
+        "prior": "spectral",
+        "prior_weight": 0.001,
+        "latent_dim": 16,
+        "hidden_dim": 32,
+        "n_transitions": 2000,
+        "stride": 10,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "num_epochs": 50,
+        "batch_size": 32,
+        "lr": 0.001,
+        "seed": 0,
+        "device": "cuda",
+        "transition_hidden_dim": 128,
+        "laplacian_mode": "per_frame"
+      },
+      "wall_time_sec": 1293.2132322788239
+    }
+  }
+}

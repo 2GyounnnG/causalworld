@@ -1,0 +1,233 @@
+# OVERNIGHT VALIDATION RUN on RTX 5060 Ti (Tasks A + A+ + B)
+
+## Operational Constraints for Unattended Execution
+
+The user is going to sleep after launching this. You will not have
+human approval available for the next 6–8 hours. Therefore:
+
+1. DO NOT run any of these commands without explicit prior approval:
+   - pkill, kill, killall, pgrep
+   - git push, git pull, git fetch, git clone
+   - pip install, pip uninstall, conda install
+   - sudo (any command)
+   - curl, wget, ssh (any network I/O beyond localhost)
+   - rm on any file you did not create in this session
+   - Any command that requires clicking a Yes/No prompt
+
+2. If a running training run seems slow, DO NOT kill it. Let it
+   complete or let the per-task 3-hour timeout handle it. The user
+   budgeted this time explicitly.
+
+3. If a dependency seems missing, DO NOT install it. Write the error
+   into overnight_summary.md and proceed to the next task.
+
+4. DO NOT re-optimize your runner. The diagnostics session went through
+   three rounds of re-optimization already (see diagnose.py). Run what
+   you write on the first draft; partial results are still useful.
+
+5. git commit (no push) is allowed ONLY at the very end. Do not push.
+   The user will review and push manually in the morning.
+
+6. If you feel you need to ask a clarifying question, instead pick the
+   most defensible default choice, proceed, and log the decision in
+   overnight_summary.md under a "Decisions Made Without Approval"
+   section.
+
+## Context
+
+Working directory: /home/user/projects/causalworld (WSL, Ubuntu,
+RTX 5060 Ti, CUDA 12.4+, PyTorch CUDA build in the "causalworld"
+environment).
+
+Existing pilot artifacts (DO NOT OVERWRITE):
+  hypergraph_env.py, model.py, train.py, diagnose.py
+  results.json, full_summary.json, horizon_gap.png
+  diagnostics.md, diagnostics_results.json, weight_sweep.png
+  midscale_summary.json
+
+## Why this run exists
+
+diagnostics.md flagged:
+  1. 3-seed averaging is insufficient (std/mean = 0.35 on
+     flat+spectral at H=16).
+  2. Horizon dimension was only sampled up to H=16; growth rate of
+     the spectral advantage is uncertain.
+
+Three tasks:
+  A.  10-seed flat validation at max_steps=16
+  A+. 10-seed hypergraph validation at max_steps=16, hidden_dim=32
+  B.  3-seed long-horizon flat run, max_steps=64, H up to 64
+
+## Read-before-writing
+
+Before creating any scripts, read train.py to extract the exact Config
+defaults used in the pilot (prior_weight, batch_size, num_epochs,
+latent_dim, hidden_dim, optimizer, lr). Match them exactly in Tasks A
+and A+. Read results.json and full_summary.json to confirm the
+prior_weight value used.
+
+## Task A: 10-seed flat validation
+
+Create scripts/run_10seed_flat.py (create scripts/ if missing).
+
+  - Import Config, collect_episodes, train_one (or equivalent) from
+    train.py. DO NOT copy-paste — import and reuse.
+  - encoder = "flat"
+  - priors = ["none", "euclidean", "spectral"]
+  - seeds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  - max_steps = 16
+  - prior_weight = whatever the pilot used (read it, do not guess)
+  - HORIZONS = [1, 2, 4, 8, 16]
+
+Save to /home/user/projects/causalworld/validation_10seed_flat.json:
+  {
+    "task": "A",
+    "encoder": "flat",
+    "max_steps": 16,
+    "prior_weight": <value>,
+    "config": {...},
+    "results": {
+      "flat|none":      {"1": [...10 floats...], ..., "16": [...]},
+      "flat|euclidean": {...},
+      "flat|spectral":  {...}
+    },
+    "wall_time_sec": <float>
+  }
+
+Produce validation_10seed_flat.png: rollout error vs H on log-log,
+three lines (one per prior), mean ± 1 std shaded band.
+
+## Task A+: 10-seed hypergraph validation
+
+Create scripts/run_10seed_hypergraph.py.
+
+Identical to Task A except:
+  - encoder = "hypergraph"
+  - hidden_dim = 32 EXPLICIT (diagnostics.md ruled out 64 and 128)
+
+Save to validation_10seed_hypergraph.json with encoder="hypergraph"
+and "hidden_dim": 32 fields.
+
+Produce validation_10seed_hypergraph.png.
+
+## Task B: Long-horizon flat run
+
+Create scripts/run_long_horizon.py.
+
+  - encoder = "flat"
+  - priors = ["none", "euclidean", "spectral"]
+  - seeds = [0, 1, 2]
+  - max_steps = 64 (re-collect episodes at this horizon)
+  - HORIZONS = [1, 2, 4, 8, 16, 32, 64]
+  - prior_weight same as A and A+
+
+Save to long_horizon.json, same schema with "task": "B",
+"max_steps": 64.
+
+Produce long_horizon.png with 7 H values on x-axis.
+
+## Execution order
+
+1. Task A
+2. Task A+
+3. Task B
+
+## Progress reporting — REQUIRED
+
+Print one line every 20 epochs of training, plus a summary when each
+run finishes:
+
+    [A|flat|spectral|seed=5] epoch  40/200  total=0.312  prior=0.089  H16=0.427
+    [A|flat|spectral|seed=5] DONE   H1=0.045 H2=0.078 H4=0.121 H8=0.229 H16=0.478  (162s)
+
+Use flush=True on every print. Also append every DONE line to a
+running log file /home/user/projects/causalworld/overnight_log.txt
+so progress survives a terminal disconnect.
+
+After each task: print a mean±std table to stdout AND to overnight_log.txt.
+
+## Final artifact: overnight_summary.md
+
+Write /home/user/projects/causalworld/overnight_summary.md containing:
+
+  # Overnight Validation Summary
+
+  - Start time, end time, total wall time
+  - GPU: NVIDIA GeForce RTX 5060 Ti
+
+  ## Task A results table (with std bands)
+  ## Task A+ results table (with std bands)
+  ## Task B results table (with std bands)
+
+  ## Interpretation
+
+  Three short paragraphs, describing only what the numbers show:
+
+    1. Flat encoder (A): does spectral beat euclidean at H=16 with
+       10 seeds? Report the advantage (mean_euc - mean_spec) and
+       whether it is larger than the combined std. If the advantage
+       is smaller than the std, say so plainly.
+
+    2. Hypergraph encoder (A+): same question. State whether spectral
+       advantage is present on BOTH encoders, only one, or neither.
+
+    3. Long horizon (B): describe the shape of the spectral advantage
+       curve from H=1 to H=64. Linear, sublinear, superlinear? Just
+       describe the trend. Do not extrapolate.
+
+  ## Decisions Made Without Approval
+
+  (List any defaults chosen when you would otherwise have asked the
+  user a question.)
+
+## Hard constraints
+
+  - Must run on CUDA. Print device=cuda and GPU name at script start.
+    Fail loudly if CUDA is False.
+  - If a run OOMs, halve batch_size and retry that run ONCE. If it
+    OOMs again, skip that (prior, seed) cell, write "OOM" in the
+    JSON slot, do not halt the task.
+  - Save partial results to JSON AFTER EACH SEED finishes, not only
+    at the end.
+  - Per-task timeout: 3 hours. If exceeded, kill that task's workers
+    only (spawn them as subprocesses to make this safe), record
+    "timeout" in the JSON, proceed to next task.
+  - Allowed new files only:
+      scripts/run_10seed_flat.py
+      scripts/run_10seed_hypergraph.py
+      scripts/run_long_horizon.py
+      validation_10seed_flat.{json,png}
+      validation_10seed_hypergraph.{json,png}
+      long_horizon.{json,png}
+      overnight_summary.md
+      overnight_log.txt
+  - Use the existing "causalworld" environment. Install nothing.
+
+## Final step: prepare commit (no push)
+
+After all tasks complete (or time out), run:
+
+    cd /home/user/projects/causalworld
+    git add scripts/ \
+            validation_10seed_flat.json validation_10seed_flat.png \
+            validation_10seed_hypergraph.json validation_10seed_hypergraph.png \
+            long_horizon.json long_horizon.png \
+            overnight_summary.md overnight_log.txt
+    git commit -m "Overnight validation: 10-seed flat+hypergraph, long-horizon flat"
+
+DO NOT run git push. Print "READY TO PUSH" as the final stdout line.
+
+## Pre-flight
+
+Before the real runs:
+  python -m py_compile scripts/run_10seed_flat.py
+  python -m py_compile scripts/run_10seed_hypergraph.py
+  python -m py_compile scripts/run_long_horizon.py
+
+Then smoke-test Task A with seeds=[0] and num_epochs=10. Expected
+runtime ≈ 2 min. If smoke produces a JSON with all 3 priors and all
+5 H values as finite numbers, proceed with full Tasks A, A+, B. If
+smoke fails, stop and write the error to overnight_summary.md before
+moving on.
+
+Begin.

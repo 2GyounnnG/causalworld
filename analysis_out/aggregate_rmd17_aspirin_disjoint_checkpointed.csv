@@ -1,0 +1,16 @@
+experiment_name,molecule,encoder,prior,prior_weight,laplacian_mode,horizon,n,mean,std,stderr,median,min,max,notes
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,euclidean,0.1,per_frame,1,5,0.151,0.015,0.006,0.154,0.137,0.172,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,euclidean,0.1,per_frame,2,5,0.149,0.011,0.005,0.150,0.131,0.161,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,euclidean,0.1,per_frame,4,5,0.163,0.032,0.014,0.151,0.124,0.206,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,euclidean,0.1,per_frame,8,5,0.190,0.058,0.026,0.166,0.142,0.287,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,euclidean,0.1,per_frame,16,5,0.273,0.125,0.056,0.245,0.165,0.486,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,none,0.1,per_frame,1,5,0.109,0.069,0.031,0.079,0.053,0.226,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,none,0.1,per_frame,2,5,0.113,0.068,0.031,0.077,0.053,0.219,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,none,0.1,per_frame,4,5,0.136,0.087,0.039,0.092,0.067,0.263,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,none,0.1,per_frame,8,5,0.191,0.137,0.061,0.116,0.081,0.377,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,none,0.1,per_frame,16,5,0.374,0.240,0.107,0.437,0.092,0.665,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,spectral,0.1,per_frame,1,5,0.036,0.002,0.001,0.035,0.033,0.039,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,spectral,0.1,per_frame,2,5,0.037,0.003,0.001,0.039,0.032,0.040,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,spectral,0.1,per_frame,4,5,0.044,0.004,0.002,0.044,0.039,0.050,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,spectral,0.1,per_frame,8,5,0.060,0.018,0.008,0.057,0.045,0.090,strict disjoint train/eval frame split; checkpointed run
+rmd17_aspirin_disjoint_checkpointed,aspirin,flat,spectral,0.1,per_frame,16,5,0.112,0.075,0.034,0.086,0.062,0.243,strict disjoint train/eval frame split; checkpointed run

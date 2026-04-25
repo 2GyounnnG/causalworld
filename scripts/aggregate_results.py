@@ -60,9 +60,33 @@ def parse_int(value: Any) -> int | None:
         return None
 
 
-def format_float(value: float | None) -> str:
+PERCENT_COLUMNS = {
+    "pct_change_vs_none",
+    "pct_change_vs_euclidean",
+    "pct_change_vs_per_frame",
+}
+ROLLOUT_STAT_COLUMNS = {
+    "mean",
+    "std",
+    "stderr",
+    "median",
+    "min",
+    "max",
+    "ci95_low",
+    "ci95_high",
+}
+RATIO_COLUMNS = {"h16_over_h1_mean"}
+
+
+def format_float(value: float | None, column: str = "") -> str:
     if value is None or not math.isfinite(value):
         return ""
+    if column in PERCENT_COLUMNS:
+        return f"{value:.1e}" if abs(value) >= 1000 else f"{value:.1f}"
+    if column in RATIO_COLUMNS:
+        return f"{value:.1e}" if abs(value) >= 1000 else f"{value:.1f}"
+    if column in ROLLOUT_STAT_COLUMNS:
+        return f"{value:.1f}" if abs(value) >= 10 else f"{value:.3f}"
     return f"{value:.10g}"
 
 
@@ -263,7 +287,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
             for column in STAT_COLUMNS:
                 value = row.get(column, "")
                 if isinstance(value, float):
-                    serial[column] = format_float(value)
+                    serial[column] = format_float(value, column)
                 elif isinstance(value, int):
                     serial[column] = str(value)
                 elif value is None:
@@ -286,7 +310,7 @@ def markdown_table(rows: list[dict[str, Any]], columns: list[str], limit: int = 
         for column in columns:
             value = row.get(column, "")
             if isinstance(value, float):
-                cells.append(format_float(value))
+                cells.append(format_float(value, column))
             else:
                 cells.append(str(value))
         lines.append("| " + " | ".join(cells) + " |")

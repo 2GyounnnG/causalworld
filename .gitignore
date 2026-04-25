@@ -31,3 +31,4 @@ Thumbs.db
 *.pt
 *.pth
 .codex
+data/

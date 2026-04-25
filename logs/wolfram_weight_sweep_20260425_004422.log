@@ -1,0 +1,6 @@
+=== Starting scripts/run_wolfram_weight_sweep.py at Sat Apr 25 00:44:22 PDT 2026 ===
+=== Python: /home/user/miniforge3/envs/causalworld/bin/python
+=== GPU: NVIDIA GeForce RTX 5060 Ti
+device=cuda
+gpu=NVIDIA GeForce RTX 5060 Ti
+[flat|spectral|seed=0] epoch 20/200 total=0.002 trans=0.000 prior=1.387 rollout_H8=0.06

@@ -1,0 +1,285 @@
+RUN_START_ISO=2026-04-20T07:27:59+00:00
+GPU_NAME=NVIDIA GeForce RTX 5060 Ti
+BOOTSTRAP_CHECK=failed
+BOOTSTRAP_PYTHON=/home/user/miniforge3/envs/causalworld/bin/python
+BOOTSTRAP_CUDA_AVAILABLE=False
+BOOTSTRAP_DEVICE_COUNT=0
+BOOTSTRAP_DEVICE_NAME=no gpu
+[A|flat|none|seed=0] DONE   H1=0.043 H2=0.083 H4=0.143 H8=0.283 H16=0.592  (193s)
+[A|flat|euclidean|seed=0] DONE   H1=0.041 H2=0.077 H4=0.135 H8=0.266 H16=0.556  (236s)
+[A|flat|spectral|seed=0] DONE   H1=0.027 H2=0.047 H4=0.077 H8=0.156 H16=0.306  (219s)
+
+Task A mean+/-std table
+| prior | H1 | H2 | H4 | H8 | H16 |
+| --- | --- | --- | --- | --- | --- |
+| none | 0.0432+/-0.0000 (n=1) | 0.0826+/-0.0000 (n=1) | 0.1426+/-0.0000 (n=1) | 0.2830+/-0.0000 (n=1) | 0.5921+/-0.0000 (n=1) |
+| euclidean | 0.0409+/-0.0000 (n=1) | 0.0765+/-0.0000 (n=1) | 0.1346+/-0.0000 (n=1) | 0.2663+/-0.0000 (n=1) | 0.5561+/-0.0000 (n=1) |
+| spectral | 0.0275+/-0.0000 (n=1) | 0.0470+/-0.0000 (n=1) | 0.0771+/-0.0000 (n=1) | 0.1559+/-0.0000 (n=1) | 0.3058+/-0.0000 (n=1) |
+[A|flat|none|seed=0] DONE   H1=0.043 H2=0.083 H4=0.143 H8=0.283 H16=0.592  (189s)
+[A|flat|euclidean|seed=0] DONE   H1=0.041 H2=0.077 H4=0.135 H8=0.266 H16=0.556  (246s)
+[A|flat|spectral|seed=0] DONE   H1=0.027 H2=0.047 H4=0.077 H8=0.156 H16=0.306  (227s)
+
+Task A mean+/-std table
+| prior | H1 | H2 | H4 | H8 | H16 |
+| --- | --- | --- | --- | --- | --- |
+| none | 0.0432+/-0.0000 (n=1) | 0.0826+/-0.0000 (n=1) | 0.1426+/-0.0000 (n=1) | 0.2830+/-0.0000 (n=1) | 0.5921+/-0.0000 (n=1) |
+| euclidean | 0.0409+/-0.0000 (n=1) | 0.0765+/-0.0000 (n=1) | 0.1346+/-0.0000 (n=1) | 0.2663+/-0.0000 (n=1) | 0.5561+/-0.0000 (n=1) |
+| spectral | 0.0275+/-0.0000 (n=1) | 0.0470+/-0.0000 (n=1) | 0.0771+/-0.0000 (n=1) | 0.1559+/-0.0000 (n=1) | 0.3058+/-0.0000 (n=1) |
+nohup: ignoring input
+
+===== OVERNIGHT-LITE START Mon Apr 20 17:16:58 CST 2026 =====
+python=/home/user/miniforge3/envs/causalworld/bin/python
+===== CUDA CHECK =====
+torch 2.11.0+cu130
+cuda True
+gpu NVIDIA GeForce RTX 5060 Ti
+===== PY_COMPILE =====
+===== TASK A: FLAT 10-SEED, 10 EPOCHS START Mon Apr 20 17:17:00 CST 2026 =====
+device=cuda
+GPU=NVIDIA GeForce RTX 5060 Ti
+Starting Task A: encoder=flat max_steps=16 horizons=[1, 2, 4, 8, 16] seeds=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] device=cuda GPU=NVIDIA GeForce RTX 5060 Ti
+[A|flat|none|seed=0] epoch  10/10  total=0.231  prior=0.000  H16=0.592
+[A|flat|none|seed=0] DONE   H1=0.043 H2=0.083 H4=0.143 H8=0.283 H16=0.592  (195s)
+[A|flat|none|seed=0] DONE   H1=0.043 H2=0.083 H4=0.143 H8=0.283 H16=0.592  (195s)
+[A|flat|euclidean|seed=0] epoch  10/10  total=0.292  prior=5.332  H16=0.556
+[A|flat|euclidean|seed=0] DONE   H1=0.041 H2=0.077 H4=0.135 H8=0.266 H16=0.556  (236s)
+[A|flat|euclidean|seed=0] DONE   H1=0.041 H2=0.077 H4=0.135 H8=0.266 H16=0.556  (236s)
+[A|flat|spectral|seed=0] epoch  10/10  total=0.778  prior=53.317  H16=0.306
+[A|flat|spectral|seed=0] DONE   H1=0.027 H2=0.047 H4=0.077 H8=0.156 H16=0.306  (218s)
+[A|flat|spectral|seed=0] DONE   H1=0.027 H2=0.047 H4=0.077 H8=0.156 H16=0.306  (218s)
+[A|flat|none|seed=1] epoch  10/10  total=0.199  prior=0.000  H16=0.531
+[A|flat|none|seed=1] DONE   H1=0.045 H2=0.084 H4=0.157 H8=0.293 H16=0.531  (195s)
+[A|flat|none|seed=1] DONE   H1=0.045 H2=0.084 H4=0.157 H8=0.293 H16=0.531  (195s)
+[A|flat|euclidean|seed=1] epoch  10/10  total=0.313  prior=11.107  H16=0.461
+[A|flat|euclidean|seed=1] DONE   H1=0.037 H2=0.069 H4=0.131 H8=0.252 H16=0.461  (230s)
+[A|flat|euclidean|seed=1] DONE   H1=0.037 H2=0.069 H4=0.131 H8=0.252 H16=0.461  (230s)
+[A|flat|spectral|seed=1] epoch  10/10  total=0.407  prior=19.301  H16=0.266
+[A|flat|spectral|seed=1] DONE   H1=0.037 H2=0.050 H4=0.082 H8=0.150 H16=0.266  (220s)
+[A|flat|spectral|seed=1] DONE   H1=0.037 H2=0.050 H4=0.082 H8=0.150 H16=0.266  (220s)
+[A|flat|none|seed=2] epoch  10/10  total=0.210  prior=0.000  H16=0.386
+[A|flat|none|seed=2] DONE   H1=0.040 H2=0.075 H4=0.114 H8=0.184 H16=0.386  (193s)
+[A|flat|none|seed=2] DONE   H1=0.040 H2=0.075 H4=0.114 H8=0.184 H16=0.386  (193s)
+[A|flat|euclidean|seed=2] epoch  10/10  total=0.266  prior=5.081  H16=0.360
+[A|flat|euclidean|seed=2] DONE   H1=0.036 H2=0.063 H4=0.111 H8=0.177 H16=0.360  (237s)
+[A|flat|euclidean|seed=2] DONE   H1=0.036 H2=0.063 H4=0.111 H8=0.177 H16=0.360  (237s)
+[A|flat|spectral|seed=2] epoch  10/10  total=0.479  prior=28.645  H16=0.366
+[A|flat|spectral|seed=2] DONE   H1=0.031 H2=0.054 H4=0.088 H8=0.140 H16=0.366  (216s)
+[A|flat|spectral|seed=2] DONE   H1=0.031 H2=0.054 H4=0.088 H8=0.140 H16=0.366  (216s)
+[A|flat|none|seed=3] epoch  10/10  total=0.158  prior=0.000  H16=0.484
+[A|flat|none|seed=3] DONE   H1=0.033 H2=0.062 H4=0.114 H8=0.223 H16=0.484  (192s)
+[A|flat|none|seed=3] DONE   H1=0.033 H2=0.062 H4=0.114 H8=0.223 H16=0.484  (192s)
+[A|flat|euclidean|seed=3] epoch  10/10  total=0.229  prior=6.772  H16=0.514
+[A|flat|euclidean|seed=3] DONE   H1=0.030 H2=0.058 H4=0.107 H8=0.215 H16=0.514  (240s)
+[A|flat|euclidean|seed=3] DONE   H1=0.030 H2=0.058 H4=0.107 H8=0.215 H16=0.514  (240s)
+[A|flat|spectral|seed=3] epoch  10/10  total=0.472  prior=32.243  H16=0.523
+[A|flat|spectral|seed=3] DONE   H1=0.042 H2=0.077 H4=0.134 H8=0.243 H16=0.523  (217s)
+[A|flat|spectral|seed=3] DONE   H1=0.042 H2=0.077 H4=0.134 H8=0.243 H16=0.523  (217s)
+[A|flat|none|seed=4] epoch  10/10  total=0.208  prior=0.000  H16=0.840
+[A|flat|none|seed=4] DONE   H1=0.071 H2=0.124 H4=0.223 H8=0.409 H16=0.840  (197s)
+[A|flat|none|seed=4] DONE   H1=0.071 H2=0.124 H4=0.223 H8=0.409 H16=0.840  (197s)
+[A|flat|euclidean|seed=4] epoch  10/10  total=0.273  prior=6.186  H16=0.868
+[A|flat|euclidean|seed=4] DONE   H1=0.068 H2=0.119 H4=0.211 H8=0.395 H16=0.868  (238s)
+[A|flat|euclidean|seed=4] DONE   H1=0.068 H2=0.119 H4=0.211 H8=0.395 H16=0.868  (238s)
+[A|flat|spectral|seed=4] epoch  10/10  total=0.491  prior=32.874  H16=0.676
+[A|flat|spectral|seed=4] DONE   H1=0.059 H2=0.100 H4=0.173 H8=0.326 H16=0.676  (221s)
+[A|flat|spectral|seed=4] DONE   H1=0.059 H2=0.100 H4=0.173 H8=0.326 H16=0.676  (221s)
+[A|flat|none|seed=5] epoch  10/10  total=0.172  prior=0.000  H16=0.640
+[A|flat|none|seed=5] DONE   H1=0.056 H2=0.082 H4=0.142 H8=0.282 H16=0.640  (191s)
+[A|flat|none|seed=5] DONE   H1=0.056 H2=0.082 H4=0.142 H8=0.282 H16=0.640  (191s)
+[A|flat|euclidean|seed=5] epoch  10/10  total=0.237  prior=5.692  H16=0.603
+[A|flat|euclidean|seed=5] DONE   H1=0.053 H2=0.081 H4=0.140 H8=0.273 H16=0.603  (232s)
+[A|flat|euclidean|seed=5] DONE   H1=0.053 H2=0.081 H4=0.140 H8=0.273 H16=0.603  (232s)
+[A|flat|spectral|seed=5] epoch  10/10  total=0.432  prior=26.221  H16=0.394
+[A|flat|spectral|seed=5] DONE   H1=0.038 H2=0.069 H4=0.112 H8=0.205 H16=0.394  (221s)
+[A|flat|spectral|seed=5] DONE   H1=0.038 H2=0.069 H4=0.112 H8=0.205 H16=0.394  (221s)
+[A|flat|none|seed=6] epoch  10/10  total=0.248  prior=0.000  H16=0.929
+[A|flat|none|seed=6] DONE   H1=0.051 H2=0.106 H4=0.205 H8=0.414 H16=0.929  (192s)
+[A|flat|none|seed=6] DONE   H1=0.051 H2=0.106 H4=0.205 H8=0.414 H16=0.929  (192s)
+[A|flat|euclidean|seed=6] epoch  10/10  total=0.385  prior=13.350  H16=0.789
+[A|flat|euclidean|seed=6] DONE   H1=0.050 H2=0.103 H4=0.196 H8=0.376 H16=0.789  (232s)
+[A|flat|euclidean|seed=6] DONE   H1=0.050 H2=0.103 H4=0.196 H8=0.376 H16=0.789  (232s)
+[A|flat|spectral|seed=6] epoch  10/10  total=0.653  prior=38.911  H16=0.347
+[A|flat|spectral|seed=6] DONE   H1=0.027 H2=0.050 H4=0.092 H8=0.176 H16=0.347  (225s)
+[A|flat|spectral|seed=6] DONE   H1=0.027 H2=0.050 H4=0.092 H8=0.176 H16=0.347  (225s)
+[A|flat|none|seed=7] epoch  10/10  total=0.186  prior=0.000  H16=0.445
+[A|flat|none|seed=7] DONE   H1=0.040 H2=0.073 H4=0.124 H8=0.218 H16=0.445  (190s)
+[A|flat|none|seed=7] DONE   H1=0.040 H2=0.073 H4=0.124 H8=0.218 H16=0.445  (190s)
+[A|flat|euclidean|seed=7] epoch  10/10  total=0.250  prior=5.298  H16=0.417
+[A|flat|euclidean|seed=7] DONE   H1=0.036 H2=0.065 H4=0.108 H8=0.198 H16=0.417  (232s)
+[A|flat|euclidean|seed=7] DONE   H1=0.036 H2=0.065 H4=0.108 H8=0.198 H16=0.417  (232s)
+[A|flat|spectral|seed=7] epoch  10/10  total=0.427  prior=24.225  H16=0.280
+[A|flat|spectral|seed=7] DONE   H1=0.029 H2=0.052 H4=0.088 H8=0.159 H16=0.280  (215s)
+[A|flat|spectral|seed=7] DONE   H1=0.029 H2=0.052 H4=0.088 H8=0.159 H16=0.280  (215s)
+[A|flat|none|seed=8] epoch  10/10  total=0.154  prior=0.000  H16=0.581
+[A|flat|none|seed=8] DONE   H1=0.028 H2=0.057 H4=0.121 H8=0.258 H16=0.581  (195s)
+[A|flat|none|seed=8] DONE   H1=0.028 H2=0.057 H4=0.121 H8=0.258 H16=0.581  (195s)
+[A|flat|euclidean|seed=8] epoch  10/10  total=0.222  prior=5.664  H16=0.460
+[A|flat|euclidean|seed=8] DONE   H1=0.034 H2=0.045 H4=0.090 H8=0.200 H16=0.460  (239s)
+[A|flat|euclidean|seed=8] DONE   H1=0.034 H2=0.045 H4=0.090 H8=0.200 H16=0.460  (239s)
+[A|flat|spectral|seed=8] epoch  10/10  total=0.445  prior=28.125  H16=0.433
+[A|flat|spectral|seed=8] DONE   H1=0.038 H2=0.067 H4=0.108 H8=0.207 H16=0.433  (215s)
+[A|flat|spectral|seed=8] DONE   H1=0.038 H2=0.067 H4=0.108 H8=0.207 H16=0.433  (215s)
+[A|flat|none|seed=9] epoch  10/10  total=0.196  prior=0.000  H16=0.361
+[A|flat|none|seed=9] DONE   H1=0.061 H2=0.091 H4=0.122 H8=0.185 H16=0.361  (191s)
+[A|flat|none|seed=9] DONE   H1=0.061 H2=0.091 H4=0.122 H8=0.185 H16=0.361  (191s)
+[A|flat|euclidean|seed=9] epoch  10/10  total=0.284  prior=7.960  H16=0.456
+[A|flat|euclidean|seed=9] DONE   H1=0.050 H2=0.085 H4=0.127 H8=0.183 H16=0.456  (226s)
+[A|flat|euclidean|seed=9] DONE   H1=0.050 H2=0.085 H4=0.127 H8=0.183 H16=0.456  (226s)
+[A|flat|spectral|seed=9] epoch  10/10  total=0.569  prior=39.699  H16=0.427
+[A|flat|spectral|seed=9] DONE   H1=0.065 H2=0.102 H4=0.135 H8=0.204 H16=0.427  (224s)
+[A|flat|spectral|seed=9] DONE   H1=0.065 H2=0.102 H4=0.135 H8=0.204 H16=0.427  (224s)
+Task A mean+/-std table
+| prior | H1 | H2 | H4 | H8 | H16 |
+| --- | --- | --- | --- | --- | --- |
+| none | 0.0468+/-0.0123 (n=10) | 0.0837+/-0.0189 (n=10) | 0.1463+/-0.0364 (n=10) | 0.2748+/-0.0775 (n=10) | 0.5791+/-0.1756 (n=10) |
+| euclidean | 0.0435+/-0.0110 (n=10) | 0.0763+/-0.0207 (n=10) | 0.1356+/-0.0371 (n=10) | 0.2534+/-0.0734 (n=10) | 0.5483+/-0.1552 (n=10) |
+| spectral | 0.0392+/-0.0123 (n=10) | 0.0669+/-0.0195 (n=10) | 0.1091+/-0.0289 (n=10) | 0.1966+/-0.0530 (n=10) | 0.4018+/-0.1175 (n=10) |
+
+Task A mean+/-std table
+| prior | H1 | H2 | H4 | H8 | H16 |
+| --- | --- | --- | --- | --- | --- |
+| none | 0.0468+/-0.0123 (n=10) | 0.0837+/-0.0189 (n=10) | 0.1463+/-0.0364 (n=10) | 0.2748+/-0.0775 (n=10) | 0.5791+/-0.1756 (n=10) |
+| euclidean | 0.0435+/-0.0110 (n=10) | 0.0763+/-0.0207 (n=10) | 0.1356+/-0.0371 (n=10) | 0.2534+/-0.0734 (n=10) | 0.5483+/-0.1552 (n=10) |
+| spectral | 0.0392+/-0.0123 (n=10) | 0.0669+/-0.0195 (n=10) | 0.1091+/-0.0289 (n=10) | 0.1966+/-0.0530 (n=10) | 0.4018+/-0.1175 (n=10) |
+===== TASK A+: HYPERGRAPH 10-SEED, 10 EPOCHS START Mon Apr 20 19:05:51 CST 2026 =====
+device=cuda
+GPU=NVIDIA GeForce RTX 5060 Ti
+Starting Task A+: encoder=hypergraph max_steps=16 horizons=[1, 2, 4, 8, 16] seeds=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] device=cuda GPU=NVIDIA GeForce RTX 5060 Ti
+[A+|hypergraph|none|seed=0] epoch  10/10  total=0.775  prior=0.000  H16=0.925
+[A+|hypergraph|none|seed=0] DONE   H1=0.154 H2=0.238 H4=0.328 H8=0.449 H16=0.925  (353s)
+[A+|hypergraph|none|seed=0] DONE   H1=0.154 H2=0.238 H4=0.328 H8=0.449 H16=0.925  (353s)
+[A+|hypergraph|euclidean|seed=0] epoch  10/10  total=0.845  prior=6.406  H16=0.760
+[A+|hypergraph|euclidean|seed=0] DONE   H1=0.133 H2=0.202 H4=0.261 H8=0.344 H16=0.760  (510s)
+[A+|hypergraph|euclidean|seed=0] DONE   H1=0.133 H2=0.202 H4=0.261 H8=0.344 H16=0.760  (510s)
+[A+|hypergraph|spectral|seed=0] epoch  10/10  total=0.944  prior=23.115  H16=0.493
+[A+|hypergraph|spectral|seed=0] DONE   H1=0.078 H2=0.127 H4=0.188 H8=0.252 H16=0.493  (385s)
+[A+|hypergraph|spectral|seed=0] DONE   H1=0.078 H2=0.127 H4=0.188 H8=0.252 H16=0.493  (385s)
+[A+|hypergraph|none|seed=1] epoch  10/10  total=0.688  prior=0.000  H16=1.630
+[A+|hypergraph|none|seed=1] DONE   H1=0.092 H2=0.154 H4=0.294 H8=0.680 H16=1.630  (358s)
+[A+|hypergraph|none|seed=1] DONE   H1=0.092 H2=0.154 H4=0.294 H8=0.680 H16=1.630  (358s)
+[A+|hypergraph|euclidean|seed=1] epoch  10/10  total=0.733  prior=4.809  H16=1.288
+[A+|hypergraph|euclidean|seed=1] DONE   H1=0.081 H2=0.129 H4=0.240 H8=0.560 H16=1.288  (485s)
+[A+|hypergraph|euclidean|seed=1] DONE   H1=0.081 H2=0.129 H4=0.240 H8=0.560 H16=1.288  (485s)
+[A+|hypergraph|spectral|seed=1] epoch  10/10  total=0.813  prior=14.296  H16=0.778
+[A+|hypergraph|spectral|seed=1] DONE   H1=0.044 H2=0.076 H4=0.155 H8=0.353 H16=0.778  (389s)
+[A+|hypergraph|spectral|seed=1] DONE   H1=0.044 H2=0.076 H4=0.155 H8=0.353 H16=0.778  (389s)
+[A+|hypergraph|none|seed=2] epoch  10/10  total=0.709  prior=0.000  H16=0.733
+[A+|hypergraph|none|seed=2] DONE   H1=0.086 H2=0.139 H4=0.206 H8=0.373 H16=0.733  (346s)
+[A+|hypergraph|none|seed=2] DONE   H1=0.086 H2=0.139 H4=0.206 H8=0.373 H16=0.733  (346s)
+[A+|hypergraph|euclidean|seed=2] epoch  10/10  total=0.749  prior=4.971  H16=1.093
+[A+|hypergraph|euclidean|seed=2] DONE   H1=0.079 H2=0.130 H4=0.208 H8=0.445 H16=1.093  (510s)
+[A+|hypergraph|euclidean|seed=2] DONE   H1=0.079 H2=0.130 H4=0.208 H8=0.445 H16=1.093  (510s)
+[A+|hypergraph|spectral|seed=2] epoch  10/10  total=0.956  prior=27.252  H16=0.487
+[A+|hypergraph|spectral|seed=2] DONE   H1=0.049 H2=0.079 H4=0.119 H8=0.191 H16=0.487  (372s)
+[A+|hypergraph|spectral|seed=2] DONE   H1=0.049 H2=0.079 H4=0.119 H8=0.191 H16=0.487  (372s)
+[A+|hypergraph|none|seed=3] epoch  10/10  total=0.983  prior=0.000  H16=1.439
+[A+|hypergraph|none|seed=3] DONE   H1=0.159 H2=0.260 H4=0.393 H8=0.628 H16=1.439  (351s)
+[A+|hypergraph|none|seed=3] DONE   H1=0.159 H2=0.260 H4=0.393 H8=0.628 H16=1.439  (351s)
+[A+|hypergraph|euclidean|seed=3] epoch  10/10  total=1.027  prior=5.097  H16=1.305
+[A+|hypergraph|euclidean|seed=3] DONE   H1=0.156 H2=0.256 H4=0.385 H8=0.597 H16=1.305  (497s)
+[A+|hypergraph|euclidean|seed=3] DONE   H1=0.156 H2=0.256 H4=0.385 H8=0.597 H16=1.305  (497s)
+[A+|hypergraph|spectral|seed=3] epoch  10/10  total=1.036  prior=27.491  H16=0.366
+[A+|hypergraph|spectral|seed=3] DONE   H1=0.065 H2=0.097 H4=0.130 H8=0.186 H16=0.366  (386s)
+[A+|hypergraph|spectral|seed=3] DONE   H1=0.065 H2=0.097 H4=0.130 H8=0.186 H16=0.366  (386s)
+[A+|hypergraph|none|seed=4] epoch  10/10  total=0.772  prior=0.000  H16=0.870
+[A+|hypergraph|none|seed=4] DONE   H1=0.129 H2=0.202 H4=0.280 H8=0.457 H16=0.870  (350s)
+[A+|hypergraph|none|seed=4] DONE   H1=0.129 H2=0.202 H4=0.280 H8=0.457 H16=0.870  (350s)
+[A+|hypergraph|euclidean|seed=4] epoch  10/10  total=0.808  prior=6.560  H16=0.879
+[A+|hypergraph|euclidean|seed=4] DONE   H1=0.123 H2=0.195 H4=0.267 H8=0.446 H16=0.879  (506s)
+[A+|hypergraph|euclidean|seed=4] DONE   H1=0.123 H2=0.195 H4=0.267 H8=0.446 H16=0.879  (506s)
+[A+|hypergraph|spectral|seed=4] epoch  10/10  total=0.901  prior=21.930  H16=0.780
+[A+|hypergraph|spectral|seed=4] DONE   H1=0.080 H2=0.130 H4=0.194 H8=0.364 H16=0.780  (378s)
+[A+|hypergraph|spectral|seed=4] DONE   H1=0.080 H2=0.130 H4=0.194 H8=0.364 H16=0.780  (378s)
+[A+|hypergraph|none|seed=5] epoch  10/10  total=0.715  prior=0.000  H16=0.844
+[A+|hypergraph|none|seed=5] DONE   H1=0.086 H2=0.128 H4=0.214 H8=0.443 H16=0.844  (348s)
+[A+|hypergraph|none|seed=5] DONE   H1=0.086 H2=0.128 H4=0.214 H8=0.443 H16=0.844  (348s)
+[A+|hypergraph|euclidean|seed=5] epoch  10/10  total=0.787  prior=5.622  H16=0.858
+[A+|hypergraph|euclidean|seed=5] DONE   H1=0.083 H2=0.124 H4=0.216 H8=0.447 H16=0.858  (501s)
+[A+|hypergraph|euclidean|seed=5] DONE   H1=0.083 H2=0.124 H4=0.216 H8=0.447 H16=0.858  (501s)
+[A+|hypergraph|spectral|seed=5] epoch  10/10  total=0.786  prior=18.785  H16=0.715
+[A+|hypergraph|spectral|seed=5] DONE   H1=0.054 H2=0.074 H4=0.142 H8=0.340 H16=0.715  (376s)
+[A+|hypergraph|spectral|seed=5] DONE   H1=0.054 H2=0.074 H4=0.142 H8=0.340 H16=0.715  (376s)
+[A+|hypergraph|none|seed=6] epoch  10/10  total=0.837  prior=0.000  H16=1.306
+[A+|hypergraph|none|seed=6] DONE   H1=0.189 H2=0.321 H4=0.466 H8=0.632 H16=1.306  (357s)
+[A+|hypergraph|none|seed=6] DONE   H1=0.189 H2=0.321 H4=0.466 H8=0.632 H16=1.306  (357s)
+[A+|hypergraph|euclidean|seed=6] epoch  10/10  total=0.886  prior=5.244  H16=1.108
+[A+|hypergraph|euclidean|seed=6] DONE   H1=0.170 H2=0.280 H4=0.386 H8=0.518 H16=1.108  (506s)
+[A+|hypergraph|euclidean|seed=6] DONE   H1=0.170 H2=0.280 H4=0.386 H8=0.518 H16=1.108  (506s)
+[A+|hypergraph|spectral|seed=6] epoch  10/10  total=0.988  prior=28.570  H16=0.567
+[A+|hypergraph|spectral|seed=6] DONE   H1=0.063 H2=0.107 H4=0.169 H8=0.257 H16=0.567  (386s)
+[A+|hypergraph|spectral|seed=6] DONE   H1=0.063 H2=0.107 H4=0.169 H8=0.257 H16=0.567  (386s)
+[A+|hypergraph|none|seed=7] epoch  10/10  total=0.751  prior=0.000  H16=0.597
+[A+|hypergraph|none|seed=7] DONE   H1=0.113 H2=0.173 H4=0.232 H8=0.304 H16=0.597  (354s)
+[A+|hypergraph|none|seed=7] DONE   H1=0.113 H2=0.173 H4=0.232 H8=0.304 H16=0.597  (354s)
+[A+|hypergraph|euclidean|seed=7] epoch  10/10  total=0.782  prior=4.989  H16=0.600
+[A+|hypergraph|euclidean|seed=7] DONE   H1=0.114 H2=0.175 H4=0.241 H8=0.313 H16=0.600  (494s)
+[A+|hypergraph|euclidean|seed=7] DONE   H1=0.114 H2=0.175 H4=0.241 H8=0.313 H16=0.600  (494s)
+[A+|hypergraph|spectral|seed=7] epoch  10/10  total=0.826  prior=18.856  H16=0.394
+[A+|hypergraph|spectral|seed=7] DONE   H1=0.059 H2=0.089 H4=0.124 H8=0.182 H16=0.394  (374s)
+[A+|hypergraph|spectral|seed=7] DONE   H1=0.059 H2=0.089 H4=0.124 H8=0.182 H16=0.394  (374s)
+[A+|hypergraph|none|seed=8] epoch  10/10  total=0.753  prior=0.000  H16=1.182
+[A+|hypergraph|none|seed=8] DONE   H1=0.126 H2=0.189 H4=0.274 H8=0.495 H16=1.182  (357s)
+[A+|hypergraph|none|seed=8] DONE   H1=0.126 H2=0.189 H4=0.274 H8=0.495 H16=1.182  (357s)
+[A+|hypergraph|euclidean|seed=8] epoch  10/10  total=0.822  prior=6.606  H16=1.135
+[A+|hypergraph|euclidean|seed=8] DONE   H1=0.120 H2=0.176 H4=0.237 H8=0.444 H16=1.135  (502s)
+[A+|hypergraph|euclidean|seed=8] DONE   H1=0.120 H2=0.176 H4=0.237 H8=0.444 H16=1.135  (502s)
+[Task A+] timeout after 10800s at seed=8
+[Task A+] timeout after 10800s at seed=8
+Task A+ mean+/-std table
+| prior | H1 | H2 | H4 | H8 | H16 |
+| --- | --- | --- | --- | --- | --- |
+| none | 0.1260+/-0.0359 (n=8) | 0.2019+/-0.0628 (n=8) | 0.3016+/-0.0854 (n=8) | 0.4958+/-0.1267 (n=8) | 1.0430+/-0.3445 (n=8) |
+| euclidean | 0.1173+/-0.0325 (n=8) | 0.1864+/-0.0553 (n=8) | 0.2753+/-0.0661 (n=8) | 0.4589+/-0.0920 (n=8) | 0.9863+/-0.2362 (n=8) |
+| spectral | 0.0614+/-0.0120 (n=8) | 0.0974+/-0.0207 (n=8) | 0.1528+/-0.0270 (n=8) | 0.2657+/-0.0724 (n=8) | 0.5724+/-0.1555 (n=8) |
+
+Task A+ mean+/-std table
+| prior | H1 | H2 | H4 | H8 | H16 |
+| --- | --- | --- | --- | --- | --- |
+| none | 0.1260+/-0.0359 (n=8) | 0.2019+/-0.0628 (n=8) | 0.3016+/-0.0854 (n=8) | 0.4958+/-0.1267 (n=8) | 1.0430+/-0.3445 (n=8) |
+| euclidean | 0.1173+/-0.0325 (n=8) | 0.1864+/-0.0553 (n=8) | 0.2753+/-0.0661 (n=8) | 0.4589+/-0.0920 (n=8) | 0.9863+/-0.2362 (n=8) |
+| spectral | 0.0614+/-0.0120 (n=8) | 0.0974+/-0.0207 (n=8) | 0.1528+/-0.0270 (n=8) | 0.2657+/-0.0724 (n=8) | 0.5724+/-0.1555 (n=8) |
+===== TASK B: LONG-HORIZON FLAT 3-SEED, 10 EPOCHS START Mon Apr 20 22:05:50 CST 2026 =====
+device=cuda
+GPU=NVIDIA GeForce RTX 5060 Ti
+Starting Task B: encoder=flat max_steps=64 horizons=[1, 2, 4, 8, 16, 32, 64] seeds=[0, 1, 2] device=cuda GPU=NVIDIA GeForce RTX 5060 Ti
+[B|flat|none|seed=0] epoch  10/10  total=0.059  prior=0.000  H64=3.066
+[B|flat|none|seed=0] DONE   H1=0.035 H2=0.068 H4=0.109 H8=0.216 H16=0.444 H32=0.867 H64=3.066  (779s)
+[B|flat|none|seed=0] DONE   H1=0.035 H2=0.068 H4=0.109 H8=0.216 H16=0.444 H32=0.867 H64=3.066  (779s)
+[B|flat|euclidean|seed=0] epoch  10/10  total=0.100  prior=4.165  H64=3.377
+[B|flat|euclidean|seed=0] DONE   H1=0.038 H2=0.070 H4=0.119 H8=0.236 H16=0.445 H32=0.898 H64=3.377  (938s)
+[B|flat|euclidean|seed=0] DONE   H1=0.038 H2=0.070 H4=0.119 H8=0.236 H16=0.445 H32=0.898 H64=3.377  (938s)
+[B|flat|spectral|seed=0] epoch  10/10  total=0.114  prior=5.119  H64=1.489
+[B|flat|spectral|seed=0] DONE   H1=0.043 H2=0.058 H4=0.070 H8=0.130 H16=0.257 H32=0.488 H64=1.489  (974s)
+[B|flat|spectral|seed=0] DONE   H1=0.043 H2=0.058 H4=0.070 H8=0.130 H16=0.257 H32=0.488 H64=1.489  (974s)
+[B|flat|none|seed=1] epoch  10/10  total=0.074  prior=0.000  H64=17.154
+[B|flat|none|seed=1] DONE   H1=0.035 H2=0.062 H4=0.112 H8=0.221 H16=0.502 H32=1.766 H64=17.154  (761s)
+[B|flat|none|seed=1] DONE   H1=0.035 H2=0.062 H4=0.112 H8=0.221 H16=0.502 H32=1.766 H64=17.154  (761s)
+[B|flat|euclidean|seed=1] epoch  10/10  total=0.110  prior=5.072  H64=12.108
+[B|flat|euclidean|seed=1] DONE   H1=0.047 H2=0.086 H4=0.175 H8=0.300 H16=0.617 H32=2.730 H64=12.108  (934s)
+[B|flat|euclidean|seed=1] DONE   H1=0.047 H2=0.086 H4=0.175 H8=0.300 H16=0.617 H32=2.730 H64=12.108  (934s)
+[B|flat|spectral|seed=1] epoch  10/10  total=0.140  prior=5.455  H64=3.465
+[B|flat|spectral|seed=1] DONE   H1=0.050 H2=0.085 H4=0.092 H8=0.145 H16=0.248 H32=0.532 H64=3.465  (971s)
+[B|flat|spectral|seed=1] DONE   H1=0.050 H2=0.085 H4=0.092 H8=0.145 H16=0.248 H32=0.532 H64=3.465  (971s)
+[B|flat|none|seed=2] epoch  10/10  total=0.061  prior=0.000  H64=7.568
+[B|flat|none|seed=2] DONE   H1=0.047 H2=0.092 H4=0.166 H8=0.320 H16=0.704 H32=1.696 H64=7.568  (764s)
+[B|flat|none|seed=2] DONE   H1=0.047 H2=0.092 H4=0.166 H8=0.320 H16=0.704 H32=1.696 H64=7.568  (764s)
+[B|flat|euclidean|seed=2] epoch  10/10  total=0.106  prior=4.321  H64=2.791
+[B|flat|euclidean|seed=2] DONE   H1=0.043 H2=0.079 H4=0.138 H8=0.232 H16=0.498 H32=1.057 H64=2.791  (950s)
+[B|flat|euclidean|seed=2] DONE   H1=0.043 H2=0.079 H4=0.138 H8=0.232 H16=0.498 H32=1.057 H64=2.791  (950s)
+[B|flat|spectral|seed=2] epoch  10/10  total=0.126  prior=5.088  H64=6.495
+[B|flat|spectral|seed=2] DONE   H1=0.032 H2=0.061 H4=0.102 H8=0.197 H16=0.340 H32=1.087 H64=6.495  (966s)
+[B|flat|spectral|seed=2] DONE   H1=0.032 H2=0.061 H4=0.102 H8=0.197 H16=0.340 H32=1.087 H64=6.495  (966s)
+Task B mean+/-std table
+| prior | H1 | H2 | H4 | H8 | H16 | H32 | H64 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| none | 0.0392+/-0.0055 (n=3) | 0.0740+/-0.0127 (n=3) | 0.1290+/-0.0264 (n=3) | 0.2524+/-0.0479 (n=3) | 0.5499+/-0.1113 (n=3) | 1.4435+/-0.4083 (n=3) | 9.2626+/-5.8748 (n=3) |
+| euclidean | 0.0422+/-0.0037 (n=3) | 0.0785+/-0.0066 (n=3) | 0.1441+/-0.0230 (n=3) | 0.2560+/-0.0310 (n=3) | 0.5201+/-0.0723 (n=3) | 1.5615+/-0.8287 (n=3) | 6.0919+/-4.2609 (n=3) |
+| spectral | 0.0417+/-0.0075 (n=3) | 0.0678+/-0.0119 (n=3) | 0.0881+/-0.0132 (n=3) | 0.1571+/-0.0285 (n=3) | 0.2818+/-0.0415 (n=3) | 0.7023+/-0.2727 (n=3) | 3.8165+/-2.0585 (n=3) |
+
+Task B mean+/-std table
+| prior | H1 | H2 | H4 | H8 | H16 | H32 | H64 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| none | 0.0392+/-0.0055 (n=3) | 0.0740+/-0.0127 (n=3) | 0.1290+/-0.0264 (n=3) | 0.2524+/-0.0479 (n=3) | 0.5499+/-0.1113 (n=3) | 1.4435+/-0.4083 (n=3) | 9.2626+/-5.8748 (n=3) |
+| euclidean | 0.0422+/-0.0037 (n=3) | 0.0785+/-0.0066 (n=3) | 0.1441+/-0.0230 (n=3) | 0.2560+/-0.0310 (n=3) | 0.5201+/-0.0723 (n=3) | 1.5615+/-0.8287 (n=3) | 6.0919+/-4.2609 (n=3) |
+| spectral | 0.0417+/-0.0075 (n=3) | 0.0678+/-0.0119 (n=3) | 0.0881+/-0.0132 (n=3) | 0.1571+/-0.0285 (n=3) | 0.2818+/-0.0415 (n=3) | 0.7023+/-0.2727 (n=3) | 3.8165+/-2.0585 (n=3) |
+===== OVERNIGHT-LITE DONE Tue Apr 21 00:20:51 CST 2026 =====

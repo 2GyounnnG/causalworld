@@ -1,0 +1,69 @@
+=== Starting scripts/run_wolfram_resume.py at Thu Apr 23 02:51:54 CST 2026 ===
+=== Python: /home/user/miniforge3/envs/causalworld/bin/python
+=== GPU: NVIDIA GeForce RTX 5060 Ti
+device=cuda
+gpu=NVIDIA GeForce RTX 5060 Ti
+[flat|none|seed=2] epoch 20/200 total=0.001 trans=0.000 prior=0.000 rollout_H8=0.08
+[flat|none|seed=2] epoch 40/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.10
+[flat|none|seed=2] epoch 60/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.09
+[flat|none|seed=2] epoch 80/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.02
+[flat|none|seed=2] epoch 100/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.08
+[flat|none|seed=2] epoch 120/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.03
+[flat|none|seed=2] epoch 140/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.02
+[flat|none|seed=2] epoch 160/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.02
+[flat|none|seed=2] epoch 180/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.03
+[flat|none|seed=2] epoch 200/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.02
+[flat|euclidean|seed=2] epoch 20/200 total=0.039 trans=0.000 prior=3.849 rollout_H8=0.13
+[flat|euclidean|seed=2] epoch 40/200 total=0.038 trans=0.000 prior=3.764 rollout_H8=0.03
+[flat|euclidean|seed=2] epoch 60/200 total=0.038 trans=0.000 prior=3.754 rollout_H8=0.10
+[flat|euclidean|seed=2] epoch 80/200 total=0.037 trans=0.000 prior=3.718 rollout_H8=0.03
+[flat|euclidean|seed=2] epoch 100/200 total=0.037 trans=0.000 prior=3.661 rollout_H8=0.03
+[flat|euclidean|seed=2] epoch 120/200 total=0.037 trans=0.000 prior=3.660 rollout_H8=0.08
+[flat|euclidean|seed=2] epoch 140/200 total=0.037 trans=0.000 prior=3.649 rollout_H8=0.03
+[flat|euclidean|seed=2] epoch 160/200 total=0.037 trans=0.000 prior=3.643 rollout_H8=0.04
+[flat|euclidean|seed=2] epoch 180/200 total=0.036 trans=0.000 prior=3.611 rollout_H8=0.04
+[flat|euclidean|seed=2] epoch 200/200 total=0.036 trans=0.000 prior=3.559 rollout_H8=0.06
+[flat|spectral|seed=2] epoch 20/200 total=0.002 trans=0.000 prior=0.142 rollout_H8=0.05
+[flat|spectral|seed=2] epoch 40/200 total=0.001 trans=0.000 prior=0.031 rollout_H8=0.03
+[flat|spectral|seed=2] epoch 60/200 total=0.000 trans=0.000 prior=0.014 rollout_H8=0.05
+[flat|spectral|seed=2] epoch 80/200 total=0.155 trans=0.002 prior=0.313 rollout_H8=0.38
+[flat|spectral|seed=2] epoch 100/200 total=0.000 trans=0.000 prior=0.010 rollout_H8=0.14
+[flat|spectral|seed=2] epoch 120/200 total=0.000 trans=0.000 prior=0.006 rollout_H8=0.04
+[flat|spectral|seed=2] epoch 140/200 total=0.000 trans=0.000 prior=0.005 rollout_H8=0.03
+[flat|spectral|seed=2] epoch 160/200 total=0.000 trans=0.000 prior=0.004 rollout_H8=0.04
+[flat|spectral|seed=2] epoch 180/200 total=0.001 trans=0.000 prior=0.080 rollout_H8=0.06
+[flat|spectral|seed=2] epoch 200/200 total=0.000 trans=0.000 prior=0.008 rollout_H8=0.07
+[seed=2] saved partial results to validation_wolfram_flat_10seed_200ep.json
+[flat|none|seed=3] epoch 20/200 total=0.001 trans=0.000 prior=0.000 rollout_H8=0.08
+[flat|none|seed=3] epoch 40/200 total=0.100 trans=0.001 prior=0.000 rollout_H8=0.09
+[flat|none|seed=3] epoch 60/200 total=0.001 trans=0.000 prior=0.000 rollout_H8=0.12
+[flat|none|seed=3] epoch 80/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.07
+[flat|none|seed=3] epoch 100/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.03
+[flat|none|seed=3] epoch 120/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.03
+[flat|none|seed=3] epoch 140/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.04
+[flat|none|seed=3] epoch 160/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.03
+[flat|none|seed=3] epoch 180/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.06
+[flat|none|seed=3] epoch 200/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.03
+[flat|euclidean|seed=3] epoch 20/200 total=0.039 trans=0.000 prior=3.758 rollout_H8=0.12
+[flat|euclidean|seed=3] epoch 40/200 total=0.038 trans=0.000 prior=3.746 rollout_H8=0.12
+[flat|euclidean|seed=3] epoch 60/200 total=0.037 trans=0.000 prior=3.658 rollout_H8=0.10
+[flat|euclidean|seed=3] epoch 80/200 total=0.037 trans=0.000 prior=3.646 rollout_H8=0.05
+[flat|euclidean|seed=3] epoch 100/200 total=0.036 trans=0.000 prior=3.569 rollout_H8=0.06
+[flat|euclidean|seed=3] epoch 120/200 total=0.036 trans=0.000 prior=3.547 rollout_H8=0.07
+[flat|euclidean|seed=3] epoch 140/200 total=0.036 trans=0.000 prior=3.548 rollout_H8=0.08
+[flat|euclidean|seed=3] epoch 160/200 total=0.036 trans=0.000 prior=3.556 rollout_H8=0.03
+[flat|euclidean|seed=3] epoch 180/200 total=0.036 trans=0.000 prior=3.546 rollout_H8=0.02
+[flat|euclidean|seed=3] epoch 200/200 total=0.036 trans=0.000 prior=3.533 rollout_H8=0.02
+[flat|spectral|seed=3] epoch 20/200 total=0.003 trans=0.000 prior=0.221 rollout_H8=0.06
+[flat|spectral|seed=3] epoch 40/200 total=0.001 trans=0.000 prior=0.044 rollout_H8=0.03
+[flat|spectral|seed=3] epoch 60/200 total=0.000 trans=0.000 prior=0.016 rollout_H8=0.06
+[flat|spectral|seed=3] epoch 80/200 total=0.000 trans=0.000 prior=0.013 rollout_H8=0.02
+[flat|spectral|seed=3] epoch 100/200 total=0.000 trans=0.000 prior=0.008 rollout_H8=0.02
+[flat|spectral|seed=3] epoch 120/200 total=0.000 trans=0.000 prior=0.005 rollout_H8=0.02
+[flat|spectral|seed=3] epoch 140/200 total=0.009 trans=0.000 prior=0.481 rollout_H8=0.09
+[flat|spectral|seed=3] epoch 160/200 total=0.001 trans=0.000 prior=0.049 rollout_H8=0.14
+[flat|spectral|seed=3] epoch 180/200 total=0.000 trans=0.000 prior=0.011 rollout_H8=0.17
+[flat|spectral|seed=3] epoch 200/200 total=0.000 trans=0.000 prior=0.005 rollout_H8=0.03
+[seed=3] saved partial results to validation_wolfram_flat_10seed_200ep.json
+[flat|none|seed=4] epoch 20/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.05
+[flat|none|seed=4] epoch 40/200 total=0.000 trans=0.000 prior=0.000 rollout_H8=0.04

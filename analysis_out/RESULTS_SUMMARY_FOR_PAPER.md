@@ -28,9 +28,9 @@
 
 | prior | n | mean | std | ci95_low | ci95_high | pct_change_vs_none | pct_change_vs_euclidean |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| euclidean | 10 | 0.3225857971 | 0.1387958551 | 0.2439243327 | 0.4065152688 | 11.39640171 | 0 |
-| none | 10 | 0.2895836779 | 0.2029223253 | 0.1759597205 | 0.4118046168 | 0 | -10.23049357 |
-| spectral | 10 | 0.140422495 | 0.06460158353 | 0.1026280864 | 0.1781787885 | -51.50883638 | -56.46972176 |
+| euclidean | 10 | 0.323 | 0.139 | 0.244 | 0.407 | 11.4 | 0.0 |
+| none | 10 | 0.290 | 0.203 | 0.176 | 0.412 | 0.0 | -10.2 |
+| spectral | 10 | 0.140 | 0.065 | 0.103 | 0.178 | -51.5 | -56.5 |
 
 Interpretation: lower rollout error is better. This section is final only when all three priors have n=10 at H=16.
 
@@ -40,18 +40,18 @@ Interpretation: lower rollout error is better. This section is final only when a
 
 | prior | prior_weight | n | mean | std | ci95_low | ci95_high | pct_change_vs_none |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| euclidean | 0.001 | 3 | 0.1809946463 | 0.09902099884 | 0.1020283654 | 0.2920906562 | -56.61636967 |
-| euclidean | 0.01 | 3 | 0.1725369454 | 0.05998918753 | 0.1267435583 | 0.2404439366 | -58.64364384 |
-| euclidean | 0.1 | 3 | 0.2382917923 | 0.02860962017 | 0.2074053479 | 0.2638854346 | -42.88249274 |
-| euclidean | 1.0 | 3 | 0.3215721937 | 0.1232920935 | 0.2300674504 | 0.4617761497 | -22.92054237 |
-| none | 0.001 | 3 | 0.4171957141 | 0.2430955445 | 0.1650391161 | 0.6500833353 | 0 |
-| none | 0.01 | 3 | 0.4171957141 | 0.2430955445 | 0.1650391161 | 0.6500833353 | 0 |
-| none | 0.1 | 3 | 0.4171957141 | 0.2430955445 | 0.1650391161 | 0.6500833353 | 0 |
-| none | 1.0 | 3 | 0.4171957141 | 0.2430955445 | 0.1650391161 | 0.6500833353 | 0 |
-| spectral | 0.001 | 3 | 0.2599633544 | 0.3406754643 | 0.04056369847 | 0.6524309584 | -37.68791347 |
-| spectral | 0.01 | 3 | 1.908429248 | 1.623978118 | 0.1126812249 | 3.274033636 | 357.4421988 |
-| spectral | 0.1 | 3 | 0.1300585177 | 0.09771104769 | 0.06247591466 | 0.2420923439 | -68.8255384 |
-| spectral | 1.0 | 3 | 0.1443177964 | 0.07812012726 | 0.06866807671 | 0.224693734 | -65.40765125 |
+| euclidean | 0.001 | 3 | 0.181 | 0.099 | 0.102 | 0.292 | -56.6 |
+| euclidean | 0.01 | 3 | 0.173 | 0.060 | 0.127 | 0.240 | -58.6 |
+| euclidean | 0.1 | 3 | 0.238 | 0.029 | 0.207 | 0.264 | -42.9 |
+| euclidean | 1.0 | 3 | 0.322 | 0.123 | 0.230 | 0.462 | -22.9 |
+| none | 0.001 | 3 | 0.417 | 0.243 | 0.165 | 0.650 | 0.0 |
+| none | 0.01 | 3 | 0.417 | 0.243 | 0.165 | 0.650 | 0.0 |
+| none | 0.1 | 3 | 0.417 | 0.243 | 0.165 | 0.650 | 0.0 |
+| none | 1.0 | 3 | 0.417 | 0.243 | 0.165 | 0.650 | 0.0 |
+| spectral | 0.001 | 3 | 0.260 | 0.341 | 0.041 | 0.652 | -37.7 |
+| spectral | 0.01 | 3 | 1.908 | 1.624 | 0.113 | 3.274 | 357.4 |
+| spectral | 0.1 | 3 | 0.130 | 0.098 | 0.062 | 0.242 | -68.8 |
+| spectral | 1.0 | 3 | 0.144 | 0.078 | 0.069 | 0.225 | -65.4 |
 
 Interpretation: this section is final only when every prior-weight-prior group has n=3 at H=16.
 
@@ -61,9 +61,9 @@ Interpretation: this section is final only when every prior-weight-prior group h
 
 | laplacian_mode | n | mean | std | ci95_low | ci95_high | pct_change_vs_per_frame |
 | --- | --- | --- | --- | --- | --- | --- |
-| fixed_frame0 | 5 | 0.1458356608 | 0.08917947959 | 0.09771777681 | 0.2266025228 | 31.17230254 |
-| fixed_mean | 5 | 0.1306024097 | 0.1121740511 | 0.06747979014 | 0.2324352659 | 17.47071119 |
-| per_frame | 5 | 0.1111787001 | 0.07468142768 | 0.06867660867 | 0.1783989958 | 0 |
+| fixed_frame0 | 5 | 0.146 | 0.089 | 0.098 | 0.227 | 31.2 |
+| fixed_mean | 5 | 0.131 | 0.112 | 0.067 | 0.232 | 17.5 |
+| per_frame | 5 | 0.111 | 0.075 | 0.069 | 0.178 | 0.0 |
 
 Interpretation: this section is final only when every Laplacian mode has n=5 at H=16.
 
@@ -73,9 +73,9 @@ Interpretation: this section is final only when every Laplacian mode has n=5 at 
 
 | prior | n | mean | std | ci95_low | ci95_high | pct_change_vs_none | pct_change_vs_euclidean |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| euclidean | 10 | 0.06538378596 | 0.0411988889 | 0.04289250582 | 0.09109127507 | -11.59917572 | 0 |
-| none | 10 | 0.07396286912 | 0.04574169559 | 0.04906890377 | 0.1023319722 | 0 | 13.12111716 |
-| spectral | 10 | 18.29436963 | 45.36049594 | 0.1110042197 | 50.16061419 | 24634.53213 | 27879.97907 |
+| euclidean | 10 | 0.065 | 0.041 | 0.043 | 0.091 | -11.6 | 0.0 |
+| none | 10 | 0.074 | 0.046 | 0.049 | 0.102 | 0.0 | 13.1 |
+| spectral | 10 | 18.3 | 45.4 | 0.111 | 50.2 | 2.5e+04 | 2.8e+04 |
 
 The completed Wolfram flat run does not support a universal spectral-prior advantage. Euclidean slightly improves over no prior at H=16, while spectral has a heavy-tailed failure mode: most seeds remain near baseline scale, but a few seeds explode at long horizon.
 

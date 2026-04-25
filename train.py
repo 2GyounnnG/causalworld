@@ -39,6 +39,7 @@ class Config:
     batch_size: int = 32
     lr: float = 1e-3
     seed: int = 0
+    laplacian_mode: str = "per_step"
 
 
 def set_seed(seed: int) -> None:
@@ -287,6 +288,41 @@ def evaluate_rollout(
     return metrics
 
 
+def _build_fixed_laplacian(
+    config: Config,
+    train_transitions: List[dict],
+    device: torch.device,
+) -> torch.Tensor | None:
+    if config.prior != "spectral" or config.laplacian_mode == "per_step":
+        return None
+
+    if not train_transitions:
+        raise ValueError("fixed Laplacian modes require at least one training transition")
+
+    if config.laplacian_mode == "fixed_initial":
+        # Use causal_graph from the first transition as a fixed reference.
+        # This is the t=0 transition of episode 0 in the flattened list.
+        return build_causal_laplacian(
+            train_transitions[0]["causal_graph"],
+            config.latent_dim,
+        ).to(device)
+
+    if config.laplacian_mode == "fixed_average":
+        # Average Laplacians across the first 50 transitions.
+        # Note: flatten_transitions discards episode boundaries, so this
+        # averages across the first 50 timesteps regardless of episode index.
+        laplacians = []
+        for transition in train_transitions[:50]:
+            L = build_causal_laplacian(
+                transition["causal_graph"],
+                config.latent_dim,
+            )
+            laplacians.append(L)
+        return torch.stack(laplacians, dim=0).mean(dim=0).to(device)
+
+    raise ValueError(f"Unknown laplacian_mode: {config.laplacian_mode}")
+
+
 def train_one(
     config: Config,
     train_transitions: List[dict],
@@ -294,7 +330,12 @@ def train_one(
     device: torch.device,
     horizons: List[int] = HORIZONS,
 ) -> Tuple[WorldModel, dict]:
+    # per_step rebuilds L per transition; fixed_initial uses the first initial state; fixed_average averages the first 50 initial states.
+    if config.laplacian_mode not in {"per_step", "fixed_initial", "fixed_average"}:
+        raise ValueError("laplacian_mode must be one of 'per_step', 'fixed_initial', or 'fixed_average'")
+
     set_seed(config.seed)
+    fixed_laplacian = _build_fixed_laplacian(config, train_transitions, device)
     model = WorldModel(
         encoder=config.encoder,
         hidden_dim=config.hidden_dim,
@@ -337,10 +378,13 @@ def train_one(
                 done = torch.tensor(float(transition["done"]), device=device)
 
                 if config.prior == "spectral":
-                    laplacian = build_causal_laplacian(
-                        transition["causal_graph"],
-                        config.latent_dim,
-                    ).to(device)
+                    if config.laplacian_mode == "per_step":
+                        laplacian = build_causal_laplacian(
+                            transition["causal_graph"],
+                            config.latent_dim,
+                        ).to(device)
+                    else:
+                        laplacian = fixed_laplacian
                     loss_dict = model.loss(
                         obs,
                         action,

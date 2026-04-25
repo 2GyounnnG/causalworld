@@ -1,0 +1,5 @@
+=== Starting python -u scripts/train_rmd17.py --molecule malonaldehyde at Tue Apr 21 10:25:12 CST 2026 ===
+=== Python: /home/user/miniforge3/envs/causalworld/bin/python
+=== GPU: NVIDIA GeForce RTX 5060 Ti
+python: can't open file '/home/user/projects/causalworld/python': [Errno 2] No such file or directory
+=== Finished at Tue Apr 21 10:25:12 CST 2026 (exit=0)

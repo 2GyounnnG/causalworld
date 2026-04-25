@@ -1,0 +1,63 @@
+=== Starting scripts/run_wolfram_weight_sweep.py at Sat Apr 25 00:55:19 PDT 2026 ===
+=== Python: /home/user/miniforge3/envs/causalworld/bin/python
+=== GPU: NVIDIA GeForce RTX 5060 Ti
+device=cuda
+gpu=NVIDIA GeForce RTX 5060 Ti
+[flat|spectral|seed=0] epoch 20/200 total=0.002 trans=0.000 prior=1.387 rollout_H8=0.06
+[flat|spectral|seed=0] epoch 40/200 total=0.001 trans=0.000 prior=0.530 rollout_H8=0.03
+[flat|spectral|seed=0] epoch 60/200 total=0.000 trans=0.000 prior=0.146 rollout_H8=0.03
+[flat|spectral|seed=0] epoch 80/200 total=0.001 trans=0.000 prior=0.245 rollout_H8=0.06
+[flat|spectral|seed=0] epoch 100/200 total=0.000 trans=0.000 prior=0.081 rollout_H8=0.03
+[flat|spectral|seed=0] epoch 120/200 total=0.000 trans=0.000 prior=0.053 rollout_H8=0.02
+[flat|spectral|seed=0] epoch 140/200 total=0.000 trans=0.000 prior=0.038 rollout_H8=0.03
+[flat|spectral|seed=0] epoch 160/200 total=0.000 trans=0.000 prior=0.026 rollout_H8=0.02
+[flat|spectral|seed=0] epoch 180/200 total=0.000 trans=0.000 prior=0.017 rollout_H8=0.01
+[flat|spectral|seed=0] epoch 200/200 total=0.001 trans=0.000 prior=0.311 rollout_H8=0.06
+[w=0.001|seed=0] H16=0.076
+[flat|spectral|seed=1] epoch 20/200 total=0.002 trans=0.000 prior=1.583 rollout_H8=0.06
+[flat|spectral|seed=1] epoch 40/200 total=0.001 trans=0.000 prior=0.303 rollout_H8=0.04
+[flat|spectral|seed=1] epoch 60/200 total=0.000 trans=0.000 prior=0.126 rollout_H8=0.03
+[flat|spectral|seed=1] epoch 80/200 total=0.000 trans=0.000 prior=0.062 rollout_H8=0.03
+[flat|spectral|seed=1] epoch 100/200 total=0.000 trans=0.000 prior=0.030 rollout_H8=0.02
+[flat|spectral|seed=1] epoch 120/200 total=0.002 trans=0.000 prior=1.185 rollout_H8=0.06
+[flat|spectral|seed=1] epoch 140/200 total=0.000 trans=0.000 prior=0.240 rollout_H8=0.03
+[flat|spectral|seed=1] epoch 160/200 total=0.000 trans=0.000 prior=0.088 rollout_H8=0.03
+[flat|spectral|seed=1] epoch 180/200 total=0.000 trans=0.000 prior=0.047 rollout_H8=0.03
+[flat|spectral|seed=1] epoch 200/200 total=0.000 trans=0.000 prior=0.030 rollout_H8=0.03
+[w=0.001|seed=1] H16=0.184
+[flat|spectral|seed=2] epoch 20/200 total=0.002 trans=0.000 prior=1.138 rollout_H8=0.06
+[flat|spectral|seed=2] epoch 40/200 total=0.001 trans=0.000 prior=0.508 rollout_H8=0.06
+[flat|spectral|seed=2] epoch 60/200 total=0.001 trans=0.000 prior=0.353 rollout_H8=0.10
+[flat|spectral|seed=2] epoch 80/200 total=0.000 trans=0.000 prior=0.231 rollout_H8=0.09
+[flat|spectral|seed=2] epoch 100/200 total=0.000 trans=0.000 prior=0.133 rollout_H8=0.10
+[flat|spectral|seed=2] epoch 120/200 total=0.000 trans=0.000 prior=0.069 rollout_H8=0.04
+[flat|spectral|seed=2] epoch 140/200 total=0.000 trans=0.000 prior=0.037 rollout_H8=0.03
+[flat|spectral|seed=2] epoch 160/200 total=0.001 trans=0.000 prior=0.217 rollout_H8=0.02
+[flat|spectral|seed=2] epoch 180/200 total=0.000 trans=0.000 prior=0.042 rollout_H8=0.03
+[flat|spectral|seed=2] epoch 200/200 total=0.000 trans=0.000 prior=0.031 rollout_H8=0.02
+[w=0.001|seed=2] H16=0.145
+[flat|spectral|seed=3] epoch 20/200 total=0.003 trans=0.000 prior=2.519 rollout_H8=0.11
+[flat|spectral|seed=3] epoch 40/200 total=0.001 trans=0.000 prior=0.521 rollout_H8=0.03
+[flat|spectral|seed=3] epoch 60/200 total=0.000 trans=0.000 prior=0.149 rollout_H8=0.06
+[flat|spectral|seed=3] epoch 80/200 total=0.000 trans=0.000 prior=0.054 rollout_H8=0.05
+[flat|spectral|seed=3] epoch 100/200 total=0.001 trans=0.000 prior=0.369 rollout_H8=0.04
+[flat|spectral|seed=3] epoch 120/200 total=0.000 trans=0.000 prior=0.082 rollout_H8=0.05
+[flat|spectral|seed=3] epoch 140/200 total=0.000 trans=0.000 prior=0.040 rollout_H8=0.04
+[flat|spectral|seed=3] epoch 160/200 total=0.000 trans=0.000 prior=0.025 rollout_H8=0.05
+[flat|spectral|seed=3] epoch 180/200 total=0.000 trans=0.000 prior=0.015 rollout_H8=0.02
+[flat|spectral|seed=3] epoch 200/200 total=0.001 trans=0.000 prior=0.260 rollout_H8=0.02
+[w=0.001|seed=3] H16=0.042
+[flat|spectral|seed=4] epoch 20/200 total=0.002 trans=0.000 prior=1.646 rollout_H8=0.09
+[flat|spectral|seed=4] epoch 40/200 total=0.001 trans=0.000 prior=0.638 rollout_H8=0.04
+[flat|spectral|seed=4] epoch 60/200 total=0.001 trans=0.000 prior=0.254 rollout_H8=0.04
+[flat|spectral|seed=4] epoch 80/200 total=0.000 trans=0.000 prior=0.108 rollout_H8=0.02
+[flat|spectral|seed=4] epoch 100/200 total=0.000 trans=0.000 prior=0.044 rollout_H8=0.02
+[flat|spectral|seed=4] epoch 120/200 total=0.002 trans=0.000 prior=1.829 rollout_H8=0.07
+[flat|spectral|seed=4] epoch 140/200 total=0.001 trans=0.000 prior=0.316 rollout_H8=0.03
+[flat|spectral|seed=4] epoch 160/200 total=0.000 trans=0.000 prior=0.092 rollout_H8=0.05
+[flat|spectral|seed=4] epoch 180/200 total=0.000 trans=0.000 prior=0.034 rollout_H8=0.03
+[flat|spectral|seed=4] epoch 200/200 total=0.000 trans=0.000 prior=0.016 rollout_H8=0.03
+[w=0.001|seed=4] H16=0.450
+[flat|spectral|seed=0] epoch 20/200 total=0.002 trans=0.000 prior=0.372 rollout_H8=0.05
+[flat|spectral|seed=0] epoch 40/200 total=0.001 trans=0.000 prior=0.073 rollout_H8=0.02
+[flat|spectral|seed=0] epoch 60/200 total=0.000 trans=0.000 prior=0.034 rollout_H8=0.04

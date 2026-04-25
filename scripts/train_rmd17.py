@@ -131,6 +131,8 @@ class Config:
     save_checkpoint: bool = False
     checkpoint_dir: str = "checkpoints/rmd17"
     save_frame_indices: bool = True
+    disjoint_eval: bool = False
+    eval_n_transitions: int = 200
 
 
 def get_git_commit() -> str:
@@ -159,15 +161,90 @@ def checkpoint_path(config: Config) -> Path:
     return checkpoint_dir / filename
 
 
-def frame_index_metadata(transitions: list[dict], eval_transitions: list[dict]) -> dict:
+def transition_used_frames(transitions: list[dict], horizons: tuple[int, ...] | list[int]) -> list[int]:
+    used: set[int] = set()
+    for transition in transitions:
+        if "frame_idx" not in transition:
+            continue
+        frame_idx = int(transition["frame_idx"])
+        used.add(frame_idx)
+        for horizon in horizons:
+            used.add(frame_idx + int(horizon))
+    return sorted(used)
+
+
+def collect_disjoint_eval_transitions(
+    *,
+    molecule: str,
+    n_transitions: int,
+    stride: int,
+    eval_horizons: tuple[int, ...] | list[int],
+    seed: int,
+    forbidden_frame_idx: set[int],
+    cutoff: float = 5.0,
+) -> list[dict]:
+    """Sample eval transitions whose start/target frames avoid training frames."""
+    if stride < 1:
+        raise ValueError(f"stride must be >= 1, got {stride}")
+    max_horizon = max(int(horizon) for horizon in eval_horizons)
+    traj = RMD17Trajectory(molecule, cutoff=cutoff)
+    rng = np.random.default_rng(seed)
+    max_start = traj.n_frames - max_horizon - 1
+    candidates = np.arange(0, max_start, stride)
+    valid_candidates = []
+    for frame_idx in candidates:
+        used = {int(frame_idx)}
+        used.update(int(frame_idx) + int(horizon) for horizon in eval_horizons)
+        if used.isdisjoint(forbidden_frame_idx):
+            valid_candidates.append(int(frame_idx))
+
+    if n_transitions > len(valid_candidates):
+        raise ValueError(
+            f"Requested {n_transitions} disjoint eval transitions but only "
+            f"{len(valid_candidates)} candidates remain at stride={stride}"
+        )
+
+    chosen = rng.choice(np.asarray(valid_candidates, dtype=int), size=n_transitions, replace=False)
+    chosen.sort()
+
+    transitions = []
+    for frame_idx in chosen:
+        obs_t, obs_next, energy, _force = traj.get_pair(int(frame_idx), max_horizon)
+        transitions.append(
+            {
+                "obs": obs_t,
+                "next_obs": obs_next,
+                "horizon": max_horizon,
+                "frame_idx": int(frame_idx),
+                "energy": energy,
+                "molecule": molecule,
+            }
+        )
+    return transitions
+
+
+def frame_index_metadata(
+    transitions: list[dict],
+    eval_transitions: list[dict],
+    *,
+    train_horizon: int,
+    eval_horizons: tuple[int, ...] | list[int],
+) -> dict:
     train_frame_idx = [int(transition["frame_idx"]) for transition in transitions if "frame_idx" in transition]
     eval_frame_idx = [int(transition["frame_idx"]) for transition in eval_transitions if "frame_idx" in transition]
-    overlap = sorted(set(train_frame_idx).intersection(eval_frame_idx))
+    train_used_frame_idx = transition_used_frames(transitions, [train_horizon])
+    eval_used_frame_idx = transition_used_frames(eval_transitions, eval_horizons)
+    start_overlap = sorted(set(train_frame_idx).intersection(eval_frame_idx))
+    used_overlap = sorted(set(train_used_frame_idx).intersection(eval_used_frame_idx))
     return {
         "train_frame_idx": train_frame_idx,
         "eval_frame_idx": eval_frame_idx,
-        "train_eval_overlap_count": len(overlap),
-        "train_eval_overlap_examples": overlap[:20],
+        "train_used_frame_idx": train_used_frame_idx,
+        "eval_used_frame_idx": eval_used_frame_idx,
+        "train_eval_start_overlap_count": len(start_overlap),
+        "train_eval_start_overlap_examples": start_overlap[:20],
+        "train_eval_overlap_count": len(used_overlap),
+        "train_eval_overlap_examples": used_overlap[:20],
     }
 
 
@@ -185,6 +262,22 @@ def save_checkpoint(config: Config, model: WorldModel, final_loss: float, rollou
         path,
     )
     return path
+
+
+def load_checkpoint_model(path: str | Path, device: torch.device | str | None = None) -> tuple[Config, WorldModel, dict]:
+    checkpoint = torch.load(path, map_location=device or "cpu")
+    config = Config(**checkpoint["config"])
+    target_device = torch.device(device or config.device)
+    model = WorldModel(
+        encoder=config.encoder,
+        hidden_dim=config.hidden_dim,
+        latent_dim=config.latent_dim,
+        action_dim=1,
+        transition_hidden_dim=config.transition_hidden_dim,
+    ).to(target_device)
+    model.load_state_dict(checkpoint["model_state_dict"])
+    model.eval()
+    return config, model, checkpoint
 
 
 def evaluate_rollout(model, eval_transitions, horizons, device, latent_dim) -> Dict:
@@ -272,13 +365,24 @@ def train_one_seed(config: Config) -> Dict:
         seed=config.seed,
     )
 
-    eval_transitions = collect_rmd17_transitions(
-        molecule=config.molecule,
-        n_transitions=200,
-        stride=config.stride * 10,
-        horizon=max(config.eval_horizons),
-        seed=config.seed + 1000,
-    )
+    if config.disjoint_eval:
+        train_used_frame_idx = set(transition_used_frames(transitions, [config.horizon]))
+        eval_transitions = collect_disjoint_eval_transitions(
+            molecule=config.molecule,
+            n_transitions=config.eval_n_transitions,
+            stride=config.stride * 10,
+            eval_horizons=config.eval_horizons,
+            seed=config.seed + 1000,
+            forbidden_frame_idx=train_used_frame_idx,
+        )
+    else:
+        eval_transitions = collect_rmd17_transitions(
+            molecule=config.molecule,
+            n_transitions=config.eval_n_transitions,
+            stride=config.stride * 10,
+            horizon=max(config.eval_horizons),
+            seed=config.seed + 1000,
+        )
 
     device = torch.device(config.device)
     if config.laplacian_mode not in {"per_frame", "fixed_frame0", "fixed_mean"}:
@@ -423,7 +527,16 @@ def train_one_seed(config: Config) -> Dict:
         device=device,
         latent_dim=config.latent_dim,
     )
-    metadata = frame_index_metadata(transitions, eval_transitions) if config.save_frame_indices else {}
+    metadata = (
+        frame_index_metadata(
+            transitions,
+            eval_transitions,
+            train_horizon=config.horizon,
+            eval_horizons=config.eval_horizons,
+        )
+        if config.save_frame_indices
+        else {}
+    )
     config_dict = dict(config.__dict__)
     checkpoint = None
     if config.save_checkpoint:
