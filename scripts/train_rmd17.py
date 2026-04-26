@@ -58,6 +58,42 @@ def build_molecular_laplacian(obs: HeteroData, latent_dim: int) -> torch.Tensor:
     return build_causal_laplacian(graph_di, latent_dim)
 
 
+def molecular_graph_shape(obs: HeteroData) -> tuple[int, int]:
+    edge_index = obs["atom", "bonded", "atom"].edge_index
+    n_atoms = obs["atom"].x.shape[0]
+    n_bonds = 0
+    for k in range(edge_index.shape[1]):
+        i, j = int(edge_index[0, k]), int(edge_index[1, k])
+        if i < j:
+            n_bonds += 1
+    return int(n_atoms), n_bonds
+
+
+def build_graph_source_laplacian(
+    obs: HeteroData,
+    latent_dim: int,
+    graph_source: str,
+    seed: int,
+    frame_idx: int,
+    device: torch.device,
+) -> torch.Tensor:
+    if graph_source == "bond":
+        return build_molecular_laplacian(obs, latent_dim).to(device)
+    if graph_source == "identity":
+        return torch.eye(latent_dim).to(device)
+
+    n_atoms, n_bonds = molecular_graph_shape(obs)
+    if graph_source == "random":
+        rng_seed = seed * 100000 + int(frame_idx)
+        graph = nx.gnm_random_graph(n_atoms, n_bonds, seed=rng_seed)
+    elif graph_source == "complete":
+        graph = nx.complete_graph(n_atoms)
+    else:
+        raise ValueError("graph_source must be one of 'bond', 'random', 'complete', or 'identity'")
+
+    return build_causal_laplacian(graph.to_directed(), latent_dim).to(device)
+
+
 def adapt_obs_for_world_model(obs: HeteroData) -> HeteroData:
     """Map atom/bonded graphs into the node/hyperedge schema expected by WorldModel."""
     data = HeteroData()
@@ -114,6 +150,7 @@ class Config:
     molecule: str = "aspirin"
     encoder: str = "flat"
     prior: str = "spectral"
+    graph_source: str = "bond"
     prior_weight: float = 0.1
     latent_dim: int = 16
     hidden_dim: int = 32
@@ -151,8 +188,11 @@ def get_git_commit() -> str:
 
 
 def checkpoint_path(config: Config) -> Path:
+    prior_label = config.prior
+    if config.prior == "spectral" and config.graph_source != "bond":
+        prior_label = f"{config.prior}_{config.graph_source}"
     filename = (
-        f"{config.molecule}_{config.encoder}_{config.prior}_"
+        f"{config.molecule}_{config.encoder}_{prior_label}_"
         f"seed{config.seed}_w{config.prior_weight}_mode{config.laplacian_mode}.pt"
     )
     checkpoint_dir = Path(config.checkpoint_dir)
@@ -387,18 +427,40 @@ def train_one_seed(config: Config) -> Dict:
     device = torch.device(config.device)
     if config.laplacian_mode not in {"per_frame", "fixed_frame0", "fixed_mean"}:
         raise ValueError("laplacian_mode must be one of 'per_frame', 'fixed_frame0', or 'fixed_mean'")
+    if config.prior == "spectral" and config.graph_source not in {"bond", "random", "complete", "identity"}:
+        raise ValueError("graph_source must be one of 'bond', 'random', 'complete', or 'identity'")
 
     fixed_laplacian = None
     if config.prior == "spectral" and config.laplacian_mode != "per_frame":
         traj = RMD17Trajectory(config.molecule)
         if config.laplacian_mode == "fixed_frame0":
-            fixed_laplacian = build_molecular_laplacian(traj[0], config.latent_dim).to(device)
+            fixed_laplacian = build_graph_source_laplacian(
+                traj[0],
+                config.latent_dim,
+                config.graph_source,
+                config.seed,
+                0,
+                device,
+            )
         elif config.laplacian_mode == "fixed_mean":
             n_frames = min(500, traj.n_frames)
-            frame_laplacians = [
-                build_molecular_laplacian(traj[frame_idx], config.latent_dim)
-                for frame_idx in range(n_frames)
-            ]
+            if config.graph_source == "bond":
+                frame_laplacians = [
+                    build_molecular_laplacian(traj[frame_idx], config.latent_dim)
+                    for frame_idx in range(n_frames)
+                ]
+            else:
+                frame_laplacians = [
+                    build_graph_source_laplacian(
+                        traj[frame_idx],
+                        config.latent_dim,
+                        config.graph_source,
+                        config.seed,
+                        frame_idx,
+                        device,
+                    )
+                    for frame_idx in range(n_frames)
+                ]
             fixed_laplacian = torch.stack(frame_laplacians, dim=0).mean(dim=0).to(device)
 
     model = WorldModel(
@@ -438,7 +500,15 @@ def train_one_seed(config: Config) -> Dict:
 
                 if config.prior == "spectral":
                     if fixed_laplacian is None:
-                        laplacian = build_molecular_laplacian(obs_raw, config.latent_dim).to(device)
+                        frame_idx = int(transition.get("frame_idx", int(index)))
+                        laplacian = build_graph_source_laplacian(
+                            obs_raw,
+                            config.latent_dim,
+                            config.graph_source,
+                            config.seed,
+                            frame_idx,
+                            device,
+                        )
                     else:
                         laplacian = fixed_laplacian
                     loss_dict = model.loss(

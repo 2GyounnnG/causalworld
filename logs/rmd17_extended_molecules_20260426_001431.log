@@ -1,0 +1,217 @@
+=== Starting scripts/run_rmd17_extended_molecules.py at Sun Apr 26 00:14:31 PDT 2026 ===
+=== Python: /home/user/miniforge3/envs/causalworld/bin/python
+=== GPU: NVIDIA GeForce RTX 5060 Ti
+Verified molecules in scripts.rmd17_loader.MOLECULES: benzene, toluene, naphthalene, salicylic
+Verified npz files in /home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data:
+  - rmd17_benzene.npz
+  - rmd17_toluene.npz
+  - rmd17_naphthalene.npz
+  - rmd17_salicylic.npz
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+Planned runs: 4 molecules x 2 priors x 5 seeds = 40
+
+=== Starting benzene|flat|none|seed=0 ===
+[benzene|flat|none|seed=0] epoch   5/50 loss=0.0155 H8_eval=0.4660
+[benzene|flat|none|seed=0] epoch  10/50 loss=0.0109 H8_eval=0.0729
+[benzene|flat|none|seed=0] epoch  15/50 loss=0.0075 H8_eval=0.1470
+[benzene|flat|none|seed=0] epoch  20/50 loss=0.0046 H8_eval=0.0696
+[benzene|flat|none|seed=0] epoch  25/50 loss=0.0027 H8_eval=0.0479
+[benzene|flat|none|seed=0] epoch  30/50 loss=0.0018 H8_eval=0.0582
+[benzene|flat|none|seed=0] epoch  35/50 loss=0.0011 H8_eval=0.0309
+[benzene|flat|none|seed=0] epoch  40/50 loss=0.0008 H8_eval=0.0397
+[benzene|flat|none|seed=0] epoch  45/50 loss=0.0007 H8_eval=0.0522
+[benzene|flat|none|seed=0] epoch  50/50 loss=0.0009 H8_eval=0.0756
+[benzene|flat|none|seed=0] H16=0.156
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|none|seed=1 ===
+[benzene|flat|none|seed=1] epoch   5/50 loss=0.0163 H8_eval=0.2622
+[benzene|flat|none|seed=1] epoch  10/50 loss=0.0103 H8_eval=0.2341
+[benzene|flat|none|seed=1] epoch  15/50 loss=0.0062 H8_eval=0.1303
+[benzene|flat|none|seed=1] epoch  20/50 loss=0.0035 H8_eval=0.1175
+[benzene|flat|none|seed=1] epoch  25/50 loss=0.0034 H8_eval=0.1879
+[benzene|flat|none|seed=1] epoch  30/50 loss=0.0016 H8_eval=0.1022
+[benzene|flat|none|seed=1] epoch  35/50 loss=0.0007 H8_eval=0.0286
+[benzene|flat|none|seed=1] epoch  40/50 loss=0.0005 H8_eval=0.0262
+[benzene|flat|none|seed=1] epoch  45/50 loss=0.0003 H8_eval=0.0204
+[benzene|flat|none|seed=1] epoch  50/50 loss=0.0002 H8_eval=0.0246
+[benzene|flat|none|seed=1] H16=0.041
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|none|seed=2 ===
+[benzene|flat|none|seed=2] epoch   5/50 loss=0.0071 H8_eval=0.1973
+[benzene|flat|none|seed=2] epoch  10/50 loss=0.0053 H8_eval=0.1635
+[benzene|flat|none|seed=2] epoch  15/50 loss=0.0036 H8_eval=0.1039
+[benzene|flat|none|seed=2] epoch  20/50 loss=0.0024 H8_eval=0.0525
+[benzene|flat|none|seed=2] epoch  25/50 loss=0.0020 H8_eval=0.0398
+[benzene|flat|none|seed=2] epoch  30/50 loss=0.0014 H8_eval=0.0504
+[benzene|flat|none|seed=2] epoch  35/50 loss=0.0014 H8_eval=0.0828
+[benzene|flat|none|seed=2] epoch  40/50 loss=0.0007 H8_eval=0.0436
+[benzene|flat|none|seed=2] epoch  45/50 loss=0.0006 H8_eval=0.0393
+[benzene|flat|none|seed=2] epoch  50/50 loss=0.0005 H8_eval=0.0382
+[benzene|flat|none|seed=2] H16=0.072
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|none|seed=3 ===
+[benzene|flat|none|seed=3] epoch   5/50 loss=0.0113 H8_eval=0.1308
+[benzene|flat|none|seed=3] epoch  10/50 loss=0.0079 H8_eval=0.1389
+[benzene|flat|none|seed=3] epoch  15/50 loss=0.0053 H8_eval=0.1498
+[benzene|flat|none|seed=3] epoch  20/50 loss=0.0035 H8_eval=0.0830
+[benzene|flat|none|seed=3] epoch  25/50 loss=0.0105 H8_eval=0.1971
+[benzene|flat|none|seed=3] epoch  30/50 loss=0.0020 H8_eval=0.1394
+[benzene|flat|none|seed=3] epoch  35/50 loss=0.0013 H8_eval=0.0749
+[benzene|flat|none|seed=3] epoch  40/50 loss=0.0013 H8_eval=0.0931
+[benzene|flat|none|seed=3] epoch  45/50 loss=0.0008 H8_eval=0.0480
+[benzene|flat|none|seed=3] epoch  50/50 loss=0.0008 H8_eval=0.0514
+[benzene|flat|none|seed=3] H16=0.090
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|none|seed=4 ===
+[benzene|flat|none|seed=4] epoch   5/50 loss=0.0180 H8_eval=0.1609
+[benzene|flat|none|seed=4] epoch  10/50 loss=0.0108 H8_eval=0.1863
+[benzene|flat|none|seed=4] epoch  15/50 loss=0.0061 H8_eval=0.1755
+[benzene|flat|none|seed=4] epoch  20/50 loss=0.0030 H8_eval=0.0602
+[benzene|flat|none|seed=4] epoch  25/50 loss=0.0017 H8_eval=0.0900
+[benzene|flat|none|seed=4] epoch  30/50 loss=0.0011 H8_eval=0.0658
+[benzene|flat|none|seed=4] epoch  35/50 loss=0.0010 H8_eval=0.0955
+[benzene|flat|none|seed=4] epoch  40/50 loss=0.0005 H8_eval=0.0384
+[benzene|flat|none|seed=4] epoch  45/50 loss=0.0005 H8_eval=0.0622
+[benzene|flat|none|seed=4] epoch  50/50 loss=0.0003 H8_eval=0.0234
+[benzene|flat|none|seed=4] H16=0.041
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|spectral|seed=0 ===
+[benzene|flat|spectral|seed=0] epoch   5/50 loss=0.0055 H8_eval=0.2396
+[benzene|flat|spectral|seed=0] epoch  10/50 loss=0.0047 H8_eval=0.0725
+[benzene|flat|spectral|seed=0] epoch  15/50 loss=0.0043 H8_eval=0.1072
+[benzene|flat|spectral|seed=0] epoch  20/50 loss=0.0036 H8_eval=0.0878
+[benzene|flat|spectral|seed=0] epoch  25/50 loss=0.0030 H8_eval=0.0477
+[benzene|flat|spectral|seed=0] epoch  30/50 loss=0.0027 H8_eval=0.0545
+[benzene|flat|spectral|seed=0] epoch  35/50 loss=0.0022 H8_eval=0.0390
+[benzene|flat|spectral|seed=0] epoch  40/50 loss=0.0019 H8_eval=0.0471
+[benzene|flat|spectral|seed=0] epoch  45/50 loss=0.0019 H8_eval=0.0518
+[benzene|flat|spectral|seed=0] epoch  50/50 loss=0.0017 H8_eval=0.0787
+[benzene|flat|spectral|seed=0] H16=0.182
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|spectral|seed=1 ===
+[benzene|flat|spectral|seed=1] epoch   5/50 loss=0.0078 H8_eval=0.1290
+[benzene|flat|spectral|seed=1] epoch  10/50 loss=0.0056 H8_eval=0.1486
+[benzene|flat|spectral|seed=1] epoch  15/50 loss=0.0040 H8_eval=0.0943
+[benzene|flat|spectral|seed=1] epoch  20/50 loss=0.0027 H8_eval=0.1193
+[benzene|flat|spectral|seed=1] epoch  25/50 loss=0.0019 H8_eval=0.0584
+[benzene|flat|spectral|seed=1] epoch  30/50 loss=0.0014 H8_eval=0.0665
+[benzene|flat|spectral|seed=1] epoch  35/50 loss=0.0012 H8_eval=0.0701
+[benzene|flat|spectral|seed=1] epoch  40/50 loss=0.0021 H8_eval=0.1833
+[benzene|flat|spectral|seed=1] epoch  45/50 loss=0.0007 H8_eval=0.0281
+[benzene|flat|spectral|seed=1] epoch  50/50 loss=0.0006 H8_eval=0.0322
+[benzene|flat|spectral|seed=1] H16=0.050
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|spectral|seed=2 ===
+[benzene|flat|spectral|seed=2] epoch   5/50 loss=0.0033 H8_eval=0.0945
+[benzene|flat|spectral|seed=2] epoch  10/50 loss=0.0028 H8_eval=0.0991
+[benzene|flat|spectral|seed=2] epoch  15/50 loss=0.0022 H8_eval=0.0943
+[benzene|flat|spectral|seed=2] epoch  20/50 loss=0.0018 H8_eval=0.0566
+[benzene|flat|spectral|seed=2] epoch  25/50 loss=0.0015 H8_eval=0.0822
+[benzene|flat|spectral|seed=2] epoch  30/50 loss=0.0011 H8_eval=0.0503
+[benzene|flat|spectral|seed=2] epoch  35/50 loss=0.0019 H8_eval=0.1300
+[benzene|flat|spectral|seed=2] epoch  40/50 loss=0.0009 H8_eval=0.0257
+[benzene|flat|spectral|seed=2] epoch  45/50 loss=0.0007 H8_eval=0.0493
+[benzene|flat|spectral|seed=2] epoch  50/50 loss=0.0019 H8_eval=0.1149
+[benzene|flat|spectral|seed=2] H16=0.212
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|spectral|seed=3 ===
+[benzene|flat|spectral|seed=3] epoch   5/50 loss=0.0090 H8_eval=0.1294
+[benzene|flat|spectral|seed=3] epoch  10/50 loss=0.0078 H8_eval=0.1204
+[benzene|flat|spectral|seed=3] epoch  15/50 loss=0.0070 H8_eval=0.1272
+[benzene|flat|spectral|seed=3] epoch  20/50 loss=0.0058 H8_eval=0.0511
+[benzene|flat|spectral|seed=3] epoch  25/50 loss=0.0052 H8_eval=0.0695
+[benzene|flat|spectral|seed=3] epoch  30/50 loss=0.0045 H8_eval=0.0395
+[benzene|flat|spectral|seed=3] epoch  35/50 loss=0.0040 H8_eval=0.0420
+[benzene|flat|spectral|seed=3] epoch  40/50 loss=0.0036 H8_eval=0.0391
+[benzene|flat|spectral|seed=3] epoch  45/50 loss=0.0033 H8_eval=0.0709
+[benzene|flat|spectral|seed=3] epoch  50/50 loss=0.0026 H8_eval=0.0365
+[benzene|flat|spectral|seed=3] H16=0.051
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting benzene|flat|spectral|seed=4 ===
+[benzene|flat|spectral|seed=4] epoch   5/50 loss=0.0071 H8_eval=0.1147
+[benzene|flat|spectral|seed=4] epoch  10/50 loss=0.0049 H8_eval=0.1151
+[benzene|flat|spectral|seed=4] epoch  15/50 loss=0.0039 H8_eval=0.1514
+[benzene|flat|spectral|seed=4] epoch  20/50 loss=0.0024 H8_eval=0.0736
+[benzene|flat|spectral|seed=4] epoch  25/50 loss=0.0020 H8_eval=0.0734
+[benzene|flat|spectral|seed=4] epoch  30/50 loss=0.0020 H8_eval=0.0859
+[benzene|flat|spectral|seed=4] epoch  35/50 loss=0.0016 H8_eval=0.0623
+[benzene|flat|spectral|seed=4] epoch  40/50 loss=0.0012 H8_eval=0.0568
+[benzene|flat|spectral|seed=4] epoch  45/50 loss=0.0011 H8_eval=0.1326
+[benzene|flat|spectral|seed=4] epoch  50/50 loss=0.0041 H8_eval=0.1389
+[benzene|flat|spectral|seed=4] H16=0.400
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting toluene|flat|none|seed=0 ===
+[toluene|flat|none|seed=0] epoch   5/50 loss=0.0348 H8_eval=0.3318
+[toluene|flat|none|seed=0] epoch  10/50 loss=0.0225 H8_eval=0.1606
+[toluene|flat|none|seed=0] epoch  15/50 loss=0.0130 H8_eval=0.1736
+[toluene|flat|none|seed=0] epoch  20/50 loss=0.0069 H8_eval=0.0446
+[toluene|flat|none|seed=0] epoch  25/50 loss=0.0041 H8_eval=0.0389
+[toluene|flat|none|seed=0] epoch  30/50 loss=0.0027 H8_eval=0.0325
+[toluene|flat|none|seed=0] epoch  35/50 loss=0.0024 H8_eval=0.1014
+[toluene|flat|none|seed=0] epoch  40/50 loss=0.0122 H8_eval=0.1119
+[toluene|flat|none|seed=0] epoch  45/50 loss=0.0059 H8_eval=0.0845
+[toluene|flat|none|seed=0] epoch  50/50 loss=0.0034 H8_eval=0.0404
+[toluene|flat|none|seed=0] H16=0.059
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting toluene|flat|none|seed=1 ===
+[toluene|flat|none|seed=1] epoch   5/50 loss=0.0409 H8_eval=0.3828
+[toluene|flat|none|seed=1] epoch  10/50 loss=0.0244 H8_eval=0.1547
+[toluene|flat|none|seed=1] epoch  15/50 loss=0.0136 H8_eval=0.0787
+[toluene|flat|none|seed=1] epoch  20/50 loss=0.0071 H8_eval=0.0614
+[toluene|flat|none|seed=1] epoch  25/50 loss=0.0048 H8_eval=0.0495
+[toluene|flat|none|seed=1] epoch  30/50 loss=0.0029 H8_eval=0.1283
+[toluene|flat|none|seed=1] epoch  35/50 loss=0.0024 H8_eval=0.1311
+[toluene|flat|none|seed=1] epoch  40/50 loss=0.0086 H8_eval=0.2198
+[toluene|flat|none|seed=1] epoch  45/50 loss=0.0080 H8_eval=0.1951
+[toluene|flat|none|seed=1] epoch  50/50 loss=0.0035 H8_eval=0.1586
+[toluene|flat|none|seed=1] H16=1.027
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting toluene|flat|none|seed=2 ===
+[toluene|flat|none|seed=2] epoch   5/50 loss=0.0171 H8_eval=0.2117
+[toluene|flat|none|seed=2] epoch  10/50 loss=0.0116 H8_eval=0.1067
+[toluene|flat|none|seed=2] epoch  15/50 loss=0.0075 H8_eval=0.1440
+[toluene|flat|none|seed=2] epoch  20/50 loss=0.0049 H8_eval=0.0755
+[toluene|flat|none|seed=2] epoch  25/50 loss=0.0031 H8_eval=0.1378
+[toluene|flat|none|seed=2] epoch  30/50 loss=0.0022 H8_eval=0.0863
+[toluene|flat|none|seed=2] epoch  35/50 loss=0.0019 H8_eval=0.0728
+[toluene|flat|none|seed=2] epoch  40/50 loss=0.0047 H8_eval=0.1557
+[toluene|flat|none|seed=2] epoch  45/50 loss=0.0010 H8_eval=0.0507
+[toluene|flat|none|seed=2] epoch  50/50 loss=0.0010 H8_eval=0.0756
+[toluene|flat|none|seed=2] H16=0.140
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting toluene|flat|none|seed=3 ===
+[toluene|flat|none|seed=3] epoch   5/50 loss=0.0257 H8_eval=0.2581
+[toluene|flat|none|seed=3] epoch  10/50 loss=0.0166 H8_eval=0.2183
+[toluene|flat|none|seed=3] epoch  15/50 loss=0.0097 H8_eval=0.0759
+[toluene|flat|none|seed=3] epoch  20/50 loss=0.0084 H8_eval=0.2430
+[toluene|flat|none|seed=3] epoch  25/50 loss=0.0071 H8_eval=0.2168
+[toluene|flat|none|seed=3] epoch  30/50 loss=0.0029 H8_eval=0.0606
+[toluene|flat|none|seed=3] epoch  35/50 loss=0.0020 H8_eval=0.1859
+[toluene|flat|none|seed=3] epoch  40/50 loss=0.0030 H8_eval=0.2358
+[toluene|flat|none|seed=3] epoch  45/50 loss=0.0012 H8_eval=0.0552
+[toluene|flat|none|seed=3] epoch  50/50 loss=0.0010 H8_eval=0.0300
+[toluene|flat|none|seed=3] H16=0.035
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting toluene|flat|none|seed=4 ===
+[toluene|flat|none|seed=4] epoch   5/50 loss=0.0386 H8_eval=0.2463
+[toluene|flat|none|seed=4] epoch  10/50 loss=0.0205 H8_eval=0.2508
+[toluene|flat|none|seed=4] epoch  15/50 loss=0.0094 H8_eval=0.1185
+[toluene|flat|none|seed=4] epoch  20/50 loss=0.0044 H8_eval=0.0702
+[toluene|flat|none|seed=4] epoch  25/50 loss=0.0024 H8_eval=0.0745
+[toluene|flat|none|seed=4] epoch  30/50 loss=0.0090 H8_eval=0.2561
+[toluene|flat|none|seed=4] epoch  35/50 loss=0.0252 H8_eval=0.2869
+[toluene|flat|none|seed=4] epoch  40/50 loss=0.0032 H8_eval=0.1926
