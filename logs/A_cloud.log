@@ -1,0 +1,33 @@
+Verified molecules in scripts.rmd17_loader.MOLECULES: benzene, toluene, naphthalene, salicylic
+Verified npz files in /workspace/causalworld/data/rmd17_raw/rmd17/npz_data:
+  - rmd17_benzene.npz
+  - rmd17_toluene.npz
+  - rmd17_naphthalene.npz
+  - rmd17_salicylic.npz
+device=cuda (NVIDIA RTX PRO 4500 Blackwell)
+Planned runs: 4 molecules x 2 priors x 5 seeds = 40
+SKIP existing benzene|flat|none|seed=0
+SKIP existing benzene|flat|none|seed=1
+SKIP existing benzene|flat|none|seed=2
+SKIP existing benzene|flat|none|seed=3
+SKIP existing benzene|flat|none|seed=4
+SKIP existing benzene|flat|spectral|seed=0
+SKIP existing benzene|flat|spectral|seed=1
+SKIP existing benzene|flat|spectral|seed=2
+SKIP existing benzene|flat|spectral|seed=3
+SKIP existing benzene|flat|spectral|seed=4
+SKIP existing toluene|flat|none|seed=0
+SKIP existing toluene|flat|none|seed=1
+SKIP existing toluene|flat|none|seed=2
+SKIP existing toluene|flat|none|seed=3
+SKIP existing toluene|flat|none|seed=4
+SKIP existing toluene|flat|spectral|seed=0
+SKIP existing toluene|flat|spectral|seed=1
+SKIP existing toluene|flat|spectral|seed=2
+
+=== Starting toluene|flat|spectral|seed=3 ===
+[toluene|flat|spectral|seed=3] epoch   5/50 loss=0.0249 H8_eval=0.2680
+[toluene|flat|spectral|seed=3] epoch  10/50 loss=0.0229 H8_eval=0.1101
+[toluene|flat|spectral|seed=3] epoch  15/50 loss=0.0211 H8_eval=0.1116
+[toluene|flat|spectral|seed=3] epoch  20/50 loss=0.0181 H8_eval=0.0724
+[toluene|flat|spectral|seed=3] epoch  25/50 loss=0.0158 H8_eval=0.0910

@@ -7,7 +7,7 @@ from torch.utils.data import Dataset
 from torch_geometric.data import HeteroData
 
 
-DATA_ROOT = Path("/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data")
+DATA_ROOT = Path("/workspace/causalworld/data/rmd17_raw/rmd17/npz_data")
 MOLECULES = [
     "aspirin",
     "azobenzene",

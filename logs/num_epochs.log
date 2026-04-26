@@ -1,0 +1,8 @@
+device=cuda (NVIDIA RTX PRO 4500 Blackwell)
+
+=== Starting aspirin|flat|none|epochs=50|seed=0 ===
+[aspirin|flat|none|seed=0] epoch   5/50 loss=0.2011 H8_eval=0.4964
+[aspirin|flat|none|seed=0] epoch  10/50 loss=0.0952 H8_eval=0.2722
+[aspirin|flat|none|seed=0] epoch  15/50 loss=0.0479 H8_eval=0.1453
+[aspirin|flat|none|seed=0] epoch  20/50 loss=0.0282 H8_eval=0.1133
+[aspirin|flat|none|seed=0] epoch  25/50 loss=0.0201 H8_eval=0.1960

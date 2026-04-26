@@ -1,0 +1,23 @@
+device=cuda (NVIDIA RTX PRO 4500 Blackwell)
+SKIP existing aspirin|flat|spectral|graph=random|seed=0
+SKIP existing aspirin|flat|spectral|graph=random|seed=1
+SKIP existing aspirin|flat|spectral|graph=random|seed=2
+SKIP existing aspirin|flat|spectral|graph=random|seed=3
+SKIP existing aspirin|flat|spectral|graph=random|seed=4
+SKIP existing aspirin|flat|spectral|graph=complete|seed=0
+SKIP existing aspirin|flat|spectral|graph=complete|seed=1
+SKIP existing aspirin|flat|spectral|graph=complete|seed=2
+SKIP existing aspirin|flat|spectral|graph=complete|seed=3
+SKIP existing aspirin|flat|spectral|graph=complete|seed=4
+SKIP existing aspirin|flat|spectral|graph=identity|seed=0
+SKIP existing aspirin|flat|spectral|graph=identity|seed=1
+SKIP existing aspirin|flat|spectral|graph=identity|seed=2
+SKIP existing aspirin|flat|spectral|graph=identity|seed=3
+
+=== Starting aspirin|flat|spectral|graph=identity|seed=4 ===
+[aspirin|flat|spectral|seed=4] epoch   5/50 loss=0.0129 H8_eval=0.0622
+[aspirin|flat|spectral|seed=4] epoch  10/50 loss=0.0080 H8_eval=0.0537
+[aspirin|flat|spectral|seed=4] epoch  15/50 loss=0.0080 H8_eval=0.0549
+[aspirin|flat|spectral|seed=4] epoch  20/50 loss=0.0078 H8_eval=0.0872
+[aspirin|flat|spectral|seed=4] epoch  25/50 loss=0.0075 H8_eval=0.0699
+[aspirin|flat|spectral|seed=4] epoch  30/50 loss=0.0072 H8_eval=0.0773
