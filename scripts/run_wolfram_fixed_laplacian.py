@@ -57,6 +57,15 @@ def make_payload() -> dict[str, Any]:
     }
 
 
+def load_payload() -> dict[str, Any]:
+    if not OUTPUT_JSON.exists():
+        return make_payload()
+    with OUTPUT_JSON.open("r", encoding="utf-8") as file:
+        payload = json.load(file)
+    payload.setdefault("results", {})
+    return payload
+
+
 def save_payload(payload: dict[str, Any]) -> None:
     tmp_path = OUTPUT_JSON.with_suffix(".json.tmp")
     with tmp_path.open("w", encoding="utf-8") as file:
@@ -149,11 +158,15 @@ def build_datasets(seed: int) -> tuple[list[dict[str, Any]], list[dict[str, Any]
 
 def main() -> None:
     device = require_cuda()
-    payload = make_payload()
-    save_payload(payload)
+    payload = load_payload()
 
     for mode in LAPLACIAN_MODES:
         for seed in SEEDS:
+            key = make_key(mode, seed)
+            if key in payload["results"]:
+                print(f"SKIP existing {key}", flush=True)
+                continue
+
             train_transitions, eval_episodes = build_datasets(seed)
             config = Config(
                 encoder=ENCODER,
@@ -173,7 +186,6 @@ def main() -> None:
             )
             wall_time_sec = time.time() - start_time
 
-            key = make_key(mode, seed)
             payload["results"][key] = {
                 "rollout_errors": {
                     str(horizon): rollout_errors[horizon]
