@@ -1,0 +1,10 @@
+Verified ISO17 train source: ISO17Trajectory(split='reference', isomer='all', n_frames=404000, n_atoms=19, source='/workspace/causalworld/data/iso17_raw/iso17/reference.db', cutoff=5.0)
+Verified ISO17 eval source:  ISO17Trajectory(split='test_within', isomer='all', n_frames=101000, n_atoms=19, source='/workspace/causalworld/data/iso17_raw/iso17/test_within.db', cutoff=5.0)
+Verified ISO17 eval source:  ISO17Trajectory(split='test_other', isomer='all', n_frames=130000, n_atoms=19, source='/workspace/causalworld/data/iso17_raw/iso17/test_other.db', cutoff=5.0)
+device=cuda (NVIDIA RTX PRO 4500 Blackwell)
+Planned runs: 3 priors x 5 seeds = 15
+
+=== Starting iso17|reference|none|seed=0 ===
+[iso17:reference->test_within|flat|none|seed=0] epoch   5/50 loss=0.0812 H8_eval=0.2145
+[iso17:reference->test_within|flat|none|seed=0] epoch  10/50 loss=0.0610 H8_eval=0.2524
+[iso17:reference->test_within|flat|none|seed=0] epoch  15/50 loss=0.0473 H8_eval=0.3133
