@@ -20,3 +20,17 @@ device=cuda (NVIDIA RTX PRO 4500 Blackwell)
 [aspirin|flat|none|seed=1] epoch  20/50 loss=0.0258 H8_eval=0.2794
 [aspirin|flat|none|seed=1] epoch  25/50 loss=0.0192 H8_eval=0.2910
 [aspirin|flat|none|seed=1] epoch  30/50 loss=0.0504 H8_eval=0.3632
+[aspirin|flat|none|seed=1] epoch  35/50 loss=0.0189 H8_eval=0.2037
+[aspirin|flat|none|seed=1] epoch  40/50 loss=0.0420 H8_eval=0.3977
+[aspirin|flat|none|seed=1] epoch  45/50 loss=0.0111 H8_eval=0.1975
+[aspirin|flat|none|seed=1] epoch  50/50 loss=0.1004 H8_eval=0.4039
+  -> saved partial results to rmd17_num_epochs_ablation.json
+
+=== Starting aspirin|flat|none|epochs=50|seed=2 ===
+[aspirin|flat|none|seed=2] epoch   5/50 loss=0.0896 H8_eval=0.2287
+[aspirin|flat|none|seed=2] epoch  10/50 loss=0.0448 H8_eval=0.2053
+[aspirin|flat|none|seed=2] epoch  15/50 loss=0.0322 H8_eval=0.1773
+[aspirin|flat|none|seed=2] epoch  20/50 loss=0.0210 H8_eval=0.1711
+[aspirin|flat|none|seed=2] epoch  25/50 loss=0.0164 H8_eval=0.2172
+[aspirin|flat|none|seed=2] epoch  30/50 loss=0.0091 H8_eval=0.1142
+[aspirin|flat|none|seed=2] epoch  35/50 loss=0.0236 H8_eval=0.6764

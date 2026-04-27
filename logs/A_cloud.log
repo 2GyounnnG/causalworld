@@ -46,3 +46,19 @@ SKIP existing toluene|flat|spectral|seed=2
 [toluene|flat|spectral|seed=4] epoch  20/50 loss=0.0092 H8_eval=0.0714
 [toluene|flat|spectral|seed=4] epoch  25/50 loss=0.0081 H8_eval=0.1099
 [toluene|flat|spectral|seed=4] epoch  30/50 loss=0.0188 H8_eval=0.4268
+[toluene|flat|spectral|seed=4] epoch  35/50 loss=0.0048 H8_eval=0.0618
+[toluene|flat|spectral|seed=4] epoch  40/50 loss=0.0039 H8_eval=0.0508
+[toluene|flat|spectral|seed=4] epoch  45/50 loss=0.0030 H8_eval=0.0393
+[toluene|flat|spectral|seed=4] epoch  50/50 loss=0.0023 H8_eval=0.0470
+[toluene|flat|spectral|seed=4] H16=0.103
+  -> saved partial results to rmd17_extended_molecules.json
+
+=== Starting naphthalene|flat|none|seed=0 ===
+[naphthalene|flat|none|seed=0] epoch   5/50 loss=0.0526 H8_eval=0.2498
+[naphthalene|flat|none|seed=0] epoch  10/50 loss=0.0349 H8_eval=0.2904
+[naphthalene|flat|none|seed=0] epoch  15/50 loss=0.0184 H8_eval=0.1135
+[naphthalene|flat|none|seed=0] epoch  20/50 loss=0.0091 H8_eval=0.0956
+[naphthalene|flat|none|seed=0] epoch  25/50 loss=0.0051 H8_eval=0.0696
+[naphthalene|flat|none|seed=0] epoch  30/50 loss=0.0031 H8_eval=0.0473
+[naphthalene|flat|none|seed=0] epoch  35/50 loss=0.0021 H8_eval=0.0595
+[naphthalene|flat|none|seed=0] epoch  40/50 loss=0.0100 H8_eval=0.0853
