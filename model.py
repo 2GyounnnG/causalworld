@@ -149,7 +149,44 @@ class FlatMLPEncoder(nn.Module):
         return f"FlatMLPEncoder(hidden={self.hidden_dim}, latent={self.latent_dim})"
 
 
-# 3. CausalGraphEncoder
+# 3. MLPEncoder
+class MLPEncoder(nn.Module):
+    def __init__(
+        self,
+        n_atoms: int,
+        hidden_dim: int = 128,
+        latent_dim: int = 32,
+    ):
+        super().__init__()
+        if n_atoms <= 0:
+            raise ValueError(f"n_atoms must be positive, got {n_atoms}")
+        self.n_atoms = int(n_atoms)
+        self.hidden_dim = hidden_dim
+        self.latent_dim = latent_dim
+        self.mlp = nn.Sequential(
+            nn.Linear(self.n_atoms * 3, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, latent_dim),
+        )
+
+    def forward(self, data: HeteroData) -> Tensor:
+        pos = data["atom"].pos
+        assert pos.shape == (
+            self.n_atoms,
+            3,
+        ), f"expected atom positions with shape ({self.n_atoms}, 3), got {tuple(pos.shape)}"
+        return self.mlp(pos.flatten())
+
+    def __repr__(self) -> str:
+        return (
+            f"MLPEncoder(n_atoms={self.n_atoms}, hidden={self.hidden_dim}, "
+            f"latent={self.latent_dim})"
+        )
+
+
+# 4. CausalGraphEncoder
 class CausalGraphEncoder(nn.Module):
     """Encode event-causal graph statistics into a latent vector."""
 
@@ -200,7 +237,7 @@ class CausalGraphEncoder(nn.Module):
         return f"CausalGraphEncoder(hidden={self.hidden_dim}, latent={self.latent_dim})"
 
 
-# 4. TransitionNetwork
+# 5. TransitionNetwork
 class TransitionNetwork(nn.Module):
     """Predict the next latent state and reward from latent state plus action."""
 
@@ -273,7 +310,7 @@ class TransitionNetwork(nn.Module):
         )
 
 
-# 5. Regularizers
+# 6. Regularizers
 def latent_l2_regularizer(latent: Tensor) -> Tensor:
     """Encourage compact latent codes."""
 
@@ -360,7 +397,7 @@ def build_causal_laplacian(causal_graph: nx.DiGraph, latent_dim: int) -> Tensor:
     return torch.from_numpy(L_out)
 
 
-# 6. WorldModel wrapper
+# 7. WorldModel wrapper
 class WorldModel(nn.Module):
     def __init__(
         self,
@@ -369,6 +406,8 @@ class WorldModel(nn.Module):
         latent_dim: int = 32,
         action_dim: int = 1,
         transition_hidden_dim: int = 128,
+        mlp_hidden_dim: int = 128,
+        n_atoms: int | None = None,
     ):
         super().__init__()
         self.encoder_name = encoder
@@ -379,8 +418,16 @@ class WorldModel(nn.Module):
             self.encoder = HypergraphEncoder(hidden_dim, latent_dim)
         elif encoder == "flat":
             self.encoder = FlatMLPEncoder(hidden_dim, latent_dim)
+        elif encoder == "mlp":
+            if n_atoms is None:
+                raise ValueError("n_atoms must be provided when encoder='mlp'")
+            self.encoder = MLPEncoder(
+                n_atoms=n_atoms,
+                hidden_dim=mlp_hidden_dim,
+                latent_dim=latent_dim,
+            )
         else:
-            raise ValueError("encoder must be either 'hypergraph' or 'flat'")
+            raise ValueError("encoder must be one of 'hypergraph', 'flat', or 'mlp'")
 
         self.transition = TransitionNetwork(
             latent_dim=latent_dim,

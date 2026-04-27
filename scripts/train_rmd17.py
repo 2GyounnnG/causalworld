@@ -97,6 +97,7 @@ def build_graph_source_laplacian(
 def adapt_obs_for_world_model(obs: HeteroData) -> HeteroData:
     """Map atom/bonded graphs into the node/hyperedge schema expected by WorldModel."""
     data = HeteroData()
+    data["atom"].pos = obs["atom"].pos
     atomic_numbers = obs["atom"].atomic_number.view(-1, 1).to(dtype=torch.float32)
     data["node"].x = atomic_numbers
     data["node"].node_id = torch.arange(atomic_numbers.shape[0], dtype=torch.long)
@@ -154,6 +155,7 @@ class Config:
     prior_weight: float = 0.1
     latent_dim: int = 16
     hidden_dim: int = 32
+    mlp_hidden_dim: int = 128
     n_transitions: int = 2000
     stride: int = 10
     horizon: int = 1
@@ -170,6 +172,14 @@ class Config:
     save_frame_indices: bool = True
     disjoint_eval: bool = False
     eval_n_transitions: int = 200
+
+
+def infer_model_n_atoms(config: Config, transitions: list[dict] | None = None) -> int | None:
+    if config.encoder != "mlp":
+        return None
+    if transitions:
+        return int(transitions[0]["obs"]["atom"].pos.shape[0])
+    return int(RMD17Trajectory(config.molecule).n_atoms)
 
 
 def get_git_commit() -> str:
@@ -314,6 +324,8 @@ def load_checkpoint_model(path: str | Path, device: torch.device | str | None = 
         latent_dim=config.latent_dim,
         action_dim=1,
         transition_hidden_dim=config.transition_hidden_dim,
+        mlp_hidden_dim=config.mlp_hidden_dim,
+        n_atoms=infer_model_n_atoms(config),
     ).to(target_device)
     model.load_state_dict(checkpoint["model_state_dict"])
     model.eval()
@@ -469,6 +481,8 @@ def train_one_seed(config: Config) -> Dict:
         latent_dim=config.latent_dim,
         action_dim=1,
         transition_hidden_dim=config.transition_hidden_dim,
+        mlp_hidden_dim=config.mlp_hidden_dim,
+        n_atoms=infer_model_n_atoms(config, transitions),
     ).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=config.lr)
     action_zero = torch.zeros(1, dtype=torch.float32, device=device)
