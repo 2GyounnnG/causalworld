@@ -18,7 +18,7 @@ SPLITS = ("reference", "test_within", "test_other")
 POSITION_KEYS = ("positions", "coords", "coordinates", "R", "x")
 ATOMIC_NUMBER_KEYS = ("atomic_numbers", "nuclear_charges", "numbers", "z", "Z")
 ENERGY_KEYS = ("energies", "energy", "E", "e", "total_energy")
-FORCE_KEYS = ("forces", "F", "f")
+FORCE_KEYS = ("atomic_forces", "forces", "F", "f")
 ISOMER_KEYS = ("isomer", "isomer_id", "isomer_ids", "molecule", "molecule_id", "mol_id")
 
 
