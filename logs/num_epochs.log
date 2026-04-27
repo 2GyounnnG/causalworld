@@ -76,3 +76,16 @@ device=cuda (NVIDIA RTX PRO 4500 Blackwell)
 [aspirin|flat|none|seed=0] epoch  40/100 loss=0.0090 H8_eval=0.2045
 [aspirin|flat|none|seed=0] epoch  45/100 loss=0.0134 H8_eval=0.1212
 [aspirin|flat|none|seed=0] epoch  50/100 loss=0.0078 H8_eval=0.1121
+[aspirin|flat|none|seed=0] epoch  55/100 loss=0.0288 H8_eval=0.2586
+[aspirin|flat|none|seed=0] epoch  60/100 loss=0.0538 H8_eval=0.3626
+[aspirin|flat|none|seed=0] epoch  65/100 loss=0.0179 H8_eval=0.1208
+[aspirin|flat|none|seed=0] epoch  70/100 loss=0.0101 H8_eval=0.1504
+[aspirin|flat|none|seed=0] epoch  75/100 loss=0.0062 H8_eval=0.0772
+[aspirin|flat|none|seed=0] epoch  80/100 loss=0.0166 H8_eval=0.2716
+[aspirin|flat|none|seed=0] epoch  85/100 loss=0.0082 H8_eval=0.0903
+[aspirin|flat|none|seed=0] epoch  90/100 loss=0.0053 H8_eval=0.0997
+[aspirin|flat|none|seed=0] epoch  95/100 loss=0.0052 H8_eval=0.1191
+[aspirin|flat|none|seed=0] epoch 100/100 loss=0.0630 H8_eval=0.2215
+  -> saved partial results to rmd17_num_epochs_ablation.json
+
+=== Starting aspirin|flat|none|epochs=100|seed=1 ===

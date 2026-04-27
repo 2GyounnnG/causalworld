@@ -80,3 +80,15 @@ device=cuda (NVIDIA RTX PRO 4500 Blackwell)
 
 === Starting aspirin|flat|none|dim=16|seed=1 ===
 [aspirin|flat|none|seed=1] epoch   5/50 loss=0.2372 H8_eval=0.6208
+[aspirin|flat|none|seed=1] epoch  10/50 loss=0.1066 H8_eval=0.2823
+[aspirin|flat|none|seed=1] epoch  15/50 loss=0.0481 H8_eval=0.2401
+[aspirin|flat|none|seed=1] epoch  20/50 loss=0.0258 H8_eval=0.2794
+[aspirin|flat|none|seed=1] epoch  25/50 loss=0.0192 H8_eval=0.2910
+[aspirin|flat|none|seed=1] epoch  30/50 loss=0.0504 H8_eval=0.3632
+[aspirin|flat|none|seed=1] epoch  35/50 loss=0.0189 H8_eval=0.2037
+[aspirin|flat|none|seed=1] epoch  40/50 loss=0.0420 H8_eval=0.3977
+[aspirin|flat|none|seed=1] epoch  45/50 loss=0.0111 H8_eval=0.1975
+[aspirin|flat|none|seed=1] epoch  50/50 loss=0.1004 H8_eval=0.4039
+  -> saved partial results to rmd17_latent_dim_ablation.json
+
+=== Starting aspirin|flat|none|dim=16|seed=2 ===

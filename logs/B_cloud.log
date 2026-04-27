@@ -127,3 +127,20 @@ SKIP existing aspirin|flat|spectral|graph=identity|seed=3
   -> saved partial results to rmd17_prior_attribution.json
 
 === Starting ethanol|flat|spectral|graph=complete|seed=2 ===
+[ethanol|flat|spectral|seed=2] epoch   5/50 loss=0.0006 H8_eval=0.0187
+[ethanol|flat|spectral|seed=2] epoch  10/50 loss=0.0005 H8_eval=0.0036
+[ethanol|flat|spectral|seed=2] epoch  15/50 loss=0.0003 H8_eval=0.0197
+[ethanol|flat|spectral|seed=2] epoch  20/50 loss=0.0003 H8_eval=0.0033
+[ethanol|flat|spectral|seed=2] epoch  25/50 loss=0.0002 H8_eval=0.0004
+[ethanol|flat|spectral|seed=2] epoch  30/50 loss=0.0002 H8_eval=0.0070
+[ethanol|flat|spectral|seed=2] epoch  35/50 loss=0.0002 H8_eval=0.0079
+[ethanol|flat|spectral|seed=2] epoch  40/50 loss=0.0001 H8_eval=0.1087
+[ethanol|flat|spectral|seed=2] epoch  45/50 loss=0.0001 H8_eval=0.0005
+[ethanol|flat|spectral|seed=2] epoch  50/50 loss=0.0001 H8_eval=0.0024
+[ethanol|graph=complete|seed=2] H16=0.006
+  -> saved partial results to rmd17_prior_attribution.json
+
+=== Starting ethanol|flat|spectral|graph=complete|seed=3 ===
+[ethanol|flat|spectral|seed=3] epoch   5/50 loss=0.0007 H8_eval=0.0017
+[ethanol|flat|spectral|seed=3] epoch  10/50 loss=0.0008 H8_eval=0.0407
+[ethanol|flat|spectral|seed=3] epoch  15/50 loss=0.0005 H8_eval=0.0000
