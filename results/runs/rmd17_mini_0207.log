@@ -1,0 +1,66 @@
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+
+=== Starting prior=none seed=0 (1/14) ===
+[aspirin|flat|none|seed=0] epoch   1/5 loss=1.3552 H8_eval=2.7172
+[aspirin|flat|none|seed=0] epoch   5/5 loss=0.3197 H8_eval=0.5236
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=none seed=1 (2/14) ===
+[aspirin|flat|none|seed=1] epoch   1/5 loss=1.7417 H8_eval=3.3706
+[aspirin|flat|none|seed=1] epoch   5/5 loss=0.3816 H8_eval=0.6660
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=variance seed=0 (3/14) ===
+[aspirin|flat|variance|seed=0] epoch   1/5 loss=1.4056 H8_eval=2.7172
+[aspirin|flat|variance|seed=0] epoch   5/5 loss=0.3731 H8_eval=0.5326
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=variance seed=1 (4/14) ===
+[aspirin|flat|variance|seed=1] epoch   1/5 loss=1.7861 H8_eval=3.3718
+[aspirin|flat|variance|seed=1] epoch   5/5 loss=0.4321 H8_eval=0.6732
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=covariance seed=0 (5/14) ===
+[aspirin|flat|euclidean|seed=0] epoch   1/5 loss=1.7808 H8_eval=2.7124
+[aspirin|flat|euclidean|seed=0] epoch   5/5 loss=0.7093 H8_eval=0.4992
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=covariance seed=1 (6/14) ===
+[aspirin|flat|euclidean|seed=1] epoch   1/5 loss=2.2014 H8_eval=3.3646
+[aspirin|flat|euclidean|seed=1] epoch   5/5 loss=0.7853 H8_eval=0.6264
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=sigreg seed=0 (7/14) ===
+[aspirin|flat|sigreg|seed=0] epoch   1/5 loss=1.6429 H8_eval=2.7263
+[aspirin|flat|sigreg|seed=0] epoch   5/5 loss=0.6028 H8_eval=0.5215
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=sigreg seed=1 (8/14) ===
+[aspirin|flat|sigreg|seed=1] epoch   1/5 loss=2.0238 H8_eval=3.3523
+[aspirin|flat|sigreg|seed=1] epoch   5/5 loss=0.6682 H8_eval=0.6850
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=spectral seed=0 (9/14) ===
+[aspirin|flat|spectral|seed=0] epoch   1/5 loss=245.8161 H8_eval=1.9492
+[aspirin|flat|spectral|seed=0] epoch   5/5 loss=6.9512 H8_eval=0.2330
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=spectral seed=1 (10/14) ===
+[aspirin|flat|spectral|seed=1] epoch   1/5 loss=363.4473 H8_eval=3.2781
+[aspirin|flat|spectral|seed=1] epoch   5/5 loss=2.0976 H8_eval=0.2317
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=permuted_spectral seed=0 (11/14) ===
+Traceback (most recent call last):
+  File "/home/user/projects/causalworld/scripts/run_rmd17_mini_real_test.py", line 102, in <module>
+    main()
+  File "/home/user/projects/causalworld/scripts/run_rmd17_mini_real_test.py", line 68, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/projects/causalworld/scripts/train_rmd17.py", line 602, in train_one_seed
+    permuted = permuted_laplacian(base_laplacian, generator=control_generator)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/projects/causalworld/model.py", line 516, in permuted_laplacian
+    permutation = torch.randperm(latent_dim, device=L.device, generator=generator)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected a 'cuda' device type for generator but found 'cpu'

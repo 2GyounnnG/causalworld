@@ -1,0 +1,88 @@
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+
+=== Starting prior=none seed=0 (1/14) ===
+[aspirin|flat|none|seed=0] epoch   1/5 loss=1.3552 H8_eval=2.7172
+[aspirin|flat|none|seed=0] epoch   5/5 loss=0.3197 H8_eval=0.5236
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=none seed=1 (2/14) ===
+[aspirin|flat|none|seed=1] epoch   1/5 loss=1.7417 H8_eval=3.3706
+[aspirin|flat|none|seed=1] epoch   5/5 loss=0.3816 H8_eval=0.6660
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=variance seed=0 (3/14) ===
+[aspirin|flat|variance|seed=0] epoch   1/5 loss=1.4056 H8_eval=2.7172
+[aspirin|flat|variance|seed=0] epoch   5/5 loss=0.3731 H8_eval=0.5326
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=variance seed=1 (4/14) ===
+[aspirin|flat|variance|seed=1] epoch   1/5 loss=1.7861 H8_eval=3.3718
+[aspirin|flat|variance|seed=1] epoch   5/5 loss=0.4321 H8_eval=0.6732
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=covariance seed=0 (5/14) ===
+[aspirin|flat|euclidean|seed=0] epoch   1/5 loss=1.7808 H8_eval=2.7124
+[aspirin|flat|euclidean|seed=0] epoch   5/5 loss=0.7093 H8_eval=0.4992
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=covariance seed=1 (6/14) ===
+[aspirin|flat|euclidean|seed=1] epoch   1/5 loss=2.2014 H8_eval=3.3646
+[aspirin|flat|euclidean|seed=1] epoch   5/5 loss=0.7853 H8_eval=0.6264
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=sigreg seed=0 (7/14) ===
+[aspirin|flat|sigreg|seed=0] epoch   1/5 loss=1.6429 H8_eval=2.7263
+[aspirin|flat|sigreg|seed=0] epoch   5/5 loss=0.6028 H8_eval=0.5215
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=sigreg seed=1 (8/14) ===
+[aspirin|flat|sigreg|seed=1] epoch   1/5 loss=2.0238 H8_eval=3.3523
+[aspirin|flat|sigreg|seed=1] epoch   5/5 loss=0.6682 H8_eval=0.6850
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=spectral seed=0 (9/14) ===
+[aspirin|flat|spectral|seed=0] epoch   1/5 loss=245.8161 H8_eval=1.9492
+[aspirin|flat|spectral|seed=0] epoch   5/5 loss=6.9512 H8_eval=0.2330
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=spectral seed=1 (10/14) ===
+[aspirin|flat|spectral|seed=1] epoch   1/5 loss=363.4473 H8_eval=3.2781
+[aspirin|flat|spectral|seed=1] epoch   5/5 loss=2.0976 H8_eval=0.2317
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=permuted_spectral seed=0 (11/14) ===
+[aspirin|flat|permuted_spectral|seed=0] epoch   1/5 loss=239.9575 H8_eval=1.8780
+[aspirin|flat|permuted_spectral|seed=0] epoch   5/5 loss=6.1275 H8_eval=0.2049
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=permuted_spectral seed=1 (12/14) ===
+[aspirin|flat|permuted_spectral|seed=1] epoch   1/5 loss=344.4550 H8_eval=2.8230
+[aspirin|flat|permuted_spectral|seed=1] epoch   5/5 loss=1.5945 H8_eval=0.2373
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=random_spectral seed=0 (13/14) ===
+[aspirin|flat|random_spectral|seed=0] epoch   1/5 loss=1276.5014 H8_eval=1.8370
+[aspirin|flat|random_spectral|seed=0] epoch   5/5 loss=19.5474 H8_eval=0.2424
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Starting prior=random_spectral seed=1 (14/14) ===
+[aspirin|flat|random_spectral|seed=1] epoch   1/5 loss=1768.1243 H8_eval=2.8292
+[aspirin|flat|random_spectral|seed=1] epoch   5/5 loss=7.4118 H8_eval=0.1823
+  -> saved partial results to rmd17_mini_real_test.json
+
+=== Summary ===
+prior              seed       H=1      H=8     H=16    r_eff     cond proj_gauss spec_align
+none               0       0.4126   0.5332   0.7130     1.00 2041206669312.00       0.39        nan
+none               1       0.4764   0.6808   1.2268     1.00 2173076111360.00       0.52        nan
+variance           0       0.4161   0.5454   0.7379     1.00 2076475392000.00       0.39        nan
+variance           1       0.4794   0.6881   1.2418     1.00 2199707189248.00       0.52        nan
+covariance         0       0.3957   0.5000   0.6577     1.00 1876376813568.00       0.39        nan
+covariance         1       0.4545   0.6404   1.1445     1.00 1977134481408.00       1.24        nan
+sigreg             0       0.4133   0.5312   0.7175     1.00 2050359296000.00       0.39        nan
+sigreg             1       0.4784   0.6999   1.3184     1.00 2191814950912.00       0.52        nan
+spectral           0       0.1232   0.2311   0.4267     1.00 172652150784.00       0.39       0.17
+spectral           1       0.0940   0.2344   0.5209     1.00 75349254144.00       0.52       0.11
+permuted_spectral  0       0.1200   0.1972   0.3256     1.00 163864166400.00       0.39       0.14
+permuted_spectral  1       0.0607   0.2368   0.4837     1.01 26754637824.00       0.59       0.11
+random_spectral    0       0.1489   0.2416   0.4393     1.00 257058062336.00       0.39       0.16
+random_spectral    1       0.0593   0.1824   0.3503     1.01 28036737024.00       0.54       0.10
