@@ -20,7 +20,14 @@ import torch
 from torch_geometric.data import Batch, HeteroData
 
 from hypergraph_env import CausalWorldEnv, HypergraphState, RewriteRule
-from model import WorldModel, build_causal_laplacian
+from model import (
+    WorldModel,
+    build_causal_laplacian,
+    permuted_laplacian,
+    random_laplacian,
+    sigreg_gauss_penalty,
+    variance_only_penalty,
+)
 
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -40,6 +47,15 @@ class Config:
     lr: float = 1e-3
     seed: int = 0
     laplacian_mode: str = "per_step"
+    variance_gamma: float = 1.0
+    sigreg_num_slices: int = 8
+    sigreg_sigma: float = 1.0
+    control_edge_density: float = 0.3
+    control_seed_offset: int = 1000
+
+    def __post_init__(self) -> None:
+        if self.prior == "covariance":
+            self.prior = "euclidean"
 
 
 def set_seed(seed: int) -> None:
@@ -302,7 +318,10 @@ def _build_fixed_laplacian(
     train_transitions: List[dict],
     device: torch.device,
 ) -> torch.Tensor | None:
-    if config.prior != "spectral" or config.laplacian_mode == "per_step":
+    if (
+        config.prior not in {"spectral", "permuted_spectral", "random_spectral"}
+        or config.laplacian_mode == "per_step"
+    ):
         return None
 
     if not train_transitions:
@@ -348,6 +367,11 @@ def train_one(
 
     set_seed(config.seed)
     fixed_laplacian = _build_fixed_laplacian(config, train_transitions, device)
+    control_generator = None
+    if config.prior in {"permuted_spectral", "random_spectral"}:
+        generator_device = device.type if device.type == "cuda" else "cpu"
+        control_generator = torch.Generator(device=generator_device)
+        control_generator.manual_seed(config.seed + config.control_seed_offset)
     model = WorldModel(
         encoder=config.encoder,
         hidden_dim=config.hidden_dim,
@@ -389,7 +413,10 @@ def train_one(
         device=device,
     )
     per_step_laplacians = None
-    if config.prior == "spectral" and config.laplacian_mode == "per_step":
+    if (
+        config.prior in {"spectral", "permuted_spectral", "random_spectral"}
+        and config.laplacian_mode == "per_step"
+    ):
         per_step_laplacians = torch.stack(
             [
                 build_causal_laplacian(transition["causal_graph"], config.latent_dim)
@@ -461,8 +488,85 @@ def train_one(
                 )
                 total = loss_dict["total"]
                 prior_loss = total.new_tensor(0.0)
+            elif config.prior == "variance":
+                loss_dict = model.loss(
+                    obs,
+                    action,
+                    next_obs,
+                    reward,
+                    done,
+                    prior="none",
+                    prior_weight=0.0,
+                )
+                latent_t = model.encode(obs)
+                prior_loss = variance_only_penalty(
+                    z_batch=latent_t,
+                    gamma=config.variance_gamma,
+                )
+                total = loss_dict["total"] + config.prior_weight * prior_loss
+            elif config.prior == "sigreg":
+                loss_dict = model.loss(
+                    obs,
+                    action,
+                    next_obs,
+                    reward,
+                    done,
+                    prior="none",
+                    prior_weight=0.0,
+                )
+                latent_t = model.encode(obs)
+                prior_loss = sigreg_gauss_penalty(
+                    z_batch=latent_t,
+                    num_slices=config.sigreg_num_slices,
+                    sigma=config.sigreg_sigma,
+                )
+                total = loss_dict["total"] + config.prior_weight * prior_loss
+            elif config.prior == "permuted_spectral":
+                assert control_generator is not None
+                if config.laplacian_mode == "per_step":
+                    assert per_step_laplacians is not None
+                    laplacian = per_step_laplacians.index_select(0, idx)
+                else:
+                    laplacian = fixed_laplacian
+                laplacian = permuted_laplacian(laplacian, generator=control_generator)
+                loss_dict = model.loss(
+                    obs,
+                    action,
+                    next_obs,
+                    reward,
+                    done,
+                    prior="spectral",
+                    prior_weight=config.prior_weight,
+                    laplacian=laplacian,
+                )
+                total = loss_dict["total"]
+                prior_loss = loss_dict["prior"]
+            elif config.prior == "random_spectral":
+                assert control_generator is not None
+                laplacian = random_laplacian(
+                    config.latent_dim,
+                    config.control_edge_density,
+                    device=device,
+                    dtype=action.dtype,
+                    generator=control_generator,
+                )
+                loss_dict = model.loss(
+                    obs,
+                    action,
+                    next_obs,
+                    reward,
+                    done,
+                    prior="spectral",
+                    prior_weight=config.prior_weight,
+                    laplacian=laplacian,
+                )
+                total = loss_dict["total"]
+                prior_loss = loss_dict["prior"]
             else:
-                raise ValueError("prior must be one of 'none', 'euclidean', or 'spectral'")
+                raise ValueError(
+                    "prior must be one of 'none', 'euclidean', 'spectral', "
+                    "'variance', 'sigreg', 'permuted_spectral', or 'random_spectral'"
+                )
 
             total.backward()
             optimizer.step()
@@ -657,6 +761,12 @@ def run_experiment(
     batch_size_override: int | None = None,
     device_name: str = "auto",
     env_profile: str = "minimal",
+    prior: str | None = None,
+    variance_gamma: float = 1.0,
+    sigreg_num_slices: int = 8,
+    sigreg_sigma: float = 1.0,
+    control_edge_density: float = 0.3,
+    control_seed_offset: int = 1000,
 ) -> Dict[str, Dict[str, List[float]]]:
     global DEVICE
     selected_device = select_device(device_name)
@@ -689,11 +799,17 @@ def run_experiment(
     batch_size = batch_size_override if batch_size_override is not None else 32
 
     encoders = ["hypergraph", "flat"]
-    priors = ["none", "euclidean", "spectral"]
+    if prior == "covariance":
+        prior = "euclidean"
+    priors = [prior] if prior is not None else ["none", "euclidean", "spectral"]
     prior_weights = {
         "none": 0.0,
         "euclidean": 1e-2,
         "spectral": 1e-2,
+        "variance": 1e-2,
+        "sigreg": 1e-2,
+        "permuted_spectral": 1e-2,
+        "random_spectral": 1e-2,
     }
     results = {
         f"{encoder}|{prior}": {str(horizon): [] for horizon in HORIZONS}
@@ -735,6 +851,11 @@ def run_experiment(
                     num_epochs=num_epochs,
                     batch_size=batch_size,
                     seed=current_seed,
+                    variance_gamma=variance_gamma,
+                    sigreg_num_slices=sigreg_num_slices,
+                    sigreg_sigma=sigreg_sigma,
+                    control_edge_density=control_edge_density,
+                    control_seed_offset=control_seed_offset,
                 )
                 _, eval_episodes_cached, train_transitions_cached = data_cache[current_seed]
                 model, _ = train_one(
@@ -800,6 +921,24 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int)
     parser.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     parser.add_argument("--env-profile", choices=["minimal", "branching"], default="minimal")
+    parser.add_argument(
+        "--prior",
+        choices=[
+            "none",
+            "euclidean",
+            "spectral",
+            "variance",
+            "covariance",
+            "sigreg",
+            "permuted_spectral",
+            "random_spectral",
+        ],
+    )
+    parser.add_argument("--variance-gamma", type=float, default=1.0)
+    parser.add_argument("--sigreg-num-slices", type=int, default=8)
+    parser.add_argument("--sigreg-sigma", type=float, default=1.0)
+    parser.add_argument("--control-edge-density", type=float, default=0.3)
+    parser.add_argument("--control-seed-offset", type=int, default=1000)
     args = parser.parse_args()
     run_experiment(
         smoke=args.smoke,
@@ -811,6 +950,12 @@ def main() -> None:
         batch_size_override=args.batch_size,
         device_name=args.device,
         env_profile=args.env_profile,
+        prior=args.prior,
+        variance_gamma=args.variance_gamma,
+        sigreg_num_slices=args.sigreg_num_slices,
+        sigreg_sigma=args.sigreg_sigma,
+        control_edge_density=args.control_edge_density,
+        control_seed_offset=args.control_seed_offset,
     )
 
 

@@ -462,6 +462,83 @@ def spectral_laplacian_penalty(z_batch: Tensor, L: Tensor) -> Tensor:
     return (z_batch @ L * z_batch).sum(dim=-1).mean()
 
 
+def variance_only_penalty(z_batch: Tensor, gamma: float = 1.0) -> Tensor:
+    if z_batch.dim() == 1:
+        z_batch = z_batch.unsqueeze(0)
+    sigma = torch.sqrt(z_batch.var(dim=0, unbiased=False) + 1e-4)
+    return F.relu(gamma - sigma).pow(2).mean()
+
+
+def sigreg_gauss_penalty(
+    z_batch: Tensor,
+    num_slices: int = 8,
+    sigma: float = 1.0,
+) -> Tensor:
+    if z_batch.dim() == 1:
+        z_batch = z_batch.unsqueeze(0)
+    B, D = z_batch.shape
+    if B == 0 or num_slices <= 0:
+        return z_batch.new_tensor(0.0)
+
+    directions = torch.randn(
+        num_slices,
+        D,
+        device=z_batch.device,
+        dtype=z_batch.dtype,
+    )
+    directions = directions / directions.norm(dim=1, keepdim=True).clamp_min(1e-12)
+    projected = z_batch @ directions.T
+    t = torch.linspace(-3.0, 3.0, 16, device=z_batch.device, dtype=z_batch.dtype)
+    target_cf = torch.exp(-0.5 * t.pow(2))
+    weights = torch.exp(-t.pow(2) / (sigma ** 2))
+    dt = t[1] - t[0] if t.numel() > 1 else t.new_tensor(1.0)
+
+    losses = []
+    target_cf_complex = target_cf.to(torch.complex64)
+    for s in projected.T:
+        phase = t.unsqueeze(0) * s.unsqueeze(1)
+        ecf = torch.exp(1j * phase.to(torch.complex64)).mean(dim=0)
+        diff = ecf - target_cf_complex
+        slice_loss = (diff.real.pow(2) + diff.imag.pow(2)) * weights
+        losses.append(slice_loss.sum() * dt)
+    return torch.stack(losses).mean()
+
+
+def permuted_laplacian(
+    L: Tensor,
+    generator: Optional[torch.Generator] = None,
+) -> Tensor:
+    if L.dim() not in {2, 3}:
+        raise ValueError(
+            f"laplacian must be 2D or batched 3D, got shape {tuple(L.shape)}"
+        )
+    latent_dim = L.shape[-1]
+    permutation = torch.randperm(latent_dim, device=L.device, generator=generator)
+    if L.dim() == 3:
+        return L.index_select(1, permutation).index_select(2, permutation)
+    return L.index_select(0, permutation).index_select(1, permutation)
+
+
+def random_laplacian(
+    latent_dim: int,
+    edge_density: float,
+    device,
+    dtype,
+    generator: Optional[torch.Generator] = None,
+) -> Tensor:
+    samples = torch.rand(
+        latent_dim,
+        latent_dim,
+        device=device,
+        dtype=dtype,
+        generator=generator,
+    )
+    upper = torch.triu((samples < edge_density).to(dtype), diagonal=1)
+    adjacency = upper + upper.T
+    degree = torch.diag(adjacency.sum(dim=1))
+    return degree - adjacency
+
+
 def build_causal_laplacian(causal_graph: nx.DiGraph, latent_dim: int) -> Tensor:
     """Symmetrized normalized Laplacian of the causal event graph.
 
