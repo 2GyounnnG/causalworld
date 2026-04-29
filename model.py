@@ -23,6 +23,21 @@ class Mish(nn.Module):
         return x * torch.tanh(F.softplus(x))
 
 
+def _storage_batch_vector(data: HeteroData, node_type: str) -> Optional[Tensor]:
+    batch = getattr(data[node_type], "batch", None)
+    return batch if torch.is_tensor(batch) else None
+
+
+def _num_graphs(data: HeteroData, *batch_vectors: Optional[Tensor]) -> int:
+    num_graphs = getattr(data, "num_graphs", None)
+    if isinstance(num_graphs, int) and num_graphs > 0:
+        return num_graphs
+    for batch in batch_vectors:
+        if batch is not None and batch.numel() > 0:
+            return int(batch.max().item()) + 1
+    return 1
+
+
 # 1. HypergraphEncoder
 class HypergraphEncoder(nn.Module):
     def __init__(self, hidden_dim: int = 64, latent_dim: int = 32):
@@ -58,9 +73,15 @@ class HypergraphEncoder(nn.Module):
     def forward(self, data: HeteroData) -> Tensor:
         node_x = data["node"].x
         edge_x = data["hyperedge"].x
+        node_batch = _storage_batch_vector(data, "node")
+        edge_batch = _storage_batch_vector(data, "hyperedge")
+        is_batched = node_batch is not None or edge_batch is not None
+        num_graphs = _num_graphs(data, node_batch, edge_batch)
 
         if node_x.shape[0] == 0 or edge_x.shape[0] == 0:
             device = next(self.parameters()).device
+            if is_batched:
+                return torch.zeros(num_graphs, self.latent_dim, device=device)
             return torch.zeros(self.latent_dim, device=device)
 
         ei_n2e = data["node", "member_of", "hyperedge"].edge_index
@@ -78,19 +99,22 @@ class HypergraphEncoder(nn.Module):
         x_dict = {k: F.relu(v) for k, v in self.conv1(x_dict, ei_dict).items()}
         x_dict = {k: F.relu(v) for k, v in self.conv2(x_dict, ei_dict).items()}
 
-        n_batch = torch.zeros(
-            x_dict["node"].shape[0], dtype=torch.long, device=x_dict["node"].device
-        )
-        e_batch = torch.zeros(
-            x_dict["hyperedge"].shape[0],
-            dtype=torch.long,
-            device=x_dict["hyperedge"].device,
-        )
-        node_pool = global_mean_pool(x_dict["node"], n_batch)
-        edge_pool = global_mean_pool(x_dict["hyperedge"], e_batch)
+        if node_batch is None:
+            node_batch = torch.zeros(
+                x_dict["node"].shape[0], dtype=torch.long, device=x_dict["node"].device
+            )
+        if edge_batch is None:
+            edge_batch = torch.zeros(
+                x_dict["hyperedge"].shape[0],
+                dtype=torch.long,
+                device=x_dict["hyperedge"].device,
+            )
+        node_pool = global_mean_pool(x_dict["node"], node_batch, size=num_graphs)
+        edge_pool = global_mean_pool(x_dict["hyperedge"], edge_batch, size=num_graphs)
 
         combined = torch.cat([node_pool, edge_pool], dim=-1)
-        return self.out(combined).squeeze(0)
+        encoded = self.out(combined)
+        return encoded if is_batched else encoded.squeeze(0)
 
     def __repr__(self) -> str:
         return f"HypergraphEncoder(hidden={self.hidden_dim}, latent={self.latent_dim})"
@@ -142,7 +166,59 @@ class FlatMLPEncoder(nn.Module):
         ]
         return torch.tensor(features, dtype=torch.float, device=node_x.device)
 
+    def _extract_batched_features(self, data: HeteroData) -> Tensor:
+        node_x = data["node"].x
+        edge_x = data["hyperedge"].x
+        node_batch = _storage_batch_vector(data, "node")
+        edge_batch = _storage_batch_vector(data, "hyperedge")
+        num_graphs = _num_graphs(data, node_batch, edge_batch)
+
+        if node_batch is None:
+            node_batch = torch.zeros(
+                node_x.shape[0], dtype=torch.long, device=node_x.device
+            )
+        if edge_batch is None:
+            edge_batch = torch.zeros(
+                edge_x.shape[0], dtype=torch.long, device=edge_x.device
+            )
+
+        dtype = node_x.dtype
+        num_nodes = torch.bincount(node_batch, minlength=num_graphs).to(dtype)
+        num_edges = torch.bincount(edge_batch, minlength=num_graphs).to(dtype)
+
+        mean_arity = edge_x.new_zeros(num_graphs)
+        max_arity = edge_x.new_zeros(num_graphs)
+        frac_known = edge_x.new_zeros(num_graphs)
+        num_events = edge_x.new_zeros(num_graphs)
+        if edge_x.shape[0] > 0:
+            arities = edge_x[:, 0]
+            origins = edge_x[:, 1]
+            denom = num_edges.clamp_min(1.0)
+            mean_arity = mean_arity.scatter_add(0, edge_batch, arities) / denom
+            max_arity = max_arity.scatter_reduce(
+                0, edge_batch, arities, reduce="amax", include_self=True
+            )
+            known = (origins >= 0).to(dtype)
+            frac_known = frac_known.scatter_add(0, edge_batch, known) / denom
+            event_counts = torch.where(
+                origins >= 0, origins + 1.0, torch.zeros_like(origins)
+            )
+            num_events = num_events.scatter_reduce(
+                0, edge_batch, event_counts, reduce="amax", include_self=True
+            )
+
+        return torch.stack(
+            [num_nodes, num_edges, mean_arity, max_arity, frac_known, num_events],
+            dim=-1,
+        )
+
     def forward(self, data: HeteroData) -> Tensor:
+        is_batched = (
+            _storage_batch_vector(data, "node") is not None
+            or _storage_batch_vector(data, "hyperedge") is not None
+        )
+        if is_batched:
+            return self.mlp(self._extract_batched_features(data))
         return self.mlp(self._extract_features(data))
 
     def __repr__(self) -> str:
@@ -173,6 +249,11 @@ class MLPEncoder(nn.Module):
 
     def forward(self, data: HeteroData) -> Tensor:
         pos = data["atom"].pos
+        atom_batch = _storage_batch_vector(data, "atom")
+        if atom_batch is not None:
+            num_graphs = _num_graphs(data, atom_batch)
+            pos = pos.reshape(num_graphs, self.n_atoms, 3)
+            return self.mlp(pos.flatten(start_dim=1))
         assert pos.shape == (
             self.n_atoms,
             3,
@@ -369,6 +450,15 @@ def spectral_laplacian_penalty(z_batch: Tensor, L: Tensor) -> Tensor:
     if z_batch.dim() == 1:
         z_batch = z_batch.unsqueeze(0)
     L = L.to(device=z_batch.device, dtype=z_batch.dtype)
+    if L.dim() == 3:
+        if L.shape[0] == 1 and z_batch.shape[0] > 1:
+            L = L.expand(z_batch.shape[0], -1, -1)
+        if L.shape[0] != z_batch.shape[0]:
+            raise ValueError(
+                "batched laplacian must have one matrix per latent vector, "
+                f"got {tuple(L.shape)} for z {tuple(z_batch.shape)}"
+            )
+        return torch.einsum("bi,bij,bj->b", z_batch, L, z_batch).mean()
     return (z_batch @ L * z_batch).sum(dim=-1).mean()
 
 

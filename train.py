@@ -17,10 +17,10 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 import torch
-from torch_geometric.data import HeteroData
+from torch_geometric.data import Batch, HeteroData
 
 from hypergraph_env import CausalWorldEnv, HypergraphState, RewriteRule
-from model import WorldModel, build_causal_laplacian, euclidean_cov_penalty
+from model import WorldModel, build_causal_laplacian
 
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -54,6 +54,15 @@ def move_obs_to_device(obs: HeteroData, device: torch.device) -> HeteroData:
     if hasattr(obs, "clone"):
         return obs.clone().to(device)
     return copy.deepcopy(obs).to(device)
+
+
+def batch_obs_from_indices(
+    observations: List[HeteroData],
+    indices: torch.Tensor,
+    device: torch.device,
+) -> HeteroData:
+    data_list = [observations[int(index)] for index in indices.tolist()]
+    return Batch.from_data_list(data_list).to(device)
 
 
 def select_device(device_name: str) -> torch.device:
@@ -334,6 +343,9 @@ def train_one(
     if config.laplacian_mode not in {"per_step", "fixed_initial", "fixed_average"}:
         raise ValueError("laplacian_mode must be one of 'per_step', 'fixed_initial', or 'fixed_average'")
 
+    if not train_transitions:
+        raise ValueError("train_one requires at least one training transition")
+
     set_seed(config.seed)
     fixed_laplacian = _build_fixed_laplacian(config, train_transitions, device)
     model = WorldModel(
@@ -351,95 +363,113 @@ def train_one(
         "prior_loss": [],
         "rollout": [],
     }
+    # Move immutable transition data once. Observations are variable-size PyG
+    # graphs, so they remain a list and are assembled into PyG minibatches below.
+    obs_all = [
+        move_obs_to_device(transition["obs"], device)
+        for transition in train_transitions
+    ]
+    next_obs_all = [
+        move_obs_to_device(transition["next_obs"], device)
+        for transition in train_transitions
+    ]
+    action_all = torch.tensor(
+        [float(transition["action"]) for transition in train_transitions],
+        dtype=torch.float32,
+        device=device,
+    )
+    reward_all = torch.tensor(
+        [float(transition["reward"]) for transition in train_transitions],
+        dtype=torch.float32,
+        device=device,
+    )
+    done_all = torch.tensor(
+        [float(transition["done"]) for transition in train_transitions],
+        dtype=torch.float32,
+        device=device,
+    )
+    per_step_laplacians = None
+    if config.prior == "spectral" and config.laplacian_mode == "per_step":
+        per_step_laplacians = torch.stack(
+            [
+                build_causal_laplacian(transition["causal_graph"], config.latent_dim)
+                for transition in train_transitions
+            ],
+            dim=0,
+        ).to(device)
+
+    num_train = len(train_transitions)
 
     for epoch in range(1, config.num_epochs + 1):
         model.train()
-        epoch_transitions = list(train_transitions)
-        random.shuffle(epoch_transitions)
         total_values: List[float] = []
         transition_values: List[float] = []
         reward_values: List[float] = []
         prior_values: List[float] = []
 
-        for start in range(0, len(epoch_transitions), config.batch_size):
-            batch = epoch_transitions[start:start + config.batch_size]
+        perm = torch.randperm(num_train)
+        for start in range(0, num_train, config.batch_size):
+            idx_cpu = perm[start:start + config.batch_size]
+            idx = idx_cpu.to(device=device)
             optimizer.zero_grad()
-            base_totals: List[torch.Tensor] = []
-            transition_losses: List[torch.Tensor] = []
-            reward_losses: List[torch.Tensor] = []
-            prior_losses: List[torch.Tensor] = []
-            batch_latents: List[torch.Tensor] = []
 
-            for transition in batch:
-                obs = move_obs_to_device(transition["obs"], device)
-                next_obs = move_obs_to_device(transition["next_obs"], device)
-                action = torch.tensor([float(transition["action"])], device=device)
-                reward = torch.tensor(float(transition["reward"]), device=device)
-                done = torch.tensor(float(transition["done"]), device=device)
+            obs = batch_obs_from_indices(obs_all, idx_cpu, device)
+            next_obs = batch_obs_from_indices(next_obs_all, idx_cpu, device)
+            action = action_all.index_select(0, idx)
+            reward = reward_all.index_select(0, idx)
+            done = done_all.index_select(0, idx)
 
-                if config.prior == "spectral":
-                    if config.laplacian_mode == "per_step":
-                        laplacian = build_causal_laplacian(
-                            transition["causal_graph"],
-                            config.latent_dim,
-                        ).to(device)
-                    else:
-                        laplacian = fixed_laplacian
-                    loss_dict = model.loss(
-                        obs,
-                        action,
-                        next_obs,
-                        reward,
-                        done,
-                        prior="spectral",
-                        prior_weight=config.prior_weight,
-                        laplacian=laplacian,
-                    )
-                elif config.prior == "euclidean":
-                    loss_dict = model.loss(
-                        obs,
-                        action,
-                        next_obs,
-                        reward,
-                        done,
-                        prior="none",
-                        prior_weight=0.0,
-                    )
-                    batch_latents.append(model.encode(obs))
-                elif config.prior == "none":
-                    loss_dict = model.loss(
-                        obs,
-                        action,
-                        next_obs,
-                        reward,
-                        done,
-                        prior="none",
-                        prior_weight=0.0,
-                    )
+            if config.prior == "spectral":
+                if config.laplacian_mode == "per_step":
+                    assert per_step_laplacians is not None
+                    laplacian = per_step_laplacians.index_select(0, idx)
                 else:
-                    raise ValueError("prior must be one of 'none', 'euclidean', or 'spectral'")
-
-                base_totals.append(loss_dict["total"])
-                transition_losses.append(loss_dict["transition"])
-                reward_losses.append(loss_dict["reward"])
-                prior_losses.append(loss_dict["prior"])
-
-            total = torch.stack(base_totals).mean()
-            if config.prior == "euclidean":
-                latent_batch = torch.stack(batch_latents)
-                prior_loss = euclidean_cov_penalty(latent_batch)
-                total = total + config.prior_weight * prior_loss
-            elif config.prior == "spectral":
-                prior_loss = torch.stack(prior_losses).mean()
-            else:
+                    laplacian = fixed_laplacian
+                loss_dict = model.loss(
+                    obs,
+                    action,
+                    next_obs,
+                    reward,
+                    done,
+                    prior="spectral",
+                    prior_weight=config.prior_weight,
+                    laplacian=laplacian,
+                )
+                total = loss_dict["total"]
+                prior_loss = loss_dict["prior"]
+            elif config.prior == "euclidean":
+                loss_dict = model.loss(
+                    obs,
+                    action,
+                    next_obs,
+                    reward,
+                    done,
+                    prior="euclidean",
+                    prior_weight=config.prior_weight,
+                )
+                total = loss_dict["total"]
+                prior_loss = loss_dict["prior"]
+            elif config.prior == "none":
+                loss_dict = model.loss(
+                    obs,
+                    action,
+                    next_obs,
+                    reward,
+                    done,
+                    prior="none",
+                    prior_weight=0.0,
+                )
+                total = loss_dict["total"]
                 prior_loss = total.new_tensor(0.0)
+            else:
+                raise ValueError("prior must be one of 'none', 'euclidean', or 'spectral'")
 
             total.backward()
             optimizer.step()
 
             total_values.append(float(total.detach().cpu()))
-            transition_values.append(float(torch.stack(transition_losses).mean().detach().cpu()))
-            reward_values.append(float(torch.stack(reward_losses).mean().detach().cpu()))
+            transition_values.append(float(loss_dict["transition"].detach().cpu()))
+            reward_values.append(float(loss_dict["reward"].detach().cpu()))
             prior_values.append(float(prior_loss.detach().cpu()))
 
         eval_metrics = evaluate_rollout(model, eval_episodes, horizons, device)
