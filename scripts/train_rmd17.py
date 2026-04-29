@@ -18,7 +18,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import networkx as nx
-from torch_geometric.data import HeteroData
+from torch_geometric.data import Batch, HeteroData
 from torch_geometric.utils import to_networkx
 import matplotlib.pyplot as plt
 
@@ -498,7 +498,6 @@ def train_one_seed(config: Config) -> Dict:
         n_atoms=infer_model_n_atoms(config, transitions),
     ).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=config.lr)
-    action_zero = torch.zeros(1, dtype=torch.float32, device=device)
 
     epoch_loss = float("nan")
     for epoch in range(config.num_epochs):
@@ -512,181 +511,191 @@ def train_one_seed(config: Config) -> Dict:
         for batch_start in range(0, len(transitions), config.batch_size):
             batch_idx = order[batch_start : batch_start + config.batch_size]
             optimizer.zero_grad()
-            base_totals = []
-            transition_losses = []
-            reward_losses = []
-            prior_losses = []
-            batch_latents = []
+            batch_transitions = [transitions[int(index)] for index in batch_idx]
+            obs_raw_batch = [transition["obs"] for transition in batch_transitions]
+            next_obs_raw_batch = [transition["next_obs"] for transition in batch_transitions]
+            adapted_obs_list = [adapt_obs_for_world_model(o) for o in obs_raw_batch]
+            adapted_next_obs_list = [adapt_obs_for_world_model(o) for o in next_obs_raw_batch]
+            obs = Batch.from_data_list(adapted_obs_list).to(device)
+            next_obs = Batch.from_data_list(adapted_next_obs_list).to(device)
+            batch_size = len(batch_transitions)
+            action_batch = torch.zeros(batch_size, dtype=torch.float32, device=device)
+            reward_batch = torch.zeros(batch_size, dtype=torch.float32, device=device)
+            done_batch = torch.zeros(batch_size, dtype=torch.float32, device=device)
 
-            for index in batch_idx:
-                transition = transitions[int(index)]
-                obs_raw = transition["obs"]
-                next_obs_raw = transition["next_obs"]
-                obs = move_obs_to_device(obs_raw, device)
-                next_obs = move_obs_to_device(next_obs_raw, device)
-
-                if config.prior == "spectral":
-                    if fixed_laplacian is None:
-                        frame_idx = int(transition.get("frame_idx", int(index)))
-                        laplacian = build_graph_source_laplacian(
-                            obs_raw,
-                            config.latent_dim,
-                            config.graph_source,
-                            config.seed,
-                            frame_idx,
-                            device,
-                        )
-                    else:
-                        laplacian = fixed_laplacian
-                    loss_dict = model.loss(
-                        observation=obs,
-                        action=action_zero,
-                        next_observation=next_obs,
-                        reward=0.0,
-                        done=0.0,
-                        prior="spectral",
-                        prior_weight=config.prior_weight,
-                        laplacian=laplacian,
-                    )
-                elif config.prior == "euclidean":
-                    # This script trains one transition at a time, so calling
-                    # model.loss(... prior="euclidean") here would hand model.py a
-                    # single latent vector, producing a degenerate 1-row covariance
-                    # and a zero penalty. Collecting latents across the minibatch
-                    # and applying euclidean_cov_penalty once restores the intended
-                    # batch-level prior used by the Wolfram training path.
-                    loss_dict = model.loss(
-                        observation=obs,
-                        action=action_zero,
-                        next_observation=next_obs,
-                        reward=0.0,
-                        done=0.0,
-                        prior="none",
-                        prior_weight=0.0,
-                    )
-                    batch_latents.append(model.encode(obs))
-                elif config.prior == "variance":
-                    loss_dict = model.loss(
-                        observation=obs,
-                        action=action_zero,
-                        next_observation=next_obs,
-                        reward=0.0,
-                        done=0.0,
-                        prior="none",
-                        prior_weight=0.0,
-                    )
-                    batch_latents.append(model.encode(obs))
-                elif config.prior == "identity_quadratic":
-                    loss_dict = model.loss(
-                        observation=obs,
-                        action=action_zero,
-                        next_observation=next_obs,
-                        reward=0.0,
-                        done=0.0,
-                        prior="none",
-                        prior_weight=0.0,
-                    )
-                    batch_latents.append(model.encode(obs))
-                elif config.prior == "sigreg":
-                    loss_dict = model.loss(
-                        observation=obs,
-                        action=action_zero,
-                        next_observation=next_obs,
-                        reward=0.0,
-                        done=0.0,
-                        prior="none",
-                        prior_weight=0.0,
-                    )
-                    batch_latents.append(model.encode(obs))
-                elif config.prior == "permuted_spectral":
-                    if fixed_laplacian is None:
-                        frame_idx = int(transition.get("frame_idx", int(index)))
-                        base_laplacian = build_graph_source_laplacian(
-                            obs_raw,
-                            config.latent_dim,
-                            config.graph_source,
-                            config.seed,
-                            frame_idx,
-                            device,
-                        )
-                    else:
-                        base_laplacian = fixed_laplacian
-                    permuted = permuted_laplacian(base_laplacian, generator=control_generator)
-                    loss_dict = model.loss(
-                        observation=obs,
-                        action=action_zero,
-                        next_observation=next_obs,
-                        reward=0.0,
-                        done=0.0,
-                        prior="spectral",
-                        prior_weight=config.prior_weight,
-                        laplacian=permuted,
-                    )
-                elif config.prior == "random_spectral":
-                    random_L = random_laplacian(
-                        config.latent_dim,
-                        config.control_edge_density,
-                        device=device,
-                        dtype=torch.float32,
-                        generator=control_generator,
-                    )
-                    loss_dict = model.loss(
-                        observation=obs,
-                        action=action_zero,
-                        next_observation=next_obs,
-                        reward=0.0,
-                        done=0.0,
-                        prior="spectral",
-                        prior_weight=config.prior_weight,
-                        laplacian=random_L,
-                    )
-                elif config.prior == "none":
-                    loss_dict = model.loss(
-                        observation=obs,
-                        action=action_zero,
-                        next_observation=next_obs,
-                        reward=0.0,
-                        done=0.0,
-                        prior="none",
-                        prior_weight=0.0,
+            if config.prior == "spectral":
+                B = len(batch_transitions)
+                if fixed_laplacian is None:
+                    laplacian = torch.stack(
+                        [
+                            build_graph_source_laplacian(
+                                obs_raw,
+                                config.latent_dim,
+                                config.graph_source,
+                                config.seed,
+                                int(transition.get("frame_idx", int(index))),
+                                device,
+                            )
+                            for index, transition, obs_raw in zip(
+                                batch_idx, batch_transitions, obs_raw_batch
+                            )
+                        ],
+                        dim=0,
                     )
                 else:
-                    raise ValueError(
-                        "prior must be one of 'none', 'euclidean', 'spectral', 'variance', "
-                        "'sigreg', 'identity_quadratic', 'permuted_spectral', 'random_spectral'"
-                    )
+                    laplacian = fixed_laplacian.unsqueeze(0).expand(B, -1, -1).contiguous()
+                loss_dict = model.loss(
+                    observation=obs,
+                    action=action_batch,
+                    next_observation=next_obs,
+                    reward=reward_batch,
+                    done=done_batch,
+                    prior="spectral",
+                    prior_weight=config.prior_weight,
+                    laplacian=laplacian,
+                )
+            elif config.prior == "euclidean":
+                loss_dict = model.loss(
+                    observation=obs,
+                    action=action_batch,
+                    next_observation=next_obs,
+                    reward=reward_batch,
+                    done=done_batch,
+                    prior="none",
+                    prior_weight=0.0,
+                )
+                batch_latents = model.encode(obs)
+            elif config.prior == "variance":
+                loss_dict = model.loss(
+                    observation=obs,
+                    action=action_batch,
+                    next_observation=next_obs,
+                    reward=reward_batch,
+                    done=done_batch,
+                    prior="none",
+                    prior_weight=0.0,
+                )
+                batch_latents = model.encode(obs)
+            elif config.prior == "identity_quadratic":
+                loss_dict = model.loss(
+                    observation=obs,
+                    action=action_batch,
+                    next_observation=next_obs,
+                    reward=reward_batch,
+                    done=done_batch,
+                    prior="none",
+                    prior_weight=0.0,
+                )
+                batch_latents = model.encode(obs)
+            elif config.prior == "sigreg":
+                loss_dict = model.loss(
+                    observation=obs,
+                    action=action_batch,
+                    next_observation=next_obs,
+                    reward=reward_batch,
+                    done=done_batch,
+                    prior="none",
+                    prior_weight=0.0,
+                )
+                batch_latents = model.encode(obs)
+            elif config.prior == "permuted_spectral":
+                base_laplacians = []
+                for index, transition, obs_raw in zip(
+                    batch_idx, batch_transitions, obs_raw_batch
+                ):
+                    if fixed_laplacian is None:
+                        base = build_graph_source_laplacian(
+                            obs_raw,
+                            config.latent_dim,
+                            config.graph_source,
+                            config.seed,
+                            int(transition.get("frame_idx", int(index))),
+                            device,
+                        )
+                    else:
+                        base = fixed_laplacian
+                    base_laplacians.append(base)
+                laplacian = torch.stack(
+                    [
+                        permuted_laplacian(base, generator=control_generator)
+                        for base in base_laplacians
+                    ],
+                    dim=0,
+                )
+                loss_dict = model.loss(
+                    observation=obs,
+                    action=action_batch,
+                    next_observation=next_obs,
+                    reward=reward_batch,
+                    done=done_batch,
+                    prior="spectral",
+                    prior_weight=config.prior_weight,
+                    laplacian=laplacian,
+                )
+            elif config.prior == "random_spectral":
+                laplacian = torch.stack(
+                    [
+                        random_laplacian(
+                            config.latent_dim,
+                            config.control_edge_density,
+                            device=device,
+                            dtype=torch.float32,
+                            generator=control_generator,
+                        )
+                        for _ in batch_transitions
+                    ],
+                    dim=0,
+                )
+                loss_dict = model.loss(
+                    observation=obs,
+                    action=action_batch,
+                    next_observation=next_obs,
+                    reward=reward_batch,
+                    done=done_batch,
+                    prior="spectral",
+                    prior_weight=config.prior_weight,
+                    laplacian=laplacian,
+                )
+            elif config.prior == "none":
+                loss_dict = model.loss(
+                    observation=obs,
+                    action=action_batch,
+                    next_observation=next_obs,
+                    reward=reward_batch,
+                    done=done_batch,
+                    prior="none",
+                    prior_weight=0.0,
+                )
+            else:
+                raise ValueError(
+                    "prior must be one of 'none', 'euclidean', 'spectral', 'variance', "
+                    "'sigreg', 'identity_quadratic', 'permuted_spectral', 'random_spectral'"
+                )
 
-                base_totals.append(loss_dict["total"])
-                transition_losses.append(loss_dict["transition"])
-                reward_losses.append(loss_dict["reward"])
-                prior_losses.append(loss_dict["prior"])
-
-            total = torch.stack(base_totals).mean()
+            total = loss_dict["total"]
             if config.prior == "euclidean":
-                prior_loss = euclidean_cov_penalty(torch.stack(batch_latents, dim=0))
+                prior_loss = euclidean_cov_penalty(batch_latents)
                 total = total + config.prior_weight * prior_loss
             elif config.prior == "variance":
                 prior_loss = variance_only_penalty(
-                    torch.stack(batch_latents, dim=0),
+                    batch_latents,
                     gamma=config.variance_gamma,
                 )
                 total = total + config.prior_weight * prior_loss
             elif config.prior == "identity_quadratic":
-                prior_loss = identity_quadratic_penalty(
-                    torch.stack(batch_latents, dim=0)
-                )
+                prior_loss = identity_quadratic_penalty(batch_latents)
                 total = total + config.prior_weight * prior_loss
             elif config.prior == "sigreg":
                 prior_loss = sigreg_gauss_penalty(
-                    torch.stack(batch_latents, dim=0),
+                    batch_latents,
                     num_slices=config.sigreg_num_slices,
                     sigma=config.sigreg_sigma,
                 )
                 total = total + config.prior_weight * prior_loss
             elif config.prior == "spectral":
-                prior_loss = torch.stack(prior_losses).mean()
+                prior_loss = loss_dict["prior"]
             elif config.prior in {"permuted_spectral", "random_spectral"}:
-                prior_loss = torch.stack(prior_losses).mean()
+                prior_loss = loss_dict["prior"]
             else:
                 prior_loss = total.new_tensor(0.0)
 
@@ -694,8 +703,8 @@ def train_one_seed(config: Config) -> Dict:
             optimizer.step()
 
             total_values.append(float(total.detach().cpu()))
-            transition_values.append(float(torch.stack(transition_losses).mean().detach().cpu()))
-            reward_values.append(float(torch.stack(reward_losses).mean().detach().cpu()))
+            transition_values.append(float(loss_dict["transition"].detach().cpu()))
+            reward_values.append(float(loss_dict["reward"].detach().cpu()))
             prior_values.append(float(prior_loss.detach().cpu()))
 
         epoch_loss = float(np.mean(total_values)) if total_values else float("nan")
