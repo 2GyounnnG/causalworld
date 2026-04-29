@@ -1,0 +1,29 @@
+### JEPA-style latent priors
+
+Joint-embedding predictive architectures learn representations by predicting in latent space rather than reconstructing raw observations. I-JEPA \cite{ijepa} develops this idea for images by predicting target-block representations from context-block representations, showing that predictive latent objectives can support strong visual representations without pixel-level reconstruction. LeJEPA \cite{lejepa} extends this line with Sketched Isotropic Gaussian Regularization, an objective that constrains embeddings to an isotropic Gaussian distribution. Earlier covariance-based approaches such as VICReg \cite{vicreg} and Barlow Twins \cite{barlowtwins} achieve a similar non-collapse goal through penalties on the empirical covariance matrix of batch embeddings. Our Euclidean baseline is a Frobenius covariance penalty \(\|C-I\|_F\) in this lineage. We use this Euclidean covariance prior as a baseline because it is a reasonable modern default, not a strawman. Our spectral prior is closely related: as discussed in Section 2.3, the Euclidean covariance penalty can be interpreted as using an implicit fully connected uniform graph, whereas the spectral prior replaces that graph with the data's observed graph structure. This makes our setting complementary to JEPA work on natural images, where an explicit physical or relational graph is typically unavailable.
+
+### World models and latent dynamics
+
+World models learn compact predictive state representations for planning, control, or long-horizon simulation. TD-MPC2 \cite{tdmpc2}, for example, learns latent dynamics models for model-predictive control across diverse continuous-control tasks, emphasizing scalable task performance and planning efficiency. Recent hierarchical world-model approaches \cite{hwm} similarly study how latent dynamics can be organized to support longer-horizon reasoning. Much of this literature uses strong task-specific encoders, sequence models, or architectural inductive biases, while the role of an explicit latent-space prior is often secondary. Our work isolates that question: holding the world-model architecture simple, we compare no prior, an isotropic Euclidean prior, and a graph Laplacian prior under the same transition-learning objective. We intentionally use a flat MLP encoder rather than a graph neural network or transformer so that improvements can be attributed to the prior rather than to encoder capacity. A full system could combine these findings with stronger encoders and planners.
+
+### Graph-based regularization
+
+Graph Laplacian regularization is a classical tool in representation learning. Laplacian Eigenmaps \cite{belkin2003} use the graph quadratic form to construct embeddings that preserve local neighborhood structure, and related semi-supervised methods use the same smoothness bias to propagate labels over graphs. Graph convolutional networks \cite{kipf2017} incorporate graph structure architecturally, using neighborhood aggregation layers to compute node representations. Our use of the Laplacian is different but compatible with this tradition. Rather than building a graph neural encoder, we keep the encoder flat and impose graph structure through the loss, by penalizing \(z^\top L z\) on latent states. This distinction matters for the present empirical question: GNNs ask whether architectural message passing helps; our experiments ask whether a graph-structured latent prior helps transition learning when the encoder architecture is held fixed. The two approaches are complementary, and combining them is a natural extension.
+
+### Molecular dynamics ML
+
+Machine learning for molecular dynamics has largely focused on accurate energies, forces, and molecular representations. SchNet \cite{schnet2017} introduced continuous-filter convolutional networks for quantum interactions and provides the ISO17 benchmark used in our cross-isomer study. rMD17 \cite{chmiela2017} provides revised molecular dynamics trajectories and force labels that are widely used for evaluating molecular ML models. More recent architectures such as equivariant graph networks and message-passing force fields target state-of-the-art force prediction. Our use of these datasets is different: we use molecular trajectories as structured dynamical systems for testing latent priors in world-model learning. We do not claim that a flat-MLP world model competes with specialized molecular force fields. The comparison is internal: across priors, with the encoder and training protocol fixed.
+
+### Cellular automata benchmarks
+
+Cellular automata provide discrete dynamical systems with transparent rules and controllable structure. Wolfram's cellular automata \cite{wolfram2002} are a standard family for studying how simple local update rules generate complex temporal behavior. We use Wolfram CA not as a contribution to CA modeling, but as a stress test for graph-based latent priors under rapidly evolving discrete structure. This setting exposes a mechanism that is less visible in molecular MD: when the relevant graph changes quickly, static Laplacian approximations can destabilize training, while per-step recomputation can remain stable at small prior weights.
+
+Together, these lines of work frame our contribution as an empirical characterization of when an explicit graph Laplacian latent prior helps dynamics learning, and when its construction can become a source of instability.
+
+"Code and data: All experimental code is available at https://github.com/2GyounnnG/causalworld 
+(anonymized for review at https://anonymous.4open.science/r/causalworld). 
+The rMD17 dataset is from Chmiela et al. \cite{chmiela2017}, and the ISO17 
+dataset is from Schütt et al. \cite{schnet2017}; both are publicly available. 
+Experiments were conducted on a single Nvidia RTX 5060 Ti (16GB) GPU; total 
+compute is approximately 30 GPU-hours. Random seeds 0–9 were used unless 
+otherwise specified."

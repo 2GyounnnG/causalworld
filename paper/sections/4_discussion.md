@@ -1,0 +1,40 @@
+### 4.1 Discussion: a refined mechanism statement
+
+The experiments support a more specific interpretation than "graph priors help" or "graph priors fail." On rMD17 aspirin and ISO17, the spectral graph Laplacian prior substantially reduces long-horizon rollout error, including a 51% reduction at \(H=16\) on aspirin and a 57% reduction on ISO17 test_within. The ISO17 cross-isomer split also shows a small generalization gap for spectral. In contrast, the Wolfram CA ablation shows conditional stability: per-step Laplacians with small prior weight are stable, but fixed Laplacian approximations can become catastrophic.
+
+The key distinction appears to be graph stability across the dynamics. A coarse explanation would say that spectral regularization works on continuous molecular systems and fails on discrete cellular automata. The evidence suggests a sharper mechanism: the spectral prior helps when the Laplacian used in the penalty matches the graph governing the current transition. On rMD17, the covalent bond graph is essentially invariant across MD frames, since bonds do not break during the trajectory. Consequently, per-frame, fixed-mean, and fixed-initial Laplacians all approximate the same graph, and the Laplacian construction mode is not critical. On Wolfram CA, the relevant cell-state graph changes rapidly across transitions. Per-step recomputation tracks this evolution, while static-graph approximations encode stale structure; as \(\lambda\) grows, the incorrect constraint is amplified and destabilizes training. This refines the contrast from domain type to graph stationarity.
+
+The practical recipe is therefore conditional. When the data has an explicit graph that is approximately stationary across transitions, the spectral prior is robust and benefits from any reasonable Laplacian construction. When the graph evolves with the dynamics, per-step recomputation appears necessary, and the prior weight should be small; in our Wolfram setting, \(\lambda \leq 0.005\) is the stable regime.
+
+### 4.2 Limitations
+
+1. **Encoder simplicity.** We use a flat MLP encoder rather than a GNN or transformer. This isolates the prior's effect, but the findings might shift with stronger encoders that already encode graph structure architecturally.
+
+2. **Single molecule in the rMD17 main result.** The main rMD17 estimate uses aspirin only, although ISO17 replicates the effect across 113 isomers. Additional rMD17 molecules would clarify how much of the 10-seed aspirin effect is molecule-specific.
+
+3. **Fixed prior weight in the main tables.** The main rMD17 and ISO17 comparisons use a shared \(\lambda=0.1\) for all priors. Section 3.4.1 partially addresses weight sensitivity, but only on aspirin and with three seeds per cell.
+
+4. **Limited discrete-domain coverage.** The discrete stress test uses Wolfram elementary cellular automata. Other evolving-graph systems, such as dynamic social networks, graph algorithms, or physical systems with changing contacts, may show different stability patterns.
+
+5. **No downstream task evaluation.** We measure latent rollout error rather than model-based control or planning performance. It remains unclear whether the spectral prior improves MPC, reinforcement learning, or transfer to held-out control tasks.
+
+6. **Heavy-tail variance is not fully characterized.** We observe seed-level catastrophic failures, such as Wolfram per_step at \(\lambda=0.01\), but do not analyze the optimization trajectory in detail. Loss landscapes, Laplacian eigenstructure, and gradient norms during failing seeds could clarify this regime.
+
+7. **No full batch-size or latent-dimension scan in the main result.** The main experiments use latent dimension 16 and batch size 32. We ran smaller sub-experiments at other latent and hidden dimensions, but the central tables do not span these axes systematically.
+
+8. **Theoretical motivation is incomplete.** Section 2.3 relates the covariance prior to a complete-graph Laplacian, but we do not prove when the spectral prior should reduce rollout error or seed-level variance. The present mechanism statement is evidence-supported, not a formal guarantee.
+
+### 4.3 Open questions
+
+Several follow-up questions remain. First, does the per-step versus fixed-Laplacian sensitivity generalize to other evolving-graph domains, such as temporal social networks or systems with changing physical contacts? Second, can the spectral prior be combined with graph encoders for compounded benefits, or do the two mostly enforce the same inductive bias? Third, is there a principled way to learn the Laplacian construction mode, for example by interpolating between per-step and fixed approximations? Finally, downstream control remains open: integrating this prior into latent MPC systems such as TD-MPC2 \cite{tdmpc2} would test whether lower rollout error translates into better planning and reinforcement learning performance.
+
+"For the molecular dynamics community, our findings suggest that latent dynamics 
+models trained on MD trajectories benefit substantially from explicit bond-graph 
+priors. This is consistent with physics intuition: bonded atoms should have 
+correlated dynamical behavior, and an isotropic prior cannot encode this. The 
+spectral Laplacian prior provides this inductive bias at no architectural cost, 
+and our results indicate it works without sacrificing flexibility. Future MD-ML 
+applications—potential function learning, free energy estimation, transition 
+state identification—may benefit from incorporating bond-graph regularization 
+during representation learning, particularly when the bond connectivity is 
+known a priori."

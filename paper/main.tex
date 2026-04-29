@@ -1,0 +1,116 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cite}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumerate}
+\usepackage{caption}
+
+\title{When Does a Graph Laplacian Latent Prior Help Dynamics Learning?\\
+       Evidence from Molecular Dynamics and Cellular Automata}
+\author{Ruiqi Wang \\
+        Department of Physics \\
+        University of California, San Diego \\
+        \texttt{riw010@ucsd.edu}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Latent dynamics world models often regularize latent geometry with structure-agnostic priors, such as Euclidean variance-covariance constraints. This paper asks whether explicit graph structure in the data can be used as a more appropriate latent prior for dynamics learning, and when such a prior becomes fragile. We compare three priors---none, a Euclidean covariance penalty, and a graph Laplacian quadratic penalty---in a fixed flat-MLP world model, noting that the Euclidean prior is a special case of the Laplacian prior on a uniform fully connected graph. On rMD17 aspirin ($n=10$), the spectral Laplacian prior reduces $H=16$ rollout error by 51\% relative to no prior and 56\% relative to the Euclidean prior. On ISO17 ($n=5$), the effect reproduces on a different molecular corpus, reducing $H=16$ error by 57\% and tightening the cross-isomer generalization gap to 1.02$\times$ versus 1.08--1.10$\times$ for baselines. On Wolfram cellular automata ($n=10$), the same prior shows heavy-tail behavior at the shared weight, with one catastrophic seed, but becomes stable under smaller weight and per-step Laplacian recomputation. Sub-ablations suggest that sensitivity to Laplacian construction tracks graph evolution rate rather than domain type. The contribution is an empirical characterization, not a new regularizer or state-of-the-art benchmark result.
+\end{abstract}
+
+\input{sections/1_introduction}
+
+\input{sections/2_method}
+
+\input{sections/3_1_rmd17}
+
+% Figure 1: rMD17 main
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/fig1_rmd17_aspirin.pdf}
+\caption{rMD17 aspirin latent rollout error by horizon (n=10 seeds, 95\% CI). The spectral graph Laplacian prior consistently reduces error across horizons relative to no prior and the Euclidean baseline.}
+\label{fig:rmd17}
+\end{figure}
+
+% Table 1: rMD17 main
+\begin{table}[t]
+\centering
+\caption{rMD17 aspirin H=16 rollout error by prior and horizon (n=10 seeds).}
+\label{tab:rmd17}
+\input{tables/table1_rmd17}
+\end{table}
+
+\input{sections/3_2_iso17}
+
+% Figure 2: ISO17
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/fig2_iso17.pdf}
+\caption{ISO17 cross-isomer evaluation at H=16 (n=5 seeds per prior). The spectral prior closes the cross-isomer generalization gap relative to no prior and the Euclidean baseline.}
+\label{fig:iso17}
+\end{figure}
+
+% Table 2: ISO17
+\begin{table}[t]
+\centering
+\caption{ISO17 H=16 rollout error by prior, split, and horizon (n=5 seeds).}
+\label{tab:iso17}
+\input{tables/table2_iso17}
+\end{table}
+
+\input{sections/3_3_wolfram}
+
+% Figure 4: Wolfram main
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/fig4_wolfram_main.pdf}
+\caption{Wolfram CA latent rollout error by horizon (n=10 seeds, median + IQR). The spectral prior shows heavy-tail behavior at the shared weight: median performance is comparable to baseline, but a minority of seeds diverge at long horizons.}
+\label{fig:wolfram_main}
+\end{figure}
+
+% Table 4: Wolfram main
+\begin{table}[t]
+\centering
+\caption{Wolfram CA H=16 rollout error by prior (n=10 seeds). Heavy-tail behavior in spectral is dominated by a single catastrophic seed.}
+\label{tab:wolfram_main}
+\input{tables/table4_wolfram_main}
+\end{table}
+
+\input{sections/3_4_sub_ablations}
+
+% Figure 3: Wolfram mechanism
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig3_wolfram_mechanism.pdf}
+\caption{Wolfram CA spectral prior stability by Laplacian construction mode and weight (n=5 seeds, H=16). Per-step Laplacian recomputation is stable at small weights; fixed Laplacian approximations destabilize as weight increases.}
+\label{fig:wolfram_mechanism}
+\end{figure}
+
+% Table 3: Wolfram mechanism
+\begin{table}[t]
+\centering
+\caption{Wolfram mechanism ablation: H=16 rollout error by Laplacian mode and weight (n=5 seeds per cell). Cells with mean > 1.0 (red) indicate catastrophic divergence; cells with mean < 0.1 (green) indicate stable performance.}
+\label{tab:wolfram_mechanism}
+\input{tables/table3_wolfram_mechanism}
+\end{table}
+
+\input{sections/4_discussion}
+
+\input{sections/5_related_work}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

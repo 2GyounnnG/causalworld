@@ -32,3 +32,6 @@ Thumbs.db
 *.pth
 .codex
 data/
+wolfram.pid
+wolfram_main_rerun.log
+wolfram_mech_50runs.log

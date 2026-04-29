@@ -1,0 +1,58 @@
+### 2.1 World model architecture
+
+We study a latent dynamics world model. Given an observation \(x_t\) and action \(a_t\), an encoder \(f_\theta\) maps the observation to a latent state \(z_t=f_\theta(x_t)\), and a transition predictor \(g_\phi\) predicts the next latent state,
+$$
+z_t = f_\theta(x_t), \qquad \hat{z}_{t+1} = g_\phi(z_t,a_t).
+$$
+For molecular datasets and cellular automata, the action is either a fixed dummy input or the discrete transition action supplied by the environment. The target next latent is \(z_{t+1}=f_\theta(x_{t+1})\), with gradients stopped through the target branch.
+
+We use a flat MLP encoder on flattened molecular graph features rather than a graph neural network. This is a deliberate experimental choice: the goal is to isolate the effect of the latent prior, not the representational advantage of a graph encoder. The transition predictor is a small residual MLP that takes the concatenated pair \((z_t,a_t)\) and predicts \(\hat{z}_{t+1}\). We also include reward and done heads for compatibility with standard world model APIs, although these targets are constant in the experiments reported here. The training objective is
+$$
+\mathcal{L}
+= \|\hat{z}_{t+1} - \mathrm{sg}[f_\theta(x_{t+1})]\|_2^2
++ \mathcal{L}_{\mathrm{reward}}
++ \mathcal{L}_{\mathrm{done}}
++ \lambda \mathcal{L}_{\mathrm{prior}},
+$$
+where \(\mathrm{sg}[\cdot]\) denotes stop-gradient. The prior term is one of the three choices below.
+
+### 2.2 Three latent priors
+
+The first condition is the no-prior baseline. Here \(\mathcal{L}_{\mathrm{prior}}=0\), so the objective contains no explicit geometric constraint on the latent space.
+
+The second condition is a Euclidean covariance prior, following the variance-covariance regularization tradition of VICReg \cite{vicreg} and Barlow Twins \cite{barlowtwins}, broadly motivated by analyses of isotropic latent priors in joint-embedding architectures \cite{lejepa}. Let \(Z \in \mathbb{R}^{B \times D}\) be a batch of latent vectors, and let \(\bar{Z}\) denote the batch mean broadcast across rows. We compute
+$$
+C = \frac{(Z-\bar{Z})^\top (Z-\bar{Z})}{B-1},
+\qquad
+\mathcal{L}_{\mathrm{euc}} = \|C-I\|_F .
+$$
+This penalty encourages the batch distribution of latent vectors to have approximately identity covariance. Its inductive bias is structure-agnostic: latent dimensions are decorrelated and equally scaled, but adjacency or physical connectivity is not encoded.
+
+The third condition is the spectral graph Laplacian prior. We build a graph Laplacian \(L=D-A\) from the input graph: the molecular bond graph for rMD17 and ISO17, and the cell adjacency graph for Wolfram cellular automata. For a batch of latent vectors, the penalty is the mean quadratic form
+$$
+\mathcal{L}_{\mathrm{spec}}
+= \frac{1}{B}\sum_{i=1}^{B} z_i^\top L z_i .
+$$
+The intuition is that the latent vector is treated as a graph-indexed signal, and the prior penalizes representations that vary sharply across adjacent graph components. If we view \(z_i\) as a function on graph nodes, the quadratic form satisfies
+$$
+z^\top L z = \sum_{(u,v)\in E} (z_u-z_v)^2
+$$
+up to the conventional factor determined by graph orientation and edge weighting. Thus the Laplacian energy measures smoothness with respect to graph topology, a standard motivation in graph-based regularization \cite{belkin2003}. Minimizing this penalty biases directly connected nodes to have similar latent values.
+
+### 2.3 Connection between priors
+
+The Euclidean covariance prior can be viewed as a special case of a graph-spectral penalty under a uniform-graph assumption. For a complete graph with uniform edge weights, the unnormalized Laplacian is \(L_K = n I - \mathbf{1}\mathbf{1}^\top\), which equals \(n\) times the centering operator \(I - \mathbf{1}\mathbf{1}^\top/n\). The quadratic form satisfies
+$$
+z^\top L_K z = n \|z-\bar{z}\mathbf{1}\|_2^2 .
+$$
+Aggregated over a batch and divided by \(B-1\), this is proportional to the trace of the centered covariance matrix. The Euclidean prior therefore enforces isotropic structure as if all latent coordinates were equally related. The spectral prior replaces this uniform assumption with the actual graph structure of the data. This frames the empirical question: does known graph topology add value over a structure-agnostic isotropic default?
+
+### 2.4 Training and evaluation protocol
+
+We train on one-step transitions \((x_t,a_t,x_{t+1})\) sampled from molecular dynamics trajectories or cellular automaton episodes. For rMD17, observations are subsampled frames from a 100k-frame aspirin trajectory; for ISO17, they are frames from 113 C7H10O2 isomers. The molecular bond graph provides the Laplacian source. For Wolfram cellular automata, observations are discrete automaton states and the one-dimensional cell adjacency graph provides the Laplacian. Across settings, the optimized objective is mean-squared next-latent prediction error plus \(\lambda \mathcal{L}_{\mathrm{prior}}\), with reward and done losses included for API completeness.
+
+Evaluation uses latent rollout error. Starting from an encoded state \(z_t\), we unroll the learned transition model for \(H\) steps to obtain \(\hat{z}_{t+H}\), and compare it with the encoded ground-truth observation \(z_{t+H}=f_\theta(x_{t+H})\):
+$$
+\mathrm{err}(H) = \|\hat{z}_{t+H}-z_{t+H}\|_2^2 .
+$$
+We evaluate horizons \(H \in \{1,2,4,8,16\}\). Unless otherwise stated, the rMD17 main experiment uses 10 seeds per cell, while the other settings use five seeds per cell. We evaluate these three priors on rMD17, ISO17, and Wolfram CA in Section 3.
