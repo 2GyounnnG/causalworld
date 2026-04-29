@@ -25,3 +25,4 @@ output: /workspace/causalworld/rmd17_multimolecule_mechanism.json
 [ethanol|flat|none|seed=1] epoch  20/50 loss=0.0007 H8_eval=0.0005
 [ethanol|flat|none|seed=1] epoch  25/50 loss=0.0005 H8_eval=0.0070
 [ethanol|flat|none|seed=1] epoch  30/50 loss=0.0003 H8_eval=0.0010
+[ethanol|flat|none|seed=1] epoch  35/50 loss=0.0003 H8_eval=0.0176
