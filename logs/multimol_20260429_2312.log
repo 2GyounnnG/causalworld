@@ -26,3 +26,31 @@ output: /workspace/causalworld/rmd17_multimolecule_mechanism.json
 [ethanol|flat|none|seed=1] epoch  25/50 loss=0.0005 H8_eval=0.0070
 [ethanol|flat|none|seed=1] epoch  30/50 loss=0.0003 H8_eval=0.0010
 [ethanol|flat|none|seed=1] epoch  35/50 loss=0.0003 H8_eval=0.0176
+[ethanol|flat|none|seed=1] epoch  40/50 loss=0.0003 H8_eval=0.0541
+[ethanol|flat|none|seed=1] epoch  45/50 loss=0.0001 H8_eval=0.0055
+[ethanol|flat|none|seed=1] epoch  50/50 loss=0.0001 H8_eval=0.0420
+=== Finished ethanol|flat|none|seed=1 | H1=0.0056 H8=0.0420 H16=0.0812 | r_eff=16.00 | wall=294.9s ===
+  -> saved partial; avg=294s/run; ETA=402min for 82 remaining
+
+=== Starting ethanol|flat|none|seed=2 (3/84) ===
+[ethanol|flat|none|seed=2] epoch   1/50 loss=0.0607 H8_eval=0.0753
+[ethanol|flat|none|seed=2] epoch   5/50 loss=0.0008 H8_eval=0.0007
+[ethanol|flat|none|seed=2] epoch  10/50 loss=0.0006 H8_eval=0.0004
+[ethanol|flat|none|seed=2] epoch  15/50 loss=0.0005 H8_eval=0.0000
+[ethanol|flat|none|seed=2] epoch  20/50 loss=0.0004 H8_eval=0.0001
+[ethanol|flat|none|seed=2] epoch  25/50 loss=0.0003 H8_eval=0.0012
+[ethanol|flat|none|seed=2] epoch  30/50 loss=0.0002 H8_eval=0.0034
+[ethanol|flat|none|seed=2] epoch  35/50 loss=0.0003 H8_eval=0.0276
+[ethanol|flat|none|seed=2] epoch  40/50 loss=0.0001 H8_eval=0.0012
+[ethanol|flat|none|seed=2] epoch  45/50 loss=0.0002 H8_eval=0.0065
+[ethanol|flat|none|seed=2] epoch  50/50 loss=0.0002 H8_eval=0.0304
+=== Finished ethanol|flat|none|seed=2 | H1=0.0037 H8=0.0304 H16=0.0631 | r_eff=16.00 | wall=298.1s ===
+  -> saved partial; avg=296s/run; ETA=399min for 81 remaining
+
+=== Starting ethanol|flat|variance|seed=0 (4/84) ===
+[ethanol|flat|variance|seed=0] epoch   1/50 loss=0.1564 H8_eval=0.0872
+[ethanol|flat|variance|seed=0] epoch   5/50 loss=0.0996 H8_eval=0.0060
+[ethanol|flat|variance|seed=0] epoch  10/50 loss=0.0995 H8_eval=0.0042
+[ethanol|flat|variance|seed=0] epoch  15/50 loss=0.0988 H8_eval=0.0002
+[ethanol|flat|variance|seed=0] epoch  20/50 loss=0.0986 H8_eval=0.0259
+[ethanol|flat|variance|seed=0] epoch  25/50 loss=0.0984 H8_eval=0.0003

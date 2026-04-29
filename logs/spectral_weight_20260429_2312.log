@@ -8,3 +8,7 @@ output: /workspace/causalworld/rmd17_spectral_weight_sweep.json
 [aspirin|flat|spectral|seed=0] epoch  10/50 loss=0.0036 H8_eval=0.2009
 [aspirin|flat|spectral|seed=0] epoch  15/50 loss=0.0040 H8_eval=0.2503
 [aspirin|flat|spectral|seed=0] epoch  20/50 loss=0.0876 H8_eval=0.3538
+[aspirin|flat|spectral|seed=0] epoch  25/50 loss=0.0403 H8_eval=0.6578
+[aspirin|flat|spectral|seed=0] epoch  30/50 loss=0.0983 H8_eval=0.2912
+[aspirin|flat|spectral|seed=0] epoch  35/50 loss=0.0067 H8_eval=0.1225
+[aspirin|flat|spectral|seed=0] epoch  40/50 loss=0.0202 H8_eval=0.3493
