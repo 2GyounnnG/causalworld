@@ -43,7 +43,7 @@ N_TRAIN = 24
 N_EVAL = 4
 
 
-def run_prior(prior: str, device: torch.device) -> tuple[float, float]:
+def run_prior(prior: str, device: torch.device) -> tuple[float, float, dict[str, float]]:
     set_seed(0)
     rule, initial_state, max_steps = build_environment(ENV_PROFILE, seed=0)
     train_episodes = collect_episodes(
@@ -86,7 +86,7 @@ def run_prior(prior: str, device: torch.device) -> tuple[float, float]:
             f"final train loss did not decrease: epoch0={epoch0_loss:.6f}, "
             f"epoch3={epoch3_loss:.6f}"
         )
-    return epoch0_loss, epoch3_loss
+    return epoch0_loss, epoch3_loss, history["final_diagnostics"]
 
 
 def main() -> None:
@@ -96,7 +96,7 @@ def main() -> None:
 
     for prior in PRIORS:
         try:
-            epoch0_loss, epoch3_loss = run_prior(prior, device)
+            epoch0_loss, epoch3_loss, diagnostics = run_prior(prior, device)
         except Exception as exc:  # pragma: no cover - diagnostic script.
             failed.append(prior)
             print(f"[FAIL] prior={prior}: {exc}", flush=True)
@@ -105,6 +105,13 @@ def main() -> None:
         print(
             f"[OK] prior={prior} epoch0_loss={epoch0_loss:.4f} "
             f"epoch3_loss={epoch3_loss:.4f}",
+            flush=True,
+        )
+        print(
+            f"     diagnostics: r_eff={diagnostics['effective_rank']:.2f} "
+            f"cond={diagnostics['condition_number']:.2f} "
+            f"proj_gauss={diagnostics['projection_gaussianity']:.2f} "
+            f"spec_align={diagnostics['spectral_alignment']:.2f}",
             flush=True,
         )
 

@@ -598,6 +598,25 @@ def train_one(
             f"rollout_H8={rollout_H8:.2f}"
         )
 
+    from diagnostics_latent import compute_all_diagnostics
+
+    diagnostic_batch_size = min(config.batch_size, len(train_transitions))
+    with torch.no_grad():
+        z_batch = torch.stack(
+            [model.encode(obs_all[index]) for index in range(diagnostic_batch_size)],
+            dim=0,
+        )
+    L = None
+    if config.prior in {"spectral", "permuted_spectral", "random_spectral"}:
+        if fixed_laplacian is not None:
+            L = fixed_laplacian
+        else:
+            L = build_causal_laplacian(
+                train_transitions[0]["causal_graph"],
+                config.latent_dim,
+            ).to(device)
+    history["final_diagnostics"] = compute_all_diagnostics(z_batch, L=L)
+
     return model, history
 
 
