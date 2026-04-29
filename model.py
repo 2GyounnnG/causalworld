@@ -534,6 +534,19 @@ def random_laplacian(
     return degree - adjacency
 
 
+def identity_quadratic_penalty(z_batch: Tensor) -> Tensor:
+    """
+    The simplest possible quadratic penalty: z^T I z = ||z||^2 averaged
+    over batch. Equivalent to L2 regularization on latent vectors. Serves
+    as a baseline for spectral-quadratic priors: any improvement over
+    this baseline indicates that the structured form (Laplacian / random
+    graph) is doing more than generic norm shrinkage.
+    """
+    if z_batch.dim() == 1:
+        z_batch = z_batch.unsqueeze(0)
+    return z_batch.pow(2).sum(dim=1).mean()
+
+
 def build_causal_laplacian(causal_graph: nx.DiGraph, latent_dim: int) -> Tensor:
     """Symmetrized normalized Laplacian of the causal event graph.
 

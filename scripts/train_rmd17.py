@@ -35,6 +35,7 @@ from model import (
     sigreg_gauss_penalty,
     permuted_laplacian,
     random_laplacian,
+    identity_quadratic_penalty,
 )
 
 
@@ -575,6 +576,17 @@ def train_one_seed(config: Config) -> Dict:
                         prior_weight=0.0,
                     )
                     batch_latents.append(model.encode(obs))
+                elif config.prior == "identity_quadratic":
+                    loss_dict = model.loss(
+                        observation=obs,
+                        action=action_zero,
+                        next_observation=next_obs,
+                        reward=0.0,
+                        done=0.0,
+                        prior="none",
+                        prior_weight=0.0,
+                    )
+                    batch_latents.append(model.encode(obs))
                 elif config.prior == "sigreg":
                     loss_dict = model.loss(
                         observation=obs,
@@ -641,7 +653,7 @@ def train_one_seed(config: Config) -> Dict:
                 else:
                     raise ValueError(
                         "prior must be one of 'none', 'euclidean', 'spectral', 'variance', "
-                        "'sigreg', 'permuted_spectral', 'random_spectral'"
+                        "'sigreg', 'identity_quadratic', 'permuted_spectral', 'random_spectral'"
                     )
 
                 base_totals.append(loss_dict["total"])
@@ -657,6 +669,11 @@ def train_one_seed(config: Config) -> Dict:
                 prior_loss = variance_only_penalty(
                     torch.stack(batch_latents, dim=0),
                     gamma=config.variance_gamma,
+                )
+                total = total + config.prior_weight * prior_loss
+            elif config.prior == "identity_quadratic":
+                prior_loss = identity_quadratic_penalty(
+                    torch.stack(batch_latents, dim=0)
                 )
                 total = total + config.prior_weight * prior_loss
             elif config.prior == "sigreg":
