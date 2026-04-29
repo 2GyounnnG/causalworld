@@ -31,6 +31,10 @@ from model import (
     WorldModel,
     build_causal_laplacian,
     euclidean_cov_penalty,
+    variance_only_penalty,
+    sigreg_gauss_penalty,
+    permuted_laplacian,
+    random_laplacian,
 )
 
 
@@ -172,6 +176,11 @@ class Config:
     save_frame_indices: bool = True
     disjoint_eval: bool = False
     eval_n_transitions: int = 200
+    variance_gamma: float = 1.0
+    sigreg_num_slices: int = 8
+    sigreg_sigma: float = 1.0
+    control_edge_density: float = 0.3
+    control_seed_offset: int = 1000
 
 
 def infer_model_n_atoms(config: Config, transitions: list[dict] | None = None) -> int | None:
@@ -408,6 +417,8 @@ def train_one_seed(config: Config) -> Dict:
     torch.manual_seed(config.seed)
     if config.device == "cuda":
         torch.cuda.manual_seed_all(config.seed)
+    control_generator = torch.Generator(device="cpu")
+    control_generator.manual_seed(config.seed + config.control_seed_offset)
 
     transitions = collect_rmd17_transitions(
         molecule=config.molecule,
@@ -439,11 +450,12 @@ def train_one_seed(config: Config) -> Dict:
     device = torch.device(config.device)
     if config.laplacian_mode not in {"per_frame", "fixed_frame0", "fixed_mean"}:
         raise ValueError("laplacian_mode must be one of 'per_frame', 'fixed_frame0', or 'fixed_mean'")
-    if config.prior == "spectral" and config.graph_source not in {"bond", "random", "complete", "identity"}:
+    spectral_priors = {"spectral", "permuted_spectral", "random_spectral"}
+    if config.prior in spectral_priors and config.graph_source not in {"bond", "random", "complete", "identity"}:
         raise ValueError("graph_source must be one of 'bond', 'random', 'complete', or 'identity'")
 
     fixed_laplacian = None
-    if config.prior == "spectral" and config.laplacian_mode != "per_frame":
+    if config.prior in spectral_priors and config.laplacian_mode != "per_frame":
         traj = RMD17Trajectory(config.molecule)
         if config.laplacian_mode == "fixed_frame0":
             fixed_laplacian = build_graph_source_laplacian(
@@ -552,6 +564,70 @@ def train_one_seed(config: Config) -> Dict:
                         prior_weight=0.0,
                     )
                     batch_latents.append(model.encode(obs))
+                elif config.prior == "variance":
+                    loss_dict = model.loss(
+                        observation=obs,
+                        action=action_zero,
+                        next_observation=next_obs,
+                        reward=0.0,
+                        done=0.0,
+                        prior="none",
+                        prior_weight=0.0,
+                    )
+                    batch_latents.append(model.encode(obs))
+                elif config.prior == "sigreg":
+                    loss_dict = model.loss(
+                        observation=obs,
+                        action=action_zero,
+                        next_observation=next_obs,
+                        reward=0.0,
+                        done=0.0,
+                        prior="none",
+                        prior_weight=0.0,
+                    )
+                    batch_latents.append(model.encode(obs))
+                elif config.prior == "permuted_spectral":
+                    if fixed_laplacian is None:
+                        frame_idx = int(transition.get("frame_idx", int(index)))
+                        base_laplacian = build_graph_source_laplacian(
+                            obs_raw,
+                            config.latent_dim,
+                            config.graph_source,
+                            config.seed,
+                            frame_idx,
+                            device,
+                        )
+                    else:
+                        base_laplacian = fixed_laplacian
+                    permuted = permuted_laplacian(base_laplacian, generator=control_generator)
+                    loss_dict = model.loss(
+                        observation=obs,
+                        action=action_zero,
+                        next_observation=next_obs,
+                        reward=0.0,
+                        done=0.0,
+                        prior="spectral",
+                        prior_weight=config.prior_weight,
+                        laplacian=permuted,
+                    )
+                elif config.prior == "random_spectral":
+                    random_L = random_laplacian(
+                        config.latent_dim,
+                        config.control_edge_density,
+                        device=device,
+                        dtype=torch.float32,
+                        generator=control_generator,
+                    )
+                    loss_dict = model.loss(
+                        observation=obs,
+                        action=action_zero,
+                        next_observation=next_obs,
+                        reward=0.0,
+                        done=0.0,
+                        prior="spectral",
+                        prior_weight=config.prior_weight,
+                        laplacian=random_L,
+                    )
                 elif config.prior == "none":
                     loss_dict = model.loss(
                         observation=obs,
@@ -563,7 +639,10 @@ def train_one_seed(config: Config) -> Dict:
                         prior_weight=0.0,
                     )
                 else:
-                    raise ValueError("prior must be one of 'none', 'euclidean', or 'spectral'")
+                    raise ValueError(
+                        "prior must be one of 'none', 'euclidean', 'spectral', 'variance', "
+                        "'sigreg', 'permuted_spectral', 'random_spectral'"
+                    )
 
                 base_totals.append(loss_dict["total"])
                 transition_losses.append(loss_dict["transition"])
@@ -574,7 +653,22 @@ def train_one_seed(config: Config) -> Dict:
             if config.prior == "euclidean":
                 prior_loss = euclidean_cov_penalty(torch.stack(batch_latents, dim=0))
                 total = total + config.prior_weight * prior_loss
+            elif config.prior == "variance":
+                prior_loss = variance_only_penalty(
+                    torch.stack(batch_latents, dim=0),
+                    gamma=config.variance_gamma,
+                )
+                total = total + config.prior_weight * prior_loss
+            elif config.prior == "sigreg":
+                prior_loss = sigreg_gauss_penalty(
+                    torch.stack(batch_latents, dim=0),
+                    num_slices=config.sigreg_num_slices,
+                    sigma=config.sigreg_sigma,
+                )
+                total = total + config.prior_weight * prior_loss
             elif config.prior == "spectral":
+                prior_loss = torch.stack(prior_losses).mean()
+            elif config.prior in {"permuted_spectral", "random_spectral"}:
                 prior_loss = torch.stack(prior_losses).mean()
             else:
                 prior_loss = total.new_tensor(0.0)
@@ -639,6 +733,29 @@ def train_one_seed(config: Config) -> Dict:
             result["checkpoint_path"] = str(checkpoint.relative_to(ROOT))
         except ValueError:
             result["checkpoint_path"] = str(checkpoint)
+    from diagnostics_latent import compute_all_diagnostics
+
+    diagnostic_batch_size = min(config.batch_size, len(transitions))
+    with torch.no_grad():
+        z_list = []
+        for k in range(diagnostic_batch_size):
+            obs_k = transitions[k]["obs"]
+            obs_k_device = move_obs_to_device(obs_k, device)
+            z_list.append(model.encode(obs_k_device))
+        z_batch = torch.stack(z_list, dim=0)
+
+    diag_L = None
+    if config.prior in {"spectral", "permuted_spectral", "random_spectral"}:
+        diag_L = build_graph_source_laplacian(
+            transitions[0]["obs"],
+            config.latent_dim,
+            config.graph_source,
+            config.seed,
+            0,
+            device,
+        )
+
+    result["final_diagnostics"] = compute_all_diagnostics(z_batch, L=diag_L)
     return result
 
 

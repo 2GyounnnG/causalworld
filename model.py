@@ -513,7 +513,7 @@ def permuted_laplacian(
             f"laplacian must be 2D or batched 3D, got shape {tuple(L.shape)}"
         )
     latent_dim = L.shape[-1]
-    permutation = torch.randperm(latent_dim, device=L.device, generator=generator)
+    permutation = torch.randperm(latent_dim, generator=generator).to(L.device)
     if L.dim() == 3:
         return L.index_select(1, permutation).index_select(2, permutation)
     return L.index_select(0, permutation).index_select(1, permutation)
@@ -526,13 +526,8 @@ def random_laplacian(
     dtype,
     generator: Optional[torch.Generator] = None,
 ) -> Tensor:
-    samples = torch.rand(
-        latent_dim,
-        latent_dim,
-        device=device,
-        dtype=dtype,
-        generator=generator,
-    )
+    samples = torch.rand(latent_dim, latent_dim, dtype=dtype, generator=generator)
+    samples = samples.to(device)
     upper = torch.triu((samples < edge_density).to(dtype), diagonal=1)
     adjacency = upper + upper.T
     degree = torch.diag(adjacency.sum(dim=1))

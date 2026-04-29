@@ -7,7 +7,23 @@ from torch.utils.data import Dataset
 from torch_geometric.data import HeteroData
 
 
-DATA_ROOT = Path("/workspace/causalworld/data/rmd17_raw/rmd17/npz_data")
+def _resolve_data_root() -> Path:
+    env = os.environ.get("RMD17_DATA_DIR")
+    if env:
+        p = Path(env)
+        if p.exists():
+            return p
+    repo_root = Path(__file__).resolve().parents[1]
+    repo_local = repo_root / "data" / "rmd17_raw" / "rmd17" / "npz_data"
+    if repo_local.exists():
+        return repo_local
+    legacy = Path("/workspace/causalworld/data/rmd17_raw/rmd17/npz_data")
+    if legacy.exists():
+        return legacy
+    return repo_local
+
+
+DATA_ROOT = _resolve_data_root()
 MOLECULES = [
     "aspirin",
     "azobenzene",
