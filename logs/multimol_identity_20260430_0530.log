@@ -83,3 +83,36 @@ output: /workspace/causalworld/rmd17_multimol_identity.json
 [malonaldehyde|flat|identity_quadratic|seed=2] epoch   5/50 loss=0.0011 H8_eval=0.0001
 [malonaldehyde|flat|identity_quadratic|seed=2] epoch  10/50 loss=0.0002 H8_eval=0.0101
 [malonaldehyde|flat|identity_quadratic|seed=2] epoch  15/50 loss=0.0001 H8_eval=0.0037
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  20/50 loss=0.0000 H8_eval=0.0031
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  25/50 loss=0.0000 H8_eval=0.0071
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  30/50 loss=0.0000 H8_eval=0.0107
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  35/50 loss=0.0000 H8_eval=0.0242
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  40/50 loss=0.0000 H8_eval=0.0091
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  45/50 loss=0.0000 H8_eval=0.0306
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  50/50 loss=0.0000 H8_eval=0.0159
+=== Finished malonaldehyde|flat|identity_quadratic|seed=2 | H1=0.0023 H8=0.0159 H16=0.0387 | r_eff=16.00 | wall=335.6s ===
+  -> saved partial; avg=332s/run; ETA=33min for 6 remaining
+
+=== Starting naphthalene|flat|identity_quadratic|seed=0 (7/12) ===
+[naphthalene|flat|identity_quadratic|seed=0] epoch   1/50 loss=68.9848 H8_eval=0.2170
+[naphthalene|flat|identity_quadratic|seed=0] epoch   5/50 loss=0.0057 H8_eval=0.0217
+[naphthalene|flat|identity_quadratic|seed=0] epoch  10/50 loss=0.0014 H8_eval=0.0696
+[naphthalene|flat|identity_quadratic|seed=0] epoch  15/50 loss=0.0010 H8_eval=0.0365
+[naphthalene|flat|identity_quadratic|seed=0] epoch  20/50 loss=0.0009 H8_eval=0.0524
+[naphthalene|flat|identity_quadratic|seed=0] epoch  25/50 loss=0.0016 H8_eval=0.1152
+[naphthalene|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0008 H8_eval=0.0498
+[naphthalene|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0008 H8_eval=0.0344
+[naphthalene|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0007 H8_eval=0.0250
+[naphthalene|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0007 H8_eval=0.0284
+[naphthalene|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0007 H8_eval=0.0223
+=== Finished naphthalene|flat|identity_quadratic|seed=0 | H1=0.0113 H8=0.0223 H16=0.0456 | r_eff=1.00 | wall=966.2s ===
+  -> saved partial; avg=423s/run; ETA=35min for 5 remaining
+
+=== Starting naphthalene|flat|identity_quadratic|seed=1 (8/12) ===
+[naphthalene|flat|identity_quadratic|seed=1] epoch   1/50 loss=93.8445 H8_eval=0.3139
+[naphthalene|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0054 H8_eval=0.0285
+[naphthalene|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0017 H8_eval=0.0355
+[naphthalene|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0014 H8_eval=0.0689
+[naphthalene|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0014 H8_eval=0.0531
+[naphthalene|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0011 H8_eval=0.0208
+[naphthalene|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0009 H8_eval=0.0345
