@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import csv
 import math
 import sys
@@ -13,6 +14,7 @@ from typing import Any, Protocol
 
 import numpy as np
 import torch
+from torch_geometric.data import HeteroData
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -182,11 +184,211 @@ class HOAdapter:
         }
 
 
+def grid_edges(n_nodes: int) -> np.ndarray:
+    side = int(round(math.sqrt(n_nodes)))
+    if side * side != n_nodes:
+        raise ValueError("lattice graph_heat topology requires N to be a perfect square")
+    edges: list[tuple[int, int]] = []
+    for row in range(side):
+        for col in range(side):
+            idx = row * side + col
+            if col + 1 < side:
+                edges.append((idx, idx + 1))
+            if row + 1 < side:
+                edges.append((idx, idx + side))
+    return np.asarray(edges, dtype=np.int64)
+
+
+def graph_heat_edges(topology: str, n_nodes: int, seed: int) -> np.ndarray:
+    if topology == "chain":
+        return np.asarray([(idx, idx + 1) for idx in range(n_nodes - 1)], dtype=np.int64)
+    if topology == "ring":
+        edges = [(idx, idx + 1) for idx in range(n_nodes - 1)]
+        edges.append((n_nodes - 1, 0))
+        return np.asarray(edges, dtype=np.int64)
+    if topology == "lattice":
+        return grid_edges(n_nodes)
+    if topology == "random":
+        n_edges = max(n_nodes - 1, 2 * n_nodes)
+        return random_edge_pairs_np(n_nodes, n_edges, seed=seed)
+    if topology == "scalefree":
+        rng = np.random.default_rng(seed)
+        edges: set[tuple[int, int]] = {(0, 1), (1, 2), (0, 2)}
+        degrees = np.zeros(n_nodes, dtype=np.float64)
+        for src, dst in edges:
+            degrees[src] += 1.0
+            degrees[dst] += 1.0
+        for node in range(3, n_nodes):
+            probs = degrees[:node] + 1.0
+            probs = probs / probs.sum()
+            targets = rng.choice(node, size=min(2, node), replace=False, p=probs)
+            for target in targets:
+                pair = (int(target), node) if int(target) < node else (node, int(target))
+                edges.add(pair)
+                degrees[pair[0]] += 1.0
+                degrees[pair[1]] += 1.0
+        return np.asarray(sorted(edges), dtype=np.int64)
+    raise ValueError("graph_heat topology must be one of chain, ring, lattice, random, scalefree")
+
+
+class GraphHeatAdapter:
+    """Synthetic graph heat dynamics: X[t+1] = X[t] - tau L X[t] + noise eps."""
+
+    def __init__(
+        self,
+        *,
+        topology: str,
+        n_nodes: int = 36,
+        n_dim: int = 4,
+        n_frames: int = 512,
+        tau: float = 0.05,
+        noise: float = 0.01,
+        seed: int = 0,
+    ):
+        if n_dim != 4:
+            raise ValueError("graph_heat currently requires d=4 to match the existing GNN input width")
+        self.name = f"graph_heat_{topology}"
+        self.topology = topology
+        self.n_nodes = int(n_nodes)
+        self.n_dim = int(n_dim)
+        self.n_frames = int(n_frames)
+        self.tau = float(tau)
+        self.noise = float(noise)
+        self.seed = int(seed)
+        self.edges = graph_heat_edges(topology, self.n_nodes, self.seed)
+        self.laplacian = laplacian_from_edges(self.n_nodes, self.edges)
+        self.coords = self._simulate()
+        self.energies = np.sum(self.coords * self.coords, axis=(1, 2)).astype(np.float32)
+
+    def _simulate(self) -> np.ndarray:
+        rng = np.random.default_rng(self.seed)
+        coords = np.zeros((self.n_frames, self.n_nodes, self.n_dim), dtype=np.float32)
+        coords[0] = rng.normal(size=(self.n_nodes, self.n_dim)).astype(np.float32)
+        for frame_idx in range(self.n_frames - 1):
+            drift = self.laplacian @ coords[frame_idx]
+            eps = rng.normal(size=(self.n_nodes, self.n_dim)).astype(np.float32)
+            coords[frame_idx + 1] = coords[frame_idx] - self.tau * drift.astype(np.float32) + self.noise * eps
+        return coords
+
+    def __getitem__(self, idx: int) -> HeteroData:
+        x = torch.from_numpy(self.coords[idx])
+        pos = x[:, :3].to(dtype=torch.float32)
+        atomic_numbers = (10.0 * x[:, 3]).to(dtype=torch.float32)
+        directed = np.concatenate([self.edges, self.edges[:, ::-1]], axis=0)
+        edge_index = torch.from_numpy(directed.T.copy()).to(dtype=torch.long)
+        edge_attr = torch.ones((edge_index.shape[1], 1), dtype=torch.float32)
+
+        data = HeteroData()
+        data["atom"].pos = pos
+        data["atom"].atomic_number = atomic_numbers
+        data["atom"].x = torch.cat([atomic_numbers.view(-1, 1) / 10.0, pos], dim=-1)
+        data["atom", "bonded", "atom"].edge_index = edge_index
+        data["atom", "bonded", "atom"].edge_attr = edge_attr
+        return data
+
+    def sample_transitions(
+        self,
+        *,
+        n_transitions: int,
+        stride: int,
+        horizon: int,
+        seed: int,
+    ) -> list[dict[str, Any]]:
+        frame_indices = sampled_frame_indices(self.n_frames, n_transitions, stride, horizon, seed)
+        transitions = []
+        for frame_idx in frame_indices:
+            obs, next_obs, energy, _force = self.get_pair(frame_idx, horizon=horizon)
+            transitions.append(
+                {
+                    "obs": obs,
+                    "next_obs": next_obs,
+                    "frame_idx": int(frame_idx),
+                    "horizon": int(horizon),
+                    "energy": float(energy),
+                    "molecule": self.name,
+                }
+            )
+        return transitions
+
+    def get_pair(self, idx: int, horizon: int = 1) -> tuple[HeteroData, HeteroData, float, None]:
+        if idx + horizon >= self.n_frames:
+            raise IndexError(f"idx+horizon={idx + horizon} >= n_frames={self.n_frames}")
+        return self[idx], self[idx + horizon], float(self.energies[idx]), None
+
+    def true_laplacian(self) -> np.ndarray:
+        return self.laplacian
+
+    def coordinates(self, frame_idx: int) -> np.ndarray:
+        return np.asarray(self.coords[frame_idx], dtype=np.float64)
+
+    def training_config(
+        self,
+        args: argparse.Namespace,
+        *,
+        prior: str,
+        seed: int,
+    ) -> Cycle3HOConfig:
+        return Cycle3HOConfig(
+            run_name=(
+                f"preflight_{self.name}_gnn_{prior}_"
+                f"lambda{str(args.prior_weight).replace('.', 'p')}_seed{seed}"
+            ),
+            topology=self.topology,
+            encoder="gnn_node",
+            prior=prior,
+            seed=int(seed),
+            num_epochs=int(args.epochs),
+            n_transitions=int(args.train_transitions),
+            eval_n_transitions=int(args.eval_transitions),
+            stride=int(args.train_stride),
+            eval_stride=int(args.eval_stride),
+            horizon=1,
+            eval_horizons=tuple(int(value) for value in args.horizons),
+            latent_dim=16,
+            node_dim=16,
+            hidden_dim=64,
+            transition_hidden_dim=64,
+            batch_size=int(args.batch_size),
+            lr=float(args.lr),
+            prior_weight=float(args.prior_weight),
+            device=args.device,
+            data_root=str(args.data_root),
+        )
+
+    def metadata(self) -> dict[str, Any]:
+        return {
+            "dataset": self.name,
+            "domain": "graph_heat",
+            "topology": self.topology,
+            "n_nodes": self.n_nodes,
+            "n_edges": int(self.edges.shape[0]),
+            "n_frames": self.n_frames,
+            "n_dim": self.n_dim,
+            "tau": self.tau,
+            "noise": self.noise,
+            "seed": self.seed,
+        }
+
+
 def build_adapter(args: argparse.Namespace) -> DatasetAdapter:
     dataset = str(args.dataset)
     if dataset.startswith("ho_"):
         return HOAdapter(dataset, args.data_root)
-    raise ValueError(f"Unknown dataset {dataset!r}. Available: ho_lattice, ho_random, ho_scalefree")
+    if dataset == "graph_heat" or dataset.startswith("graph_heat_"):
+        topology = args.topology or (dataset.removeprefix("graph_heat_") if dataset.startswith("graph_heat_") else "lattice")
+        return GraphHeatAdapter(
+            topology=topology,
+            n_nodes=args.graph_heat_n,
+            n_dim=args.graph_heat_d,
+            n_frames=args.graph_heat_t,
+            tau=args.graph_heat_tau,
+            noise=args.graph_heat_noise,
+            seed=args.graph_heat_seed,
+        )
+    raise ValueError(
+        f"Unknown dataset {dataset!r}. Available: ho_lattice, ho_random, ho_scalefree, "
+        "graph_heat, graph_heat_<topology>"
+    )
 
 
 def finite(value: Any) -> bool:
@@ -774,6 +976,83 @@ def write_summary_csv(path: Path, rows: list[dict[str, Any]]) -> None:
             writer.writerow(row)
 
 
+def read_summary_csv(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    with path.open("r", newline="", encoding="utf-8") as file:
+        return list(csv.DictReader(file))
+
+
+def graph_heat_oracle_metrics(args: argparse.Namespace, adapter: DatasetAdapter) -> dict[str, Any]:
+    meta = adapter.metadata()
+    if meta.get("domain") != "graph_heat":
+        return {}
+    horizons = tuple(sorted({1, *(int(value) for value in args.horizons)}))
+    max_horizon = max(horizons)
+    frame_indices = sampled_frame_indices(
+        adapter.n_frames,
+        args.eval_transitions,
+        args.eval_stride,
+        max_horizon,
+        int(args.seeds[0]) + 1000,
+    )
+    laplacian = adapter.true_laplacian()
+    tau = float(meta["tau"])
+    mse_by_horizon: dict[int, list[float]] = {horizon: [] for horizon in horizons}
+    for frame_idx in frame_indices:
+        pred = np.asarray(adapter.coordinates(frame_idx), dtype=np.float64).copy()
+        for step in range(1, max_horizon + 1):
+            pred = pred - tau * (laplacian @ pred)
+            if step in mse_by_horizon:
+                target = np.asarray(adapter.coordinates(frame_idx + step), dtype=np.float64)
+                mse_by_horizon[step].append(float(np.mean((pred - target) ** 2)))
+    row: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "stage": "oracle_heat_baseline",
+        "dataset": adapter.name,
+        "topology": meta.get("topology"),
+        "n_eval_transitions": len(frame_indices),
+        "tau": tau,
+        "noise": float(meta["noise"]),
+    }
+    for horizon in horizons:
+        row[f"H{horizon}_mse"] = mean(mse_by_horizon[horizon])
+    return row
+
+
+def graph_heat_lambda_sanity(args: argparse.Namespace, adapter: DatasetAdapter) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if adapter.metadata().get("domain") != "graph_heat":
+        return rows
+    for lambda_value in (0.001, 0.01, 0.1):
+        lambda_args = copy.copy(args)
+        lambda_args.prior_weight = float(lambda_value)
+        config = adapter.training_config(lambda_args, prior="graph", seed=0)
+        try:
+            row, _model, _device = mini_train(config, adapter)
+            row["stage"] = "graph_heat_lambda_sanity"
+            row["lambda_sanity"] = True
+            rows.append(row)
+        except Exception as exc:
+            rows.append(
+                {
+                    "schema_version": SCHEMA_VERSION,
+                    "stage": "graph_heat_lambda_sanity",
+                    "dataset": adapter.name,
+                    "status": "failed",
+                    "topology": adapter.metadata().get("topology"),
+                    "encoder": "gnn_node",
+                    "prior": "graph",
+                    "prior_weight": float(lambda_value),
+                    "seed": 0,
+                    "error": str(exc),
+                    "H16": float("nan"),
+                    "H32": float("nan"),
+                }
+            )
+    return rows
+
+
 def report_table(headers: list[str], rows: list[list[Any]]) -> list[str]:
     lines = [
         "| " + " | ".join(headers) + " |",
@@ -792,6 +1071,7 @@ def write_report(
     stage2_rows: list[dict[str, Any]],
     classification: str,
     class_metrics: dict[str, float],
+    oracle_row: dict[str, Any] | None = None,
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     raw_by_type = {str(row["graph_type"]): row for row in raw_rows}
@@ -870,9 +1150,24 @@ def write_report(
         f"Graph gain vs none at H=32: `{fmt_pct(class_metrics.get('graph_gain_h32_pct'))}`",
         f"True-vs-permuted gain at H=32: `{fmt_pct(class_metrics.get('true_vs_permuted_gain_h32_pct'))}`",
         "",
-        "## Stage 2: Latent Audit",
-        "",
     ]
+    if oracle_row:
+        lines.extend(
+            [
+                "## Graph Heat Oracle Baseline",
+                "",
+                *report_table(
+                    ["metric", "value"],
+                    [
+                        ["one-step MSE", fmt(oracle_row.get("H1_mse"), 8)],
+                        ["H=16 rollout MSE", fmt(oracle_row.get("H16_mse"), 8)],
+                        ["H=32 rollout MSE", fmt(oracle_row.get("H32_mse"), 8)],
+                    ],
+                ),
+                "",
+            ]
+        )
+    lines.extend(["## Stage 2: Latent Audit", ""])
     if not stage2_rows:
         lines.extend(
             [
@@ -955,6 +1250,142 @@ def write_report(
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def rows_for_stage(rows: list[dict[str, Any]], stage: str) -> list[dict[str, Any]]:
+    return [row for row in rows if row.get("stage") == stage and row.get("status", "ok") == "ok"]
+
+
+def first_prior_row(rows: list[dict[str, Any]], prior: str) -> dict[str, Any] | None:
+    for row in rows:
+        if row.get("prior") == prior:
+            return row
+    return None
+
+
+def write_graph_heat_failure_audit(
+    path: Path,
+    *,
+    args: argparse.Namespace,
+    raw_rows: list[dict[str, Any]],
+    oracle_row: dict[str, Any],
+    existing_rows: list[dict[str, Any]],
+    lambda_rows: list[dict[str, Any]],
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    raw_by_type = {str(row.get("graph_type")): row for row in raw_rows}
+    stage1_rows = rows_for_stage(existing_rows, "stage1_mini_train")
+    none_row = first_prior_row(stage1_rows, "none")
+    permuted_row = first_prior_row(stage1_rows, "permuted_graph")
+    graph_row = first_prior_row(stage1_rows, "graph")
+
+    true_d = raw_by_type.get("true_graph", {}).get("D_dX_norm")
+    perm_d = raw_by_type.get("permuted_graph", {}).get("D_dX_norm")
+    rand_d = raw_by_type.get("random_graph", {}).get("D_dX_norm")
+    raw_smoother = finite(true_d) and finite(perm_d) and finite(rand_d) and float(true_d) < float(perm_d) and float(true_d) < float(rand_d)
+
+    lambda_ok_rows = [row for row in lambda_rows if row.get("status") == "ok"]
+    best_lambda = min(lambda_ok_rows, key=lambda row: float(row.get("H32", float("inf"))), default=None)
+    graph_01_h32 = next(
+        (float(row.get("H32")) for row in lambda_ok_rows if abs(float(row.get("prior_weight", float("nan"))) - 0.1) < 1e-12),
+        float(graph_row.get("H32", float("nan"))) if graph_row else float("nan"),
+    )
+    none_h32 = float(none_row.get("H32", float("nan"))) if none_row else float("nan")
+    perm_h32 = float(permuted_row.get("H32", float("nan"))) if permuted_row else float("nan")
+    best_h32 = float(best_lambda.get("H32", float("nan"))) if best_lambda else float("nan")
+    high_lambda_hurts = finite(best_h32) and finite(graph_01_h32) and best_h32 < graph_01_h32
+    high_lambda_explains = high_lambda_hurts and finite(none_h32) and finite(perm_h32) and best_h32 < none_h32 and best_h32 < perm_h32
+    oracle_one = oracle_row.get("H1_mse")
+    noise = oracle_row.get("noise")
+    oracle_accurate = finite(oracle_one) and finite(noise) and float(oracle_one) <= 5.0 * (float(noise) ** 2)
+
+    final_call = (
+        "Treat as a lambda-sensitive candidate under this latent model."
+        if high_lambda_explains
+        else "Treat as a no-graph-gain case under this latent model, despite the oracle generator being available."
+    )
+
+    lines = [
+        "# Graph Heat Failure Audit",
+        "",
+        f"Created: `{datetime.now(timezone.utc).isoformat()}`",
+        "Scope: graph_heat_lattice only; no ISO17, rMD17 top-up, or full sweeps were run.",
+        "",
+        "## Stage 0 Raw Diagnostics",
+        "",
+        *report_table(
+            ["graph type", "D_dX_norm", "R_low K=2", "R_low K=4", "R_low K=8"],
+            [
+                [
+                    graph_type,
+                    fmt(row.get("D_dX_norm"), 6),
+                    fmt(row.get("R_low_dX_2"), 4),
+                    fmt(row.get("R_low_dX_4"), 4),
+                    fmt(row.get("R_low_dX_8"), 4),
+                ]
+                for graph_type, row in raw_by_type.items()
+            ],
+        ),
+        "",
+        f"Raw dynamics smoother on true graph than both controls: `{'YES' if raw_smoother else 'NO'}`.",
+        "",
+        "## Oracle Heat Baseline",
+        "",
+        *report_table(
+            ["metric", "MSE"],
+            [
+                ["one-step", fmt(oracle_row.get("H1_mse"), 8)],
+                ["H=16 rollout", fmt(oracle_row.get("H16_mse"), 8)],
+                ["H=32 rollout", fmt(oracle_row.get("H32_mse"), 8)],
+            ],
+        ),
+        "",
+        f"Oracle one-step MSE is within `5 * noise^2`: `{'YES' if oracle_accurate else 'NO'}`.",
+        "",
+        "## Existing Preflight Comparison",
+        "",
+        *report_table(
+            ["prior", "lambda", "H=16", "H=32"],
+            [
+                ["none", "0", fmt(none_row.get("H16") if none_row else float("nan"), 4), fmt(none_h32, 4)],
+                ["graph", "0.1", fmt(graph_row.get("H16") if graph_row else float("nan"), 4), fmt(graph_row.get("H32") if graph_row else float("nan"), 4)],
+                ["permuted_graph", "0.1", fmt(permuted_row.get("H16") if permuted_row else float("nan"), 4), fmt(perm_h32, 4)],
+            ],
+        ),
+        "",
+        "## Lambda Sanity Check",
+        "",
+        *report_table(
+            ["prior", "lambda", "H=16", "H=32", "prior loss mean"],
+            [
+                [
+                    row.get("prior"),
+                    fmt(row.get("prior_weight"), 3),
+                    fmt(row.get("H16"), 4),
+                    fmt(row.get("H32"), 4),
+                    fmt(row.get("prior_loss_mean"), 6),
+                ]
+                for row in lambda_rows
+            ],
+        ),
+        "",
+        f"Best graph lambda by H=32: `{fmt(best_lambda.get('prior_weight') if best_lambda else float('nan'), 3)}` with H=32 `{fmt(best_h32, 4)}`.",
+        f"Lower lambda improves over graph lambda=0.1: `{'YES' if high_lambda_hurts else 'NO'}`.",
+        f"High lambda / over-smoothing fully explains the original miss: `{'YES' if high_lambda_explains else 'NO'}`.",
+        "",
+        "## Answers",
+        "",
+        f"- Is raw dynamics smoother on true graph than controls? `{'YES' if raw_smoother else 'NO'}`.",
+        f"- Is the oracle heat model accurate? `{'YES' if oracle_accurate else 'NO'}` for one-step prediction; see rollout MSE above.",
+        f"- Is true graph prior hurt due to high lambda / over-smoothing? `{'YES' if high_lambda_explains else 'PARTLY' if high_lambda_hurts else 'NO'}`.",
+        f"- Should graph_heat be treated as positive-control failure or no-graph-gain under this latent model? {final_call}",
+        "",
+        "## Files",
+        "",
+        f"- `{rel_to_root(args.summary)}`",
+        f"- `{rel_to_root(path)}`",
+    ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def parse_seeds(raw: str) -> list[int]:
     return [int(part.strip()) for part in raw.split(",") if part.strip()]
 
@@ -962,7 +1393,12 @@ def parse_seeds(raw: str) -> list[int]:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Lightweight graph-prior preflight check.")
     parser.add_argument("--dataset", default=None, help="Dataset adapter name, e.g. ho_lattice.")
-    parser.add_argument("--topology", default=None, choices=["lattice", "random", "scalefree"], help="Deprecated alias for --dataset ho_<topology>.")
+    parser.add_argument(
+        "--topology",
+        default=None,
+        choices=["chain", "ring", "lattice", "random", "scalefree"],
+        help="Topology alias for HO or graph_heat datasets.",
+    )
     parser.add_argument("--data-root", type=Path, default=DEFAULT_DATA_ROOT)
     parser.add_argument("--out-dir", type=Path, default=None)
     parser.add_argument("--report", type=Path, default=None)
@@ -987,6 +1423,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--device", default="auto")
     parser.add_argument("--force-latent-audit", action="store_true")
+    parser.add_argument("--graph-heat-failure-audit-only", action="store_true")
+    parser.add_argument("--graph-heat-n", type=int, default=36)
+    parser.add_argument("--graph-heat-d", type=int, default=4)
+    parser.add_argument("--graph-heat-t", type=int, default=512)
+    parser.add_argument("--graph-heat-tau", type=float, default=0.05)
+    parser.add_argument("--graph-heat-noise", type=float, default=0.01)
+    parser.add_argument("--graph-heat-seed", type=int, default=0)
     args = parser.parse_args()
     if args.dataset is None:
         args.dataset = f"ho_{args.topology}" if args.topology else "ho_lattice"
@@ -995,6 +1438,20 @@ def parse_args() -> argparse.Namespace:
         if args.topology is not None and args.topology != dataset_topology:
             raise ValueError(f"--dataset {args.dataset!r} conflicts with --topology {args.topology!r}")
         args.topology = dataset_topology
+    if str(args.dataset).startswith("graph_heat_"):
+        dataset_topology = str(args.dataset).removeprefix("graph_heat_")
+        if args.topology is not None and args.topology != dataset_topology:
+            raise ValueError(f"--dataset {args.dataset!r} conflicts with --topology {args.topology!r}")
+        args.topology = dataset_topology
+    if str(args.dataset) == "graph_heat" and args.topology is None:
+        args.topology = "lattice"
+    if str(args.dataset).startswith("graph_heat"):
+        if args.raw_stride == 10:
+            args.raw_stride = 5
+        if args.train_stride == 10:
+            args.train_stride = 5
+        if args.eval_stride == 20:
+            args.eval_stride = 10
     if 32 not in [int(value) for value in args.horizons]:
         raise ValueError("--horizons must include 32 because classification is defined at H=32")
     if args.out_dir is not None:
@@ -1018,16 +1475,36 @@ def main() -> None:
     args.artifact_dir = args.artifact_dir.resolve()
 
     adapter = build_adapter(args)
+    if args.graph_heat_failure_audit_only:
+        raw_rows = stage0_raw_diagnostics(args, adapter)
+        oracle_row = graph_heat_oracle_metrics(args, adapter)
+        existing_rows = read_summary_csv(args.summary)
+        lambda_rows = graph_heat_lambda_sanity(args, adapter)
+        audit_path = (args.out_dir or args.summary.parent) / "FAILURE_AUDIT.md"
+        write_graph_heat_failure_audit(
+            audit_path.resolve(),
+            args=args,
+            raw_rows=raw_rows,
+            oracle_row=oracle_row,
+            existing_rows=existing_rows,
+            lambda_rows=lambda_rows,
+        )
+        print(f"Wrote {rel_to_root(audit_path.resolve())}")
+        return
+
     raw_rows = stage0_raw_diagnostics(args, adapter)
     stage1_rows, models, devices = stage1_mini_training(args, adapter)
     audit = bool(args.force_latent_audit or should_run_latent_audit(stage1_rows))
     stage2_rows = stage2_latent_audit(args, adapter, models, devices) if audit else []
     classification, class_metrics = classify(stage1_rows, stage2_rows)
+    oracle_row = graph_heat_oracle_metrics(args, adapter)
 
     all_rows: list[dict[str, Any]] = []
     all_rows.extend(raw_rows)
     all_rows.extend(stage1_rows)
     all_rows.extend(stage2_rows)
+    if oracle_row:
+        all_rows.append(oracle_row)
     all_rows.append(
         {
             "schema_version": SCHEMA_VERSION,
@@ -1041,7 +1518,7 @@ def main() -> None:
         }
     )
     write_summary_csv(args.summary, all_rows)
-    write_report(args.report, args, raw_rows, stage1_rows, stage2_rows, classification, class_metrics)
+    write_report(args.report, args, raw_rows, stage1_rows, stage2_rows, classification, class_metrics, oracle_row)
     print(f"Wrote {rel_to_root(args.report)}")
     print(f"Wrote {rel_to_root(args.summary)} ({len(all_rows)} rows)")
 
