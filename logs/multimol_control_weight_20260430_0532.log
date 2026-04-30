@@ -579,3 +579,29 @@ torch._C._LinAlgError: linalg.eigh: The algorithm failed to converge because the
 [naphthalene|flat|permuted_spectral|seed=1] epoch  10/50 loss=0.0011 H8_eval=0.0619
 [naphthalene|flat|permuted_spectral|seed=1] epoch  15/50 loss=0.0008 H8_eval=0.0505
 [naphthalene|flat|permuted_spectral|seed=1] epoch  20/50 loss=0.0784 H8_eval=0.1665
+[naphthalene|flat|permuted_spectral|seed=1] epoch  25/50 loss=0.0133 H8_eval=0.0527
+[naphthalene|flat|permuted_spectral|seed=1] epoch  30/50 loss=0.0021 H8_eval=0.0425
+[naphthalene|flat|permuted_spectral|seed=1] epoch  35/50 loss=0.0006 H8_eval=0.0551
+[naphthalene|flat|permuted_spectral|seed=1] epoch  40/50 loss=0.0004 H8_eval=0.0458
+[naphthalene|flat|permuted_spectral|seed=1] epoch  45/50 loss=0.0004 H8_eval=0.0412
+[naphthalene|flat|permuted_spectral|seed=1] epoch  50/50 loss=0.0004 H8_eval=0.0265
+=== Finished naphthalene|flat|permuted_spectral|w=0.001|seed=1 | H1=0.0138 H8=0.0250 H16=0.0441 | r_eff=1.00 | wall=1185.6s ===
+  -> saved partial; avg=580s/run; ETA=329min for 34 remaining
+
+=== Starting naphthalene|flat|permuted_spectral|w=0.001|seed=2 (39/72) ===
+[naphthalene|flat|permuted_spectral|seed=2] epoch   1/50 loss=0.7054 H8_eval=0.1145
+[naphthalene|flat|permuted_spectral|seed=2] epoch   5/50 loss=0.0028 H8_eval=0.0333
+[naphthalene|flat|permuted_spectral|seed=2] epoch  10/50 loss=0.0013 H8_eval=0.0630
+[naphthalene|flat|permuted_spectral|seed=2] epoch  15/50 loss=0.0010 H8_eval=0.0690
+[naphthalene|flat|permuted_spectral|seed=2] epoch  20/50 loss=0.0007 H8_eval=0.0371
+[naphthalene|flat|permuted_spectral|seed=2] epoch  25/50 loss=0.0007 H8_eval=0.1156
+[naphthalene|flat|permuted_spectral|seed=2] epoch  30/50 loss=0.0032 H8_eval=0.2446
+[naphthalene|flat|permuted_spectral|seed=2] epoch  35/50 loss=0.0272 H8_eval=0.1184
+[naphthalene|flat|permuted_spectral|seed=2] epoch  40/50 loss=0.0117 H8_eval=0.0364
+[naphthalene|flat|permuted_spectral|seed=2] epoch  45/50 loss=0.0049 H8_eval=0.0401
+[naphthalene|flat|permuted_spectral|seed=2] epoch  50/50 loss=0.0021 H8_eval=0.0339
+=== Finished naphthalene|flat|permuted_spectral|w=0.001|seed=2 | H1=0.0180 H8=0.0347 H16=0.0556 | r_eff=1.00 | wall=1162.9s ===
+  -> saved partial; avg=595s/run; ETA=327min for 33 remaining
+
+=== Starting naphthalene|flat|permuted_spectral|w=0.01|seed=0 (40/72) ===
+[naphthalene|flat|permuted_spectral|seed=0] epoch   1/50 loss=7.3745 H8_eval=0.1537
