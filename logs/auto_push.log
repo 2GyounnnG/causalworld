@@ -219,3 +219,7 @@ To https://github.com/2GyounnnG/causalworld.git
  create mode 100644 rmd17_spectral_weight_sweep.json
 To https://github.com/2GyounnnG/causalworld.git
    4260ce1..1b02db0  mechanism-ablation -> mechanism-ablation
+[mechanism-ablation f3e90cf] auto: cloud partial 20260430_0030
+ 5 files changed, 45168 insertions(+)
+To https://github.com/2GyounnnG/causalworld.git
+   1b02db0..f3e90cf  mechanism-ablation -> mechanism-ablation
