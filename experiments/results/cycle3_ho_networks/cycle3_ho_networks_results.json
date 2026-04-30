@@ -1,0 +1,5040 @@
+{
+  "schema_version": "cycle3_ho_networks_v1",
+  "created_at": "2026-04-30T20:32:30.065368+00:00",
+  "runs": {
+    "lattice_gnn_covariance_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_covariance_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_covariance_seed0",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.2190420448546415,
+        "covariance_condition_number": 93172.84005313662,
+        "projection_gaussianity_statistic": 4.390700437294848,
+        "rollout_errors": {
+          "1": 0.0007058842384140007,
+          "2": 0.0014078752962329115,
+          "4": 0.0027908585325349122,
+          "8": 0.005476424237713218,
+          "16": 0.0110444639576599,
+          "32": 0.03811476596941551
+        },
+        "final_train_loss": 0.3999982376893361,
+        "prior_loss_mean": 3.9999805317984687,
+        "transition_loss_mean": 0.00031342579081739235,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.702030658721924
+      }
+    },
+    "lattice_gnn_covariance_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_covariance_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_covariance_seed1",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.4777081947497623,
+        "covariance_condition_number": 18263.29852983529,
+        "projection_gaussianity_statistic": 6.6296581656454245,
+        "rollout_errors": {
+          "1": 0.0013584695261670277,
+          "2": 0.0026905673051563403,
+          "4": 0.005315719094748299,
+          "8": 0.010758837723794082,
+          "16": 0.024172365199774504,
+          "32": 0.07535842154175043
+        },
+        "final_train_loss": 0.40000152587890625,
+        "prior_loss_mean": 3.999991536140442,
+        "transition_loss_mean": 0.00040460383834720737,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5912582874298096
+      }
+    },
+    "lattice_gnn_covariance_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_covariance_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_covariance_seed2",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.1663877216490308,
+        "covariance_condition_number": 39140.13254111009,
+        "projection_gaussianity_statistic": 5.124993146860218,
+        "rollout_errors": {
+          "1": 0.0007666696740974052,
+          "2": 0.0015035405958769843,
+          "4": 0.002883260390566041,
+          "8": 0.005379319947678596,
+          "16": 0.010225766260797778,
+          "32": 0.02923962768788139
+        },
+        "final_train_loss": 0.3999970853328705,
+        "prior_loss_mean": 3.9999683645036486,
+        "transition_loss_mean": 0.00016047277423436097,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5645411014556885
+      }
+    },
+    "lattice_gnn_covariance_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_covariance_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_covariance_seed3",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.0608624428664415,
+        "covariance_condition_number": 638805.639854239,
+        "projection_gaussianity_statistic": 4.3773496053599175,
+        "rollout_errors": {
+          "1": 0.0006559445416011537,
+          "2": 0.0013082990190014243,
+          "4": 0.0026072522499210513,
+          "8": 0.005242446747918923,
+          "16": 0.011281773040536791,
+          "32": 0.031838915698851146
+        },
+        "final_train_loss": 0.3999921182791392,
+        "prior_loss_mean": 3.9999300294452245,
+        "transition_loss_mean": 0.0005512240610559932,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.625920295715332
+      }
+    },
+    "lattice_gnn_covariance_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_covariance_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_covariance_seed4",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.6109840769216377,
+        "covariance_condition_number": 65543.86635211902,
+        "projection_gaussianity_statistic": 6.892367752743107,
+        "rollout_errors": {
+          "1": 0.0003582873256770351,
+          "2": 0.0007058759996046623,
+          "4": 0.0013551780551400345,
+          "8": 0.0026122920535271987,
+          "16": 0.005769977656503518,
+          "32": 0.0207864655336986
+        },
+        "final_train_loss": 0.3999996880690257,
+        "prior_loss_mean": 3.9999928924772474,
+        "transition_loss_mean": 0.0002479795092950907,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.6779589653015137
+      }
+    },
+    "lattice_gnn_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_graph_seed0",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 5.7530745854984735,
+        "covariance_condition_number": 1017.1559707759006,
+        "projection_gaussianity_statistic": 9.98802454870382,
+        "rollout_errors": {
+          "1": 0.0003309035079534321,
+          "2": 0.0006583584521043425,
+          "4": 0.0013027956107786547,
+          "8": 0.0025800971294908472,
+          "16": 0.0054686991885925336,
+          "32": 0.022319207588831585
+        },
+        "final_train_loss": 0.00014831388640838364,
+        "prior_loss_mean": 0.024442373604203264,
+        "transition_loss_mean": 0.0003170175263466351,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.318934202194214
+      }
+    },
+    "lattice_gnn_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_graph_seed1",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 6.146173006951165,
+        "covariance_condition_number": 387.1463612931854,
+        "projection_gaussianity_statistic": 9.9910568141131,
+        "rollout_errors": {
+          "1": 0.0003307685898713923,
+          "2": 0.0006588600129665186,
+          "4": 0.0013171354512451217,
+          "8": 0.00271163111513791,
+          "16": 0.006290510529652238,
+          "32": 0.017796124564483762
+        },
+        "final_train_loss": 0.0001499929300431783,
+        "prior_loss_mean": 0.021522183964649836,
+        "transition_loss_mean": 0.00039442534010794995,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.524312257766724
+      }
+    },
+    "lattice_gnn_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_graph_seed2",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 5.681616233120659,
+        "covariance_condition_number": 918.3552277303057,
+        "projection_gaussianity_statistic": 9.977540746368334,
+        "rollout_errors": {
+          "1": 0.00012886270087619778,
+          "2": 0.0002577409613877535,
+          "4": 0.0005183418361411896,
+          "8": 0.0010785314661916345,
+          "16": 0.002546512861348068,
+          "32": 0.007864285648489991
+        },
+        "final_train_loss": 0.0001414729340467602,
+        "prior_loss_mean": 0.017516168508316495,
+        "transition_loss_mean": 0.00014847478544033837,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.432478427886963
+      }
+    },
+    "lattice_gnn_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_graph_seed3",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 4.602103570142799,
+        "covariance_condition_number": 1941.0541730734265,
+        "projection_gaussianity_statistic": 9.948103879339481,
+        "rollout_errors": {
+          "1": 0.0003919713490176946,
+          "2": 0.0007781990061630495,
+          "4": 0.0015449076745426282,
+          "8": 0.003116442918932686,
+          "16": 0.006685330590698868,
+          "32": 0.017779423389583826
+        },
+        "final_train_loss": 0.000137811410240829,
+        "prior_loss_mean": 0.017850365445742176,
+        "transition_loss_mean": 0.0005466117529921001,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.325701713562012
+      }
+    },
+    "lattice_gnn_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_graph_seed4",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 5.897337904695683,
+        "covariance_condition_number": 1995.5233794669493,
+        "projection_gaussianity_statistic": 9.976780391795092,
+        "rollout_errors": {
+          "1": 0.0003838331164539947,
+          "2": 0.0007713778128769869,
+          "4": 0.0015629908642343555,
+          "8": 0.0032410117952773967,
+          "16": 0.007180270835912476,
+          "32": 0.018773988587781787
+        },
+        "final_train_loss": 0.00019628952334945401,
+        "prior_loss_mean": 0.023132148925732406,
+        "transition_loss_mean": 0.00022907905017801353,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.5177321434021
+      }
+    },
+    "lattice_gnn_none_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_none_seed0",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.2786387088801408,
+        "covariance_condition_number": 74406.05500318341,
+        "projection_gaussianity_statistic": 4.706709967243874,
+        "rollout_errors": {
+          "1": 0.0006998624497403702,
+          "2": 0.0013940538289413478,
+          "4": 0.0027608597883954644,
+          "8": 0.005415127767870824,
+          "16": 0.011019039549864829,
+          "32": 0.03888782951980829
+        },
+        "final_train_loss": 5.028034972080301e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0003134216353089414,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.635958433151245
+      }
+    },
+    "lattice_gnn_none_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_none_seed1",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.5149024114618863,
+        "covariance_condition_number": 16748.71791223726,
+        "projection_gaussianity_statistic": 6.7247488559274675,
+        "rollout_errors": {
+          "1": 0.0013600463668505351,
+          "2": 0.0026932806067634374,
+          "4": 0.005319570753878604,
+          "8": 0.010760439365791777,
+          "16": 0.02412652038037777,
+          "32": 0.07513858998815219
+        },
+        "final_train_loss": 2.2239372204542938e-06,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0004045927002961333,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.617208242416382
+      }
+    },
+    "lattice_gnn_none_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_none_seed2",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.204234359285328,
+        "covariance_condition_number": 31743.811337100546,
+        "projection_gaussianity_statistic": 5.418125149394361,
+        "rollout_errors": {
+          "1": 0.0007440745757776313,
+          "2": 0.0014583095908164978,
+          "4": 0.002795463903263832,
+          "8": 0.005215936534417172,
+          "16": 0.009956992968606452,
+          "32": 0.028617139207199216
+        },
+        "final_train_loss": 4.4783331532016746e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00016042946475951995,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.590959310531616
+      }
+    },
+    "lattice_gnn_none_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_none_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_none_seed3",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.0809476582656903,
+        "covariance_condition_number": 462926.2555747467,
+        "projection_gaussianity_statistic": 4.51479864968949,
+        "rollout_errors": {
+          "1": 0.0006541541127565628,
+          "2": 0.0013000130081006016,
+          "4": 0.002573296679959943,
+          "8": 0.0051117805220807595,
+          "16": 0.010689704329706728,
+          "32": 0.028825361747294664
+        },
+        "final_train_loss": 6.880401315356721e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0005511392836960264,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.578143358230591
+      }
+    },
+    "lattice_gnn_none_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_none_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_none_seed4",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.6676404433698948,
+        "covariance_condition_number": 59183.54966040791,
+        "projection_gaussianity_statistic": 7.0334703286525295,
+        "rollout_errors": {
+          "1": 0.0003548409604263725,
+          "2": 0.0006991650746689023,
+          "4": 0.001341089921576592,
+          "8": 0.0025833755595764765,
+          "16": 0.0057399030677819,
+          "32": 0.020824161901449163
+        },
+        "final_train_loss": 1.892726118057908e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00024796429173679573,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.6568450927734375
+      }
+    },
+    "lattice_gnn_permuted_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_permuted_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_permuted_graph_seed0",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.468137309577575,
+        "covariance_condition_number": 238.25756369543052,
+        "projection_gaussianity_statistic": 9.998351398345699,
+        "rollout_errors": {
+          "1": 0.0003537604073547603,
+          "2": 0.0007057767919225929,
+          "4": 0.001410824217600748,
+          "8": 0.002879243421678742,
+          "16": 0.006697382816734414,
+          "32": 0.02647247111114363
+        },
+        "final_train_loss": 0.00022652170446235687,
+        "prior_loss_mean": 0.03354165900705589,
+        "transition_loss_mean": 0.00031875214498992615,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.639216661453247
+      }
+    },
+    "lattice_gnn_permuted_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_permuted_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_permuted_graph_seed1",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.130809548067058,
+        "covariance_condition_number": 292.3236929090391,
+        "projection_gaussianity_statistic": 10.001530304907007,
+        "rollout_errors": {
+          "1": 0.00038679315548506565,
+          "2": 0.0007714287324536903,
+          "4": 0.001545320560884041,
+          "8": 0.0031891233714607856,
+          "16": 0.007267132188038279,
+          "32": 0.020827698443705838
+        },
+        "final_train_loss": 0.00023888240684755147,
+        "prior_loss_mean": 0.03653096147140281,
+        "transition_loss_mean": 0.000406195641166423,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.545409440994263
+      }
+    },
+    "lattice_gnn_permuted_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_permuted_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_permuted_graph_seed2",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 6.768928052232615,
+        "covariance_condition_number": 751.3921560255064,
+        "projection_gaussianity_statistic": 10.005862451183972,
+        "rollout_errors": {
+          "1": 0.00019752906700887252,
+          "2": 0.0003965752475778572,
+          "4": 0.0008019069864531048,
+          "8": 0.0016691802496400971,
+          "16": 0.0038191311759874225,
+          "32": 0.010701156337745488
+        },
+        "final_train_loss": 0.00020059122956202677,
+        "prior_loss_mean": 0.024654327167405024,
+        "transition_loss_mean": 0.000150376105826903,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.367141008377075
+      }
+    },
+    "lattice_gnn_permuted_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_permuted_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_permuted_graph_seed3",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 6.544017433532602,
+        "covariance_condition_number": 456.661281355819,
+        "projection_gaussianity_statistic": 9.989141852172846,
+        "rollout_errors": {
+          "1": 0.0004568972411410262,
+          "2": 0.0009091494090777511,
+          "4": 0.0018107425566995516,
+          "8": 0.0036751314085753015,
+          "16": 0.00804045656695962,
+          "32": 0.02263651097503801
+        },
+        "final_train_loss": 0.00022099931084085256,
+        "prior_loss_mean": 0.024191850980019403,
+        "transition_loss_mean": 0.0005544927171722551,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.3805482387542725
+      }
+    },
+    "lattice_gnn_permuted_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_permuted_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_permuted_graph_seed4",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.230872860329393,
+        "covariance_condition_number": 788.6008218051194,
+        "projection_gaussianity_statistic": 9.994720823625336,
+        "rollout_errors": {
+          "1": 0.00037526375429782394,
+          "2": 0.0007573087350465357,
+          "4": 0.0015471130658018712,
+          "8": 0.0032650186136985817,
+          "16": 0.007348270097281784,
+          "32": 0.018227493002389867
+        },
+        "final_train_loss": 0.00025663514194699627,
+        "prior_loss_mean": 0.03221485596926262,
+        "transition_loss_mean": 0.0002288661403832511,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.403324604034424
+      }
+    },
+    "lattice_gnn_random_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_random_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_random_graph_seed0",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.73900671609079,
+        "covariance_condition_number": 152.51707584954843,
+        "projection_gaussianity_statistic": 9.997454132686212,
+        "rollout_errors": {
+          "1": 0.00035369827310205437,
+          "2": 0.000705699589161668,
+          "4": 0.0014098299482914929,
+          "8": 0.002881175479463612,
+          "16": 0.0067918534817484515,
+          "32": 0.02752458001486957
+        },
+        "final_train_loss": 0.00025298487647281337,
+        "prior_loss_mean": 0.0335373830386541,
+        "transition_loss_mean": 0.00031842283382859353,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.252734184265137
+      }
+    },
+    "lattice_gnn_random_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_random_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_random_graph_seed1",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 6.946038783283908,
+        "covariance_condition_number": 310.5676767215755,
+        "projection_gaussianity_statistic": 10.00059859071325,
+        "rollout_errors": {
+          "1": 0.00039136921865671564,
+          "2": 0.0007806504412049738,
+          "4": 0.001560238951545519,
+          "8": 0.003221255474879096,
+          "16": 0.0073277468521458404,
+          "32": 0.020491347337762516
+        },
+        "final_train_loss": 0.0002462692209519446,
+        "prior_loss_mean": 0.03693309255823907,
+        "transition_loss_mean": 0.00040588619495451894,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.013622283935547
+      }
+    },
+    "lattice_gnn_random_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_random_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_random_graph_seed2",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 6.645799281340637,
+        "covariance_condition_number": 926.6488500802643,
+        "projection_gaussianity_statistic": 10.005014343620935,
+        "rollout_errors": {
+          "1": 0.00019785186486842576,
+          "2": 0.0003971765023986033,
+          "4": 0.0008044769662471177,
+          "8": 0.001675163158021557,
+          "16": 0.0038370403247730187,
+          "32": 0.010783646760197977
+        },
+        "final_train_loss": 0.0001967419326926271,
+        "prior_loss_mean": 0.024577276527674663,
+        "transition_loss_mean": 0.00015032491340530245,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.151235103607178
+      }
+    },
+    "lattice_gnn_random_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_random_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_random_graph_seed3",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 6.431393588898807,
+        "covariance_condition_number": 298.45857906064634,
+        "projection_gaussianity_statistic": 9.988774056724681,
+        "rollout_errors": {
+          "1": 0.00046015382273859967,
+          "2": 0.0009155075434440126,
+          "4": 0.0018239583684286724,
+          "8": 0.0036986680061090738,
+          "16": 0.008072501552912096,
+          "32": 0.022643267099435132
+        },
+        "final_train_loss": 0.00021938000766870877,
+        "prior_loss_mean": 0.02411154590340124,
+        "transition_loss_mean": 0.0005540265180866773,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.11087965965271
+      }
+    },
+    "lattice_gnn_random_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "lattice_gnn_random_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "lattice_gnn_random_graph_seed4",
+        "topology": "lattice",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.7812207841949395,
+        "covariance_condition_number": 671.3191426425947,
+        "projection_gaussianity_statistic": 9.995261046310846,
+        "rollout_errors": {
+          "1": 0.0003726111062860582,
+          "2": 0.0007518305549941336,
+          "4": 0.0015352083670829113,
+          "8": 0.003237153917628651,
+          "16": 0.007275942266763498,
+          "32": 0.01791532834370931
+        },
+        "final_train_loss": 0.00026186641965371865,
+        "prior_loss_mean": 0.032047154524156615,
+        "transition_loss_mean": 0.00022908975409158136,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.8210508823394775
+      }
+    },
+    "random_gnn_covariance_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_covariance_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_covariance_seed0",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.3109483592798803,
+        "covariance_condition_number": 122068.49258536237,
+        "projection_gaussianity_statistic": 2.7582182535399093,
+        "rollout_errors": {
+          "1": 0.0007693403531447984,
+          "2": 0.0015322444717943047,
+          "4": 0.003046166345787545,
+          "8": 0.00602408719714731,
+          "16": 0.0119379818206653,
+          "32": 0.03328923500763873
+        },
+        "final_train_loss": 0.39999595284461975,
+        "prior_loss_mean": 3.9999587774276733,
+        "transition_loss_mean": 0.00031306907271692175,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.6535706520080566
+      }
+    },
+    "random_gnn_covariance_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_covariance_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_covariance_seed1",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.2922352872790326,
+        "covariance_condition_number": 55908.63221964411,
+        "projection_gaussianity_statistic": 3.7686540674791145,
+        "rollout_errors": {
+          "1": 0.0009881610215719168,
+          "2": 0.0019150986675716315,
+          "4": 0.0036382269366489104,
+          "8": 0.006963918237791707,
+          "16": 0.015986408106982708,
+          "32": 0.06664977796996634
+        },
+        "final_train_loss": 0.3999960819880168,
+        "prior_loss_mean": 3.999946292241414,
+        "transition_loss_mean": 0.0004054263679645626,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5474472045898438
+      }
+    },
+    "random_gnn_covariance_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_covariance_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_covariance_seed2",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.2984428997457635,
+        "covariance_condition_number": 20472.752881036864,
+        "projection_gaussianity_statistic": 3.9202645260377427,
+        "rollout_errors": {
+          "1": 0.0007230519404402003,
+          "2": 0.0014420309259245794,
+          "4": 0.0028454109463685504,
+          "8": 0.005447186762467027,
+          "16": 0.010123784770257771,
+          "32": 0.02450087565618257
+        },
+        "final_train_loss": 0.39999518791834515,
+        "prior_loss_mean": 3.999949566523234,
+        "transition_loss_mean": 0.00016515024667948335,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5334012508392334
+      }
+    },
+    "random_gnn_covariance_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_covariance_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_covariance_seed3",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.0868790755993687,
+        "covariance_condition_number": 336167.39168985636,
+        "projection_gaussianity_statistic": 2.4659648793443862,
+        "rollout_errors": {
+          "1": 0.0008622693591557132,
+          "2": 0.0017246368079213426,
+          "4": 0.0034148774575442076,
+          "8": 0.006689988193102181,
+          "16": 0.013329954701475799,
+          "32": 0.03264574504767855
+        },
+        "final_train_loss": 0.3999839425086975,
+        "prior_loss_mean": 3.9998496876822576,
+        "transition_loss_mean": 0.0005546070341930924,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.7199716567993164
+      }
+    },
+    "random_gnn_covariance_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_covariance_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_covariance_seed4",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.467405724148404,
+        "covariance_condition_number": 113703.80899210664,
+        "projection_gaussianity_statistic": 4.281458933010219,
+        "rollout_errors": {
+          "1": 0.0004541786292975303,
+          "2": 0.0008907830730701486,
+          "4": 0.0017231476570790012,
+          "8": 0.0032505712588317692,
+          "16": 0.006593128006594877,
+          "32": 0.022353508742526174
+        },
+        "final_train_loss": 0.3999989330768585,
+        "prior_loss_mean": 3.9999835067325167,
+        "transition_loss_mean": 0.0002520723244651259,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5633981227874756
+      }
+    },
+    "random_gnn_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_graph_seed0",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.6161732054737845,
+        "covariance_condition_number": 229.60318561706538,
+        "projection_gaussianity_statistic": 9.967660977912894,
+        "rollout_errors": {
+          "1": 0.0003483982824642832,
+          "2": 0.0006922333559487015,
+          "4": 0.0013701247371500358,
+          "8": 0.002718738978728652,
+          "16": 0.005731345251357804,
+          "32": 0.021878202678635716
+        },
+        "final_train_loss": 0.0001684131808967019,
+        "prior_loss_mean": 0.024639896392667046,
+        "transition_loss_mean": 0.00031634261708780463,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.068840503692627
+      }
+    },
+    "random_gnn_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_graph_seed1",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.269969854844779,
+        "covariance_condition_number": 485.74637609786464,
+        "projection_gaussianity_statistic": 9.981223204672565,
+        "rollout_errors": {
+          "1": 0.0002962637093636052,
+          "2": 0.0005887102670385502,
+          "4": 0.0011637406084143247,
+          "8": 0.0022777000558562577,
+          "16": 0.004473663420261194,
+          "32": 0.00935414662429442
+        },
+        "final_train_loss": 0.0001625650814579179,
+        "prior_loss_mean": 0.020635123329702763,
+        "transition_loss_mean": 0.0003887189837605042,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.069141149520874
+      }
+    },
+    "random_gnn_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_graph_seed2",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.231820041393757,
+        "covariance_condition_number": 528.1577293996904,
+        "projection_gaussianity_statistic": 9.979631115649923,
+        "rollout_errors": {
+          "1": 0.00012098968212133816,
+          "2": 0.00024149726596078835,
+          "4": 0.0004895427906982756,
+          "8": 0.0010317606259680663,
+          "16": 0.0024588655893846103,
+          "32": 0.007792462032133092
+        },
+        "final_train_loss": 0.00013084708189126104,
+        "prior_loss_mean": 0.015827576640165514,
+        "transition_loss_mean": 0.00014844717178116678,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.036823272705078
+      }
+    },
+    "random_gnn_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_graph_seed3",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 6.260542549184682,
+        "covariance_condition_number": 512.758004951899,
+        "projection_gaussianity_statistic": 9.974063744273995,
+        "rollout_errors": {
+          "1": 0.00041831865504112403,
+          "2": 0.0008373348973691463,
+          "4": 0.0016951630483769502,
+          "8": 0.0035975810023956,
+          "16": 0.008731023059226573,
+          "32": 0.029450524132698774
+        },
+        "final_train_loss": 0.00012630825222004205,
+        "prior_loss_mean": 0.017056206515472797,
+        "transition_loss_mean": 0.0005467056802545913,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 6.886486291885376
+      }
+    },
+    "random_gnn_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_graph_seed4",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.810922331498367,
+        "covariance_condition_number": 365.967564821525,
+        "projection_gaussianity_statistic": 9.963896733714867,
+        "rollout_errors": {
+          "1": 0.00039854873587804224,
+          "2": 0.0008023891762907928,
+          "4": 0.0016257889850142722,
+          "8": 0.0033589886346211037,
+          "16": 0.007296981755644083,
+          "32": 0.01769715112944444
+        },
+        "final_train_loss": 0.0001806969909618298,
+        "prior_loss_mean": 0.01935299914200894,
+        "transition_loss_mean": 0.00022890717163169446,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 6.860753536224365
+      }
+    },
+    "random_gnn_none_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_none_seed0",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.3266702402408745,
+        "covariance_condition_number": 110578.99070041704,
+        "projection_gaussianity_statistic": 2.814919545734149,
+        "rollout_errors": {
+          "1": 0.0007486470931326039,
+          "2": 0.0014928209469265614,
+          "4": 0.0029707547704068324,
+          "8": 0.00589358798849086,
+          "16": 0.011976563061277071,
+          "32": 0.04180506127886474
+        },
+        "final_train_loss": 3.989140964222315e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00031305189197010147,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5947229862213135
+      }
+    },
+    "random_gnn_none_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_none_seed1",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.3121921602073858,
+        "covariance_condition_number": 68585.07271789563,
+        "projection_gaussianity_statistic": 3.860315290626195,
+        "rollout_errors": {
+          "1": 0.0009665995191123026,
+          "2": 0.0018702369513145338,
+          "4": 0.0035320099559612572,
+          "8": 0.00663304408468927,
+          "16": 0.014384134284531077,
+          "32": 0.055490189076711736
+        },
+        "final_train_loss": 1.2200572427900624e-06,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0004053644364394889,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5321505069732666
+      }
+    },
+    "random_gnn_none_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_none_seed2",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.3593938911070185,
+        "covariance_condition_number": 17273.56680911057,
+        "projection_gaussianity_statistic": 4.180516314957809,
+        "rollout_errors": {
+          "1": 0.000705994876625482,
+          "2": 0.0014191151858540252,
+          "4": 0.0028459390062683574,
+          "8": 0.005631856038235128,
+          "16": 0.0111477873288095,
+          "32": 0.027706286869943142
+        },
+        "final_train_loss": 7.820478723867078e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00016506891766046767,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5078868865966797
+      }
+    },
+    "random_gnn_none_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_none_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_none_seed3",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.0942690906733565,
+        "covariance_condition_number": 287145.7390900025,
+        "projection_gaussianity_statistic": 2.4940606895176005,
+        "rollout_errors": {
+          "1": 0.0008436674155139675,
+          "2": 0.0016859046105916302,
+          "4": 0.0033350934584935508,
+          "8": 0.0065188911006165045,
+          "16": 0.012954319827258587,
+          "32": 0.030972072932248313
+        },
+        "final_train_loss": 8.017043455765815e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0005545859517237912,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.6011545658111572
+      }
+    },
+    "random_gnn_none_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_none_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_none_seed4",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.4697635151483743,
+        "covariance_condition_number": 137854.71245800078,
+        "projection_gaussianity_statistic": 4.3307283958850284,
+        "rollout_errors": {
+          "1": 0.0004473019580473192,
+          "2": 0.0008793435335974209,
+          "4": 0.001708291029596391,
+          "8": 0.0032548665767535567,
+          "16": 0.0067462348961271346,
+          "32": 0.02431456740790357
+        },
+        "final_train_loss": 2.672217126094741e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00025204181415779836,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.6426353454589844
+      }
+    },
+    "random_gnn_permuted_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_permuted_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_permuted_graph_seed0",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 9.462455096090077,
+        "covariance_condition_number": 108.0176242167433,
+        "projection_gaussianity_statistic": 9.995929987280505,
+        "rollout_errors": {
+          "1": 0.0003562656578045183,
+          "2": 0.0007121107846614905,
+          "4": 0.0014324182169123862,
+          "8": 0.0029749690438620746,
+          "16": 0.0072181001693631215,
+          "32": 0.028984613173330825
+        },
+        "final_train_loss": 0.00025945858214981854,
+        "prior_loss_mean": 0.03295167070399556,
+        "transition_loss_mean": 0.0003165194006121573,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.012494325637817
+      }
+    },
+    "random_gnn_permuted_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_permuted_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_permuted_graph_seed1",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.039331817261343,
+        "covariance_condition_number": 925.8855255402805,
+        "projection_gaussianity_statistic": 9.998725525820218,
+        "rollout_errors": {
+          "1": 0.0003517313380143605,
+          "2": 0.0007003715242414424,
+          "4": 0.0013934102074320738,
+          "8": 0.0028001109700805196,
+          "16": 0.005926343321334571,
+          "32": 0.01412944138670961
+        },
+        "final_train_loss": 0.00025615718914195895,
+        "prior_loss_mean": 0.0345816011281891,
+        "transition_loss_mean": 0.0004028531962058916,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 6.902306795120239
+      }
+    },
+    "random_gnn_permuted_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_permuted_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_permuted_graph_seed2",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.646482670701479,
+        "covariance_condition_number": 116.71580371640799,
+        "projection_gaussianity_statistic": 10.006222119400988,
+        "rollout_errors": {
+          "1": 0.0002790262697089929,
+          "2": 0.0005577257834374905,
+          "4": 0.0011198540936068941,
+          "8": 0.0022811266244389117,
+          "16": 0.004910810249081503,
+          "32": 0.011927194311283529
+        },
+        "final_train_loss": 0.0002330430579604581,
+        "prior_loss_mean": 0.02485077595596926,
+        "transition_loss_mean": 0.00014985639547917786,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 6.870763301849365
+      }
+    },
+    "random_gnn_permuted_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_permuted_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_permuted_graph_seed3",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.940662482779134,
+        "covariance_condition_number": 419.9517606612979,
+        "projection_gaussianity_statistic": 9.995364835427324,
+        "rollout_errors": {
+          "1": 0.0004360188868304249,
+          "2": 0.0008682010641981227,
+          "4": 0.001733945231535472,
+          "8": 0.0035213218555630497,
+          "16": 0.007619748105450223,
+          "32": 0.020365712853769462
+        },
+        "final_train_loss": 0.0002054860960924998,
+        "prior_loss_mean": 0.025041900326808295,
+        "transition_loss_mean": 0.0005504973747633023,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 6.896213531494141
+      }
+    },
+    "random_gnn_permuted_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_permuted_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_permuted_graph_seed4",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.030259149371384,
+        "covariance_condition_number": 492.9499591645908,
+        "projection_gaussianity_statistic": 9.994725049687574,
+        "rollout_errors": {
+          "1": 0.0003761497646337375,
+          "2": 0.0007592037315286385,
+          "4": 0.0015494856925215572,
+          "8": 0.003255051269661635,
+          "16": 0.007273200472506384,
+          "32": 0.018029190755138796
+        },
+        "final_train_loss": 0.0002295766850390161,
+        "prior_loss_mean": 0.03012183720452918,
+        "transition_loss_mean": 0.00022817056173853384,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 6.933935165405273
+      }
+    },
+    "random_gnn_random_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_random_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_random_graph_seed0",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.939580213375958,
+        "covariance_condition_number": 210.58953771520066,
+        "projection_gaussianity_statistic": 9.99313705534854,
+        "rollout_errors": {
+          "1": 0.00035318949206460576,
+          "2": 0.0007049861475631284,
+          "4": 0.0014151647337712348,
+          "8": 0.002925596199929714,
+          "16": 0.007015370123554021,
+          "32": 0.028022679267451167
+        },
+        "final_train_loss": 0.0002752964210230857,
+        "prior_loss_mean": 0.03348373293928388,
+        "transition_loss_mean": 0.00031661474182634997,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.339460134506226
+      }
+    },
+    "random_gnn_random_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_random_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_random_graph_seed1",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.079271569821687,
+        "covariance_condition_number": 591.9574452524869,
+        "projection_gaussianity_statistic": 9.998593487680235,
+        "rollout_errors": {
+          "1": 0.0003459318237825452,
+          "2": 0.000689300463515489,
+          "4": 0.0013699865424617503,
+          "8": 0.0027437417690331736,
+          "16": 0.00575745264844348,
+          "32": 0.013561127435726425
+        },
+        "final_train_loss": 0.00027194511494599283,
+        "prior_loss_mean": 0.0350575983705413,
+        "transition_loss_mean": 0.0004014357408563127,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.3582563400268555
+      }
+    },
+    "random_gnn_random_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_random_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_random_graph_seed2",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.964557292064631,
+        "covariance_condition_number": 130.57085556812544,
+        "projection_gaussianity_statistic": 10.005084915671304,
+        "rollout_errors": {
+          "1": 0.00026025510123872664,
+          "2": 0.0005158303865755443,
+          "4": 0.0010215838192380033,
+          "8": 0.0020296698009284833,
+          "16": 0.0042559531090470655,
+          "32": 0.010627122052634755
+        },
+        "final_train_loss": 0.00023957365192472935,
+        "prior_loss_mean": 0.025152836271768644,
+        "transition_loss_mean": 0.00015007091756701464,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.622154712677002
+      }
+    },
+    "random_gnn_random_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_random_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_random_graph_seed3",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.229663132279897,
+        "covariance_condition_number": 730.2685736851416,
+        "projection_gaussianity_statistic": 9.995397975441264,
+        "rollout_errors": {
+          "1": 0.00045791492811986245,
+          "2": 0.000911127237486653,
+          "4": 0.0018168638149897258,
+          "8": 0.003680988670870041,
+          "16": 0.00796598291102176,
+          "32": 0.021889478899538517
+        },
+        "final_train_loss": 0.00020271079847589135,
+        "prior_loss_mean": 0.02463463871196533,
+        "transition_loss_mean": 0.000550966539576889,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.447479486465454
+      }
+    },
+    "random_gnn_random_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "random_gnn_random_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "random_gnn_random_graph_seed4",
+        "topology": "random",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.234208453584092,
+        "covariance_condition_number": 353.8555098947046,
+        "projection_gaussianity_statistic": 9.995689069417967,
+        "rollout_errors": {
+          "1": 0.00038056243405056495,
+          "2": 0.0007681067339338673,
+          "4": 0.0015694790102619056,
+          "8": 0.003300857982443025,
+          "16": 0.0074171498805905385,
+          "32": 0.018759536324068904
+        },
+        "final_train_loss": 0.00024313858981865147,
+        "prior_loss_mean": 0.030752717470750212,
+        "transition_loss_mean": 0.0002281551877343604,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.359842777252197
+      }
+    },
+    "scalefree_gnn_covariance_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_covariance_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_covariance_seed0",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.4513816967852673,
+        "covariance_condition_number": 251938.41824961972,
+        "projection_gaussianity_statistic": 2.8611146981675804,
+        "rollout_errors": {
+          "1": 0.0010811440758213091,
+          "2": 0.0021306747948983684,
+          "4": 0.004093491326784715,
+          "8": 0.007471011718735099,
+          "16": 0.012620478558043638,
+          "32": 0.02758866975394388
+        },
+        "final_train_loss": 0.3999946216742198,
+        "prior_loss_mean": 3.999942840470208,
+        "transition_loss_mean": 0.00031291674808800154,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.599515676498413
+      }
+    },
+    "scalefree_gnn_covariance_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_covariance_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_covariance_seed1",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.4222036437523713,
+        "covariance_condition_number": 66928.39258197774,
+        "projection_gaussianity_statistic": 2.69433866062104,
+        "rollout_errors": {
+          "1": 0.0011522876423744795,
+          "2": 0.0022472297957089418,
+          "4": 0.004297344974474981,
+          "8": 0.00800456766349574,
+          "16": 0.017514082176300388,
+          "32": 0.06857041222974658
+        },
+        "final_train_loss": 0.3999967674414317,
+        "prior_loss_mean": 3.9999455398983423,
+        "transition_loss_mean": 0.00040216874072029896,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5244314670562744
+      }
+    },
+    "scalefree_gnn_covariance_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_covariance_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_covariance_seed2",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.2983937282551996,
+        "covariance_condition_number": 71195.22271698198,
+        "projection_gaussianity_statistic": 3.084920755519063,
+        "rollout_errors": {
+          "1": 0.0010493065759267968,
+          "2": 0.0020869895379291847,
+          "4": 0.004070255769571911,
+          "8": 0.007888861310978731,
+          "16": 0.014903698310566446,
+          "32": 0.037039549478019275
+        },
+        "final_train_loss": 0.39999452233314514,
+        "prior_loss_mean": 3.99994248814053,
+        "transition_loss_mean": 0.0001621158242301135,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.536531448364258
+      }
+    },
+    "scalefree_gnn_covariance_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_covariance_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_covariance_seed3",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.0915979401035434,
+        "covariance_condition_number": 687852.4642782374,
+        "projection_gaussianity_statistic": 2.147654577380993,
+        "rollout_errors": {
+          "1": 0.0008933238993146612,
+          "2": 0.0018198445904999971,
+          "4": 0.003711620806522357,
+          "8": 0.007634637489294012,
+          "16": 0.014571838061480472,
+          "32": 0.027509231741229694
+        },
+        "final_train_loss": 0.39998580018679303,
+        "prior_loss_mean": 3.999863248401218,
+        "transition_loss_mean": 0.0005525425301685674,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5714547634124756
+      }
+    },
+    "scalefree_gnn_covariance_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_covariance_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_covariance_seed4",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "covariance",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.4945628622276579,
+        "covariance_condition_number": 90412.96058073847,
+        "projection_gaussianity_statistic": 3.6587609406771793,
+        "rollout_errors": {
+          "1": 0.0005174503724750442,
+          "2": 0.0010095217900622326,
+          "4": 0.0019345729548755723,
+          "8": 0.0035128931970878816,
+          "16": 0.006862100427194188,
+          "32": 0.024516841978766024
+        },
+        "final_train_loss": 0.3999982575575511,
+        "prior_loss_mean": 3.999976322386,
+        "transition_loss_mean": 0.0002473923677320676,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.535449981689453
+      }
+    },
+    "scalefree_gnn_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_graph_seed0",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.581807200158006,
+        "covariance_condition_number": 448.0804030413251,
+        "projection_gaussianity_statistic": 9.964473421719621,
+        "rollout_errors": {
+          "1": 0.000339703205099795,
+          "2": 0.0006786076434461089,
+          "4": 0.0013587478024419397,
+          "8": 0.0027229161739038923,
+          "16": 0.005962624098174274,
+          "32": 0.02345675982845326
+        },
+        "final_train_loss": 0.00014397666382137686,
+        "prior_loss_mean": 0.02584090155497607,
+        "transition_loss_mean": 0.00031608588325077056,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.554117679595947
+      }
+    },
+    "scalefree_gnn_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_graph_seed1",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.41170245481599,
+        "covariance_condition_number": 591.0724205826673,
+        "projection_gaussianity_statistic": 9.955207335391428,
+        "rollout_errors": {
+          "1": 0.0004610623109329026,
+          "2": 0.0009135414778332537,
+          "4": 0.0017957914727351938,
+          "8": 0.0035536375265413276,
+          "16": 0.007458973675966263,
+          "32": 0.019420329403753083
+        },
+        "final_train_loss": 0.00014201800998610756,
+        "prior_loss_mean": 0.019520334776542667,
+        "transition_loss_mean": 0.0003941684696719171,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.472780704498291
+      }
+    },
+    "scalefree_gnn_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_graph_seed2",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.414944903151886,
+        "covariance_condition_number": 920.6151153913628,
+        "projection_gaussianity_statistic": 9.980085999567798,
+        "rollout_errors": {
+          "1": 0.0001296586136353047,
+          "2": 0.00025789074546385865,
+          "4": 0.0005005816055927426,
+          "8": 0.0009579289374717822,
+          "16": 0.0020385450625326484,
+          "32": 0.005804700466493766
+        },
+        "final_train_loss": 0.00011437399613593395,
+        "prior_loss_mean": 0.014035079112121214,
+        "transition_loss_mean": 0.000149146537378818,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.833796501159668
+      }
+    },
+    "scalefree_gnn_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_graph_seed3",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.417811988504513,
+        "covariance_condition_number": 706.7316593270599,
+        "projection_gaussianity_statistic": 9.987706516531597,
+        "rollout_errors": {
+          "1": 0.000337862493324792,
+          "2": 0.0006684951125256097,
+          "4": 0.0013333999668247998,
+          "8": 0.002757712247936676,
+          "16": 0.006484321551397443,
+          "32": 0.02589773223735392
+        },
+        "final_train_loss": 0.00011211020804087941,
+        "prior_loss_mean": 0.016572572874267482,
+        "transition_loss_mean": 0.0005447957899237268,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.496676445007324
+      }
+    },
+    "scalefree_gnn_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_graph_seed4",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.656230272667004,
+        "covariance_condition_number": 1434.8029157215317,
+        "projection_gaussianity_statistic": 9.938379946697392,
+        "rollout_errors": {
+          "1": 0.0002473912021135523,
+          "2": 0.00048725667390196276,
+          "4": 0.0009617514660931192,
+          "8": 0.0018984572088811547,
+          "16": 0.0039168945416652905,
+          "32": 0.009080250359450778
+        },
+        "final_train_loss": 0.00018215693611030778,
+        "prior_loss_mean": 0.021735157913321423,
+        "transition_loss_mean": 0.00022939749429006106,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.784873723983765
+      }
+    },
+    "scalefree_gnn_none_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_none_seed0",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.4710691452659337,
+        "covariance_condition_number": 214815.6175013013,
+        "projection_gaussianity_statistic": 2.905095769611539,
+        "rollout_errors": {
+          "1": 0.0010482067324725601,
+          "2": 0.002068144953227602,
+          "4": 0.003972020601698508,
+          "8": 0.007243050281734516,
+          "16": 0.012261407411036393,
+          "32": 0.02829744868601362
+        },
+        "final_train_loss": 8.573912661328601e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.000312848134283033,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.4620256423950195
+      }
+    },
+    "scalefree_gnn_none_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_none_seed1",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.4374785451705572,
+        "covariance_condition_number": 62130.324953783915,
+        "projection_gaussianity_statistic": 2.759519983467807,
+        "rollout_errors": {
+          "1": 0.0011555655631430757,
+          "2": 0.002248578345946347,
+          "4": 0.004287657211534679,
+          "8": 0.007970893891373029,
+          "16": 0.017571649708164234,
+          "32": 0.06954649944479267
+        },
+        "final_train_loss": 2.0316963021590104e-06,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00040210009501354056,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.640244245529175
+      }
+    },
+    "scalefree_gnn_none_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_none_seed2",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.357923181651491,
+        "covariance_condition_number": 55367.38295059026,
+        "projection_gaussianity_statistic": 3.3506255287542057,
+        "rollout_errors": {
+          "1": 0.0010105674446094781,
+          "2": 0.002003649545561833,
+          "4": 0.0039023170441699526,
+          "8": 0.007600567128974944,
+          "16": 0.014793498752017816,
+          "32": 0.03795379842631519
+        },
+        "final_train_loss": 1.278986019315198e-06,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00016206434427519728,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.610682725906372
+      }
+    },
+    "scalefree_gnn_none_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_none_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_none_seed3",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.0962768046568612,
+        "covariance_condition_number": 619115.7390802795,
+        "projection_gaussianity_statistic": 2.1704561725729956,
+        "rollout_errors": {
+          "1": 0.0008684110252943356,
+          "2": 0.0017675824613737252,
+          "4": 0.0036031630588695407,
+          "8": 0.007411477466424306,
+          "16": 0.014123670989647508,
+          "32": 0.026288028340786695
+        },
+        "final_train_loss": 1.1228736222316609e-06,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0005524814373725601,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.574824333190918
+      }
+    },
+    "scalefree_gnn_none_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_none_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_none_seed4",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 1.5064343219834653,
+        "covariance_condition_number": 92491.17900595132,
+        "projection_gaussianity_statistic": 3.7144145632508176,
+        "rollout_errors": {
+          "1": 0.0005109379611288508,
+          "2": 0.0009961009369969058,
+          "4": 0.0019102671164243172,
+          "8": 0.0034770516892119,
+          "16": 0.006848872736251603,
+          "32": 0.024609996937215328
+        },
+        "final_train_loss": 3.372630127766267e-07,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0002473624966777758,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 3.5480144023895264
+      }
+    },
+    "scalefree_gnn_permuted_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_permuted_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_permuted_graph_seed0",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.451822236720176,
+        "covariance_condition_number": 212.22561183108758,
+        "projection_gaussianity_statistic": 9.997387473725194,
+        "rollout_errors": {
+          "1": 0.00034013818003586493,
+          "2": 0.0006758795667944165,
+          "4": 0.0013413809744330745,
+          "8": 0.0026291408964122334,
+          "16": 0.005455734848510474,
+          "32": 0.02115596892933051
+        },
+        "final_train_loss": 0.000144496705615893,
+        "prior_loss_mean": 0.026229651351200624,
+        "transition_loss_mean": 0.00031603793885876837,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.668030738830566
+      }
+    },
+    "scalefree_gnn_permuted_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_permuted_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_permuted_graph_seed1",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.872980843503309,
+        "covariance_condition_number": 837.5254184088288,
+        "projection_gaussianity_statistic": 9.99276633951035,
+        "rollout_errors": {
+          "1": 0.00034637111093616113,
+          "2": 0.0006840186542831361,
+          "4": 0.0013315482550145437,
+          "8": 0.0025597793670992055,
+          "16": 0.004956212418619543,
+          "32": 0.010065160264881948
+        },
+        "final_train_loss": 0.00016402462885404626,
+        "prior_loss_mean": 0.024697877259718046,
+        "transition_loss_mean": 0.0003978509531267586,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.727661371231079
+      }
+    },
+    "scalefree_gnn_permuted_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_permuted_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_permuted_graph_seed2",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.711960195080641,
+        "covariance_condition_number": 310.63664806949765,
+        "projection_gaussianity_statistic": 10.005841010123685,
+        "rollout_errors": {
+          "1": 0.00021605187187863825,
+          "2": 0.0004271455351651336,
+          "4": 0.0008496456575812772,
+          "8": 0.0017450038819030549,
+          "16": 0.0038978965021669865,
+          "32": 0.01063923661907514
+        },
+        "final_train_loss": 0.0001337649931277459,
+        "prior_loss_mean": 0.017137465509586038,
+        "transition_loss_mean": 0.0001495010108061005,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.880474805831909
+      }
+    },
+    "scalefree_gnn_permuted_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_permuted_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_permuted_graph_seed3",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.272620256613651,
+        "covariance_condition_number": 830.6154012127197,
+        "projection_gaussianity_statistic": 10.005251552238457,
+        "rollout_errors": {
+          "1": 0.0004097670813886604,
+          "2": 0.0008129850660528367,
+          "4": 0.0016170793193547677,
+          "8": 0.0032715281607427946,
+          "16": 0.007022000694026549,
+          "32": 0.017588480065266292
+        },
+        "final_train_loss": 0.00011288987055498485,
+        "prior_loss_mean": 0.017620268618015366,
+        "transition_loss_mean": 0.0005492923309003256,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.704951047897339
+      }
+    },
+    "scalefree_gnn_permuted_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_permuted_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_permuted_graph_seed4",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.58322656273874,
+        "covariance_condition_number": 1262.3253339942728,
+        "projection_gaussianity_statistic": 9.986879074163816,
+        "rollout_errors": {
+          "1": 0.0003803021500061732,
+          "2": 0.0007673658013421422,
+          "4": 0.00155843546478233,
+          "8": 0.003244836077404519,
+          "16": 0.007244849131287386,
+          "32": 0.01917292984823386
+        },
+        "final_train_loss": 0.0001860980458635216,
+        "prior_loss_mean": 0.023839959701419704,
+        "transition_loss_mean": 0.00022932913622300235,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 7.700282335281372
+      }
+    },
+    "scalefree_gnn_random_graph_seed0": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_random_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_random_graph_seed0",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.336476338975373,
+        "covariance_condition_number": 204.29729530126582,
+        "projection_gaussianity_statistic": 9.999027805794709,
+        "rollout_errors": {
+          "1": 0.00033173701861718047,
+          "2": 0.0006595156422311751,
+          "4": 0.0013089599572898198,
+          "8": 0.0025840792222879827,
+          "16": 0.00533475517295301,
+          "32": 0.02007725997827947
+        },
+        "final_train_loss": 0.00015499518485739827,
+        "prior_loss_mean": 0.026945169295908677,
+        "transition_loss_mean": 0.0003162461695552565,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.600931167602539
+      }
+    },
+    "scalefree_gnn_random_graph_seed1": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_random_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_random_graph_seed1",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.891657556422726,
+        "covariance_condition_number": 829.5217448288574,
+        "projection_gaussianity_statistic": 9.9918947770456,
+        "rollout_errors": {
+          "1": 0.0003309182235777068,
+          "2": 0.0006546091972268187,
+          "4": 0.0012815977776578318,
+          "8": 0.0024894630284203836,
+          "16": 0.00492986503134792,
+          "32": 0.010070732639481625
+        },
+        "final_train_loss": 0.00016667071031406522,
+        "prior_loss_mean": 0.02465987609595888,
+        "transition_loss_mean": 0.0003988065018051638,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.399930477142334
+      }
+    },
+    "scalefree_gnn_random_graph_seed2": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_random_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_random_graph_seed2",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.663575967739199,
+        "covariance_condition_number": 334.9112975262103,
+        "projection_gaussianity_statistic": 10.004902256952464,
+        "rollout_errors": {
+          "1": 0.00021496968171656286,
+          "2": 0.0004270155271418237,
+          "4": 0.0008560673474372985,
+          "8": 0.0017747217837798719,
+          "16": 0.004014262764637048,
+          "32": 0.01108306172924737
+        },
+        "final_train_loss": 0.00014197124498120198,
+        "prior_loss_mean": 0.017309177106815492,
+        "transition_loss_mean": 0.0001496648372733568,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.191805362701416
+      }
+    },
+    "scalefree_gnn_random_graph_seed3": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_random_graph_seed3",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_random_graph_seed3",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 3,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 7.233827400353241,
+        "covariance_condition_number": 968.8556956551017,
+        "projection_gaussianity_statistic": 10.005311450469774,
+        "rollout_errors": {
+          "1": 0.00040542916152238223,
+          "2": 0.0008036809619322108,
+          "4": 0.0015994318819139153,
+          "8": 0.003240645892219618,
+          "16": 0.006998172553721815,
+          "32": 0.01816662005148828
+        },
+        "final_train_loss": 0.0001140202657552436,
+        "prior_loss_mean": 0.017669078979330757,
+        "transition_loss_mean": 0.0005476922304538334,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.355088472366333
+      }
+    },
+    "scalefree_gnn_random_graph_seed4": {
+      "schema_version": "cycle3_ho_networks_v1",
+      "run_name": "scalefree_gnn_random_graph_seed4",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "scalefree_gnn_random_graph_seed4",
+        "topology": "scalefree",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 4,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/ho_raw"
+      },
+      "diagnostics": {
+        "effective_rank": 8.555551851690206,
+        "covariance_condition_number": 1035.4812062400968,
+        "projection_gaussianity_statistic": 9.986625211857634,
+        "rollout_errors": {
+          "1": 0.000383522817476963,
+          "2": 0.0007745116551329071,
+          "4": 0.0015702742093708366,
+          "8": 0.003265664961266642,
+          "16": 0.007298464130144566,
+          "32": 0.01966903304370741
+        },
+        "final_train_loss": 0.00020148885960225016,
+        "prior_loss_mean": 0.024120037322346535,
+        "transition_loss_mean": 0.00022934060720921758,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "graph_edge_weights": "unit"
+      },
+      "timing": {
+        "wall_time_sec": 8.096264123916626
+      }
+    }
+  },
+  "updated_at": "2026-04-30T20:32:30.065376+00:00",
+  "summary": {
+    "n_runs": 75,
+    "n_failures": 0,
+    "failures": [],
+    "runs_with_nan_diagnostics": [],
+    "runs_missing_diagnostics": [],
+    "schema_version": "cycle3_ho_networks_v1"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "topology": "lattice",
+  "num_epochs": 30,
+  "batch_size": 32,
+  "latent_dim": 16,
+  "node_dim": 16,
+  "eval_horizons": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "run_name": "lattice_gnn_random_graph_seed2",
+  "encoder": "gnn_node",
+  "prior": "random_graph",
+  "seed": 2
+}
