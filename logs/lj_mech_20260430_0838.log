@@ -23,3 +23,8 @@ output: /workspace/causalworld/lj_mechanism.json
 [lj_N64|flat|none|seed=1] epoch   5/50 loss=3.1756 H8_eval=1.4117
 [lj_N64|flat|none|seed=1] epoch  10/50 loss=2.8651 H8_eval=1.2391
 [lj_N64|flat|none|seed=1] epoch  15/50 loss=2.4988 H8_eval=1.1157
+[lj_N64|flat|none|seed=1] epoch  20/50 loss=2.1375 H8_eval=1.0559
+[lj_N64|flat|none|seed=1] epoch  25/50 loss=1.8073 H8_eval=1.3567
+[lj_N64|flat|none|seed=1] epoch  30/50 loss=1.5046 H8_eval=1.2682
+[lj_N64|flat|none|seed=1] epoch  35/50 loss=1.5706 H8_eval=4.2785
+[lj_N64|flat|none|seed=1] epoch  40/50 loss=1.4744 H8_eval=3.3998
