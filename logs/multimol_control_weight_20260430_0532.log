@@ -207,3 +207,56 @@ output: /workspace/causalworld/rmd17_multimol_control_weight.json
 [ethanol|flat|random_spectral|seed=1] epoch  25/50 loss=0.0001 H8_eval=0.0322
 [ethanol|flat|random_spectral|seed=1] epoch  30/50 loss=0.0001 H8_eval=0.0207
 [ethanol|flat|random_spectral|seed=1] epoch  35/50 loss=0.0000 H8_eval=0.0001
+[ethanol|flat|random_spectral|seed=1] epoch  40/50 loss=0.0000 H8_eval=0.0002
+[ethanol|flat|random_spectral|seed=1] epoch  45/50 loss=0.0000 H8_eval=0.0007
+[ethanol|flat|random_spectral|seed=1] epoch  50/50 loss=0.0001 H8_eval=0.0676
+=== Finished ethanol|flat|random_spectral|w=0.01|seed=1 | H1=0.0082 H8=0.0676 H16=0.1717 | r_eff=16.00 | wall=531.4s ===
+  -> saved partial; avg=515s/run; ETA=498min for 58 remaining
+
+=== Starting ethanol|flat|random_spectral|w=0.01|seed=2 (15/72) ===
+[ethanol|flat|random_spectral|seed=2] epoch   1/50 loss=1.2038 H8_eval=0.0435
+[ethanol|flat|random_spectral|seed=2] epoch   5/50 loss=0.0002 H8_eval=0.0042
+[ethanol|flat|random_spectral|seed=2] epoch  10/50 loss=0.0002 H8_eval=0.0109
+[ethanol|flat|random_spectral|seed=2] epoch  15/50 loss=0.0001 H8_eval=0.0023
+[ethanol|flat|random_spectral|seed=2] epoch  20/50 loss=0.0001 H8_eval=0.0012
+[ethanol|flat|random_spectral|seed=2] epoch  25/50 loss=0.0001 H8_eval=0.0063
+[ethanol|flat|random_spectral|seed=2] epoch  30/50 loss=0.0001 H8_eval=0.0147
+[ethanol|flat|random_spectral|seed=2] epoch  35/50 loss=0.0001 H8_eval=0.0089
+[ethanol|flat|random_spectral|seed=2] epoch  40/50 loss=0.0001 H8_eval=0.0146
+[ethanol|flat|random_spectral|seed=2] epoch  45/50 loss=0.0001 H8_eval=0.0286
+[ethanol|flat|random_spectral|seed=2] epoch  50/50 loss=0.0000 H8_eval=0.0002
+=== Finished ethanol|flat|random_spectral|w=0.01|seed=2 | H1=0.0000 H8=0.0002 H16=0.0004 | r_eff=nan | wall=539.1s ===
+  -> saved partial; avg=517s/run; ETA=491min for 57 remaining
+
+=== Starting ethanol|flat|random_spectral|w=0.1|seed=0 (16/72) ===
+[ethanol|flat|random_spectral|seed=0] epoch   1/50 loss=26.5831 H8_eval=0.0644
+[ethanol|flat|random_spectral|seed=0] epoch   5/50 loss=0.0003 H8_eval=0.0001
+[ethanol|flat|random_spectral|seed=0] epoch  10/50 loss=0.0002 H8_eval=0.0543
+[ethanol|flat|random_spectral|seed=0] epoch  15/50 loss=0.0003 H8_eval=0.0013
+[ethanol|flat|random_spectral|seed=0] epoch  20/50 loss=0.0001 H8_eval=0.0005
+[ethanol|flat|random_spectral|seed=0] epoch  25/50 loss=0.0001 H8_eval=0.0030
+[ethanol|flat|random_spectral|seed=0] epoch  30/50 loss=0.0002 H8_eval=0.0039
+[ethanol|flat|random_spectral|seed=0] epoch  35/50 loss=0.0002 H8_eval=0.1093
+[ethanol|flat|random_spectral|seed=0] epoch  40/50 loss=0.0003 H8_eval=0.0027
+[ethanol|flat|random_spectral|seed=0] epoch  45/50 loss=0.0001 H8_eval=0.0000
+[ethanol|flat|random_spectral|seed=0] epoch  50/50 loss=0.0002 H8_eval=0.0555
+=== Finished ethanol|flat|random_spectral|w=0.1|seed=0 | H1=0.0075 H8=0.0555 H16=0.1193 | r_eff=16.00 | wall=535.9s ===
+  -> saved partial; avg=518s/run; ETA=483min for 56 remaining
+
+=== Starting ethanol|flat|random_spectral|w=0.1|seed=1 (17/72) ===
+[ethanol|flat|random_spectral|seed=1] epoch   1/50 loss=35.2366 H8_eval=0.1597
+[ethanol|flat|random_spectral|seed=1] epoch   5/50 loss=0.0015 H8_eval=0.0006
+[ethanol|flat|random_spectral|seed=1] epoch  10/50 loss=0.0003 H8_eval=0.0001
+[ethanol|flat|random_spectral|seed=1] epoch  15/50 loss=0.0001 H8_eval=0.0004
+[ethanol|flat|random_spectral|seed=1] epoch  20/50 loss=0.0001 H8_eval=0.0005
+[ethanol|flat|random_spectral|seed=1] epoch  25/50 loss=0.0000 H8_eval=0.0050
+[ethanol|flat|random_spectral|seed=1] epoch  30/50 loss=0.0000 H8_eval=0.0071
+[ethanol|flat|random_spectral|seed=1] epoch  35/50 loss=0.0000 H8_eval=0.0054
+[ethanol|flat|random_spectral|seed=1] epoch  40/50 loss=0.0000 H8_eval=0.0011
+[ethanol|flat|random_spectral|seed=1] epoch  45/50 loss=0.0000 H8_eval=0.0013
+[ethanol|flat|random_spectral|seed=1] epoch  50/50 loss=0.0000 H8_eval=0.0004
+=== Finished ethanol|flat|random_spectral|w=0.1|seed=1 | H1=0.0000 H8=0.0004 H16=0.0009 | r_eff=16.00 | wall=529.4s ===
+  -> saved partial; avg=518s/run; ETA=475min for 55 remaining
+
+=== Starting ethanol|flat|random_spectral|w=0.1|seed=2 (18/72) ===
+[ethanol|flat|random_spectral|seed=2] epoch   1/50 loss=11.0116 H8_eval=0.0514

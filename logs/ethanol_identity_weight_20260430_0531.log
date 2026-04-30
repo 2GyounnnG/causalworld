@@ -279,3 +279,33 @@ output: /workspace/causalworld/rmd17_ethanol_identity_weight.json
 [ethanol|flat|identity_quadratic|seed=3] epoch  10/50 loss=0.0002 H8_eval=0.0074
 [ethanol|flat|identity_quadratic|seed=3] epoch  15/50 loss=0.0001 H8_eval=0.0070
 [ethanol|flat|identity_quadratic|seed=3] epoch  20/50 loss=0.0001 H8_eval=0.0065
+[ethanol|flat|identity_quadratic|seed=3] epoch  25/50 loss=0.0000 H8_eval=0.0146
+[ethanol|flat|identity_quadratic|seed=3] epoch  30/50 loss=0.0000 H8_eval=0.0118
+[ethanol|flat|identity_quadratic|seed=3] epoch  35/50 loss=0.0000 H8_eval=0.0122
+[ethanol|flat|identity_quadratic|seed=3] epoch  40/50 loss=0.0000 H8_eval=0.0238
+[ethanol|flat|identity_quadratic|seed=3] epoch  45/50 loss=0.0000 H8_eval=0.0210
+[ethanol|flat|identity_quadratic|seed=3] epoch  50/50 loss=0.0000 H8_eval=0.0712
+=== Finished ethanol|flat|identity_quadratic|w=0.1|seed=3 | H1=0.0040 H8=0.0712 H16=0.6728 | r_eff=16.00 | wall=517.4s ===
+  -> saved partial results to rmd17_ethanol_identity_weight.json
+
+=== Starting ethanol|flat|identity_quadratic|w=0.1|seed=4 (20/20) ===
+[ethanol|flat|identity_quadratic|seed=4] epoch   1/50 loss=7.9828 H8_eval=0.0717
+[ethanol|flat|identity_quadratic|seed=4] epoch   5/50 loss=0.0014 H8_eval=0.0003
+[ethanol|flat|identity_quadratic|seed=4] epoch  10/50 loss=0.0002 H8_eval=0.0000
+[ethanol|flat|identity_quadratic|seed=4] epoch  15/50 loss=0.0001 H8_eval=0.0043
+[ethanol|flat|identity_quadratic|seed=4] epoch  20/50 loss=0.0000 H8_eval=0.0082
+[ethanol|flat|identity_quadratic|seed=4] epoch  25/50 loss=0.0000 H8_eval=0.0115
+[ethanol|flat|identity_quadratic|seed=4] epoch  30/50 loss=0.0000 H8_eval=0.0105
+[ethanol|flat|identity_quadratic|seed=4] epoch  35/50 loss=0.0000 H8_eval=0.0115
+[ethanol|flat|identity_quadratic|seed=4] epoch  40/50 loss=0.0000 H8_eval=0.0257
+[ethanol|flat|identity_quadratic|seed=4] epoch  45/50 loss=0.0000 H8_eval=0.0204
+[ethanol|flat|identity_quadratic|seed=4] epoch  50/50 loss=0.0000 H8_eval=0.0171
+=== Finished ethanol|flat|identity_quadratic|w=0.1|seed=4 | H1=0.0019 H8=0.0171 H16=0.0441 | r_eff=16.00 | wall=510.4s ===
+  -> saved partial results to rmd17_ethanol_identity_weight.json
+
+=== Summary ===
+  weight   n      H=1 mean+-std      H=8 mean+-std     H=16 mean+-std    r_eff       cond
+   0.001   5 0.0035+-  0.0014 0.0321+-  0.0126 0.1065+-  0.0887    16.00       1.00
+   0.005   5 0.0021+-  0.0014 0.0235+-  0.0189 0.1310+-  0.2048    16.00       1.00
+   0.010   5 0.0021+-  0.0017 0.0212+-  0.0205 0.0645+-  0.0784    16.00       1.00
+   0.100   5 0.0017+-  0.0016 0.0218+-  0.0286 0.1539+-  0.2906    16.00       1.00

@@ -98,3 +98,19 @@ output: /workspace/causalworld/rmd17_naphthalene_identity_weight.json
 [naphthalene|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0125 H8_eval=0.2383
 [naphthalene|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0038 H8_eval=0.1231
 [naphthalene|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.1103 H8_eval=0.5148
+[naphthalene|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0466 H8_eval=0.6481
+[naphthalene|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0357 H8_eval=0.4682
+[naphthalene|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0279 H8_eval=0.2900
+[naphthalene|flat|identity_quadratic|seed=1] epoch  35/50 loss=0.0345 H8_eval=0.3390
+[naphthalene|flat|identity_quadratic|seed=1] epoch  40/50 loss=0.0324 H8_eval=0.4048
+[naphthalene|flat|identity_quadratic|seed=1] epoch  45/50 loss=0.0729 H8_eval=0.5960
+[naphthalene|flat|identity_quadratic|seed=1] epoch  50/50 loss=0.0146 H8_eval=0.1365
+=== Finished naphthalene|flat|identity_quadratic|w=0.005|seed=1 | H1=0.0253 H8=0.1373 H16=0.2639 | r_eff=1.00 | wall=1618.1s ===
+  -> saved partial results to rmd17_naphthalene_identity_weight.json
+
+=== Starting naphthalene|flat|identity_quadratic|w=0.005|seed=2 (8/20) ===
+[naphthalene|flat|identity_quadratic|seed=2] epoch   1/50 loss=2.0866 H8_eval=0.1496
+[naphthalene|flat|identity_quadratic|seed=2] epoch   5/50 loss=0.0045 H8_eval=0.0343
+[naphthalene|flat|identity_quadratic|seed=2] epoch  10/50 loss=0.0014 H8_eval=0.0477
+[naphthalene|flat|identity_quadratic|seed=2] epoch  15/50 loss=0.0008 H8_eval=0.0776
+[naphthalene|flat|identity_quadratic|seed=2] epoch  20/50 loss=0.0006 H8_eval=0.0431
