@@ -650,3 +650,23 @@ torch._C._LinAlgError: linalg.eigh: The algorithm failed to converge because the
 
 === Starting naphthalene|flat|permuted_spectral|w=0.1|seed=0 (43/72) ===
 [naphthalene|flat|permuted_spectral|seed=0] epoch   1/50 loss=68.2893 H8_eval=0.1791
+[naphthalene|flat|permuted_spectral|seed=0] epoch   5/50 loss=0.0151 H8_eval=0.0310
+[naphthalene|flat|permuted_spectral|seed=0] epoch  10/50 loss=0.0013 H8_eval=0.0619
+[naphthalene|flat|permuted_spectral|seed=0] epoch  15/50 loss=0.0009 H8_eval=0.0292
+[naphthalene|flat|permuted_spectral|seed=0] epoch  20/50 loss=0.0008 H8_eval=0.0461
+[naphthalene|flat|permuted_spectral|seed=0] epoch  25/50 loss=0.0008 H8_eval=0.0534
+[naphthalene|flat|permuted_spectral|seed=0] epoch  30/50 loss=0.0013 H8_eval=0.0819
+[naphthalene|flat|permuted_spectral|seed=0] epoch  35/50 loss=0.0007 H8_eval=0.0276
+[naphthalene|flat|permuted_spectral|seed=0] epoch  40/50 loss=0.0008 H8_eval=0.0655
+[naphthalene|flat|permuted_spectral|seed=0] epoch  45/50 loss=0.0007 H8_eval=0.0466
+[naphthalene|flat|permuted_spectral|seed=0] epoch  50/50 loss=0.0006 H8_eval=0.0347
+=== Finished naphthalene|flat|permuted_spectral|w=0.1|seed=0 | H1=0.0122 H8=0.0351 H16=0.0691 | r_eff=1.00 | wall=1196.8s ===
+  -> saved partial; avg=651s/run; ETA=315min for 29 remaining
+
+=== Starting naphthalene|flat|permuted_spectral|w=0.1|seed=1 (44/72) ===
+[naphthalene|flat|permuted_spectral|seed=1] epoch   1/50 loss=87.2004 H8_eval=0.2342
+[naphthalene|flat|permuted_spectral|seed=1] epoch   5/50 loss=0.0066 H8_eval=0.0308
+[naphthalene|flat|permuted_spectral|seed=1] epoch  10/50 loss=0.0023 H8_eval=0.0318
+[naphthalene|flat|permuted_spectral|seed=1] epoch  15/50 loss=0.0015 H8_eval=0.0572
+[naphthalene|flat|permuted_spectral|seed=1] epoch  20/50 loss=0.0013 H8_eval=0.0610
+[naphthalene|flat|permuted_spectral|seed=1] epoch  25/50 loss=0.0019 H8_eval=0.0786
