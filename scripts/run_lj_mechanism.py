@@ -35,7 +35,7 @@ import torch
 from scripts.train_rmd17 import Config, train_one_seed
 
 
-DATASETS = ["lj_N64", "lj_N256", "lj_N1024"]
+DATASETS = ["lj_N64"]
 N_TRANSITIONS = 800
 STRIDE = 1
 EVAL_N_TRANSITIONS = 80

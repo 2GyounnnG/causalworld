@@ -19,7 +19,7 @@ if str(ROOT) not in sys.path:
 from scripts.train_rmd17 import Config, train_one_seed
 
 
-DATASET = "lj_N256"
+DATASET = "lj_N64"
 PRIOR = "spectral"
 WEIGHTS = [0.001, 0.01, 0.1, 1.0]
 SEEDS = list(range(5))
@@ -35,7 +35,7 @@ OUTPUT_PATH = ROOT / "lj_weight_sweep.json"
 
 
 def make_key(weight: float, seed: int) -> str:
-    return f"lj_N256|{ENCODER}|spectral|w={weight}|seed={seed}"
+    return f"{DATASET}|{ENCODER}|spectral|w={weight}|seed={seed}"
 
 
 def save_atomic(all_results: dict[str, Any]) -> None:
