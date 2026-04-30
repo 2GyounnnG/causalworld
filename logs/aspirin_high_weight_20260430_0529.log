@@ -1,0 +1,6 @@
+nohup: ignoring input
+device=cuda (NVIDIA GeForce RTX 4090)
+Resume: 15/15 runs pending
+output: /workspace/causalworld/rmd17_aspirin_high_weight.json
+
+=== Starting aspirin|flat|spectral|w=0.5|seed=0 (1/15) ===
