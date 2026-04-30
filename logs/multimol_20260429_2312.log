@@ -715,3 +715,4 @@ torch._C._LinAlgError: linalg.eigh: The algorithm failed to converge because the
 [naphthalene|flat|variance|seed=1] epoch  20/50 loss=0.1096 H8_eval=0.2054
 [naphthalene|flat|variance|seed=1] epoch  25/50 loss=0.1049 H8_eval=0.1171
 [naphthalene|flat|variance|seed=1] epoch  30/50 loss=0.1062 H8_eval=0.2621
+[naphthalene|flat|variance|seed=1] epoch  35/50 loss=0.0988 H8_eval=0.1637

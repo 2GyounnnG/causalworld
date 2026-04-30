@@ -19,7 +19,7 @@ if str(ROOT) not in sys.path:
 from scripts.train_rmd17 import Config, train_one_seed
 
 
-MOLECULES = ["ethanol", "malonaldehyde", "benzene", "uracil"]
+MOLECULES = ["ethanol", "malonaldehyde", "naphthalene", "toluene"]
 PRIORS = [
     "none",
     "variance",
