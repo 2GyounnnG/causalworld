@@ -163,3 +163,25 @@ output: /workspace/causalworld/rmd17_naphthalene_identity_weight.json
 [naphthalene|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0006 H8_eval=0.0747
 [naphthalene|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0380 H8_eval=0.3199
 [naphthalene|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0223 H8_eval=0.8021
+[naphthalene|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0428 H8_eval=0.3563
+[naphthalene|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0051 H8_eval=0.1686
+=== Finished naphthalene|flat|identity_quadratic|w=0.01|seed=0 | H1=0.0289 H8=0.1665 H16=0.5540 | r_eff=1.00 | wall=1552.7s ===
+  -> saved partial results to rmd17_naphthalene_identity_weight.json
+
+=== Starting naphthalene|flat|identity_quadratic|w=0.01|seed=1 (12/20) ===
+[naphthalene|flat|identity_quadratic|seed=1] epoch   1/50 loss=10.1060 H8_eval=0.2296
+[naphthalene|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0055 H8_eval=0.1054
+[naphthalene|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0303 H8_eval=0.3427
+[naphthalene|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0258 H8_eval=0.3238
+[naphthalene|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0091 H8_eval=0.1742
+[naphthalene|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0246 H8_eval=0.2960
+[naphthalene|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0090 H8_eval=0.2222
+[naphthalene|flat|identity_quadratic|seed=1] epoch  35/50 loss=0.0054 H8_eval=0.1249
+[naphthalene|flat|identity_quadratic|seed=1] epoch  40/50 loss=0.0196 H8_eval=0.2936
+[naphthalene|flat|identity_quadratic|seed=1] epoch  45/50 loss=0.0024 H8_eval=0.1397
+[naphthalene|flat|identity_quadratic|seed=1] epoch  50/50 loss=0.0356 H8_eval=0.7089
+=== Finished naphthalene|flat|identity_quadratic|w=0.01|seed=1 | H1=0.0606 H8=0.7053 H16=18.8795 | r_eff=1.00 | wall=1488.3s ===
+  -> saved partial results to rmd17_naphthalene_identity_weight.json
+
+=== Starting naphthalene|flat|identity_quadratic|w=0.01|seed=2 (13/20) ===
+[naphthalene|flat|identity_quadratic|seed=2] epoch   1/50 loss=3.7105 H8_eval=0.1546

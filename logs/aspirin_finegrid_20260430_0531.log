@@ -112,3 +112,17 @@ output: /workspace/causalworld/rmd17_aspirin_spectral_finegrid.json
 [aspirin|flat|spectral|seed=2] epoch   1/50 loss=2.1709 H8_eval=0.1591
 [aspirin|flat|spectral|seed=2] epoch   5/50 loss=0.0104 H8_eval=0.0693
 [aspirin|flat|spectral|seed=2] epoch  10/50 loss=0.0047 H8_eval=0.0702
+[aspirin|flat|spectral|seed=2] epoch  15/50 loss=0.0041 H8_eval=0.0865
+[aspirin|flat|spectral|seed=2] epoch  20/50 loss=0.0097 H8_eval=0.0753
+[aspirin|flat|spectral|seed=2] epoch  25/50 loss=0.0037 H8_eval=0.0543
+[aspirin|flat|spectral|seed=2] epoch  30/50 loss=0.0033 H8_eval=0.0804
+[aspirin|flat|spectral|seed=2] epoch  35/50 loss=0.0063 H8_eval=0.0513
+[aspirin|flat|spectral|seed=2] epoch  40/50 loss=0.0090 H8_eval=0.3009
+[aspirin|flat|spectral|seed=2] epoch  45/50 loss=0.0819 H8_eval=0.4726
+[aspirin|flat|spectral|seed=2] epoch  50/50 loss=0.0842 H8_eval=0.1950
+=== Finished aspirin|flat|spectral|w=0.004|seed=2 | H1=0.0496 H8=0.1944 H16=0.3457 | r_eff=1.00 | wall=2169.7s ===
+  -> saved partial results to rmd17_aspirin_spectral_finegrid.json
+
+=== Starting aspirin|flat|spectral|w=0.004|seed=3 (9/20) ===
+[aspirin|flat|spectral|seed=3] epoch   1/50 loss=3.3041 H8_eval=0.2327
+[aspirin|flat|spectral|seed=3] epoch   5/50 loss=0.0247 H8_eval=0.0895

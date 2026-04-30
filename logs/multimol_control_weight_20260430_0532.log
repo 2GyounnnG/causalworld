@@ -367,3 +367,53 @@ output: /workspace/causalworld/rmd17_multimol_control_weight.json
 [malonaldehyde|flat|permuted_spectral|seed=0] epoch   1/50 loss=3.4040 H8_eval=0.0618
 [malonaldehyde|flat|permuted_spectral|seed=0] epoch   5/50 loss=0.0057 H8_eval=0.0015
 [malonaldehyde|flat|permuted_spectral|seed=0] epoch  10/50 loss=0.0029 H8_eval=0.0082
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  15/50 loss=0.0013 H8_eval=0.0062
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  20/50 loss=0.0006 H8_eval=0.0092
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  25/50 loss=0.0004 H8_eval=0.0084
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  30/50 loss=0.0002 H8_eval=0.0036
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  35/50 loss=0.0001 H8_eval=0.0075
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  40/50 loss=0.0001 H8_eval=0.0181
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  45/50 loss=0.0001 H8_eval=0.0081
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  50/50 loss=0.0000 H8_eval=0.0118
+=== Finished malonaldehyde|flat|permuted_spectral|w=0.1|seed=0 | H1=0.0016 H8=0.0118 H16=0.0276 | r_eff=16.00 | wall=730.6s ===
+  -> saved partial; avg=592s/run; ETA=464min for 47 remaining
+
+=== Starting malonaldehyde|flat|permuted_spectral|w=0.1|seed=1 (26/72) ===
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch   1/50 loss=4.5676 H8_eval=0.1228
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch   5/50 loss=0.0014 H8_eval=0.0028
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  10/50 loss=0.0009 H8_eval=0.0024
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  15/50 loss=0.0006 H8_eval=0.0025
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  20/50 loss=0.0004 H8_eval=0.0075
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  25/50 loss=0.0002 H8_eval=0.0130
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  30/50 loss=0.0002 H8_eval=0.0146
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  35/50 loss=0.0001 H8_eval=0.0026
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  40/50 loss=0.0001 H8_eval=0.0191
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  45/50 loss=0.0001 H8_eval=0.0154
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  50/50 loss=0.0001 H8_eval=0.0125
+=== FAILED malonaldehyde|flat|permuted_spectral|w=0.1|seed=1: linalg.eigh: The algorithm failed to converge because the input matrix is ill-conditioned or has too many repeated eigenvalues (error code: 1). ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_rmd17_multimol_control_weight.py", line 245, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 784, in train_one_seed
+    result["final_diagnostics"] = compute_all_diagnostics(z_batch, L=diag_L)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/diagnostics_latent.py", line 109, in compute_all_diagnostics
+    "effective_rank": effective_rank(z_batch),
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/diagnostics_latent.py", line 17, in effective_rank
+    eigvals = torch.linalg.eigvalsh(C.cpu()).clamp_min(1e-12)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch._C._LinAlgError: linalg.eigh: The algorithm failed to converge because the input matrix is ill-conditioned or has too many repeated eigenvalues (error code: 1).
+
+  -> saved partial; avg=598s/run; ETA=458min for 46 remaining
+
+=== Starting malonaldehyde|flat|permuted_spectral|w=0.1|seed=2 (27/72) ===
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch   1/50 loss=1.5034 H8_eval=0.0429
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch   5/50 loss=0.0015 H8_eval=0.0225
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  10/50 loss=0.0010 H8_eval=0.0037
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  15/50 loss=0.0005 H8_eval=0.0336
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  20/50 loss=0.0003 H8_eval=0.0093
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  25/50 loss=0.0002 H8_eval=0.0088
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  30/50 loss=0.0001 H8_eval=0.0247
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  35/50 loss=0.0001 H8_eval=0.0222
