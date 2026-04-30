@@ -184,12 +184,44 @@ class Config:
     control_seed_offset: int = 1000
 
 
+def is_particle_dataset(dataset_id: str) -> bool:
+    return dataset_id.startswith(("lj_", "ho_", "3bpa"))
+
+
+def is_iso17_dataset(dataset_id: str) -> bool:
+    return dataset_id.startswith("iso17")
+
+
+def get_dataset_trajectory(dataset_id: str):
+    if is_particle_dataset(dataset_id):
+        from scripts.particle_loader import ParticleTrajectory
+
+        return ParticleTrajectory(dataset_id)
+    if is_iso17_dataset(dataset_id):
+        from scripts.iso17_loader import ISO17Trajectory
+
+        return ISO17Trajectory(dataset_id)
+    return RMD17Trajectory(dataset_id)
+
+
+def collect_dataset_transitions(dataset_id: str, **kwargs) -> List[Dict]:
+    if is_particle_dataset(dataset_id):
+        from scripts.particle_loader import collect_particle_transitions
+
+        return collect_particle_transitions(dataset_id=dataset_id, **kwargs)
+    if is_iso17_dataset(dataset_id):
+        from scripts.iso17_loader import collect_iso17_transitions
+
+        return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+    return collect_rmd17_transitions(molecule=dataset_id, **kwargs)
+
+
 def infer_model_n_atoms(config: Config, transitions: list[dict] | None = None) -> int | None:
     if config.encoder != "mlp":
         return None
     if transitions:
         return int(transitions[0]["obs"]["atom"].pos.shape[0])
-    return int(RMD17Trajectory(config.molecule).n_atoms)
+    return int(get_dataset_trajectory(config.molecule).n_atoms)
 
 
 def get_git_commit() -> str:
@@ -247,7 +279,7 @@ def collect_disjoint_eval_transitions(
     if stride < 1:
         raise ValueError(f"stride must be >= 1, got {stride}")
     max_horizon = max(int(horizon) for horizon in eval_horizons)
-    traj = RMD17Trajectory(molecule, cutoff=cutoff)
+    traj = get_dataset_trajectory(molecule)
     rng = np.random.default_rng(seed)
     max_start = traj.n_frames - max_horizon - 1
     candidates = np.arange(0, max_start, stride)
@@ -353,7 +385,7 @@ def evaluate_rollout(model, eval_transitions, horizons, device, latent_dim) -> D
         for transition in eval_transitions:
             molecule = transition["molecule"]
             if molecule not in traj_cache:
-                traj_cache[molecule] = RMD17Trajectory(molecule)
+                traj_cache[molecule] = get_dataset_trajectory(molecule)
             traj = traj_cache[molecule]
             idx = transition["frame_idx"]
 
@@ -386,7 +418,7 @@ def quick_rollout_eval(model, samples, horizon, device, latent_dim) -> float:
         for transition in samples:
             molecule = transition["molecule"]
             if molecule not in traj_cache:
-                traj_cache[molecule] = RMD17Trajectory(molecule)
+                traj_cache[molecule] = get_dataset_trajectory(molecule)
             traj = traj_cache[molecule]
             idx = transition["frame_idx"]
             if idx + horizon >= traj.n_frames:
@@ -421,8 +453,8 @@ def train_one_seed(config: Config) -> Dict:
     control_generator = torch.Generator(device="cpu")
     control_generator.manual_seed(config.seed + config.control_seed_offset)
 
-    transitions = collect_rmd17_transitions(
-        molecule=config.molecule,
+    transitions = collect_dataset_transitions(
+        dataset_id=config.molecule,
         n_transitions=config.n_transitions,
         stride=config.stride,
         horizon=config.horizon,
@@ -440,8 +472,8 @@ def train_one_seed(config: Config) -> Dict:
             forbidden_frame_idx=train_used_frame_idx,
         )
     else:
-        eval_transitions = collect_rmd17_transitions(
-            molecule=config.molecule,
+        eval_transitions = collect_dataset_transitions(
+            dataset_id=config.molecule,
             n_transitions=config.eval_n_transitions,
             stride=config.stride * 10,
             horizon=max(config.eval_horizons),
@@ -457,7 +489,7 @@ def train_one_seed(config: Config) -> Dict:
 
     fixed_laplacian = None
     if config.prior in spectral_priors and config.laplacian_mode != "per_frame":
-        traj = RMD17Trajectory(config.molecule)
+        traj = get_dataset_trajectory(config.molecule)
         if config.laplacian_mode == "fixed_frame0":
             fixed_laplacian = build_graph_source_laplacian(
                 traj[0],
