@@ -260,3 +260,39 @@ output: /workspace/causalworld/rmd17_multimol_control_weight.json
 
 === Starting ethanol|flat|random_spectral|w=0.1|seed=2 (18/72) ===
 [ethanol|flat|random_spectral|seed=2] epoch   1/50 loss=11.0116 H8_eval=0.0514
+[ethanol|flat|random_spectral|seed=2] epoch   5/50 loss=0.0002 H8_eval=0.0073
+[ethanol|flat|random_spectral|seed=2] epoch  10/50 loss=0.0001 H8_eval=0.0233
+[ethanol|flat|random_spectral|seed=2] epoch  15/50 loss=0.0001 H8_eval=0.0176
+[ethanol|flat|random_spectral|seed=2] epoch  20/50 loss=0.0000 H8_eval=0.0406
+[ethanol|flat|random_spectral|seed=2] epoch  25/50 loss=0.0000 H8_eval=0.0069
+[ethanol|flat|random_spectral|seed=2] epoch  30/50 loss=0.0000 H8_eval=0.0035
+[ethanol|flat|random_spectral|seed=2] epoch  35/50 loss=0.0000 H8_eval=0.0253
+[ethanol|flat|random_spectral|seed=2] epoch  40/50 loss=0.0000 H8_eval=0.0016
+[ethanol|flat|random_spectral|seed=2] epoch  45/50 loss=0.0000 H8_eval=0.0047
+[ethanol|flat|random_spectral|seed=2] epoch  50/50 loss=0.0000 H8_eval=0.0008
+=== Finished ethanol|flat|random_spectral|w=0.1|seed=2 | H1=0.0001 H8=0.0008 H16=0.0021 | r_eff=16.00 | wall=555.8s ===
+  -> saved partial; avg=520s/run; ETA=468min for 54 remaining
+
+=== Starting malonaldehyde|flat|permuted_spectral|w=0.001|seed=0 (19/72) ===
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch   1/50 loss=0.1530 H8_eval=0.0573
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch   5/50 loss=0.0035 H8_eval=0.0008
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  10/50 loss=0.0002 H8_eval=0.0003
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  15/50 loss=0.0002 H8_eval=0.0098
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  20/50 loss=0.0001 H8_eval=0.0025
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  25/50 loss=0.0001 H8_eval=0.0209
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  30/50 loss=0.0001 H8_eval=0.0117
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  35/50 loss=0.0001 H8_eval=0.0007
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  40/50 loss=0.0001 H8_eval=0.0113
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  45/50 loss=0.0000 H8_eval=0.0150
+[malonaldehyde|flat|permuted_spectral|seed=0] epoch  50/50 loss=0.0000 H8_eval=0.0064
+=== Finished malonaldehyde|flat|permuted_spectral|w=0.001|seed=0 | H1=0.0007 H8=0.0064 H16=0.0158 | r_eff=16.00 | wall=802.8s ===
+  -> saved partial; avg=535s/run; ETA=473min for 53 remaining
+
+=== Starting malonaldehyde|flat|permuted_spectral|w=0.001|seed=1 (20/72) ===
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch   1/50 loss=0.1725 H8_eval=0.0737
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch   5/50 loss=0.0011 H8_eval=0.0026
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  10/50 loss=0.0003 H8_eval=0.0014
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  15/50 loss=0.0002 H8_eval=0.0063
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  20/50 loss=0.0002 H8_eval=0.0202
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  25/50 loss=0.0001 H8_eval=0.0204
+[malonaldehyde|flat|permuted_spectral|seed=1] epoch  30/50 loss=0.0001 H8_eval=0.0246
