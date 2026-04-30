@@ -1,0 +1,20 @@
+{
+  "topology": "scalefree",
+  "num_epochs": 30,
+  "batch_size": 32,
+  "latent_dim": 16,
+  "node_dim": 16,
+  "eval_horizons": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "run_name": "scalefree_gnn_permuted_graph_lambda0p001_seed2",
+  "encoder": "gnn_node",
+  "prior": "permuted_graph",
+  "prior_weight": 0.001,
+  "seed": 2
+}
