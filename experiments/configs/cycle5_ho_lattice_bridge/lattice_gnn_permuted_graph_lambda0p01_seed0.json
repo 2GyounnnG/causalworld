@@ -1,0 +1,20 @@
+{
+  "batch_size": 32,
+  "encoder": "gnn_node",
+  "eval_horizons": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "latent_dim": 16,
+  "node_dim": 16,
+  "num_epochs": 30,
+  "prior": "permuted_graph",
+  "prior_weight": 0.01,
+  "run_name": "lattice_gnn_permuted_graph_lambda0p01_seed0",
+  "seed": 0,
+  "topology": "lattice"
+}

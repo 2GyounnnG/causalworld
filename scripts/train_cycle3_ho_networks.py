@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import os
+import subprocess
 import sys
 import time
 import traceback
@@ -133,6 +135,120 @@ def load_results(path: Path) -> dict[str, Any]:
     return payload
 
 
+def get_git_commit() -> str:
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except Exception:
+        return "unknown"
+
+
+def config_hash(config: Cycle3HOConfig) -> str:
+    payload = json.dumps(asdict(config), sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def laplacian_from_edges(n_nodes: int, edges: np.ndarray) -> np.ndarray:
+    laplacian = np.zeros((n_nodes, n_nodes), dtype=np.float64)
+    for src, dst in edges.astype(np.int64):
+        if int(src) == int(dst):
+            continue
+        laplacian[int(src), int(src)] += 1.0
+        laplacian[int(dst), int(dst)] += 1.0
+        laplacian[int(src), int(dst)] -= 1.0
+        laplacian[int(dst), int(src)] -= 1.0
+    return laplacian
+
+
+def random_edge_pairs_np(n_nodes: int, n_edges: int, seed: int) -> np.ndarray:
+    if n_edges <= 0 or n_nodes < 2:
+        return np.empty((0, 2), dtype=np.int64)
+    rng = np.random.default_rng(seed)
+    all_pairs = [(i, j) for i in range(n_nodes) for j in range(i + 1, n_nodes)]
+    choice = rng.choice(len(all_pairs), size=min(n_edges, len(all_pairs)), replace=False)
+    return np.asarray([all_pairs[int(index)] for index in choice], dtype=np.int64)
+
+
+def laplacian_diagnostics(laplacian: np.ndarray, n_edges: int) -> dict[str, float]:
+    eigvals = np.linalg.eigvalsh(laplacian)
+    eigvals = np.clip(eigvals, 0.0, None)
+    lambda_max = float(eigvals[-1]) if eigvals.size else float("nan")
+    spectral_gap = float(eigvals[1]) if eigvals.size > 1 else float("nan")
+    return {
+        "graph_laplacian_trace": float(np.trace(laplacian)),
+        "graph_laplacian_frobenius_norm": float(np.linalg.norm(laplacian, ord="fro")),
+        "graph_laplacian_largest_eigenvalue": lambda_max,
+        "graph_laplacian_spectral_gap": spectral_gap,
+        "graph_laplacian_n_nodes": float(laplacian.shape[0]),
+        "graph_laplacian_n_edges": float(n_edges),
+    }
+
+
+def sampled_frame_indices(n_frames: int, n_transitions: int, stride: int, horizon: int, seed: int) -> list[int]:
+    rng = np.random.default_rng(seed)
+    max_start = n_frames - horizon - 1
+    candidates = np.arange(0, max_start, stride)
+    if n_transitions > len(candidates):
+        raise ValueError(f"Requested {n_transitions}, but only {len(candidates)} candidates exist")
+    chosen = rng.choice(candidates, size=n_transitions, replace=False)
+    chosen.sort()
+    return [int(value) for value in chosen]
+
+
+def graph_laplacian_metadata(config: Cycle3HOConfig, traj: HOTrajectory) -> dict[str, Any]:
+    n_nodes = int(traj.n_atoms)
+    n_edges = int(traj.edges.shape[0])
+    true_laplacian = laplacian_from_edges(n_nodes, traj.edges)
+    seed_meta: dict[str, Any] = {
+        "training_seed": int(config.seed),
+        "data_generation_seed": None,
+        "graph_seed": None,
+        "permutation_seed_formula": None,
+        "random_graph_seed_formula": None,
+        "random_graph_seed_min": None,
+        "random_graph_seed_max": None,
+    }
+    if config.prior == "permuted_graph":
+        seed_meta["permutation_seed_formula"] = "2003 + training_seed * 100000 + frame_idx"
+    if config.prior == "random_graph":
+        frame_indices = sampled_frame_indices(
+            traj.n_frames,
+            config.n_transitions,
+            config.stride,
+            config.horizon,
+            config.seed,
+        )
+        random_seeds = [3001 + int(config.seed) * 100000 + int(frame_idx) for frame_idx in frame_indices]
+        random_laplacians = [
+            laplacian_from_edges(
+                n_nodes,
+                random_edge_pairs_np(n_nodes, n_edges, seed=random_seed),
+            )
+            for random_seed in random_seeds
+        ]
+        metrics = [laplacian_diagnostics(laplacian, n_edges) for laplacian in random_laplacians]
+        diag = {
+            key: float(np.mean([metric[key] for metric in metrics]))
+            for key in metrics[0]
+        } if metrics else laplacian_diagnostics(true_laplacian, n_edges)
+        seed_meta["random_graph_seed_formula"] = "3001 + training_seed * 100000 + frame_idx"
+        seed_meta["random_graph_seed_min"] = int(min(random_seeds)) if random_seeds else None
+        seed_meta["random_graph_seed_max"] = int(max(random_seeds)) if random_seeds else None
+        graph_source = "random_graph_train_frame_average"
+    else:
+        diag = laplacian_diagnostics(true_laplacian, n_edges)
+        graph_source = "true_graph" if config.prior == "graph" else "permuted_true_graph"
+    return {
+        "graph_source": graph_source,
+        **seed_meta,
+        **diag,
+    }
+
+
 def validate_config(config: Cycle3HOConfig) -> None:
     if config.topology not in TOPOLOGIES:
         raise ValueError(f"Unknown topology {config.topology!r}. Valid: {TOPOLOGIES}")
@@ -149,6 +265,7 @@ def train_one(config: Cycle3HOConfig) -> dict[str, Any]:
     set_seed(config.seed)
     device = select_device(config.device)
     traj = HOTrajectory(config.topology, data_root=Path(config.data_root))
+    graph_metadata = graph_laplacian_metadata(config, traj) if config.prior in GRAPH_PRIORS else None
     train_transitions = collect_transitions(
         traj,
         n_transitions=config.n_transitions,
@@ -211,6 +328,9 @@ def train_one(config: Cycle3HOConfig) -> dict[str, Any]:
             "final_train_loss": float(epoch_losses[-1]) if epoch_losses else float("nan"),
             "prior_loss_mean": float(np.mean(prior_values)) if prior_values else float("nan"),
             "transition_loss_mean": float(np.mean(transition_values)) if transition_values else float("nan"),
+            "final_transition_loss": float(np.mean(transition_values[-max(1, math.ceil(len(transition_values) / max(1, config.num_epochs))) :]))
+            if transition_values
+            else float("nan"),
             "nan_detected": bool(nan_detected),
         }
     )
@@ -220,6 +340,9 @@ def train_one(config: Cycle3HOConfig) -> dict[str, Any]:
         "status": "ok",
         "failure_flag": False,
         "config": asdict(config),
+        "config_hash": config_hash(config),
+        "git_commit": get_git_commit(),
+        "graph_metadata": graph_metadata,
         "diagnostics": diagnostics,
         "prior_implementation": {
             "graph_prior_form": "nodewise_trace_HtLH" if config.prior in GRAPH_PRIORS else None,
@@ -246,6 +369,9 @@ def failed_result(config: Cycle3HOConfig, exc: BaseException) -> dict[str, Any]:
         "status": "failed",
         "failure_flag": True,
         "config": asdict(config),
+        "config_hash": config_hash(config),
+        "git_commit": get_git_commit(),
+        "graph_metadata": None,
         "diagnostics": {
             "rollout_errors": {str(h): float("nan") for h in config.eval_horizons},
             "effective_rank": float("nan"),
@@ -254,6 +380,7 @@ def failed_result(config: Cycle3HOConfig, exc: BaseException) -> dict[str, Any]:
             "final_train_loss": float("nan"),
             "prior_loss_mean": float("nan"),
             "transition_loss_mean": float("nan"),
+            "final_transition_loss": float("nan"),
             "nan_detected": True,
         },
         "prior_implementation": {
