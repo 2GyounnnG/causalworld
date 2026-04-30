@@ -1,0 +1,5 @@
+{
+  "run_name": "mlp_sigreg",
+  "encoder": "mlp_global",
+  "prior": "sigreg"
+}

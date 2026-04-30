@@ -1,0 +1,5 @@
+{
+  "run_name": "mlp_none",
+  "encoder": "mlp_global",
+  "prior": "none"
+}

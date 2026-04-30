@@ -1,0 +1,5 @@
+{
+  "run_name": "gnn_random_graph",
+  "encoder": "gnn_node",
+  "prior": "random_graph"
+}

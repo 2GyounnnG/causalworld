@@ -1,0 +1,5 @@
+{
+  "run_name": "gnn_permuted_graph",
+  "encoder": "gnn_node",
+  "prior": "permuted_graph"
+}

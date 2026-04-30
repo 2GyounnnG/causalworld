@@ -1,0 +1,5 @@
+{
+  "run_name": "gnn_none",
+  "encoder": "gnn_node",
+  "prior": "none"
+}
