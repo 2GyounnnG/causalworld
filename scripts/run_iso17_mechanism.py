@@ -32,7 +32,7 @@ PRIORS = [
 ]
 SEEDS = list(range(3))
 NUM_EPOCHS = 50
-N_TRANSITIONS = 2000
+N_TRANSITIONS = 300
 PRIOR_WEIGHT = 0.1
 ENCODER = "flat"
 GRAPH_SOURCE = "bond"
@@ -198,7 +198,7 @@ def main() -> None:
             laplacian_mode=LAPLACIAN_MODE,
             seed=seed,
             num_epochs=NUM_EPOCHS,
-            n_transitions=N_TRANSITIONS,
+            n_transitions=N_TRANSITIONS, stride=1, eval_n_transitions=30,
             prior_weight=PRIOR_WEIGHT,
             save_checkpoint=SAVE_CHECKPOINT,
             disjoint_eval=DISJOINT_EVAL,

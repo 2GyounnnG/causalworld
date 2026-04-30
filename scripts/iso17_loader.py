@@ -222,11 +222,14 @@ def cache_iso17_default_isomer(
     if not db_path.exists():
         raise FileNotFoundError(f"Missing ISO17 reference database: {db_path}")
     db = connect(db_path)
-    train_ids = _read_train_ids(train_ids_path)
-    mol_id, frame_ids = _select_default_mol_id(db, train_ids, min_frames=min_frames)
 
     processed_dir = _processed_dir(root)
     processed_dir.mkdir(parents=True, exist_ok=True)
+
+    # ISO17 reference.db is organized so that frames of the same isomer
+    # are stored in contiguous row blocks. We read the first N rows that
+    # share the same atomic-number ordering as a single isomer trajectory.
+    mol_id = 0
     cache_path = processed_dir / f"iso17_mol{mol_id}.npz"
     if cache_path.exists():
         return cache_path
@@ -234,22 +237,22 @@ def cache_iso17_default_isomer(
     coords = []
     energies = []
     atomic_numbers = None
-    for frame_id in frame_ids:
-        row = _db_get_frame(db, frame_id)
-        row_mol_id = _row_mol_id(row)
-        if row_mol_id is not None and row_mol_id != mol_id:
-            continue
+    for row_id in range(1, len(db) + 1):
+        row = db.get(id=row_id)
         atoms = row.toatoms()
         numbers = atoms.get_atomic_numbers().astype(np.int32)
         if atomic_numbers is None:
             atomic_numbers = numbers
         elif not np.array_equal(numbers, atomic_numbers):
-            raise ValueError(f"Frame {frame_id} has inconsistent atomic numbers for mol_id={mol_id}")
+            # First frame with different ordering = isomer boundary; stop
+            break
         coords.append(atoms.get_positions().astype(np.float32))
         energies.append(_energy_from_row(row))
+        if len(coords) >= min_frames + 500:
+            break
 
     if atomic_numbers is None or len(coords) < min_frames:
-        raise ValueError(f"Collected only {len(coords)} frames for ISO17 mol_id={mol_id}")
+        raise ValueError(f"Collected only {len(coords)} frames before isomer boundary")
 
     np.savez_compressed(
         cache_path,

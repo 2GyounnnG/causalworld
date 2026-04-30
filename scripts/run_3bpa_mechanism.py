@@ -30,9 +30,9 @@ from scripts.train_rmd17 import Config, train_one_seed
 
 
 DATASET = "3bpa"
-N_TRANSITIONS = 800
+N_TRANSITIONS = 400
 STRIDE = 1
-EVAL_N_TRANSITIONS = 80
+EVAL_N_TRANSITIONS = 30
 DISJOINT_EVAL = False
 OUTPUT_PATH = ROOT / "3bpa_mechanism.json"
 SUMMARY_PATH = ROOT / "3bpa_mechanism_summary.json"

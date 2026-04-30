@@ -12,13 +12,18 @@ BASE_URL = "https://raw.githubusercontent.com/davkovacs/BOTNet-datasets/main/dat
 FILES = ("train_mixedT.xyz", "test_300K.xyz")
 
 
-def _energy_from_info(info: dict) -> float:
+def _energy_from_info(info: dict, atoms=None) -> float:
     for key in ("REF_energy", "energy"):
         if key in info:
             value = np.asarray(info[key]).reshape(-1)
             if value.size:
                 return float(value[0])
-    raise KeyError(f"No REF_energy or energy key found in frame info keys: {sorted(info.keys())}")
+    if atoms is not None:
+        try:
+            return float(atoms.get_potential_energy())
+        except Exception:
+            pass
+    raise KeyError(f"No energy found in info keys: {sorted(info.keys())}")
 
 
 def convert_extxyz(path: Path, split: str | None = None, output_dir: Path = OUTPUT_DIR) -> Path:
@@ -42,7 +47,7 @@ def convert_extxyz(path: Path, split: str | None = None, output_dir: Path = OUTP
         if frame_numbers.shape != atomic_numbers.shape or not np.array_equal(frame_numbers, atomic_numbers):
             raise ValueError(f"Frame {frame_idx} has inconsistent atomic numbers")
         coords[frame_idx] = atoms.get_positions().astype(np.float32)
-        energies[frame_idx] = np.float32(_energy_from_info(atoms.info))
+        energies[frame_idx] = np.float32(_energy_from_info(atoms.info, atoms))
 
     if split is None:
         split = path.stem
