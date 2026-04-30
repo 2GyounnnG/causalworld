@@ -370,6 +370,156 @@ class GraphHeatAdapter:
         }
 
 
+class GraphLowFreqAdapter:
+    """Synthetic dynamics constrained to low-frequency eigenvectors of the true graph."""
+
+    def __init__(
+        self,
+        *,
+        topology: str,
+        n_nodes: int = 36,
+        n_dim: int = 4,
+        n_frames: int = 512,
+        low_k: int = 4,
+        noise: float = 0.01,
+        coefficient_decay: float = 0.95,
+        seed: int = 0,
+    ):
+        if n_dim != 4:
+            raise ValueError("graph_lowfreq currently requires d=4 to match the existing GNN input width")
+        self.name = f"graph_lowfreq_{topology}"
+        self.topology = topology
+        self.n_nodes = int(n_nodes)
+        self.n_dim = int(n_dim)
+        self.n_frames = int(n_frames)
+        self.low_k = int(low_k)
+        self.noise = float(noise)
+        self.coefficient_decay = float(coefficient_decay)
+        self.seed = int(seed)
+        self.edges = graph_heat_edges(topology, self.n_nodes, self.seed)
+        self.laplacian = laplacian_from_edges(self.n_nodes, self.edges)
+        self.coords = self._simulate()
+        self.energies = np.sum(self.coords * self.coords, axis=(1, 2)).astype(np.float32)
+
+    def _low_basis(self) -> np.ndarray:
+        eigvals, eigvecs = np.linalg.eigh(self.laplacian)
+        order = np.argsort(eigvals)
+        eigvecs = eigvecs[:, order]
+        k = min(self.low_k, max(1, self.n_nodes - 1))
+        return eigvecs[:, 1 : k + 1]
+
+    def _simulate(self) -> np.ndarray:
+        rng = np.random.default_rng(self.seed)
+        basis = self._low_basis()
+        coeffs = np.zeros((self.n_frames, basis.shape[1], self.n_dim), dtype=np.float64)
+        coeffs[0] = rng.normal(size=(basis.shape[1], self.n_dim))
+        for frame_idx in range(self.n_frames - 1):
+            coeff_noise = rng.normal(size=(basis.shape[1], self.n_dim))
+            coeffs[frame_idx + 1] = self.coefficient_decay * coeffs[frame_idx] + self.noise * coeff_noise
+        coords = np.einsum("nk,tkd->tnd", basis, coeffs)
+        return coords.astype(np.float32)
+
+    def __getitem__(self, idx: int) -> HeteroData:
+        x = torch.from_numpy(self.coords[idx])
+        pos = x[:, :3].to(dtype=torch.float32)
+        atomic_numbers = (10.0 * x[:, 3]).to(dtype=torch.float32)
+        directed = np.concatenate([self.edges, self.edges[:, ::-1]], axis=0)
+        edge_index = torch.from_numpy(directed.T.copy()).to(dtype=torch.long)
+        edge_attr = torch.ones((edge_index.shape[1], 1), dtype=torch.float32)
+
+        data = HeteroData()
+        data["atom"].pos = pos
+        data["atom"].atomic_number = atomic_numbers
+        data["atom"].x = torch.cat([atomic_numbers.view(-1, 1) / 10.0, pos], dim=-1)
+        data["atom", "bonded", "atom"].edge_index = edge_index
+        data["atom", "bonded", "atom"].edge_attr = edge_attr
+        return data
+
+    def sample_transitions(
+        self,
+        *,
+        n_transitions: int,
+        stride: int,
+        horizon: int,
+        seed: int,
+    ) -> list[dict[str, Any]]:
+        frame_indices = sampled_frame_indices(self.n_frames, n_transitions, stride, horizon, seed)
+        transitions = []
+        for frame_idx in frame_indices:
+            obs, next_obs, energy, _force = self.get_pair(frame_idx, horizon=horizon)
+            transitions.append(
+                {
+                    "obs": obs,
+                    "next_obs": next_obs,
+                    "frame_idx": int(frame_idx),
+                    "horizon": int(horizon),
+                    "energy": float(energy),
+                    "molecule": self.name,
+                }
+            )
+        return transitions
+
+    def get_pair(self, idx: int, horizon: int = 1) -> tuple[HeteroData, HeteroData, float, None]:
+        if idx + horizon >= self.n_frames:
+            raise IndexError(f"idx+horizon={idx + horizon} >= n_frames={self.n_frames}")
+        return self[idx], self[idx + horizon], float(self.energies[idx]), None
+
+    def true_laplacian(self) -> np.ndarray:
+        return self.laplacian
+
+    def coordinates(self, frame_idx: int) -> np.ndarray:
+        return np.asarray(self.coords[frame_idx], dtype=np.float64)
+
+    def training_config(
+        self,
+        args: argparse.Namespace,
+        *,
+        prior: str,
+        seed: int,
+    ) -> Cycle3HOConfig:
+        return Cycle3HOConfig(
+            run_name=(
+                f"preflight_{self.name}_gnn_{prior}_"
+                f"lambda{str(args.prior_weight).replace('.', 'p')}_seed{seed}"
+            ),
+            topology=self.topology,
+            encoder="gnn_node",
+            prior=prior,
+            seed=int(seed),
+            num_epochs=int(args.epochs),
+            n_transitions=int(args.train_transitions),
+            eval_n_transitions=int(args.eval_transitions),
+            stride=int(args.train_stride),
+            eval_stride=int(args.eval_stride),
+            horizon=1,
+            eval_horizons=tuple(int(value) for value in args.horizons),
+            latent_dim=16,
+            node_dim=16,
+            hidden_dim=64,
+            transition_hidden_dim=64,
+            batch_size=int(args.batch_size),
+            lr=float(args.lr),
+            prior_weight=float(args.prior_weight),
+            device=args.device,
+            data_root=str(args.data_root),
+        )
+
+    def metadata(self) -> dict[str, Any]:
+        return {
+            "dataset": self.name,
+            "domain": "graph_lowfreq",
+            "topology": self.topology,
+            "n_nodes": self.n_nodes,
+            "n_edges": int(self.edges.shape[0]),
+            "n_frames": self.n_frames,
+            "n_dim": self.n_dim,
+            "low_k": self.low_k,
+            "noise": self.noise,
+            "coefficient_decay": self.coefficient_decay,
+            "seed": self.seed,
+        }
+
+
 def build_adapter(args: argparse.Namespace) -> DatasetAdapter:
     dataset = str(args.dataset)
     if dataset.startswith("ho_"):
@@ -385,9 +535,21 @@ def build_adapter(args: argparse.Namespace) -> DatasetAdapter:
             noise=args.graph_heat_noise,
             seed=args.graph_heat_seed,
         )
+    if dataset == "graph_lowfreq" or dataset.startswith("graph_lowfreq_"):
+        topology = args.topology or (dataset.removeprefix("graph_lowfreq_") if dataset.startswith("graph_lowfreq_") else "lattice")
+        return GraphLowFreqAdapter(
+            topology=topology,
+            n_nodes=args.lowfreq_n,
+            n_dim=args.lowfreq_d,
+            n_frames=args.lowfreq_t,
+            low_k=args.lowfreq_k,
+            noise=args.lowfreq_noise,
+            coefficient_decay=args.lowfreq_decay,
+            seed=args.lowfreq_seed,
+        )
     raise ValueError(
         f"Unknown dataset {dataset!r}. Available: ho_lattice, ho_random, ho_scalefree, "
-        "graph_heat, graph_heat_<topology>"
+        "graph_heat, graph_heat_<topology>, graph_lowfreq, graph_lowfreq_<topology>"
     )
 
 
@@ -1386,6 +1548,183 @@ def write_graph_heat_failure_audit(
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def graph_lowfreq_failure_analysis(args: argparse.Namespace, adapter: DatasetAdapter) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    training_rows: list[dict[str, Any]] = []
+    latent_rows: list[dict[str, Any]] = []
+    args.artifact_dir.mkdir(parents=True, exist_ok=True)
+    for epoch_count in (20, 50):
+        epoch_args = copy.copy(args)
+        epoch_args.epochs = int(epoch_count)
+        for prior in ("none", "graph", "permuted_graph"):
+            config = adapter.training_config(epoch_args, prior=prior, seed=0)
+            config.run_name = f"{config.run_name}_epochs{epoch_count}"
+            try:
+                row, model, device = mini_train(config, adapter)
+                row["stage"] = "graph_lowfreq_training_analysis"
+                row["analysis_epochs"] = int(epoch_count)
+                training_rows.append(row)
+                if prior in {"graph", "permuted_graph"}:
+                    artifact = collect_preflight_latent_trace(model, config, adapter, device)
+                    artifact_path = args.artifact_dir / f"{config.run_name}_latents.pt"
+                    torch.save(artifact, artifact_path)
+                    metrics = artifact_metrics(artifact)
+                    latent_rows.append(
+                        {
+                            "schema_version": SCHEMA_VERSION,
+                            "stage": "graph_lowfreq_latent_analysis",
+                            "run_name": config.run_name,
+                            "dataset": adapter.name,
+                            "status": "ok",
+                            "topology": config.topology,
+                            "prior": prior,
+                            "prior_weight": config.prior_weight,
+                            "seed": 0,
+                            "analysis_epochs": int(epoch_count),
+                            "latent_artifact_path": rel_to_root(artifact_path),
+                            **metrics,
+                        }
+                    )
+            except Exception as exc:
+                training_rows.append(
+                    {
+                        "schema_version": SCHEMA_VERSION,
+                        "stage": "graph_lowfreq_training_analysis",
+                        "dataset": adapter.name,
+                        "status": "failed",
+                        "topology": adapter.metadata().get("topology"),
+                        "encoder": "gnn_node",
+                        "prior": prior,
+                        "prior_weight": float(epoch_args.prior_weight),
+                        "seed": 0,
+                        "analysis_epochs": int(epoch_count),
+                        "error": str(exc),
+                        "H16": float("nan"),
+                        "H32": float("nan"),
+                    }
+                )
+    return training_rows, latent_rows
+
+
+def row_for_epochs_prior(rows: list[dict[str, Any]], epoch_count: int, prior: str) -> dict[str, Any] | None:
+    for row in rows:
+        if int(row.get("analysis_epochs", -1)) == int(epoch_count) and str(row.get("prior")) == prior:
+            return row
+    return None
+
+
+def write_graph_lowfreq_failure_analysis(
+    path: Path,
+    *,
+    args: argparse.Namespace,
+    raw_rows: list[dict[str, Any]],
+    training_rows: list[dict[str, Any]],
+    latent_rows: list[dict[str, Any]],
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    raw_by_type = {str(row.get("graph_type")): row for row in raw_rows}
+    comparison_rows: list[list[Any]] = []
+    latent_table_rows: list[list[Any]] = []
+    overtake_flags: list[bool] = []
+    latent_smoother_flags: list[bool] = []
+    for epoch_count in (20, 50):
+        none_row = row_for_epochs_prior(training_rows, epoch_count, "none")
+        graph_row = row_for_epochs_prior(training_rows, epoch_count, "graph")
+        perm_row = row_for_epochs_prior(training_rows, epoch_count, "permuted_graph")
+        none_h32 = float(none_row.get("H32", float("nan"))) if none_row else float("nan")
+        graph_h32 = float(graph_row.get("H32", float("nan"))) if graph_row else float("nan")
+        perm_h32 = float(perm_row.get("H32", float("nan"))) if perm_row else float("nan")
+        overtake = finite(graph_h32) and finite(perm_h32) and graph_h32 < perm_h32
+        overtake_flags.append(overtake)
+        comparison_rows.append(
+            [
+                epoch_count,
+                fmt(none_row.get("H16") if none_row else float("nan"), 4),
+                fmt(none_h32, 4),
+                fmt(graph_row.get("H16") if graph_row else float("nan"), 4),
+                fmt(graph_h32, 4),
+                fmt(perm_row.get("H16") if perm_row else float("nan"), 4),
+                fmt(perm_h32, 4),
+                "YES" if overtake else "NO",
+            ]
+        )
+        graph_latent = row_for_epochs_prior(latent_rows, epoch_count, "graph")
+        perm_latent = row_for_epochs_prior(latent_rows, epoch_count, "permuted_graph")
+        graph_d = float(graph_latent.get("D_true_Delta_H_norm", float("nan"))) if graph_latent else float("nan")
+        perm_d = float(perm_latent.get("D_true_Delta_H_norm", float("nan"))) if perm_latent else float("nan")
+        graph_r4 = float(graph_latent.get("R_low_true_Delta_H_4", float("nan"))) if graph_latent else float("nan")
+        perm_r4 = float(perm_latent.get("R_low_true_Delta_H_4", float("nan"))) if perm_latent else float("nan")
+        latent_smoother = finite(graph_d) and finite(perm_d) and graph_d < perm_d and finite(graph_r4) and finite(perm_r4) and graph_r4 > perm_r4
+        latent_smoother_flags.append(latent_smoother)
+        latent_table_rows.append(
+            [
+                epoch_count,
+                fmt(graph_d, 4),
+                fmt(perm_d, 4),
+                fmt(graph_r4, 4),
+                fmt(perm_r4, 4),
+                "YES" if latent_smoother else "NO",
+            ]
+        )
+
+    any_overtake = any(overtake_flags)
+    any_latent_smooth = any(latent_smoother_flags)
+    if any_overtake:
+        diagnosis = "longer mini-training is enough for the true graph to overtake the permuted control."
+    elif any_latent_smooth:
+        diagnosis = "the graph prior induces more true-graph-smooth latent deltas, but rollout still favors the permuted control; this points to latent-transition mismatch."
+    else:
+        diagnosis = "generic smoothing dominance remains under this latent model; longer mini-training did not expose topology specificity."
+
+    lines = [
+        "# Graph Low-Frequency Failure Analysis",
+        "",
+        f"Created: `{datetime.now(timezone.utc).isoformat()}`",
+        "Scope: graph_lowfreq_lattice only; seed 0; prior weight 0.1; epochs 20 and 50.",
+        "No ISO17, rMD17 top-up, or broad sweeps were run.",
+        "",
+        "## Raw Alignment",
+        "",
+        *report_table(
+            ["graph type", "D_dX_norm", "R_low K=4", "D gap control-true"],
+            [
+                [
+                    graph_type,
+                    fmt(row.get("D_dX_norm"), 6),
+                    fmt(row.get("R_low_dX_4"), 4),
+                    fmt(row.get("gap_D_dX_norm_control_minus_true"), 6),
+                ]
+                for graph_type, row in raw_by_type.items()
+            ],
+        ),
+        "",
+        "## Longer Mini-Training Rollout",
+        "",
+        *report_table(
+            ["epochs", "none H16", "none H32", "graph H16", "graph H32", "permuted H16", "permuted H32", "graph beats permuted H32"],
+            comparison_rows,
+        ),
+        "",
+        "## Forced Latent Audit",
+        "",
+        *report_table(
+            ["epochs", "graph D_true_norm(Delta_H)", "permuted D_true_norm(Delta_H)", "graph R_low K=4", "permuted R_low K=4", "graph latent smoother"],
+            latent_table_rows,
+        ),
+        "",
+        "## Answers",
+        "",
+        f"1. Does true graph overtake permuted with longer mini-training? `{'YES' if any_overtake else 'NO'}`.",
+        f"2. Does graph prior induce more true-graph-smooth latent dynamics even when rollout is worse? `{'YES' if any_latent_smooth else 'NO'}`.",
+        f"3. Main diagnosis: {diagnosis}",
+        "",
+        "## Files",
+        "",
+        f"- `{rel_to_root(path)}`",
+        f"- latent artifacts under `{rel_to_root(args.artifact_dir)}`",
+    ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def parse_seeds(raw: str) -> list[int]:
     return [int(part.strip()) for part in raw.split(",") if part.strip()]
 
@@ -1424,12 +1763,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", default="auto")
     parser.add_argument("--force-latent-audit", action="store_true")
     parser.add_argument("--graph-heat-failure-audit-only", action="store_true")
+    parser.add_argument("--graph-lowfreq-failure-analysis-only", action="store_true")
     parser.add_argument("--graph-heat-n", type=int, default=36)
     parser.add_argument("--graph-heat-d", type=int, default=4)
     parser.add_argument("--graph-heat-t", type=int, default=512)
     parser.add_argument("--graph-heat-tau", type=float, default=0.05)
     parser.add_argument("--graph-heat-noise", type=float, default=0.01)
     parser.add_argument("--graph-heat-seed", type=int, default=0)
+    parser.add_argument("--lowfreq-n", type=int, default=36)
+    parser.add_argument("--lowfreq-d", type=int, default=4)
+    parser.add_argument("--lowfreq-t", type=int, default=512)
+    parser.add_argument("--lowfreq-k", type=int, default=4)
+    parser.add_argument("--lowfreq-noise", type=float, default=0.01)
+    parser.add_argument("--lowfreq-decay", type=float, default=0.95)
+    parser.add_argument("--lowfreq-seed", type=int, default=0)
     args = parser.parse_args()
     if args.dataset is None:
         args.dataset = f"ho_{args.topology}" if args.topology else "ho_lattice"
@@ -1445,7 +1792,14 @@ def parse_args() -> argparse.Namespace:
         args.topology = dataset_topology
     if str(args.dataset) == "graph_heat" and args.topology is None:
         args.topology = "lattice"
-    if str(args.dataset).startswith("graph_heat"):
+    if str(args.dataset).startswith("graph_lowfreq_"):
+        dataset_topology = str(args.dataset).removeprefix("graph_lowfreq_")
+        if args.topology is not None and args.topology != dataset_topology:
+            raise ValueError(f"--dataset {args.dataset!r} conflicts with --topology {args.topology!r}")
+        args.topology = dataset_topology
+    if str(args.dataset) == "graph_lowfreq" and args.topology is None:
+        args.topology = "lattice"
+    if str(args.dataset).startswith("graph_heat") or str(args.dataset).startswith("graph_lowfreq"):
         if args.raw_stride == 10:
             args.raw_stride = 5
         if args.train_stride == 10:
@@ -1490,6 +1844,21 @@ def main() -> None:
             lambda_rows=lambda_rows,
         )
         print(f"Wrote {rel_to_root(audit_path.resolve())}")
+        return
+
+    if args.graph_lowfreq_failure_analysis_only:
+        raw_rows = stage0_raw_diagnostics(args, adapter)
+        training_rows, latent_rows = graph_lowfreq_failure_analysis(args, adapter)
+        analysis_path = (args.out_dir or args.summary.parent) / "FAILURE_ANALYSIS.md"
+        write_graph_lowfreq_failure_analysis(
+            analysis_path.resolve(),
+            args=args,
+            raw_rows=raw_rows,
+            training_rows=training_rows,
+            latent_rows=latent_rows,
+        )
+        write_summary_csv((args.out_dir or args.summary.parent) / "failure_analysis_summary.csv", [*raw_rows, *training_rows, *latent_rows])
+        print(f"Wrote {rel_to_root(analysis_path.resolve())}")
         return
 
     raw_rows = stage0_raw_diagnostics(args, adapter)
