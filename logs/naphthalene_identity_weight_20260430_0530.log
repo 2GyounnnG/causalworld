@@ -232,3 +232,33 @@ output: /workspace/causalworld/rmd17_naphthalene_identity_weight.json
 [naphthalene|flat|identity_quadratic|seed=0] epoch   1/50 loss=68.9848 H8_eval=0.2170
 [naphthalene|flat|identity_quadratic|seed=0] epoch   5/50 loss=0.0057 H8_eval=0.0217
 [naphthalene|flat|identity_quadratic|seed=0] epoch  10/50 loss=0.0014 H8_eval=0.0696
+[naphthalene|flat|identity_quadratic|seed=0] epoch  15/50 loss=0.0010 H8_eval=0.0365
+[naphthalene|flat|identity_quadratic|seed=0] epoch  20/50 loss=0.0009 H8_eval=0.0524
+[naphthalene|flat|identity_quadratic|seed=0] epoch  25/50 loss=0.0016 H8_eval=0.1152
+[naphthalene|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0008 H8_eval=0.0498
+[naphthalene|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0008 H8_eval=0.0344
+[naphthalene|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0007 H8_eval=0.0250
+[naphthalene|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0007 H8_eval=0.0284
+[naphthalene|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0007 H8_eval=0.0223
+=== Finished naphthalene|flat|identity_quadratic|w=0.1|seed=0 | H1=0.0113 H8=0.0223 H16=0.0456 | r_eff=1.00 | wall=900.6s ===
+  -> saved partial results to rmd17_naphthalene_identity_weight.json
+
+=== Starting naphthalene|flat|identity_quadratic|w=0.1|seed=1 (17/20) ===
+[naphthalene|flat|identity_quadratic|seed=1] epoch   1/50 loss=93.8445 H8_eval=0.3139
+[naphthalene|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0054 H8_eval=0.0285
+[naphthalene|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0017 H8_eval=0.0355
+[naphthalene|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0014 H8_eval=0.0689
+[naphthalene|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0014 H8_eval=0.0531
+[naphthalene|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0011 H8_eval=0.0208
+[naphthalene|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0009 H8_eval=0.0345
+[naphthalene|flat|identity_quadratic|seed=1] epoch  35/50 loss=0.0009 H8_eval=0.0329
+[naphthalene|flat|identity_quadratic|seed=1] epoch  40/50 loss=0.0009 H8_eval=0.0355
+[naphthalene|flat|identity_quadratic|seed=1] epoch  45/50 loss=0.0009 H8_eval=0.0405
+[naphthalene|flat|identity_quadratic|seed=1] epoch  50/50 loss=0.0009 H8_eval=0.0284
+=== Finished naphthalene|flat|identity_quadratic|w=0.1|seed=1 | H1=0.0132 H8=0.0268 H16=0.0415 | r_eff=1.00 | wall=922.3s ===
+  -> saved partial results to rmd17_naphthalene_identity_weight.json
+
+=== Starting naphthalene|flat|identity_quadratic|w=0.1|seed=2 (18/20) ===
+[naphthalene|flat|identity_quadratic|seed=2] epoch   1/50 loss=33.3763 H8_eval=0.2618
+[naphthalene|flat|identity_quadratic|seed=2] epoch   5/50 loss=0.0049 H8_eval=0.0351
+[naphthalene|flat|identity_quadratic|seed=2] epoch  10/50 loss=0.0018 H8_eval=0.0459

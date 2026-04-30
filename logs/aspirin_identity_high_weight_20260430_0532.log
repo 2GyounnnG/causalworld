@@ -194,3 +194,29 @@ output: /workspace/causalworld/rmd17_aspirin_identity_high_weight.json
 [aspirin|flat|identity_quadratic|seed=2] epoch  35/50 loss=0.1798 H8_eval=0.1265
 [aspirin|flat|identity_quadratic|seed=2] epoch  40/50 loss=0.1693 H8_eval=0.1419
 [aspirin|flat|identity_quadratic|seed=2] epoch  45/50 loss=0.1510 H8_eval=0.0917
+[aspirin|flat|identity_quadratic|seed=2] epoch  50/50 loss=0.1426 H8_eval=0.2028
+=== Finished aspirin|flat|identity_quadratic|w=5.0|seed=2 | H1=0.0416 H8=0.2071 H16=0.5753 | r_eff=1.00 | wall=1104.9s ===
+  -> saved partial results to rmd17_aspirin_identity_high_weight.json
+
+=== Starting aspirin|flat|identity_quadratic|w=5.0|seed=3 (14/15) ===
+[aspirin|flat|identity_quadratic|seed=3] epoch   1/50 loss=4290.7970 H8_eval=0.1624
+[aspirin|flat|identity_quadratic|seed=3] epoch   5/50 loss=0.2414 H8_eval=0.0494
+[aspirin|flat|identity_quadratic|seed=3] epoch  10/50 loss=0.2294 H8_eval=0.0616
+[aspirin|flat|identity_quadratic|seed=3] epoch  15/50 loss=0.2161 H8_eval=0.0529
+[aspirin|flat|identity_quadratic|seed=3] epoch  20/50 loss=0.2047 H8_eval=0.1110
+[aspirin|flat|identity_quadratic|seed=3] epoch  25/50 loss=0.1946 H8_eval=0.0859
+[aspirin|flat|identity_quadratic|seed=3] epoch  30/50 loss=0.1792 H8_eval=0.0841
+[aspirin|flat|identity_quadratic|seed=3] epoch  35/50 loss=0.1701 H8_eval=0.0671
+[aspirin|flat|identity_quadratic|seed=3] epoch  40/50 loss=0.1564 H8_eval=0.0499
+[aspirin|flat|identity_quadratic|seed=3] epoch  45/50 loss=0.1439 H8_eval=0.0662
+[aspirin|flat|identity_quadratic|seed=3] epoch  50/50 loss=0.1334 H8_eval=0.0726
+=== Finished aspirin|flat|identity_quadratic|w=5.0|seed=3 | H1=0.0354 H8=0.0757 H16=0.1786 | r_eff=1.00 | wall=1096.1s ===
+  -> saved partial results to rmd17_aspirin_identity_high_weight.json
+
+=== Starting aspirin|flat|identity_quadratic|w=5.0|seed=4 (15/15) ===
+[aspirin|flat|identity_quadratic|seed=4] epoch   1/50 loss=5638.9797 H8_eval=0.1959
+[aspirin|flat|identity_quadratic|seed=4] epoch   5/50 loss=0.2392 H8_eval=0.0585
+[aspirin|flat|identity_quadratic|seed=4] epoch  10/50 loss=0.2322 H8_eval=0.0536
+[aspirin|flat|identity_quadratic|seed=4] epoch  15/50 loss=0.2299 H8_eval=0.0646
+[aspirin|flat|identity_quadratic|seed=4] epoch  20/50 loss=0.2270 H8_eval=0.0890
+[aspirin|flat|identity_quadratic|seed=4] epoch  25/50 loss=0.2179 H8_eval=0.0696
