@@ -1,0 +1,5340 @@
+{
+  "schema_version": "cycle2_rmd17_multimolecule_v1",
+  "created_at": "2026-04-30T20:18:43.704667+00:00",
+  "runs": {
+    "aspirin_gnn_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_graph_seed0",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.131164104690659,
+        "covariance_condition_number": 16883.03440038685,
+        "projection_gaussianity_statistic": 4.273544264402173,
+        "rollout_errors": {
+          "1": 0.00420246514355919,
+          "2": 0.003825377881488142,
+          "4": 0.00474079617318542,
+          "8": 0.006163189148840805,
+          "16": 0.010564851788027832,
+          "32": 0.030315122799947858
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0011184674610073368,
+        "prior_loss_mean": 0.14513588247613773,
+        "transition_loss_mean": 0.0003359377658752136,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 8.135059595108032
+      }
+    },
+    "aspirin_gnn_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_graph_seed1",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.936198504650939,
+        "covariance_condition_number": 364026.66565800575,
+        "projection_gaussianity_statistic": 3.4752360657118855,
+        "rollout_errors": {
+          "1": 0.0028581217217530743,
+          "2": 0.0029490576901783547,
+          "4": 0.003005969954150108,
+          "8": 0.004901806319442888,
+          "16": 0.01156843405139322,
+          "32": 0.043753983763357006
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0005317274869109193,
+        "prior_loss_mean": 0.07321794476980964,
+        "transition_loss_mean": 0.00040618691896775595,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 8.323146343231201
+      }
+    },
+    "aspirin_gnn_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_graph_seed2",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.3676942925417874,
+        "covariance_condition_number": 8158.529307129324,
+        "projection_gaussianity_statistic": 3.6318446586836775,
+        "rollout_errors": {
+          "1": 0.00321327349471782,
+          "2": 0.0031012763477823078,
+          "4": 0.0038910366468674815,
+          "8": 0.0047673777444288135,
+          "16": 0.007903822348453104,
+          "32": 0.01770673121791333
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0007073396118357778,
+        "prior_loss_mean": 0.08283735234807763,
+        "transition_loss_mean": 0.00017967528289470163,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.996735572814941
+      }
+    },
+    "aspirin_gnn_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_none_seed0",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.9480167384141014,
+        "covariance_condition_number": 14183.049833732633,
+        "projection_gaussianity_statistic": 3.096349505664081,
+        "rollout_errors": {
+          "1": 0.010958743301065018,
+          "2": 0.01052825927035883,
+          "4": 0.012468303825395802,
+          "8": 0.020612965105101466,
+          "16": 0.0388044206580768,
+          "32": 0.1181790813182791
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0001212600448828501,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0006085896944568958,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.54701828956604
+      }
+    },
+    "aspirin_gnn_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_none_seed1",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.114967454224877,
+        "covariance_condition_number": 4355.746564980601,
+        "projection_gaussianity_statistic": 4.175307882280745,
+        "rollout_errors": {
+          "1": 0.008137050482522076,
+          "2": 0.008471558627206832,
+          "4": 0.009292050381191075,
+          "8": 0.013089615618810058,
+          "16": 0.02679645208021005,
+          "32": 0.08923753475149472
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 5.8746644450972475e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0005842877853057063,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.5136914253234863
+      }
+    },
+    "aspirin_gnn_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_none_seed2",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.081701160156238,
+        "covariance_condition_number": 4863.303869999304,
+        "projection_gaussianity_statistic": 1.4381212391324136,
+        "rollout_errors": {
+          "1": 0.009345386439235881,
+          "2": 0.00904848511951665,
+          "4": 0.00986439670668915,
+          "8": 0.013855029130354524,
+          "16": 0.024055255576968193,
+          "32": 0.0726849230316778
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 8.145538110208388e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00041519216926341567,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.4411115646362305
+      }
+    },
+    "aspirin_gnn_permuted_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_permuted_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_permuted_graph_seed0",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.994806795091618,
+        "covariance_condition_number": 9526.705375331609,
+        "projection_gaussianity_statistic": 3.3441895766155643,
+        "rollout_errors": {
+          "1": 0.004023676044501674,
+          "2": 0.003761970927977624,
+          "4": 0.004617569851689041,
+          "8": 0.006600005445458616,
+          "16": 0.011120068510839095,
+          "32": 0.025216132441225152
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0020263001012305417,
+        "prior_loss_mean": 0.2746981349049343,
+        "transition_loss_mean": 0.00033803734275150216,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 8.533558130264282
+      }
+    },
+    "aspirin_gnn_permuted_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_permuted_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_permuted_graph_seed1",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.9268277816683526,
+        "covariance_condition_number": 167946.03849583227,
+        "projection_gaussianity_statistic": 3.9873829339780373,
+        "rollout_errors": {
+          "1": 0.0029649464777321555,
+          "2": 0.0029386739915935323,
+          "4": 0.0030283593223430216,
+          "8": 0.0048409452914105104,
+          "16": 0.011005343908133606,
+          "32": 0.04028308748578032
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.000838388359018912,
+        "prior_loss_mean": 0.11981681540815367,
+        "transition_loss_mean": 0.0004057141284950679,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 8.533641338348389
+      }
+    },
+    "aspirin_gnn_permuted_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_permuted_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_permuted_graph_seed2",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.3833821060079443,
+        "covariance_condition_number": 6416.590226937545,
+        "projection_gaussianity_statistic": 3.7201596480724106,
+        "rollout_errors": {
+          "1": 0.0036184574346407317,
+          "2": 0.0035398800537222996,
+          "4": 0.0044604617287404835,
+          "8": 0.005570007536637907,
+          "16": 0.010337224268975357,
+          "32": 0.029571920322875183
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.001306635094806552,
+        "prior_loss_mean": 0.13627505567338732,
+        "transition_loss_mean": 0.00017750998894270096,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 8.116222143173218
+      }
+    },
+    "aspirin_gnn_random_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_random_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_random_graph_seed0",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.8984865459711835,
+        "covariance_condition_number": 12231.368723515208,
+        "projection_gaussianity_statistic": 3.442943756209712,
+        "rollout_errors": {
+          "1": 0.004050190531415865,
+          "2": 0.0038237153591277697,
+          "4": 0.004680878880511348,
+          "8": 0.006733529512227203,
+          "16": 0.011515813511020193,
+          "32": 0.02644879052725931
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0020694818813353777,
+        "prior_loss_mean": 0.2742272411369615,
+        "transition_loss_mean": 0.00033805181049804863,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 8.42878794670105
+      }
+    },
+    "aspirin_gnn_random_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_random_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_random_graph_seed1",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.922583361270119,
+        "covariance_condition_number": 120380.12014624626,
+        "projection_gaussianity_statistic": 3.9649874908196963,
+        "rollout_errors": {
+          "1": 0.0029818392722518183,
+          "2": 0.002946948273650681,
+          "4": 0.0030912377551430836,
+          "8": 0.004983870234961311,
+          "16": 0.011406903970055282,
+          "32": 0.04006824526004493
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0008535145122247437,
+        "prior_loss_mean": 0.1198692826450699,
+        "transition_loss_mean": 0.0004057361159438086,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 8.436076879501343
+      }
+    },
+    "aspirin_gnn_random_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_gnn_random_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_gnn_random_graph_seed2",
+        "molecule": "aspirin",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.4668413053570113,
+        "covariance_condition_number": 7085.168286857426,
+        "projection_gaussianity_statistic": 3.6136292950615614,
+        "rollout_errors": {
+          "1": 0.003602051360455031,
+          "2": 0.003523467831352415,
+          "4": 0.004449638586568956,
+          "8": 0.00554139816085808,
+          "16": 0.009981514633788416,
+          "32": 0.025054411496967077
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0012789510656148195,
+        "prior_loss_mean": 0.1357226227513618,
+        "transition_loss_mean": 0.0001795368489082547,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 8.340095281600952
+      }
+    },
+    "aspirin_mlp_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_mlp_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_mlp_none_seed0",
+        "molecule": "aspirin",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 5.854935263194984,
+        "covariance_condition_number": 500.16830574396863,
+        "projection_gaussianity_statistic": 2.81367133478798,
+        "rollout_errors": {
+          "1": 0.024291875772178173,
+          "2": 0.028242291902036715,
+          "4": 0.02992014493793249,
+          "8": 0.05047665908932686,
+          "16": 0.09951925634716947,
+          "32": 0.2462981784095367
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0004642961042312284,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0015226450451235804,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1499474048614502
+      }
+    },
+    "aspirin_mlp_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_mlp_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_mlp_none_seed1",
+        "molecule": "aspirin",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 6.667676022173007,
+        "covariance_condition_number": 763.7297131006769,
+        "projection_gaussianity_statistic": 1.6498693705699834,
+        "rollout_errors": {
+          "1": 0.02004323525276656,
+          "2": 0.0216671439120546,
+          "4": 0.024900466630545754,
+          "8": 0.03295015644592544,
+          "16": 0.05468371386329333,
+          "32": 0.12280187414338191
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00033857782060901326,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.002068979062217598,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1577138900756836
+      }
+    },
+    "aspirin_mlp_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "aspirin_mlp_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "aspirin_mlp_none_seed2",
+        "molecule": "aspirin",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.9243859598693245,
+        "covariance_condition_number": 1149.2061042180962,
+        "projection_gaussianity_statistic": 2.913789469422489,
+        "rollout_errors": {
+          "1": 0.03354701333834479,
+          "2": 0.03218559160207709,
+          "4": 0.03638007390933732,
+          "8": 0.05026127134139339,
+          "16": 0.08772098831832409,
+          "32": 0.2169043921555082
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.000733906461391598,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0028534121048222815,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.156196117401123
+      }
+    },
+    "ethanol_gnn_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_graph_seed0",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.979325090194722,
+        "covariance_condition_number": 118402.29982472629,
+        "projection_gaussianity_statistic": 2.2054598825417244,
+        "rollout_errors": {
+          "1": 0.0040611888058871655,
+          "2": 0.004237596702296287,
+          "4": 0.005122182046761736,
+          "8": 0.007138917057697351,
+          "16": 0.01495065854396671,
+          "32": 0.04085541997725765
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00013904524287985018,
+        "prior_loss_mean": 0.017370301073727508,
+        "transition_loss_mean": 0.0003528875236548225,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.847942590713501
+      }
+    },
+    "ethanol_gnn_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_graph_seed1",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.376798917353149,
+        "covariance_condition_number": 268040.9196827417,
+        "projection_gaussianity_statistic": 2.370953607854382,
+        "rollout_errors": {
+          "1": 0.003513246090733446,
+          "2": 0.004164687081356533,
+          "4": 0.005422438407549635,
+          "8": 0.006727143122892206,
+          "16": 0.014419398154132068,
+          "32": 0.04619367180081705
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00010309779221036781,
+        "prior_loss_mean": 0.010904075542930514,
+        "transition_loss_mean": 0.00041588147289278114,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.7320311069488525
+      }
+    },
+    "ethanol_gnn_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_graph_seed2",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.9787777652584753,
+        "covariance_condition_number": 561399.5099118877,
+        "projection_gaussianity_statistic": 2.011302129270214,
+        "rollout_errors": {
+          "1": 0.006127040493690099,
+          "2": 0.0064985500697124126,
+          "4": 0.007868131642074635,
+          "8": 0.00975686841411516,
+          "16": 0.015632270214458305,
+          "32": 0.04769311814258496
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00015373823407571763,
+        "prior_loss_mean": 0.013519080644214733,
+        "transition_loss_mean": 0.00022960121411112291,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.814877033233643
+      }
+    },
+    "ethanol_gnn_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_none_seed0",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.189982658238096,
+        "covariance_condition_number": 1359.5878271782337,
+        "projection_gaussianity_statistic": 1.629800749536023,
+        "rollout_errors": {
+          "1": 0.008709638961590827,
+          "2": 0.00882752258136558,
+          "4": 0.010157382775408527,
+          "8": 0.012795848771929741,
+          "16": 0.01973906842370828,
+          "32": 0.039988168980926275
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 7.207776070572436e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0005279713159931514,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.3873369693756104
+      }
+    },
+    "ethanol_gnn_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_none_seed1",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.734232673517869,
+        "covariance_condition_number": 6642.287342449226,
+        "projection_gaussianity_statistic": 1.5661052485362925,
+        "rollout_errors": {
+          "1": 0.007251344776401917,
+          "2": 0.008052023428414637,
+          "4": 0.009855338255874813,
+          "8": 0.011600185476709157,
+          "16": 0.022031720844097435,
+          "32": 0.0725670454557985
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 5.53818002420788e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0006118261514024602,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.4200570583343506
+      }
+    },
+    "ethanol_gnn_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_none_seed2",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.608605659831279,
+        "covariance_condition_number": 3467.256123376854,
+        "projection_gaussianity_statistic": 1.744081924317317,
+        "rollout_errors": {
+          "1": 0.013265718773861105,
+          "2": 0.012011275917757303,
+          "4": 0.015016797949404767,
+          "8": 0.016167299666752417,
+          "16": 0.02723380185974141,
+          "32": 0.054554709078123174
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00012304891909783086,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0006410195647428434,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.3181076049804688
+      }
+    },
+    "ethanol_gnn_permuted_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_permuted_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_permuted_graph_seed0",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.610807856015775,
+        "covariance_condition_number": 71829.25582390008,
+        "projection_gaussianity_statistic": 2.2647635907979495,
+        "rollout_errors": {
+          "1": 0.003530295997431191,
+          "2": 0.003740940107187877,
+          "4": 0.004287059743849871,
+          "8": 0.005604481547682856,
+          "16": 0.011055607193460068,
+          "32": 0.029431594380487997
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00016028286093690744,
+        "prior_loss_mean": 0.020032234570114976,
+        "transition_loss_mean": 0.0003486922970195236,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.906022548675537
+      }
+    },
+    "ethanol_gnn_permuted_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_permuted_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_permuted_graph_seed1",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.7506938006878086,
+        "covariance_condition_number": 86814.62041225715,
+        "projection_gaussianity_statistic": 2.2743480956468027,
+        "rollout_errors": {
+          "1": 0.0035989540871620798,
+          "2": 0.004365980872535147,
+          "4": 0.00543155922787264,
+          "8": 0.006765891526204844,
+          "16": 0.01379138621268794,
+          "32": 0.04269809368997812
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00012653560164229324,
+        "prior_loss_mean": 0.01246876432431034,
+        "transition_loss_mean": 0.00041760006418674794,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.643594980239868
+      }
+    },
+    "ethanol_gnn_permuted_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_permuted_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_permuted_graph_seed2",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.035022310039555,
+        "covariance_condition_number": 1350711.6255616788,
+        "projection_gaussianity_statistic": 2.0389627140144864,
+        "rollout_errors": {
+          "1": 0.006164318649098277,
+          "2": 0.006447692139772698,
+          "4": 0.007743268409588684,
+          "8": 0.009648683248087764,
+          "16": 0.015480860873746375,
+          "32": 0.04424177467202147
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00016625985639014593,
+        "prior_loss_mean": 0.015299907509082307,
+        "transition_loss_mean": 0.00022704964909886865,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.858111381530762
+      }
+    },
+    "ethanol_gnn_random_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_random_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_random_graph_seed0",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 5.015653737719639,
+        "covariance_condition_number": 94503.23478136366,
+        "projection_gaussianity_statistic": 2.1892133056369203,
+        "rollout_errors": {
+          "1": 0.003974840078929749,
+          "2": 0.004158193507464603,
+          "4": 0.00485463520938841,
+          "8": 0.006682385283056647,
+          "16": 0.013526769626575211,
+          "32": 0.03610219185551008
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00016680882254149765,
+        "prior_loss_mean": 0.020137944927490832,
+        "transition_loss_mean": 0.00035182761944775446,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 5.172409772872925
+      }
+    },
+    "ethanol_gnn_random_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_random_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_random_graph_seed1",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.688440874444278,
+        "covariance_condition_number": 91140.9033976296,
+        "projection_gaussianity_statistic": 2.33034246874288,
+        "rollout_errors": {
+          "1": 0.0036232376393551626,
+          "2": 0.004369234452800204,
+          "4": 0.0054933780726666255,
+          "8": 0.006939442750687401,
+          "16": 0.014263741167572638,
+          "32": 0.044176533818244934
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0001260006877904137,
+        "prior_loss_mean": 0.012505140751858965,
+        "transition_loss_mean": 0.00041792905453298267,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 5.078139066696167
+      }
+    },
+    "ethanol_gnn_random_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_gnn_random_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_gnn_random_graph_seed2",
+        "molecule": "ethanol",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.9933300815121995,
+        "covariance_condition_number": 534351.8796366714,
+        "projection_gaussianity_statistic": 2.0872249704003227,
+        "rollout_errors": {
+          "1": 0.006107135947483282,
+          "2": 0.006350796553306282,
+          "4": 0.007559475488960743,
+          "8": 0.009279878227971494,
+          "16": 0.014407747463944057,
+          "32": 0.03981401460866133
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00016527940654971948,
+        "prior_loss_mean": 0.015332079097990774,
+        "transition_loss_mean": 0.00022664457190128611,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 5.150042295455933
+      }
+    },
+    "ethanol_mlp_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_mlp_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_mlp_none_seed0",
+        "molecule": "ethanol",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 10.259271663282888,
+        "covariance_condition_number": 28.27098039547371,
+        "projection_gaussianity_statistic": 1.9697481877577632,
+        "rollout_errors": {
+          "1": 0.01758628827519715,
+          "2": 0.01865131699014455,
+          "4": 0.019274754139284294,
+          "8": 0.024507975671440363,
+          "16": 0.042609346409638725,
+          "32": 0.1012104203303655
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00019799815587854633,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0011930353244275062,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.15834379196167
+      }
+    },
+    "ethanol_mlp_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_mlp_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_mlp_none_seed1",
+        "molecule": "ethanol",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 10.615260097496552,
+        "covariance_condition_number": 32.663310144130826,
+        "projection_gaussianity_statistic": 1.4642810851405148,
+        "rollout_errors": {
+          "1": 0.017111643896593403,
+          "2": 0.017001873153882723,
+          "4": 0.019004288789195318,
+          "8": 0.021976755078261096,
+          "16": 0.03414690215140581,
+          "32": 0.07589260969931881
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00019559989838550487,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0014586642725690682,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1689915657043457
+      }
+    },
+    "ethanol_mlp_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "ethanol_mlp_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "ethanol_mlp_none_seed2",
+        "molecule": "ethanol",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 9.506817887028234,
+        "covariance_condition_number": 60.33847492281248,
+        "projection_gaussianity_statistic": 2.6877226524053484,
+        "rollout_errors": {
+          "1": 0.0220529397095864,
+          "2": 0.02510903135407716,
+          "4": 0.02580034042087694,
+          "8": 0.03453136134582261,
+          "16": 0.06239348199839393,
+          "32": 0.1627914384007454
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00027628753256673616,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0014675832450545083,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1454992294311523
+      }
+    },
+    "malonaldehyde_gnn_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_graph_seed0",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.100159617699986,
+        "covariance_condition_number": 26744.78300422877,
+        "projection_gaussianity_statistic": 2.0651725299798094,
+        "rollout_errors": {
+          "1": 0.005008322652429342,
+          "2": 0.005231463340654348,
+          "4": 0.005797008527830864,
+          "8": 0.008841277818040302,
+          "16": 0.016007846454158425,
+          "32": 0.05069777571285764
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00018068554830582192,
+        "prior_loss_mean": 0.01970127169172176,
+        "transition_loss_mean": 0.0003678101954897607,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.757724285125732
+      }
+    },
+    "malonaldehyde_gnn_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_graph_seed1",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.442604558341214,
+        "covariance_condition_number": 109433.19431885719,
+        "projection_gaussianity_statistic": 1.8099222307064002,
+        "rollout_errors": {
+          "1": 0.00434712785257337,
+          "2": 0.005035547947045416,
+          "4": 0.005748462708046039,
+          "8": 0.007484530593501404,
+          "16": 0.011889027645035336,
+          "32": 0.03153316730943819
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00017159682465717196,
+        "prior_loss_mean": 0.014027387871303492,
+        "transition_loss_mean": 0.0004478793755778396,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.637401103973389
+      }
+    },
+    "malonaldehyde_gnn_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_graph_seed2",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.3054656544463734,
+        "covariance_condition_number": 11900.16622848548,
+        "projection_gaussianity_statistic": 1.7030456317025033,
+        "rollout_errors": {
+          "1": 0.0070027720551782595,
+          "2": 0.006584943728133415,
+          "4": 0.007750729778005431,
+          "8": 0.008087792356188098,
+          "16": 0.010989085189066827,
+          "32": 0.021472210413776338
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00025259524894257385,
+        "prior_loss_mean": 0.017353470375140508,
+        "transition_loss_mean": 0.0002813434805527019,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.874618768692017
+      }
+    },
+    "malonaldehyde_gnn_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_none_seed0",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.7289215860133003,
+        "covariance_condition_number": 9290.513507427662,
+        "projection_gaussianity_statistic": 1.5177159338502562,
+        "rollout_errors": {
+          "1": 0.014344439473158369,
+          "2": 0.01415686309337616,
+          "4": 0.015287489727294693,
+          "8": 0.014504405825088421,
+          "16": 0.024264803078646462,
+          "32": 0.05216400325298309
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00012831122391313934,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.000603419978546703,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.2509284019470215
+      }
+    },
+    "malonaldehyde_gnn_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_none_seed1",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.2629139387955535,
+        "covariance_condition_number": 5599.132283479917,
+        "projection_gaussianity_statistic": 1.8987128956556527,
+        "rollout_errors": {
+          "1": 0.009557815520868948,
+          "2": 0.00955926175811328,
+          "4": 0.011049435512783626,
+          "8": 0.013145078264642507,
+          "16": 0.02224119772048046,
+          "32": 0.08929250435903668
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 9.116898339319353e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0006931843631415783,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.3729398250579834
+      }
+    },
+    "malonaldehyde_gnn_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_none_seed2",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.477268337315451,
+        "covariance_condition_number": 1495.2783010247165,
+        "projection_gaussianity_statistic": 1.5172563080246808,
+        "rollout_errors": {
+          "1": 0.014856533942899356,
+          "2": 0.013875648165897777,
+          "4": 0.0198048342911837,
+          "8": 0.023512335455355544,
+          "16": 0.03619950474239886,
+          "32": 0.06423361971974373
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00017200309957843274,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0007249236912078535,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.332179307937622
+      }
+    },
+    "malonaldehyde_gnn_permuted_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_permuted_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_permuted_graph_seed0",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.077985859845522,
+        "covariance_condition_number": 20307.543505456983,
+        "projection_gaussianity_statistic": 2.052714666104917,
+        "rollout_errors": {
+          "1": 0.005124754126882181,
+          "2": 0.005386566141775499,
+          "4": 0.005828181184673061,
+          "8": 0.008683996876546493,
+          "16": 0.01466450176667422,
+          "32": 0.04012976617862781
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00022033485098897168,
+        "prior_loss_mean": 0.02297303113543118,
+        "transition_loss_mean": 0.0003669761618059258,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 5.004227638244629
+      }
+    },
+    "malonaldehyde_gnn_permuted_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_permuted_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_permuted_graph_seed1",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.474794131706328,
+        "covariance_condition_number": 78954.26125789406,
+        "projection_gaussianity_statistic": 1.643627140455618,
+        "rollout_errors": {
+          "1": 0.00420608400600031,
+          "2": 0.005080876629411553,
+          "4": 0.005514410634835561,
+          "8": 0.007029434433206916,
+          "16": 0.010747662920039147,
+          "32": 0.027643345994874835
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00018833255065449825,
+        "prior_loss_mean": 0.01598506448790431,
+        "transition_loss_mean": 0.0004485902078360798,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.859803676605225
+      }
+    },
+    "malonaldehyde_gnn_permuted_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_permuted_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_permuted_graph_seed2",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.599446157622069,
+        "covariance_condition_number": 20883.10541210289,
+        "projection_gaussianity_statistic": 1.7629163084017612,
+        "rollout_errors": {
+          "1": 0.006664769947140788,
+          "2": 0.0064609549881424755,
+          "4": 0.007436382370845725,
+          "8": 0.00841131858760491,
+          "16": 0.01177869230741635,
+          "32": 0.024655624913672607
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.000279199283492441,
+        "prior_loss_mean": 0.02093479737587687,
+        "transition_loss_mean": 0.0002698421172681265,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.907305002212524
+      }
+    },
+    "malonaldehyde_gnn_random_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_random_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_random_graph_seed0",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.077296280786812,
+        "covariance_condition_number": 30185.52908384745,
+        "projection_gaussianity_statistic": 2.050170738948272,
+        "rollout_errors": {
+          "1": 0.00516046160676827,
+          "2": 0.005413572556183984,
+          "4": 0.005856864125235006,
+          "8": 0.008721740955176452,
+          "16": 0.01475097304986169,
+          "32": 0.04088594764471054
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00021845984641307345,
+        "prior_loss_mean": 0.023141146781078228,
+        "transition_loss_mean": 0.0003673029536205124,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.919406890869141
+      }
+    },
+    "malonaldehyde_gnn_random_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_random_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_random_graph_seed1",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 4.4140082941864796,
+        "covariance_condition_number": 88628.302423313,
+        "projection_gaussianity_statistic": 1.6807716794705234,
+        "rollout_errors": {
+          "1": 0.004245175019605085,
+          "2": 0.005115170487745975,
+          "4": 0.0055545289457465214,
+          "8": 0.0071066050343991565,
+          "16": 0.010870917797243843,
+          "32": 0.026721494738012552
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00018781377972724536,
+        "prior_loss_mean": 0.01596925556789049,
+        "transition_loss_mean": 0.000449019131236936,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 4.991565227508545
+      }
+    },
+    "malonaldehyde_gnn_random_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_gnn_random_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_gnn_random_graph_seed2",
+        "molecule": "malonaldehyde",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.502274845765352,
+        "covariance_condition_number": 19656.09456574539,
+        "projection_gaussianity_statistic": 1.7515197597367838,
+        "rollout_errors": {
+          "1": 0.006687008416823422,
+          "2": 0.006460270068297784,
+          "4": 0.00739543170008498,
+          "8": 0.008339592692209408,
+          "16": 0.011620961769949645,
+          "32": 0.023846813710406423
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00027077355965351063,
+        "prior_loss_mean": 0.02091599203284002,
+        "transition_loss_mean": 0.00027031384468298507,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 5.110348224639893
+      }
+    },
+    "malonaldehyde_mlp_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_mlp_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_mlp_none_seed0",
+        "molecule": "malonaldehyde",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 11.047817475073312,
+        "covariance_condition_number": 22.39904106845165,
+        "projection_gaussianity_statistic": 1.4441942225971898,
+        "rollout_errors": {
+          "1": 0.024741557698386412,
+          "2": 0.02236753694402675,
+          "4": 0.02320330749110629,
+          "8": 0.028999353758990765,
+          "16": 0.04875557652364174,
+          "32": 0.11668206471949816
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0002409022223825256,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0012738096328879086,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1601958274841309
+      }
+    },
+    "malonaldehyde_mlp_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_mlp_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_mlp_none_seed1",
+        "molecule": "malonaldehyde",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 9.516628842706554,
+        "covariance_condition_number": 99.75955239404159,
+        "projection_gaussianity_statistic": 3.403511988354953,
+        "rollout_errors": {
+          "1": 0.020447186194360256,
+          "2": 0.01996651547960937,
+          "4": 0.02363296947441995,
+          "8": 0.028849610205118854,
+          "16": 0.04172984448572,
+          "32": 0.10502911700556676
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0002555698447395116,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0015539657573551975,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.157932996749878
+      }
+    },
+    "malonaldehyde_mlp_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "malonaldehyde_mlp_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "malonaldehyde_mlp_none_seed2",
+        "molecule": "malonaldehyde",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 10.343236034198352,
+        "covariance_condition_number": 34.50178791317663,
+        "projection_gaussianity_statistic": 1.499387179695061,
+        "rollout_errors": {
+          "1": 0.026267661325012643,
+          "2": 0.026414714598407347,
+          "4": 0.028682888097440202,
+          "8": 0.03712770560135444,
+          "16": 0.06561518739908934,
+          "32": 0.17694638793667158
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0003507469082251191,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.001893645573161646,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1248619556427002
+      }
+    },
+    "naphthalene_gnn_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_graph_seed0",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.5875432128542655,
+        "covariance_condition_number": 2886.990201371572,
+        "projection_gaussianity_statistic": 6.064692432553296,
+        "rollout_errors": {
+          "1": 0.0016044384829001501,
+          "2": 0.001916683196517018,
+          "4": 0.0021469363612898937,
+          "8": 0.002985965877693767,
+          "16": 0.005575490222933392,
+          "32": 0.014213805940623084
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0005262354388833046,
+        "prior_loss_mean": 0.08982972415784994,
+        "transition_loss_mean": 0.00031818062063343353,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.814043998718262
+      }
+    },
+    "naphthalene_gnn_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_graph_seed1",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.6110670871642836,
+        "covariance_condition_number": 15222.457174399178,
+        "projection_gaussianity_statistic": 5.2047156963248025,
+        "rollout_errors": {
+          "1": 0.001676132019686823,
+          "2": 0.001844241359018876,
+          "4": 0.0025520453782519326,
+          "8": 0.004271613075009857,
+          "16": 0.010295278004681071,
+          "32": 0.033568564259136714
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0004209896530179928,
+        "prior_loss_mean": 0.051849701089991464,
+        "transition_loss_mean": 0.00039276278214907105,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.859878778457642
+      }
+    },
+    "naphthalene_gnn_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_graph_seed2",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.0767109130740247,
+        "covariance_condition_number": 21879.442245066024,
+        "projection_gaussianity_statistic": 5.359707776111357,
+        "rollout_errors": {
+          "1": 0.002456469192111399,
+          "2": 0.002463688540350025,
+          "4": 0.0026790492120198905,
+          "8": 0.0034788821067195386,
+          "16": 0.006258219596929848,
+          "32": 0.01527149478594462
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0003919773638093223,
+        "prior_loss_mean": 0.05030821456263463,
+        "transition_loss_mean": 0.0001463847116257158,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.819532632827759
+      }
+    },
+    "naphthalene_gnn_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_none_seed0",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.335493911310182,
+        "covariance_condition_number": 28555.653021516602,
+        "projection_gaussianity_statistic": 2.3288364859186768,
+        "rollout_errors": {
+          "1": 0.005536486520819987,
+          "2": 0.006117145647294819,
+          "4": 0.008770207389413068,
+          "8": 0.014196245193791887,
+          "16": 0.02762997445339958,
+          "32": 0.07805951001743476
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 3.176003762443239e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00039457950576130923,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.301539182662964
+      }
+    },
+    "naphthalene_gnn_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_none_seed1",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.9377118867101157,
+        "covariance_condition_number": 9758.082902162463,
+        "projection_gaussianity_statistic": 2.7538218416272904,
+        "rollout_errors": {
+          "1": 0.003939820497180335,
+          "2": 0.005019980953269017,
+          "4": 0.005449807484789441,
+          "8": 0.00857988508262982,
+          "16": 0.01631279879560073,
+          "32": 0.038550188609709345
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 1.781298730444784e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0004319661165633685,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.2413647174835205
+      }
+    },
+    "naphthalene_gnn_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_none_seed2",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.7293365496224142,
+        "covariance_condition_number": 9954.03474871393,
+        "projection_gaussianity_statistic": 2.2954508397544195,
+        "rollout_errors": {
+          "1": 0.006156883668154478,
+          "2": 0.006059832851557682,
+          "4": 0.008984249318018556,
+          "8": 0.014399878991146883,
+          "16": 0.026989630423486233,
+          "32": 0.07458118287225564
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 3.1640203815186396e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00020836836762706904,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.230377435684204
+      }
+    },
+    "naphthalene_gnn_permuted_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_permuted_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_permuted_graph_seed0",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.457722640207356,
+        "covariance_condition_number": 2137.4853030783615,
+        "projection_gaussianity_statistic": 5.993043286691719,
+        "rollout_errors": {
+          "1": 0.0016751188328877713,
+          "2": 0.0019056050465830292,
+          "4": 0.0022981151996646076,
+          "8": 0.003922199267738809,
+          "16": 0.006942516386819382,
+          "32": 0.01616479615525653
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0007923790835775435,
+        "prior_loss_mean": 0.14470990943825907,
+        "transition_loss_mean": 0.0003177405951924407,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.463447332382202
+      }
+    },
+    "naphthalene_gnn_permuted_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_permuted_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_permuted_graph_seed1",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.32594756606487,
+        "covariance_condition_number": 13232.510455123509,
+        "projection_gaussianity_statistic": 5.137100476784997,
+        "rollout_errors": {
+          "1": 0.0017108064033285093,
+          "2": 0.0018911886339386303,
+          "4": 0.0026157537649851292,
+          "8": 0.0043893530285762,
+          "16": 0.01105471906096985,
+          "32": 0.036661690566688776
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0005673612661970159,
+        "prior_loss_mean": 0.07190966320017146,
+        "transition_loss_mean": 0.00039453963514056846,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.64294695854187
+      }
+    },
+    "naphthalene_gnn_permuted_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_permuted_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_permuted_graph_seed2",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.1002427284591514,
+        "covariance_condition_number": 20208.478822210844,
+        "projection_gaussianity_statistic": 5.617988790869575,
+        "rollout_errors": {
+          "1": 0.002216736184588323,
+          "2": 0.0021702252973530753,
+          "4": 0.0024105626362143084,
+          "8": 0.003243271649504701,
+          "16": 0.005892192314301307,
+          "32": 0.01392113541563352
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00045853806659579277,
+        "prior_loss_mean": 0.0694582077778048,
+        "transition_loss_mean": 0.00014699264083901654,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.660860538482666
+      }
+    },
+    "naphthalene_gnn_random_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_random_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_random_graph_seed0",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.2691711992315167,
+        "covariance_condition_number": 2289.2916496395856,
+        "projection_gaussianity_statistic": 6.051527297171145,
+        "rollout_errors": {
+          "1": 0.0017148322876892053,
+          "2": 0.0019459525453081976,
+          "4": 0.0023079216334735975,
+          "8": 0.003930930591498812,
+          "16": 0.007049371934651087,
+          "32": 0.01781195468114068
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0008034872977683941,
+        "prior_loss_mean": 0.14366760368769368,
+        "transition_loss_mean": 0.00031810389064301287,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.9301862716674805
+      }
+    },
+    "naphthalene_gnn_random_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_random_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_random_graph_seed1",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.372279445540061,
+        "covariance_condition_number": 12599.211700112739,
+        "projection_gaussianity_statistic": 5.204178096208938,
+        "rollout_errors": {
+          "1": 0.0016902414208743721,
+          "2": 0.001872507476946339,
+          "4": 0.0026417472642303133,
+          "8": 0.004508819605689496,
+          "16": 0.011336336494423449,
+          "32": 0.037367405680318676
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0005798401155819496,
+        "prior_loss_mean": 0.07300344214567708,
+        "transition_loss_mean": 0.0003941435690345922,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.840628385543823
+      }
+    },
+    "naphthalene_gnn_random_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_gnn_random_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_gnn_random_graph_seed2",
+        "molecule": "naphthalene",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.028899887658396,
+        "covariance_condition_number": 17598.279786753523,
+        "projection_gaussianity_statistic": 5.611029299199978,
+        "rollout_errors": {
+          "1": 0.0022744737070752308,
+          "2": 0.00222211779813127,
+          "4": 0.002426259695009018,
+          "8": 0.0031582052809729553,
+          "16": 0.005747483499969046,
+          "32": 0.014878798470211526
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0004936128001039227,
+        "prior_loss_mean": 0.06983952622136308,
+        "transition_loss_mean": 0.00014718134583138938,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.739976644515991
+      }
+    },
+    "naphthalene_mlp_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_mlp_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_mlp_none_seed0",
+        "molecule": "naphthalene",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 5.811178653792328,
+        "covariance_condition_number": 1505.0091736314707,
+        "projection_gaussianity_statistic": 1.4492081470352551,
+        "rollout_errors": {
+          "1": 0.009314633828277389,
+          "2": 0.009425068128621206,
+          "4": 0.009187539127500107,
+          "8": 0.010930808396854749,
+          "16": 0.017856256221421063,
+          "32": 0.05478434831214448
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 9.397718531545252e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0004747873777685325,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1774590015411377
+      }
+    },
+    "naphthalene_mlp_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_mlp_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_mlp_none_seed1",
+        "molecule": "naphthalene",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 5.274672539295232,
+        "covariance_condition_number": 6068.885984191238,
+        "projection_gaussianity_statistic": 1.6634912647292255,
+        "rollout_errors": {
+          "1": 0.008493883806901673,
+          "2": 0.010266684383774797,
+          "4": 0.01062643266050145,
+          "8": 0.013684538231852153,
+          "16": 0.027990272695509095,
+          "32": 0.0796816802273194
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 7.202928342546026e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0006515575143162601,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.223280906677246
+      }
+    },
+    "naphthalene_mlp_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "naphthalene_mlp_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "naphthalene_mlp_none_seed2",
+        "molecule": "naphthalene",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 6.435975685165212,
+        "covariance_condition_number": 1464.6197673522527,
+        "projection_gaussianity_statistic": 1.6550283262497407,
+        "rollout_errors": {
+          "1": 0.009302427196719995,
+          "2": 0.009051767837566635,
+          "4": 0.01033748909442996,
+          "8": 0.014065001819593212,
+          "16": 0.02490007768695553,
+          "32": 0.0544944090458254
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 6.854001064008723e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0006414683712339159,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1588196754455566
+      }
+    },
+    "toluene_gnn_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_graph_seed0",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.1045386893423443,
+        "covariance_condition_number": 10952.67046708176,
+        "projection_gaussianity_statistic": 4.792332118767407,
+        "rollout_errors": {
+          "1": 0.002733660837596593,
+          "2": 0.0027260001079412177,
+          "4": 0.0032101032896510637,
+          "8": 0.005046254683596392,
+          "16": 0.0112124503745387,
+          "32": 0.05457572809730967
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0004764995925749342,
+        "prior_loss_mean": 0.06787585257035163,
+        "transition_loss_mean": 0.0003339500980776696,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 6.497052907943726
+      }
+    },
+    "toluene_gnn_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_graph_seed1",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.2812261723141813,
+        "covariance_condition_number": 16662.277372515568,
+        "projection_gaussianity_statistic": 4.28147269598313,
+        "rollout_errors": {
+          "1": 0.0027196920491405763,
+          "2": 0.0030181184120010585,
+          "4": 0.0033213263765598335,
+          "8": 0.004710427921963856,
+          "16": 0.009686755753743151,
+          "32": 0.029540273904179532
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0003268273527889202,
+        "prior_loss_mean": 0.037886959166886905,
+        "transition_loss_mean": 0.0004120246231751581,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 6.910451889038086
+      }
+    },
+    "toluene_gnn_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_graph_seed2",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.8167684381917297,
+        "covariance_condition_number": 30108.273517487352,
+        "projection_gaussianity_statistic": 4.267004762840971,
+        "rollout_errors": {
+          "1": 0.003482937958324328,
+          "2": 0.0037566484558434845,
+          "4": 0.003959615821562086,
+          "8": 0.004155842209002003,
+          "16": 0.005819843315597002,
+          "32": 0.01282069185981527
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00037565491705512005,
+        "prior_loss_mean": 0.041788367880508305,
+        "transition_loss_mean": 0.00018245739676988,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 6.584797382354736
+      }
+    },
+    "toluene_gnn_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_none_seed0",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.6525125538132754,
+        "covariance_condition_number": 19863.724389466177,
+        "projection_gaussianity_statistic": 2.5067363216328276,
+        "rollout_errors": {
+          "1": 0.006090646270119275,
+          "2": 0.007412064626502494,
+          "4": 0.009511212992947549,
+          "8": 0.015698655392043293,
+          "16": 0.02940439114657541,
+          "32": 0.08702784559379022
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 5.68248906347435e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00044752814958176005,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.47220778465271
+      }
+    },
+    "toluene_gnn_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_none_seed1",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 3.296816608089893,
+        "covariance_condition_number": 8035.763323844678,
+        "projection_gaussianity_statistic": 2.370154900295663,
+        "rollout_errors": {
+          "1": 0.004303017272225891,
+          "2": 0.004671379138017073,
+          "4": 0.006206936086528003,
+          "8": 0.009168997775608053,
+          "16": 0.01700482560166468,
+          "32": 0.04638822989848753
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 2.3397903229730826e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0004595986369976243,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.3341684341430664
+      }
+    },
+    "toluene_gnn_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_none_seed2",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.599642009847577,
+        "covariance_condition_number": 5821.6828402423025,
+        "projection_gaussianity_statistic": 1.7223238444078564,
+        "rollout_errors": {
+          "1": 0.006110490367670233,
+          "2": 0.007925782178062946,
+          "4": 0.008933746857413402,
+          "8": 0.014731001341715455,
+          "16": 0.02428095554932952,
+          "32": 0.04938388988375664
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 5.604788263250763e-05,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.00030240701247142475,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 3.3772337436676025
+      }
+    },
+    "toluene_gnn_permuted_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_permuted_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_permuted_graph_seed0",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.81546588296112,
+        "covariance_condition_number": 22944.40302628681,
+        "projection_gaussianity_statistic": 4.776519587292641,
+        "rollout_errors": {
+          "1": 0.0029107935309487707,
+          "2": 0.002908464409604979,
+          "4": 0.0033148745860671625,
+          "8": 0.005190312076592818,
+          "16": 0.011250124856208762,
+          "32": 0.04044197111700972
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0006137618911452591,
+        "prior_loss_mean": 0.09572113544369737,
+        "transition_loss_mean": 0.000332018829602829,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 6.437499046325684
+      }
+    },
+    "toluene_gnn_permuted_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_permuted_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_permuted_graph_seed1",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.9741759443374503,
+        "covariance_condition_number": 12050.951448835898,
+        "projection_gaussianity_statistic": 4.391857767771516,
+        "rollout_errors": {
+          "1": 0.0029803859724779613,
+          "2": 0.0033405058056814596,
+          "4": 0.0035290819456956037,
+          "8": 0.004984767050094281,
+          "16": 0.01003355016776671,
+          "32": 0.03044029263158639
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0004475891764741391,
+        "prior_loss_mean": 0.04837958505377173,
+        "transition_loss_mean": 0.0004145178070454373,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 6.618244647979736
+      }
+    },
+    "toluene_gnn_permuted_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_permuted_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_permuted_graph_seed2",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "permuted_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.8332977471340706,
+        "covariance_condition_number": 38461.686555839064,
+        "projection_gaussianity_statistic": 4.122519890316012,
+        "rollout_errors": {
+          "1": 0.003663369257992599,
+          "2": 0.0038332344896237678,
+          "4": 0.00415891784359701,
+          "8": 0.0044598950480576605,
+          "16": 0.006576620837828766,
+          "32": 0.015536877210251987
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0005087732279207557,
+        "prior_loss_mean": 0.054684010680971874,
+        "transition_loss_mean": 0.0001862339221891792,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 6.671891450881958
+      }
+    },
+    "toluene_gnn_random_graph_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_random_graph_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_random_graph_seed0",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.7603509177370418,
+        "covariance_condition_number": 32173.763448119953,
+        "projection_gaussianity_statistic": 4.837563248346244,
+        "rollout_errors": {
+          "1": 0.002884716164165487,
+          "2": 0.0028649730423542983,
+          "4": 0.003276019648183137,
+          "8": 0.005018975120037794,
+          "16": 0.010982348447820792,
+          "32": 0.04282846744172275
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0006168852560222149,
+        "prior_loss_mean": 0.095884284351228,
+        "transition_loss_mean": 0.0003320240924848703,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.0660412311553955
+      }
+    },
+    "toluene_gnn_random_graph_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_random_graph_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_random_graph_seed1",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.942860652339213,
+        "covariance_condition_number": 9985.383010387708,
+        "projection_gaussianity_statistic": 4.506805291887407,
+        "rollout_errors": {
+          "1": 0.002941452393618723,
+          "2": 0.0032949521604071683,
+          "4": 0.0035476431755038598,
+          "8": 0.004997859670159717,
+          "16": 0.009989397057021657,
+          "32": 0.029478614684194326
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00043411927375321585,
+        "prior_loss_mean": 0.048062374256551264,
+        "transition_loss_mean": 0.00041423678850252245,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 7.066797733306885
+      }
+    },
+    "toluene_gnn_random_graph_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_gnn_random_graph_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_gnn_random_graph_seed2",
+        "molecule": "toluene",
+        "encoder": "gnn_node",
+        "prior": "random_graph",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 2.8452102555103185,
+        "covariance_condition_number": 34976.75144211252,
+        "projection_gaussianity_statistic": 4.2097346206762944,
+        "rollout_errors": {
+          "1": 0.00359170044248458,
+          "2": 0.0037767018511658534,
+          "4": 0.004059614472983715,
+          "8": 0.004401276964927092,
+          "16": 0.0066040547875066595,
+          "32": 0.015577693198186656
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.000495289956840376,
+        "prior_loss_mean": 0.054502535166425836,
+        "transition_loss_mean": 0.00018525915570030016,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": "nodewise_trace_HtLH",
+        "graph_prior_nodewise": true,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": "Tr(H^T L H) = sum_(i,j in E) w_ij ||h_i - h_j||^2",
+        "graph_prior_requires_node_states": true,
+        "encoder_emits_node_states": true,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 6.817730665206909
+      }
+    },
+    "toluene_mlp_none_seed0": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_mlp_none_seed0",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_mlp_none_seed0",
+        "molecule": "toluene",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 0,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 8.85425864470556,
+        "covariance_condition_number": 103.74674113899097,
+        "projection_gaussianity_statistic": 1.5022742099492632,
+        "rollout_errors": {
+          "1": 0.013951310887932777,
+          "2": 0.012940481576758126,
+          "4": 0.014447987545281649,
+          "8": 0.020370364577199023,
+          "16": 0.037793992863347135,
+          "32": 0.13053168915212154
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.0001449660339858383,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0013413271740622197,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1365997791290283
+      }
+    },
+    "toluene_mlp_none_seed1": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_mlp_none_seed1",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_mlp_none_seed1",
+        "molecule": "toluene",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 1,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 7.757799607059124,
+        "covariance_condition_number": 159.19364284419345,
+        "projection_gaussianity_statistic": 1.411502384976266,
+        "rollout_errors": {
+          "1": 0.017027831131902833,
+          "2": 0.014516676116424302,
+          "4": 0.01815337493705253,
+          "8": 0.02270227433958401,
+          "16": 0.04102680956323942,
+          "32": 0.09312345491101344
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00019230968124854067,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.0018322211604552448,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.144759178161621
+      }
+    },
+    "toluene_mlp_none_seed2": {
+      "schema_version": "cycle0_smoke_v1",
+      "run_name": "toluene_mlp_none_seed2",
+      "status": "ok",
+      "failure_flag": false,
+      "config": {
+        "run_name": "toluene_mlp_none_seed2",
+        "molecule": "toluene",
+        "encoder": "mlp_global",
+        "prior": "none",
+        "seed": 2,
+        "num_epochs": 30,
+        "n_transitions": 96,
+        "eval_n_transitions": 24,
+        "stride": 10,
+        "eval_stride": 20,
+        "horizon": 1,
+        "eval_horizons": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "latent_dim": 16,
+        "node_dim": 16,
+        "hidden_dim": 64,
+        "transition_hidden_dim": 64,
+        "batch_size": 32,
+        "lr": 0.001,
+        "prior_weight": 0.1,
+        "sigreg_num_slices": 8,
+        "device": "auto",
+        "data_root": "/home/user/projects/causalworld/data/rmd17_raw/rmd17/npz_data"
+      },
+      "diagnostics": {
+        "effective_rank": 8.819796337327647,
+        "covariance_condition_number": 74.71979580227045,
+        "projection_gaussianity_statistic": 1.8942608927292668,
+        "rollout_errors": {
+          "1": 0.013306960696354508,
+          "2": 0.01102504541631788,
+          "4": 0.012543437886051834,
+          "8": 0.015737833338789642,
+          "16": 0.03143135861804088,
+          "32": 0.087899351802965
+        },
+        "graph_stationarity": {
+          "available": false,
+          "reason": "Cycle 0 smoke does not estimate temporal graph-stationarity statistics."
+        },
+        "final_train_loss": 0.00012477532436605543,
+        "prior_loss_mean": 0.0,
+        "transition_loss_mean": 0.001467213378297553,
+        "nan_detected": false
+      },
+      "prior_implementation": {
+        "graph_prior_form": null,
+        "graph_prior_nodewise": false,
+        "uses_latent_projected_laplacian": false,
+        "uses_old_latent_projected_laplacian": false,
+        "node_wise_laplacian_formula": null,
+        "graph_prior_requires_node_states": false,
+        "encoder_emits_node_states": false,
+        "mlp_graph_priors_disabled": true
+      },
+      "timing": {
+        "wall_time_sec": 1.1475536823272705
+      }
+    }
+  },
+  "updated_at": "2026-04-30T20:18:43.704677+00:00",
+  "summary": {
+    "n_runs": 75,
+    "n_failures": 0,
+    "failures": [],
+    "runs_with_nan_diagnostics": [],
+    "runs_missing_diagnostics": [],
+    "schema_version": "cycle2_rmd17_multimolecule_v1"
+  }
+}

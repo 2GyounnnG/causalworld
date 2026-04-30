@@ -1,0 +1,19 @@
+{
+  "molecule": "toluene",
+  "num_epochs": 30,
+  "batch_size": 32,
+  "latent_dim": 16,
+  "node_dim": 16,
+  "eval_horizons": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "run_name": "toluene_mlp_none_seed1",
+  "encoder": "mlp_global",
+  "prior": "none",
+  "seed": 1
+}

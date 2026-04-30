@@ -1,0 +1,19 @@
+{
+  "molecule": "ethanol",
+  "num_epochs": 30,
+  "batch_size": 32,
+  "latent_dim": 16,
+  "node_dim": 16,
+  "eval_horizons": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "run_name": "ethanol_gnn_permuted_graph_seed0",
+  "encoder": "gnn_node",
+  "prior": "permuted_graph",
+  "seed": 0
+}
