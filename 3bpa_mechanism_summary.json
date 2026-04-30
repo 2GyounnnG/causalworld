@@ -1,51 +1,51 @@
 {
   "3bpa": {
     "none": {
-      "n_success": 0,
+      "n_success": 3,
       "rollout_errors": {
         "1": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.14010383371884624,
+          "std": 0.02722485953846459,
+          "ci_low": 0.10929600495180897,
+          "ci_high": 0.17091166248588352
         },
         "2": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.12465031615768869,
+          "std": 0.015350231274753354,
+          "ci_low": 0.10727989424682904,
+          "ci_high": 0.14202073806854834
         },
         "4": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.14435793785378334,
+          "std": 0.03839841918623226,
+          "ci_low": 0.10090603605267386,
+          "ci_high": 0.18780983965489284
         },
         "8": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.16951909607483281,
+          "std": 0.0718737319280591,
+          "ci_low": 0.08818631186123009,
+          "ci_high": 0.2508518802884355
         },
         "16": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.289683747664094,
+          "std": 0.22086529741548724,
+          "ci_low": 0.039751135385836495,
+          "ci_high": 0.5396163599423515
         }
       },
       "diagnostics": {
         "effective_rank": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 1.0000018676122029,
+          "std": 8.787053580083839e-07
         },
         "condition_number": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 262912912042.66666,
+          "std": 73323967382.50932
         },
         "projection_gaussianity": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.7875181833902994,
+          "std": 0.1574277086114268
         },
         "spectral_alignment": {
           "mean": NaN,
@@ -54,51 +54,51 @@
       }
     },
     "variance": {
-      "n_success": 0,
+      "n_success": 3,
       "rollout_errors": {
         "1": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.23138075896228352,
+          "std": 0.013282245036627102,
+          "ci_low": 0.21635048377749863,
+          "ci_high": 0.24641103414706841
         },
         "2": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.20938830700599487,
+          "std": 0.021102017665040163,
+          "ci_low": 0.18550912607045872,
+          "ci_high": 0.23326748794153102
         },
         "4": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.22189941021303336,
+          "std": 0.020700261497332322,
+          "ci_low": 0.19847485917938365,
+          "ci_high": 0.24532396124668307
         },
         "8": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.23888128012832668,
+          "std": 0.04623400023264502,
+          "ci_low": 0.18656258366746625,
+          "ci_high": 0.2911999765891871
         },
         "16": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.28129405019183956,
+          "std": 0.051608527141171284,
+          "ci_low": 0.22289350399846627,
+          "ci_high": 0.3396945963852128
         }
       },
       "diagnostics": {
         "effective_rank": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 1.0000022649765015,
+          "std": 4.2981520598697533e-07
         },
         "condition_number": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 709470912512.0,
+          "std": 70258795561.53769
         },
         "projection_gaussianity": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.787514845530192,
+          "std": 0.15741787020318368
         },
         "spectral_alignment": {
           "mean": NaN,
@@ -107,51 +107,51 @@
       }
     },
     "covariance": {
-      "n_success": 0,
+      "n_success": 3,
       "rollout_errors": {
         "1": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.1655280467019313,
+          "std": 0.015083120587124167,
+          "ci_low": 0.14845988898878767,
+          "ci_high": 0.18259620441507493
         },
         "2": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.14630777613363333,
+          "std": 0.012013457546582779,
+          "ci_low": 0.1327132691547346,
+          "ci_high": 0.15990228311253205
         },
         "4": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.16229483288609317,
+          "std": 0.016095451250586326,
+          "ci_low": 0.14408111518607433,
+          "ci_high": 0.180508550586112
         },
         "8": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.17253369887669878,
+          "std": 0.027325044878497146,
+          "ci_low": 0.14161249972490966,
+          "ci_high": 0.2034548980284879
         },
         "16": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.22501734271645546,
+          "std": 0.05233137260668773,
+          "ci_low": 0.16579881987584927,
+          "ci_high": 0.28423586555706165
         }
       },
       "diagnostics": {
         "effective_rank": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 1.0000019868214924,
+          "std": 7.937345645999185e-07
         },
         "condition_number": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 396750826154.6667,
+          "std": 33782159066.090473
         },
         "projection_gaussianity": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.7874682744344076,
+          "std": 0.15743933588690842
         },
         "spectral_alignment": {
           "mean": NaN,
@@ -160,51 +160,51 @@
       }
     },
     "sigreg": {
-      "n_success": 0,
+      "n_success": 3,
       "rollout_errors": {
         "1": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.08576993177024027,
+          "std": 0.04640871320874481,
+          "ci_low": 0.03325352896516687,
+          "ci_high": 0.13828633457531367
         },
         "2": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.09613038224892483,
+          "std": 0.050947868449662315,
+          "ci_low": 0.03847744174338647,
+          "ci_high": 0.1537833227544632
         },
         "4": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.13921241503622797,
+          "std": 0.09844738711678291,
+          "ci_low": 0.027808709148563746,
+          "ci_high": 0.2506161209238922
         },
         "8": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.23846903381248316,
+          "std": 0.19597006391422367,
+          "ci_low": 0.016708030270672136,
+          "ci_high": 0.4602300373542942
         },
         "16": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.4509115858210458,
+          "std": 0.3907719849447104,
+          "ci_low": 0.008711456849843646,
+          "ci_high": 0.8931117147922479
         }
       },
       "diagnostics": {
         "effective_rank": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 1.0000019073486328,
+          "std": 3.5762786865234375e-07
         },
         "condition_number": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 69170554197.33333,
+          "std": 53391062717.25008
         },
         "projection_gaussianity": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.7869240442911783,
+          "std": 0.15708714329753498
         },
         "spectral_alignment": {
           "mean": NaN,
@@ -213,161 +213,161 @@
       }
     },
     "spectral": {
-      "n_success": 0,
+      "n_success": 3,
       "rollout_errors": {
         "1": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.06399749702153107,
+          "std": 0.014877784117250378,
+          "ci_low": 0.04716169939805337,
+          "ci_high": 0.08083329464500877
         },
         "2": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.06112897561656105,
+          "std": 0.01013521549930665,
+          "ci_low": 0.04965989959879471,
+          "ci_high": 0.07259805163432739
         },
         "4": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.07719481519112985,
+          "std": 0.017767424040614755,
+          "ci_low": 0.05708908216792574,
+          "ci_high": 0.09730054821433395
         },
         "8": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.10882152451409234,
+          "std": 0.039513639131150254,
+          "ci_low": 0.06410763254359092,
+          "ci_high": 0.15353541648459376
         },
         "16": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.19239785960978936,
+          "std": 0.09161078937874435,
+          "ci_low": 0.08873049234914472,
+          "ci_high": 0.296065226870434
         }
       },
       "diagnostics": {
         "effective_rank": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 1.0000020265579224,
+          "std": 1.0728836059570312e-06
         },
         "condition_number": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 55703657130.666664,
+          "std": 17900345038.156353
         },
         "projection_gaussianity": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.7874741554260254,
+          "std": 0.15739634638228409
         },
         "spectral_alignment": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.08916181574265163,
+          "std": 0.004871068533253099
         }
       }
     },
     "permuted_spectral": {
-      "n_success": 0,
+      "n_success": 3,
       "rollout_errors": {
         "1": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.05474485179875046,
+          "std": 0.010280291997898209,
+          "ci_low": 0.04311160626817487,
+          "ci_high": 0.06637809732932605
         },
         "2": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.04959192139406998,
+          "std": 0.007951888965699086,
+          "ci_low": 0.04059351193364171,
+          "ci_high": 0.05859033085449825
         },
         "4": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.058168442495581174,
+          "std": 0.004366980465071406,
+          "ci_low": 0.05322673889535374,
+          "ci_high": 0.0631101460958086
         },
         "8": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.0726219007331464,
+          "std": 0.011754222741387316,
+          "ci_low": 0.05932074555199101,
+          "ci_high": 0.08592305591430177
         },
         "16": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.12848601415753366,
+          "std": 0.052672054466864016,
+          "ci_low": 0.0688819735001131,
+          "ci_high": 0.18809005481495422
         }
       },
       "diagnostics": {
         "effective_rank": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 1.0000023047129314,
+          "std": 6.985026928284544e-07
         },
         "condition_number": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 43375386624.0,
+          "std": 10293328679.488197
         },
         "projection_gaussianity": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.7875274022420248,
+          "std": 0.1574682656705926
         },
         "spectral_alignment": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.09116486459970474,
+          "std": 0.010841220510598427
         }
       }
     },
     "random_spectral": {
-      "n_success": 0,
+      "n_success": 3,
       "rollout_errors": {
         "1": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.06853024667749803,
+          "std": 0.0068802105022839665,
+          "ci_low": 0.060744555561771156,
+          "ci_high": 0.07631593779322492
         },
         "2": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.06463429490104318,
+          "std": 0.014072695111470255,
+          "ci_low": 0.04870954125181465,
+          "ci_high": 0.08055904855027171
         },
         "4": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.07637155223637819,
+          "std": 0.014869347414279319,
+          "ci_low": 0.05954530164105406,
+          "ci_high": 0.09319780283170231
         },
         "8": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.09494579811063077,
+          "std": 0.009462664296506955,
+          "ci_low": 0.08423778542410564,
+          "ci_high": 0.1056538107971559
         },
         "16": {
-          "mean": NaN,
-          "std": NaN,
-          "ci_low": NaN,
-          "ci_high": NaN
+          "mean": 0.1657171801560455,
+          "std": 0.014806444946639555,
+          "ci_low": 0.1489621104037054,
+          "ci_high": 0.1824722499083856
         }
       },
       "diagnostics": {
         "effective_rank": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 1.0498719612757366,
+          "std": 0.08637808660832243
         },
         "condition_number": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 67058065408.0,
+          "std": 31094771297.425983
         },
         "projection_gaussianity": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 1.4821861584981282,
+          "std": 1.0500130915792565
         },
         "spectral_alignment": {
-          "mean": NaN,
-          "std": NaN
+          "mean": 0.09422792494297028,
+          "std": 0.006235937846586219
         }
       }
     }

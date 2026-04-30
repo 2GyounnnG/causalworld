@@ -313,3 +313,19 @@ output: /workspace/causalworld/3bpa_mechanism.json
 [3bpa|flat|random_spectral|seed=2] epoch  30/50 loss=0.0488 H8_eval=0.2140
 [3bpa|flat|random_spectral|seed=2] epoch  35/50 loss=0.0472 H8_eval=0.0902
 [3bpa|flat|random_spectral|seed=2] epoch  40/50 loss=0.0454 H8_eval=0.1184
+[3bpa|flat|random_spectral|seed=2] epoch  45/50 loss=0.0451 H8_eval=0.1494
+[3bpa|flat|random_spectral|seed=2] epoch  50/50 loss=0.0456 H8_eval=0.0912
+=== Finished 3bpa|flat|random_spectral|seed=2 | H1=0.0655 H8=0.0979 H16=0.1828 | r_eff=1.00 | wall=105.4s ===
+  -> saved partial; avg=117s/run; ETA=0min
+
+=== Summary by dataset and prior ===
+dataset | prior | n | H=1 | H=8 | H=16 | r_eff | spec_align
+3bpa | none | 3 | 0.1401+-0.0272 | 0.1695+-0.0719 | 0.2897+-0.2209 | 1.00 | nan
+3bpa | variance | 3 | 0.2314+-0.0133 | 0.2389+-0.0462 | 0.2813+-0.0516 | 1.00 | nan
+3bpa | covariance | 3 | 0.1655+-0.0151 | 0.1725+-0.0273 | 0.2250+-0.0523 | 1.00 | nan
+3bpa | sigreg | 3 | 0.0858+-0.0464 | 0.2385+-0.1960 | 0.4509+-0.3908 | 1.00 | nan
+3bpa | spectral | 3 | 0.0640+-0.0149 | 0.1088+-0.0395 | 0.1924+-0.0916 | 1.00 | 0.09
+3bpa | permuted_spectral | 3 | 0.0547+-0.0103 | 0.0726+-0.0118 | 0.1285+-0.0527 | 1.00 | 0.09
+3bpa | random_spectral | 3 | 0.0685+-0.0069 | 0.0949+-0.0095 | 0.1657+-0.0148 | 1.05 | 0.09
+
+Wrote /workspace/causalworld/3bpa_mechanism_summary.json
