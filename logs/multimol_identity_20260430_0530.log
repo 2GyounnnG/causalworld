@@ -142,3 +142,21 @@ output: /workspace/causalworld/rmd17_multimol_identity.json
 [toluene|flat|identity_quadratic|seed=0] epoch   1/50 loss=39.3135 H8_eval=0.1695
 [toluene|flat|identity_quadratic|seed=0] epoch   5/50 loss=0.0052 H8_eval=0.0461
 [toluene|flat|identity_quadratic|seed=0] epoch  10/50 loss=0.0012 H8_eval=0.0543
+[toluene|flat|identity_quadratic|seed=0] epoch  15/50 loss=0.0008 H8_eval=0.0699
+[toluene|flat|identity_quadratic|seed=0] epoch  20/50 loss=0.0007 H8_eval=0.0389
+[toluene|flat|identity_quadratic|seed=0] epoch  25/50 loss=0.0008 H8_eval=0.0457
+[toluene|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0011 H8_eval=0.0689
+[toluene|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0008 H8_eval=0.0703
+[toluene|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0010 H8_eval=0.0784
+[toluene|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0006 H8_eval=0.0276
+[toluene|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0009 H8_eval=0.0626
+=== Finished toluene|flat|identity_quadratic|seed=0 | H1=0.0142 H8=0.0637 H16=0.1468 | r_eff=1.00 | wall=1352.2s ===
+  -> saved partial; avg=643s/run; ETA=21min for 2 remaining
+
+=== Starting toluene|flat|identity_quadratic|seed=1 (11/12) ===
+[toluene|flat|identity_quadratic|seed=1] epoch   1/50 loss=53.9856 H8_eval=0.2956
+[toluene|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0048 H8_eval=0.0261
+[toluene|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0014 H8_eval=0.0267
+[toluene|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0011 H8_eval=0.0262
+[toluene|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0012 H8_eval=0.0544
+[toluene|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0010 H8_eval=0.0353
