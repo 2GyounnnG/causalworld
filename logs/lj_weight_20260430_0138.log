@@ -1,0 +1,7 @@
+nohup: ignoring input
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+Resume: 20/20 runs pending
+output: /home/user/projects/causalworld/lj_weight_sweep.json
+
+=== Starting lj_N64|flat|spectral|w=0.001|seed=0 (1/20) ===
+[lj_N64|flat|spectral|seed=0] epoch   1/50 loss=123.8817 H8_eval=7.4231
