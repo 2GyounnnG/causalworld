@@ -292,3 +292,20 @@ output: /workspace/causalworld/rmd17_naphthalene_identity_weight.json
 [naphthalene|flat|identity_quadratic|seed=4] epoch   1/50 loss=80.8646 H8_eval=0.2016
 [naphthalene|flat|identity_quadratic|seed=4] epoch   5/50 loss=0.0049 H8_eval=0.0448
 [naphthalene|flat|identity_quadratic|seed=4] epoch  10/50 loss=0.0019 H8_eval=0.0358
+[naphthalene|flat|identity_quadratic|seed=4] epoch  15/50 loss=0.0015 H8_eval=0.0257
+[naphthalene|flat|identity_quadratic|seed=4] epoch  20/50 loss=0.0014 H8_eval=0.0257
+[naphthalene|flat|identity_quadratic|seed=4] epoch  25/50 loss=0.0013 H8_eval=0.0540
+[naphthalene|flat|identity_quadratic|seed=4] epoch  30/50 loss=0.0012 H8_eval=0.0273
+[naphthalene|flat|identity_quadratic|seed=4] epoch  35/50 loss=0.0013 H8_eval=0.0494
+[naphthalene|flat|identity_quadratic|seed=4] epoch  40/50 loss=0.0024 H8_eval=0.1076
+[naphthalene|flat|identity_quadratic|seed=4] epoch  45/50 loss=0.0021 H8_eval=0.0706
+[naphthalene|flat|identity_quadratic|seed=4] epoch  50/50 loss=0.0020 H8_eval=0.0882
+=== Finished naphthalene|flat|identity_quadratic|w=0.1|seed=4 | H1=0.0183 H8=0.0865 H16=0.2012 | r_eff=1.00 | wall=914.8s ===
+  -> saved partial results to rmd17_naphthalene_identity_weight.json
+
+=== Summary ===
+  weight   n      H=1 mean+-std      H=8 mean+-std     H=16 mean+-std    r_eff       cond
+   0.001   5 0.0304+-  0.0256 0.1108+-  0.1625 0.1676+-  0.2459     1.00 6461319014.40
+   0.005   5 0.0180+-  0.0042 0.0556+-  0.0478 0.1166+-  0.0967     1.00 5649976371.20
+   0.010   5 0.0370+-  0.0229 0.3130+-  0.3223 7.9014+- 10.3863     1.00 5687647078.40
+   0.100   5 0.0166+-  0.0043 0.0684+-  0.0467 0.1641+-  0.1399     1.00 5561778688.00
