@@ -160,3 +160,73 @@ output: /workspace/causalworld/rmd17_ethanol_identity_weight.json
 [ethanol|flat|identity_quadratic|seed=0] epoch  15/50 loss=0.0001 H8_eval=0.0056
 [ethanol|flat|identity_quadratic|seed=0] epoch  20/50 loss=0.0000 H8_eval=0.0137
 [ethanol|flat|identity_quadratic|seed=0] epoch  25/50 loss=0.0000 H8_eval=0.0067
+[ethanol|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0000 H8_eval=0.0035
+[ethanol|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0000 H8_eval=0.0116
+[ethanol|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0000 H8_eval=0.0090
+[ethanol|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0000 H8_eval=0.0246
+[ethanol|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0000 H8_eval=0.0060
+=== Finished ethanol|flat|identity_quadratic|w=0.01|seed=0 | H1=0.0007 H8=0.0060 H16=0.0134 | r_eff=16.00 | wall=336.9s ===
+  -> saved partial results to rmd17_ethanol_identity_weight.json
+
+=== Starting ethanol|flat|identity_quadratic|w=0.01|seed=1 (12/20) ===
+[ethanol|flat|identity_quadratic|seed=1] epoch   1/50 loss=0.9600 H8_eval=0.0652
+[ethanol|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0030 H8_eval=0.0003
+[ethanol|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0005 H8_eval=0.0001
+[ethanol|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0001 H8_eval=0.0006
+[ethanol|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0001 H8_eval=0.0040
+[ethanol|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0000 H8_eval=0.0058
+[ethanol|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0000 H8_eval=0.0063
+[ethanol|flat|identity_quadratic|seed=1] epoch  35/50 loss=0.0000 H8_eval=0.0104
+[ethanol|flat|identity_quadratic|seed=1] epoch  40/50 loss=0.0000 H8_eval=0.0146
+[ethanol|flat|identity_quadratic|seed=1] epoch  45/50 loss=0.0000 H8_eval=0.0116
+[ethanol|flat|identity_quadratic|seed=1] epoch  50/50 loss=0.0000 H8_eval=0.0136
+=== Finished ethanol|flat|identity_quadratic|w=0.01|seed=1 | H1=0.0017 H8=0.0136 H16=0.0286 | r_eff=16.00 | wall=336.5s ===
+  -> saved partial results to rmd17_ethanol_identity_weight.json
+
+=== Starting ethanol|flat|identity_quadratic|w=0.01|seed=2 (13/20) ===
+[ethanol|flat|identity_quadratic|seed=2] epoch   1/50 loss=0.3630 H8_eval=0.0423
+[ethanol|flat|identity_quadratic|seed=2] epoch   5/50 loss=0.0021 H8_eval=0.0002
+[ethanol|flat|identity_quadratic|seed=2] epoch  10/50 loss=0.0002 H8_eval=0.0068
+[ethanol|flat|identity_quadratic|seed=2] epoch  15/50 loss=0.0001 H8_eval=0.0094
+[ethanol|flat|identity_quadratic|seed=2] epoch  20/50 loss=0.0000 H8_eval=0.0093
+[ethanol|flat|identity_quadratic|seed=2] epoch  25/50 loss=0.0000 H8_eval=0.0330
+[ethanol|flat|identity_quadratic|seed=2] epoch  30/50 loss=0.0000 H8_eval=0.0337
+[ethanol|flat|identity_quadratic|seed=2] epoch  35/50 loss=0.0000 H8_eval=0.0241
+[ethanol|flat|identity_quadratic|seed=2] epoch  40/50 loss=0.0001 H8_eval=0.0337
+[ethanol|flat|identity_quadratic|seed=2] epoch  45/50 loss=0.0000 H8_eval=0.0039
+[ethanol|flat|identity_quadratic|seed=2] epoch  50/50 loss=0.0000 H8_eval=0.0255
+=== Finished ethanol|flat|identity_quadratic|w=0.01|seed=2 | H1=0.0028 H8=0.0255 H16=0.0661 | r_eff=16.00 | wall=335.0s ===
+  -> saved partial results to rmd17_ethanol_identity_weight.json
+
+=== Starting ethanol|flat|identity_quadratic|w=0.01|seed=3 (14/20) ===
+[ethanol|flat|identity_quadratic|seed=3] epoch   1/50 loss=0.5968 H8_eval=0.0461
+[ethanol|flat|identity_quadratic|seed=3] epoch   5/50 loss=0.0023 H8_eval=0.0046
+[ethanol|flat|identity_quadratic|seed=3] epoch  10/50 loss=0.0003 H8_eval=0.0075
+[ethanol|flat|identity_quadratic|seed=3] epoch  15/50 loss=0.0001 H8_eval=0.0113
+[ethanol|flat|identity_quadratic|seed=3] epoch  20/50 loss=0.0001 H8_eval=0.0326
+[ethanol|flat|identity_quadratic|seed=3] epoch  25/50 loss=0.0001 H8_eval=0.0406
+[ethanol|flat|identity_quadratic|seed=3] epoch  30/50 loss=0.0000 H8_eval=0.0005
+[ethanol|flat|identity_quadratic|seed=3] epoch  35/50 loss=0.0000 H8_eval=0.0569
+[ethanol|flat|identity_quadratic|seed=3] epoch  40/50 loss=0.0000 H8_eval=0.0641
+[ethanol|flat|identity_quadratic|seed=3] epoch  45/50 loss=0.0000 H8_eval=0.0014
+[ethanol|flat|identity_quadratic|seed=3] epoch  50/50 loss=0.0000 H8_eval=0.0058
+=== Finished ethanol|flat|identity_quadratic|w=0.01|seed=3 | H1=0.0007 H8=0.0058 H16=0.0149 | r_eff=16.00 | wall=379.4s ===
+  -> saved partial results to rmd17_ethanol_identity_weight.json
+
+=== Starting ethanol|flat|identity_quadratic|w=0.01|seed=4 (15/20) ===
+[ethanol|flat|identity_quadratic|seed=4] epoch   1/50 loss=0.9238 H8_eval=0.0593
+[ethanol|flat|identity_quadratic|seed=4] epoch   5/50 loss=0.0024 H8_eval=0.0004
+[ethanol|flat|identity_quadratic|seed=4] epoch  10/50 loss=0.0003 H8_eval=0.0002
+[ethanol|flat|identity_quadratic|seed=4] epoch  15/50 loss=0.0001 H8_eval=0.0007
+[ethanol|flat|identity_quadratic|seed=4] epoch  20/50 loss=0.0000 H8_eval=0.0052
+[ethanol|flat|identity_quadratic|seed=4] epoch  25/50 loss=0.0000 H8_eval=0.0049
+[ethanol|flat|identity_quadratic|seed=4] epoch  30/50 loss=0.0001 H8_eval=0.0291
+[ethanol|flat|identity_quadratic|seed=4] epoch  35/50 loss=0.0000 H8_eval=0.0238
+[ethanol|flat|identity_quadratic|seed=4] epoch  40/50 loss=0.0000 H8_eval=0.0341
+[ethanol|flat|identity_quadratic|seed=4] epoch  45/50 loss=0.0001 H8_eval=0.0539
+[ethanol|flat|identity_quadratic|seed=4] epoch  50/50 loss=0.0000 H8_eval=0.0549
+=== Finished ethanol|flat|identity_quadratic|w=0.01|seed=4 | H1=0.0047 H8=0.0549 H16=0.1995 | r_eff=16.00 | wall=547.0s ===
+  -> saved partial results to rmd17_ethanol_identity_weight.json
+
+=== Starting ethanol|flat|identity_quadratic|w=0.1|seed=0 (16/20) ===
+[ethanol|flat|identity_quadratic|seed=0] epoch   1/50 loss=5.8234 H8_eval=0.0480
