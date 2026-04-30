@@ -1,0 +1,5 @@
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+Resume: 5/5 runs pending
+output: /home/user/projects/causalworld/rmd17_identity_baseline.json
+
+=== Starting aspirin|flat|identity_quadratic|seed=0 (1/5) ===

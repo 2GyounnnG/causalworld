@@ -1,0 +1,95 @@
+nohup: ignoring input
+[SKIP] aspirin|flat|identity_quadratic|w=0.001|seed=0
+[SKIP] aspirin|flat|identity_quadratic|w=0.001|seed=1
+[SKIP] aspirin|flat|identity_quadratic|w=0.001|seed=2
+[SKIP] aspirin|flat|identity_quadratic|w=0.001|seed=3
+[SKIP] aspirin|flat|identity_quadratic|w=0.001|seed=4
+[SKIP] aspirin|flat|identity_quadratic|w=0.005|seed=0
+[SKIP] aspirin|flat|identity_quadratic|w=0.005|seed=1
+[SKIP] aspirin|flat|identity_quadratic|w=0.005|seed=2
+[SKIP] aspirin|flat|identity_quadratic|w=0.005|seed=3
+[SKIP] aspirin|flat|identity_quadratic|w=0.005|seed=4
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+Resume: 5/15 runs pending
+output: /home/user/projects/causalworld/rmd17_identity_weight_sweep.json
+
+=== Starting aspirin|flat|identity_quadratic|w=0.01|seed=0 (1/5) ===
+[aspirin|flat|identity_quadratic|seed=0] epoch   1/50 loss=10.4114 H8_eval=0.2403
+[aspirin|flat|identity_quadratic|seed=0] epoch   5/50 loss=0.0178 H8_eval=0.2467
+[aspirin|flat|identity_quadratic|seed=0] epoch  10/50 loss=0.0037 H8_eval=0.0547
+[aspirin|flat|identity_quadratic|seed=0] epoch  15/50 loss=0.0025 H8_eval=0.0836
+[aspirin|flat|identity_quadratic|seed=0] epoch  20/50 loss=0.0118 H8_eval=0.1464
+[aspirin|flat|identity_quadratic|seed=0] epoch  25/50 loss=0.0081 H8_eval=0.0843
+[aspirin|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0018 H8_eval=0.0599
+[aspirin|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0016 H8_eval=0.0743
+[aspirin|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0015 H8_eval=0.0349
+[aspirin|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0016 H8_eval=0.0748
+[aspirin|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0017 H8_eval=0.0582
+=== Finished aspirin|flat|identity_quadratic|w=0.01|seed=0 | H1=0.0365 H8=0.0565 H16=0.0897 | r_eff=1.00 | wall=426.5s ===
+  -> saved partial results to rmd17_identity_weight_sweep.json
+
+=== Starting aspirin|flat|identity_quadratic|w=0.01|seed=1 (2/5) ===
+[aspirin|flat|identity_quadratic|seed=1] epoch   1/50 loss=14.2143 H8_eval=0.2838
+[aspirin|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0089 H8_eval=0.1301
+[aspirin|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0095 H8_eval=0.1394
+[aspirin|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0045 H8_eval=0.1197
+[aspirin|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0400 H8_eval=0.3356
+[aspirin|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0116 H8_eval=0.3332
+[aspirin|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0345 H8_eval=0.3141
+[aspirin|flat|identity_quadratic|seed=1] epoch  35/50 loss=0.0057 H8_eval=0.1812
+[aspirin|flat|identity_quadratic|seed=1] epoch  40/50 loss=0.0033 H8_eval=0.0942
+[aspirin|flat|identity_quadratic|seed=1] epoch  45/50 loss=0.0031 H8_eval=0.1320
+[aspirin|flat|identity_quadratic|seed=1] epoch  50/50 loss=0.0640 H8_eval=0.4724
+=== Finished aspirin|flat|identity_quadratic|w=0.01|seed=1 | H1=0.0807 H8=0.4709 H16=0.9877 | r_eff=1.00 | wall=423.1s ===
+  -> saved partial results to rmd17_identity_weight_sweep.json
+
+=== Starting aspirin|flat|identity_quadratic|w=0.01|seed=2 (3/5) ===
+[aspirin|flat|identity_quadratic|seed=2] epoch   1/50 loss=5.2174 H8_eval=0.1776
+[aspirin|flat|identity_quadratic|seed=2] epoch   5/50 loss=0.0099 H8_eval=0.0671
+[aspirin|flat|identity_quadratic|seed=2] epoch  10/50 loss=0.0041 H8_eval=0.0396
+[aspirin|flat|identity_quadratic|seed=2] epoch  15/50 loss=0.0035 H8_eval=0.0750
+[aspirin|flat|identity_quadratic|seed=2] epoch  20/50 loss=0.0035 H8_eval=0.0823
+[aspirin|flat|identity_quadratic|seed=2] epoch  25/50 loss=0.0290 H8_eval=0.3361
+[aspirin|flat|identity_quadratic|seed=2] epoch  30/50 loss=0.0367 H8_eval=0.6293
+[aspirin|flat|identity_quadratic|seed=2] epoch  35/50 loss=0.0874 H8_eval=0.6445
+[aspirin|flat|identity_quadratic|seed=2] epoch  40/50 loss=0.0409 H8_eval=0.4479
+[aspirin|flat|identity_quadratic|seed=2] epoch  45/50 loss=0.0283 H8_eval=0.4557
+[aspirin|flat|identity_quadratic|seed=2] epoch  50/50 loss=0.0129 H8_eval=0.1886
+=== Finished aspirin|flat|identity_quadratic|w=0.01|seed=2 | H1=0.0415 H8=0.1907 H16=0.5653 | r_eff=1.00 | wall=425.5s ===
+  -> saved partial results to rmd17_identity_weight_sweep.json
+
+=== Starting aspirin|flat|identity_quadratic|w=0.01|seed=3 (4/5) ===
+[aspirin|flat|identity_quadratic|seed=3] epoch   1/50 loss=8.9309 H8_eval=0.1351
+[aspirin|flat|identity_quadratic|seed=3] epoch   5/50 loss=0.0105 H8_eval=0.1820
+[aspirin|flat|identity_quadratic|seed=3] epoch  10/50 loss=0.0044 H8_eval=0.0529
+[aspirin|flat|identity_quadratic|seed=3] epoch  15/50 loss=0.0043 H8_eval=0.1060
+[aspirin|flat|identity_quadratic|seed=3] epoch  20/50 loss=0.0538 H8_eval=0.1800
+[aspirin|flat|identity_quadratic|seed=3] epoch  25/50 loss=0.0033 H8_eval=0.0493
+[aspirin|flat|identity_quadratic|seed=3] epoch  30/50 loss=0.0031 H8_eval=0.0358
+[aspirin|flat|identity_quadratic|seed=3] epoch  35/50 loss=0.0032 H8_eval=0.0503
+[aspirin|flat|identity_quadratic|seed=3] epoch  40/50 loss=0.0031 H8_eval=0.0389
+[aspirin|flat|identity_quadratic|seed=3] epoch  45/50 loss=0.0030 H8_eval=0.0389
+[aspirin|flat|identity_quadratic|seed=3] epoch  50/50 loss=0.0029 H8_eval=0.0464
+=== Finished aspirin|flat|identity_quadratic|w=0.01|seed=3 | H1=0.0410 H8=0.0514 H16=0.0884 | r_eff=1.00 | wall=426.0s ===
+  -> saved partial results to rmd17_identity_weight_sweep.json
+
+=== Starting aspirin|flat|identity_quadratic|w=0.01|seed=4 (5/5) ===
+[aspirin|flat|identity_quadratic|seed=4] epoch   1/50 loss=11.9981 H8_eval=0.1895
+[aspirin|flat|identity_quadratic|seed=4] epoch   5/50 loss=0.0114 H8_eval=0.1369
+[aspirin|flat|identity_quadratic|seed=4] epoch  10/50 loss=0.0110 H8_eval=0.1253
+[aspirin|flat|identity_quadratic|seed=4] epoch  15/50 loss=0.0053 H8_eval=0.1685
+[aspirin|flat|identity_quadratic|seed=4] epoch  20/50 loss=0.0159 H8_eval=0.2638
+[aspirin|flat|identity_quadratic|seed=4] epoch  25/50 loss=0.1158 H8_eval=0.5217
+[aspirin|flat|identity_quadratic|seed=4] epoch  30/50 loss=0.0323 H8_eval=0.2380
+[aspirin|flat|identity_quadratic|seed=4] epoch  35/50 loss=0.0461 H8_eval=0.5080
+[aspirin|flat|identity_quadratic|seed=4] epoch  40/50 loss=0.0417 H8_eval=0.3777
+[aspirin|flat|identity_quadratic|seed=4] epoch  45/50 loss=0.0209 H8_eval=0.2307
+[aspirin|flat|identity_quadratic|seed=4] epoch  50/50 loss=0.0046 H8_eval=0.0944
+=== Finished aspirin|flat|identity_quadratic|w=0.01|seed=4 | H1=0.0433 H8=0.0921 H16=0.2608 | r_eff=1.00 | wall=425.2s ===
+  -> saved partial results to rmd17_identity_weight_sweep.json
+
+=== Summary ===
+  weight   n      H=1 mean+-std      H=8 mean+-std     H=16 mean+-std    r_eff       cond
+   0.001   5 0.0459+-  0.0115 0.1126+-  0.0971 0.1861+-  0.1740     1.01 33637492326.40
+   0.005   5 0.1046+-  0.1407 0.2617+-  0.3995 0.6475+-  1.0741     1.00 40808133427.20
+   0.010   5 0.0486+-  0.0181 0.1723+-  0.1760 0.3984+-  0.3826     1.00 31158294323.20

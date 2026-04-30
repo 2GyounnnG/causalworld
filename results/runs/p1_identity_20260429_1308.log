@@ -1,0 +1,82 @@
+device=cuda (NVIDIA GeForce RTX 5060 Ti)
+Resume: 5/5 runs pending
+output: /home/user/projects/causalworld/rmd17_identity_baseline.json
+
+=== Starting aspirin|flat|identity_quadratic|seed=0 (1/5) ===
+[aspirin|flat|identity_quadratic|seed=0] epoch   1/50 loss=96.2884 H8_eval=0.2546
+[aspirin|flat|identity_quadratic|seed=0] epoch   5/50 loss=0.0103 H8_eval=0.0697
+[aspirin|flat|identity_quadratic|seed=0] epoch  10/50 loss=0.0051 H8_eval=0.1089
+[aspirin|flat|identity_quadratic|seed=0] epoch  15/50 loss=0.0042 H8_eval=0.1055
+[aspirin|flat|identity_quadratic|seed=0] epoch  20/50 loss=0.0038 H8_eval=0.0592
+[aspirin|flat|identity_quadratic|seed=0] epoch  25/50 loss=0.0037 H8_eval=0.0523
+[aspirin|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0036 H8_eval=0.0476
+[aspirin|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0036 H8_eval=0.0529
+[aspirin|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0035 H8_eval=0.0661
+[aspirin|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0037 H8_eval=0.0738
+[aspirin|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0040 H8_eval=0.0567
+=== Finished aspirin|flat|identity_quadratic|seed=0 | H1=0.0302 H8=0.0574 H16=0.1180 | r_eff=1.00 | wall=1030.4s ===
+  -> saved partial results to rmd17_identity_baseline.json
+
+=== Starting aspirin|flat|identity_quadratic|seed=1 (2/5) ===
+[aspirin|flat|identity_quadratic|seed=1] epoch   1/50 loss=131.7529 H8_eval=0.3045
+[aspirin|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0113 H8_eval=0.0753
+[aspirin|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0064 H8_eval=0.0598
+[aspirin|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0054 H8_eval=0.0549
+[aspirin|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0054 H8_eval=0.0653
+[aspirin|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0051 H8_eval=0.0594
+[aspirin|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0051 H8_eval=0.0796
+[aspirin|flat|identity_quadratic|seed=1] epoch  35/50 loss=0.0046 H8_eval=0.0452
+[aspirin|flat|identity_quadratic|seed=1] epoch  40/50 loss=0.0047 H8_eval=0.0931
+[aspirin|flat|identity_quadratic|seed=1] epoch  45/50 loss=0.0047 H8_eval=0.1340
+[aspirin|flat|identity_quadratic|seed=1] epoch  50/50 loss=0.0042 H8_eval=0.0516
+=== Finished aspirin|flat|identity_quadratic|seed=1 | H1=0.0294 H8=0.0498 H16=0.1239 | r_eff=1.00 | wall=1036.5s ===
+  -> saved partial results to rmd17_identity_baseline.json
+
+=== Starting aspirin|flat|identity_quadratic|seed=2 (3/5) ===
+[aspirin|flat|identity_quadratic|seed=2] epoch   1/50 loss=46.9777 H8_eval=0.2826
+[aspirin|flat|identity_quadratic|seed=2] epoch   5/50 loss=0.0131 H8_eval=0.0457
+[aspirin|flat|identity_quadratic|seed=2] epoch  10/50 loss=0.0078 H8_eval=0.0577
+[aspirin|flat|identity_quadratic|seed=2] epoch  15/50 loss=0.0073 H8_eval=0.0729
+[aspirin|flat|identity_quadratic|seed=2] epoch  20/50 loss=0.0072 H8_eval=0.0590
+[aspirin|flat|identity_quadratic|seed=2] epoch  25/50 loss=0.0067 H8_eval=0.0490
+[aspirin|flat|identity_quadratic|seed=2] epoch  30/50 loss=0.0066 H8_eval=0.0377
+[aspirin|flat|identity_quadratic|seed=2] epoch  35/50 loss=0.0063 H8_eval=0.1211
+[aspirin|flat|identity_quadratic|seed=2] epoch  40/50 loss=0.0066 H8_eval=0.1735
+[aspirin|flat|identity_quadratic|seed=2] epoch  45/50 loss=0.0056 H8_eval=0.0637
+[aspirin|flat|identity_quadratic|seed=2] epoch  50/50 loss=0.0056 H8_eval=0.1043
+=== Finished aspirin|flat|identity_quadratic|seed=2 | H1=0.0363 H8=0.1059 H16=0.4080 | r_eff=1.00 | wall=1026.0s ===
+  -> saved partial results to rmd17_identity_baseline.json
+
+=== Starting aspirin|flat|identity_quadratic|seed=3 (4/5) ===
+[aspirin|flat|identity_quadratic|seed=3] epoch   1/50 loss=86.0651 H8_eval=0.1621
+[aspirin|flat|identity_quadratic|seed=3] epoch   5/50 loss=0.0122 H8_eval=0.0519
+[aspirin|flat|identity_quadratic|seed=3] epoch  10/50 loss=0.0078 H8_eval=0.0900
+[aspirin|flat|identity_quadratic|seed=3] epoch  15/50 loss=0.0072 H8_eval=0.0614
+[aspirin|flat|identity_quadratic|seed=3] epoch  20/50 loss=0.0067 H8_eval=0.0708
+[aspirin|flat|identity_quadratic|seed=3] epoch  25/50 loss=0.0063 H8_eval=0.0814
+[aspirin|flat|identity_quadratic|seed=3] epoch  30/50 loss=0.0058 H8_eval=0.0550
+[aspirin|flat|identity_quadratic|seed=3] epoch  35/50 loss=0.0054 H8_eval=0.0501
+[aspirin|flat|identity_quadratic|seed=3] epoch  40/50 loss=0.0053 H8_eval=0.0975
+[aspirin|flat|identity_quadratic|seed=3] epoch  45/50 loss=0.0049 H8_eval=0.0652
+[aspirin|flat|identity_quadratic|seed=3] epoch  50/50 loss=0.0045 H8_eval=0.1080
+=== Finished aspirin|flat|identity_quadratic|seed=3 | H1=0.0349 H8=0.1092 H16=0.3250 | r_eff=1.00 | wall=1033.9s ===
+  -> saved partial results to rmd17_identity_baseline.json
+
+=== Starting aspirin|flat|identity_quadratic|seed=4 (5/5) ===
+[aspirin|flat|identity_quadratic|seed=4] epoch   1/50 loss=112.9826 H8_eval=0.2074
+[aspirin|flat|identity_quadratic|seed=4] epoch   5/50 loss=0.0129 H8_eval=0.0641
+[aspirin|flat|identity_quadratic|seed=4] epoch  10/50 loss=0.0080 H8_eval=0.0587
+[aspirin|flat|identity_quadratic|seed=4] epoch  15/50 loss=0.0080 H8_eval=0.0558
+[aspirin|flat|identity_quadratic|seed=4] epoch  20/50 loss=0.0078 H8_eval=0.0862
+[aspirin|flat|identity_quadratic|seed=4] epoch  25/50 loss=0.0075 H8_eval=0.0733
+[aspirin|flat|identity_quadratic|seed=4] epoch  30/50 loss=0.0072 H8_eval=0.0791
+[aspirin|flat|identity_quadratic|seed=4] epoch  35/50 loss=0.0076 H8_eval=0.0985
+[aspirin|flat|identity_quadratic|seed=4] epoch  40/50 loss=0.0072 H8_eval=0.0743
+[aspirin|flat|identity_quadratic|seed=4] epoch  45/50 loss=0.0064 H8_eval=0.0963
+[aspirin|flat|identity_quadratic|seed=4] epoch  50/50 loss=0.0067 H8_eval=0.0717
+=== Finished aspirin|flat|identity_quadratic|seed=4 | H1=0.0401 H8=0.0717 H16=0.1415 | r_eff=1.00 | wall=1031.3s ===
+  -> saved partial results to rmd17_identity_baseline.json
+
+=== Summary ===
+prior                  n      H=1 mean+-std      H=8 mean+-std     H=16 mean+-std    r_eff       cond     proj_g     spec_a
+identity_quadratic     5 0.0342+-  0.0045 0.0788+-  0.0274 0.2233+-  0.1343     1.00 30538057318.40       0.48        nan
