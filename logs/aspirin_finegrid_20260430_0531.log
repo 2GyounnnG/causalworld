@@ -1,0 +1,23 @@
+nohup: ignoring input
+device=cuda (NVIDIA GeForce RTX 4090)
+Resume: 20/20 runs pending
+output: /workspace/causalworld/rmd17_aspirin_spectral_finegrid.json
+
+=== Starting aspirin|flat|spectral|w=0.003|seed=0 (1/20) ===
+[aspirin|flat|spectral|seed=0] epoch   1/50 loss=3.6163 H8_eval=0.1851
+[aspirin|flat|spectral|seed=0] epoch   5/50 loss=0.0121 H8_eval=0.1536
+[aspirin|flat|spectral|seed=0] epoch  10/50 loss=0.0068 H8_eval=0.2161
+[aspirin|flat|spectral|seed=0] epoch  15/50 loss=0.0874 H8_eval=0.6247
+[aspirin|flat|spectral|seed=0] epoch  20/50 loss=0.0583 H8_eval=0.5388
+[aspirin|flat|spectral|seed=0] epoch  25/50 loss=0.0235 H8_eval=0.1465
+[aspirin|flat|spectral|seed=0] epoch  30/50 loss=0.0254 H8_eval=0.5716
+[aspirin|flat|spectral|seed=0] epoch  35/50 loss=0.0392 H8_eval=0.1153
+[aspirin|flat|spectral|seed=0] epoch  40/50 loss=0.0202 H8_eval=0.3296
+[aspirin|flat|spectral|seed=0] epoch  45/50 loss=0.0172 H8_eval=0.1698
+[aspirin|flat|spectral|seed=0] epoch  50/50 loss=0.0323 H8_eval=0.5006
+=== Finished aspirin|flat|spectral|w=0.003|seed=0 | H1=0.0792 H8=0.5115 H16=1.6420 | r_eff=1.00 | wall=1469.6s ===
+  -> saved partial results to rmd17_aspirin_spectral_finegrid.json
+
+=== Starting aspirin|flat|spectral|w=0.003|seed=1 (2/20) ===
+[aspirin|flat|spectral|seed=1] epoch   1/50 loss=4.9874 H8_eval=0.3273
+[aspirin|flat|spectral|seed=1] epoch   5/50 loss=0.0099 H8_eval=0.1620

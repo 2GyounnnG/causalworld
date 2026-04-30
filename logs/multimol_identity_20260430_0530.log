@@ -1,0 +1,85 @@
+nohup: ignoring input
+device=cuda (NVIDIA GeForce RTX 4090)
+Resume: 12/12 runs pending
+output: /workspace/causalworld/rmd17_multimol_identity.json
+
+=== Starting ethanol|flat|identity_quadratic|seed=0 (1/12) ===
+[ethanol|flat|identity_quadratic|seed=0] epoch   1/50 loss=5.8234 H8_eval=0.0480
+[ethanol|flat|identity_quadratic|seed=0] epoch   5/50 loss=0.0017 H8_eval=0.0002
+[ethanol|flat|identity_quadratic|seed=0] epoch  10/50 loss=0.0002 H8_eval=0.0000
+[ethanol|flat|identity_quadratic|seed=0] epoch  15/50 loss=0.0001 H8_eval=0.0003
+[ethanol|flat|identity_quadratic|seed=0] epoch  20/50 loss=0.0000 H8_eval=0.0026
+[ethanol|flat|identity_quadratic|seed=0] epoch  25/50 loss=0.0000 H8_eval=0.0027
+[ethanol|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0000 H8_eval=0.0269
+[ethanol|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0000 H8_eval=0.0076
+[ethanol|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0000 H8_eval=0.0500
+[ethanol|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0000 H8_eval=0.0083
+[ethanol|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0000 H8_eval=0.0028
+=== Finished ethanol|flat|identity_quadratic|seed=0 | H1=0.0003 H8=0.0028 H16=0.0103 | r_eff=16.00 | wall=325.6s ===
+  -> saved partial; avg=326s/run; ETA=60min for 11 remaining
+
+=== Starting ethanol|flat|identity_quadratic|seed=1 (2/12) ===
+[ethanol|flat|identity_quadratic|seed=1] epoch   1/50 loss=8.2568 H8_eval=0.1115
+[ethanol|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0021 H8_eval=0.0005
+[ethanol|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0003 H8_eval=0.0050
+[ethanol|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0001 H8_eval=0.0007
+[ethanol|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0001 H8_eval=0.0029
+[ethanol|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0000 H8_eval=0.0043
+[ethanol|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0000 H8_eval=0.0030
+[ethanol|flat|identity_quadratic|seed=1] epoch  35/50 loss=0.0000 H8_eval=0.0024
+[ethanol|flat|identity_quadratic|seed=1] epoch  40/50 loss=0.0000 H8_eval=0.0038
+[ethanol|flat|identity_quadratic|seed=1] epoch  45/50 loss=0.0000 H8_eval=0.0366
+[ethanol|flat|identity_quadratic|seed=1] epoch  50/50 loss=0.0000 H8_eval=0.0018
+=== Finished ethanol|flat|identity_quadratic|seed=1 | H1=0.0002 H8=0.0018 H16=0.0038 | r_eff=16.00 | wall=334.4s ===
+  -> saved partial; avg=330s/run; ETA=55min for 10 remaining
+
+=== Starting ethanol|flat|identity_quadratic|seed=2 (3/12) ===
+[ethanol|flat|identity_quadratic|seed=2] epoch   1/50 loss=2.5545 H8_eval=0.0328
+[ethanol|flat|identity_quadratic|seed=2] epoch   5/50 loss=0.0011 H8_eval=0.0001
+[ethanol|flat|identity_quadratic|seed=2] epoch  10/50 loss=0.0002 H8_eval=0.0101
+[ethanol|flat|identity_quadratic|seed=2] epoch  15/50 loss=0.0001 H8_eval=0.0037
+[ethanol|flat|identity_quadratic|seed=2] epoch  20/50 loss=0.0000 H8_eval=0.0031
+[ethanol|flat|identity_quadratic|seed=2] epoch  25/50 loss=0.0000 H8_eval=0.0071
+[ethanol|flat|identity_quadratic|seed=2] epoch  30/50 loss=0.0000 H8_eval=0.0107
+[ethanol|flat|identity_quadratic|seed=2] epoch  35/50 loss=0.0000 H8_eval=0.0242
+[ethanol|flat|identity_quadratic|seed=2] epoch  40/50 loss=0.0000 H8_eval=0.0091
+[ethanol|flat|identity_quadratic|seed=2] epoch  45/50 loss=0.0000 H8_eval=0.0306
+[ethanol|flat|identity_quadratic|seed=2] epoch  50/50 loss=0.0000 H8_eval=0.0159
+=== Finished ethanol|flat|identity_quadratic|seed=2 | H1=0.0023 H8=0.0159 H16=0.0387 | r_eff=16.00 | wall=335.7s ===
+  -> saved partial; avg=332s/run; ETA=50min for 9 remaining
+
+=== Starting malonaldehyde|flat|identity_quadratic|seed=0 (4/12) ===
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch   1/50 loss=5.8234 H8_eval=0.0480
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch   5/50 loss=0.0017 H8_eval=0.0002
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  10/50 loss=0.0002 H8_eval=0.0000
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  15/50 loss=0.0001 H8_eval=0.0003
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  20/50 loss=0.0000 H8_eval=0.0026
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  25/50 loss=0.0000 H8_eval=0.0027
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  30/50 loss=0.0000 H8_eval=0.0269
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  35/50 loss=0.0000 H8_eval=0.0076
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  40/50 loss=0.0000 H8_eval=0.0500
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  45/50 loss=0.0000 H8_eval=0.0083
+[malonaldehyde|flat|identity_quadratic|seed=0] epoch  50/50 loss=0.0000 H8_eval=0.0028
+=== Finished malonaldehyde|flat|identity_quadratic|seed=0 | H1=0.0003 H8=0.0028 H16=0.0103 | r_eff=16.00 | wall=332.0s ===
+  -> saved partial; avg=332s/run; ETA=44min for 8 remaining
+
+=== Starting malonaldehyde|flat|identity_quadratic|seed=1 (5/12) ===
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch   1/50 loss=8.2568 H8_eval=0.1117
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch   5/50 loss=0.0021 H8_eval=0.0009
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  10/50 loss=0.0003 H8_eval=0.0004
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  15/50 loss=0.0001 H8_eval=0.0007
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  20/50 loss=0.0001 H8_eval=0.0054
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  25/50 loss=0.0000 H8_eval=0.0124
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  30/50 loss=0.0000 H8_eval=0.0153
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  35/50 loss=0.0000 H8_eval=0.0107
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  40/50 loss=0.0000 H8_eval=0.0080
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  45/50 loss=0.0000 H8_eval=0.0090
+[malonaldehyde|flat|identity_quadratic|seed=1] epoch  50/50 loss=0.0000 H8_eval=0.0043
+=== Finished malonaldehyde|flat|identity_quadratic|seed=1 | H1=0.0006 H8=0.0043 H16=0.0088 | r_eff=16.00 | wall=330.2s ===
+  -> saved partial; avg=332s/run; ETA=39min for 7 remaining
+
+=== Starting malonaldehyde|flat|identity_quadratic|seed=2 (6/12) ===
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch   1/50 loss=2.5545 H8_eval=0.0328
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch   5/50 loss=0.0011 H8_eval=0.0001
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  10/50 loss=0.0002 H8_eval=0.0101
+[malonaldehyde|flat|identity_quadratic|seed=2] epoch  15/50 loss=0.0001 H8_eval=0.0037
