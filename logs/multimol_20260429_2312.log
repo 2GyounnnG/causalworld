@@ -685,3 +685,33 @@ torch._C._LinAlgError: linalg.eigh: The algorithm failed to converge because the
 [naphthalene|flat|none|seed=2] epoch  20/50 loss=0.0057 H8_eval=0.0756
 [naphthalene|flat|none|seed=2] epoch  25/50 loss=0.0056 H8_eval=0.1547
 [naphthalene|flat|none|seed=2] epoch  30/50 loss=0.0021 H8_eval=0.0624
+[naphthalene|flat|none|seed=2] epoch  35/50 loss=0.0017 H8_eval=0.0591
+[naphthalene|flat|none|seed=2] epoch  40/50 loss=0.0014 H8_eval=0.1002
+[naphthalene|flat|none|seed=2] epoch  45/50 loss=0.0091 H8_eval=0.2980
+[naphthalene|flat|none|seed=2] epoch  50/50 loss=0.0067 H8_eval=0.0774
+=== Finished naphthalene|flat|none|seed=2 | H1=0.0531 H8=0.0825 H16=0.1397 | r_eff=1.00 | wall=903.6s ===
+  -> saved partial; avg=390s/run; ETA=254min for 39 remaining
+
+=== Starting naphthalene|flat|variance|seed=0 (46/84) ===
+[naphthalene|flat|variance|seed=0] epoch   1/50 loss=0.3232 H8_eval=0.4365
+[naphthalene|flat|variance|seed=0] epoch   5/50 loss=0.1358 H8_eval=0.3157
+[naphthalene|flat|variance|seed=0] epoch  10/50 loss=0.1291 H8_eval=0.4018
+[naphthalene|flat|variance|seed=0] epoch  15/50 loss=0.1188 H8_eval=0.1712
+[naphthalene|flat|variance|seed=0] epoch  20/50 loss=0.1109 H8_eval=0.1184
+[naphthalene|flat|variance|seed=0] epoch  25/50 loss=0.1064 H8_eval=0.1264
+[naphthalene|flat|variance|seed=0] epoch  30/50 loss=0.1044 H8_eval=0.1552
+[naphthalene|flat|variance|seed=0] epoch  35/50 loss=0.1029 H8_eval=0.1195
+[naphthalene|flat|variance|seed=0] epoch  40/50 loss=0.0998 H8_eval=0.0888
+[naphthalene|flat|variance|seed=0] epoch  45/50 loss=0.1011 H8_eval=0.0833
+[naphthalene|flat|variance|seed=0] epoch  50/50 loss=0.1009 H8_eval=0.1479
+=== Finished naphthalene|flat|variance|seed=0 | H1=0.0796 H8=0.1479 H16=0.2381 | r_eff=1.00 | wall=914.4s ===
+  -> saved partial; avg=401s/run; ETA=254min for 38 remaining
+
+=== Starting naphthalene|flat|variance|seed=1 (47/84) ===
+[naphthalene|flat|variance|seed=1] epoch   1/50 loss=0.3808 H8_eval=0.4342
+[naphthalene|flat|variance|seed=1] epoch   5/50 loss=0.1412 H8_eval=0.3642
+[naphthalene|flat|variance|seed=1] epoch  10/50 loss=0.1301 H8_eval=0.4039
+[naphthalene|flat|variance|seed=1] epoch  15/50 loss=0.1185 H8_eval=0.1977
+[naphthalene|flat|variance|seed=1] epoch  20/50 loss=0.1096 H8_eval=0.2054
+[naphthalene|flat|variance|seed=1] epoch  25/50 loss=0.1049 H8_eval=0.1171
+[naphthalene|flat|variance|seed=1] epoch  30/50 loss=0.1062 H8_eval=0.2621
