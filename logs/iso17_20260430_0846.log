@@ -1,0 +1,331 @@
+nohup: ignoring input
+device=cuda (NVIDIA GeForce RTX 4090)
+Resume: 21/21 runs pending
+output: /workspace/causalworld/iso17_mechanism.json
+
+=== Starting iso17|flat|none|seed=0 (1/21) ===
+[iso17_default|flat|none|seed=0] epoch   1/50 loss=0.3047 H8_eval=0.5945
+[iso17_default|flat|none|seed=0] epoch   5/50 loss=0.0016 H8_eval=0.1061
+[iso17_default|flat|none|seed=0] epoch  10/50 loss=0.0010 H8_eval=0.0292
+[iso17_default|flat|none|seed=0] epoch  15/50 loss=0.0012 H8_eval=0.0359
+[iso17_default|flat|none|seed=0] epoch  20/50 loss=0.0009 H8_eval=0.0408
+[iso17_default|flat|none|seed=0] epoch  25/50 loss=0.0009 H8_eval=0.0569
+[iso17_default|flat|none|seed=0] epoch  30/50 loss=0.0009 H8_eval=0.0609
+[iso17_default|flat|none|seed=0] epoch  35/50 loss=0.0009 H8_eval=0.0323
+[iso17_default|flat|none|seed=0] epoch  40/50 loss=0.0008 H8_eval=0.0313
+[iso17_default|flat|none|seed=0] epoch  45/50 loss=0.0009 H8_eval=0.0432
+[iso17_default|flat|none|seed=0] epoch  50/50 loss=0.0007 H8_eval=0.0426
+=== Finished iso17|flat|none|seed=0 | H1=0.0075 H8=0.0411 H16=0.1059 | r_eff=16.00 | wall=31.8s ===
+  -> saved partial; avg=32s/run; ETA=11min
+
+=== Starting iso17|flat|none|seed=1 (2/21) ===
+[iso17_default|flat|none|seed=1] epoch   1/50 loss=0.2243 H8_eval=0.7951
+[iso17_default|flat|none|seed=1] epoch   5/50 loss=0.0026 H8_eval=0.1870
+[iso17_default|flat|none|seed=1] epoch  10/50 loss=0.0018 H8_eval=0.0116
+[iso17_default|flat|none|seed=1] epoch  15/50 loss=0.0017 H8_eval=0.0008
+[iso17_default|flat|none|seed=1] epoch  20/50 loss=0.0022 H8_eval=0.0396
+[iso17_default|flat|none|seed=1] epoch  25/50 loss=0.0016 H8_eval=0.0006
+[iso17_default|flat|none|seed=1] epoch  30/50 loss=0.0015 H8_eval=0.0003
+[iso17_default|flat|none|seed=1] epoch  35/50 loss=0.0014 H8_eval=0.0001
+[iso17_default|flat|none|seed=1] epoch  40/50 loss=0.0035 H8_eval=0.0742
+[iso17_default|flat|none|seed=1] epoch  45/50 loss=0.0013 H8_eval=0.0039
+[iso17_default|flat|none|seed=1] epoch  50/50 loss=0.0012 H8_eval=0.0004
+=== Finished iso17|flat|none|seed=1 | H1=0.0001 H8=0.0004 H16=0.0010 | r_eff=16.00 | wall=31.5s ===
+  -> saved partial; avg=32s/run; ETA=10min
+
+=== Starting iso17|flat|none|seed=2 (3/21) ===
+[iso17_default|flat|none|seed=2] epoch   1/50 loss=0.4541 H8_eval=0.6292
+[iso17_default|flat|none|seed=2] epoch   5/50 loss=0.0011 H8_eval=0.1425
+[iso17_default|flat|none|seed=2] epoch  10/50 loss=0.0007 H8_eval=0.0194
+[iso17_default|flat|none|seed=2] epoch  15/50 loss=0.0007 H8_eval=0.0213
+[iso17_default|flat|none|seed=2] epoch  20/50 loss=0.0007 H8_eval=0.0251
+[iso17_default|flat|none|seed=2] epoch  25/50 loss=0.0006 H8_eval=0.0186
+[iso17_default|flat|none|seed=2] epoch  30/50 loss=0.0006 H8_eval=0.0229
+[iso17_default|flat|none|seed=2] epoch  35/50 loss=0.0006 H8_eval=0.0316
+[iso17_default|flat|none|seed=2] epoch  40/50 loss=0.0005 H8_eval=0.0061
+[iso17_default|flat|none|seed=2] epoch  45/50 loss=0.0005 H8_eval=0.0125
+[iso17_default|flat|none|seed=2] epoch  50/50 loss=0.0004 H8_eval=0.0017
+=== Finished iso17|flat|none|seed=2 | H1=0.0002 H8=0.0017 H16=0.0043 | r_eff=16.00 | wall=28.9s ===
+  -> saved partial; avg=31s/run; ETA=9min
+
+=== Starting iso17|flat|variance|seed=0 (4/21) ===
+[iso17_default|flat|variance|seed=0] epoch   1/50 loss=0.4027 H8_eval=0.5945
+[iso17_default|flat|variance|seed=0] epoch   5/50 loss=0.0996 H8_eval=0.1061
+[iso17_default|flat|variance|seed=0] epoch  10/50 loss=0.0990 H8_eval=0.0292
+[iso17_default|flat|variance|seed=0] epoch  15/50 loss=0.0992 H8_eval=0.0355
+[iso17_default|flat|variance|seed=0] epoch  20/50 loss=0.0989 H8_eval=0.0406
+[iso17_default|flat|variance|seed=0] epoch  25/50 loss=0.0989 H8_eval=0.0559
+[iso17_default|flat|variance|seed=0] epoch  30/50 loss=0.0989 H8_eval=0.0610
+[iso17_default|flat|variance|seed=0] epoch  35/50 loss=0.0988 H8_eval=0.0244
+[iso17_default|flat|variance|seed=0] epoch  40/50 loss=0.0989 H8_eval=0.0299
+[iso17_default|flat|variance|seed=0] epoch  45/50 loss=0.0991 H8_eval=0.0459
+[iso17_default|flat|variance|seed=0] epoch  50/50 loss=0.0988 H8_eval=0.0462
+=== Finished iso17|flat|variance|seed=0 | H1=0.0078 H8=0.0448 H16=0.1160 | r_eff=16.00 | wall=32.9s ===
+  -> saved partial; avg=31s/run; ETA=9min
+
+=== Starting iso17|flat|variance|seed=1 (5/21) ===
+[iso17_default|flat|variance|seed=1] epoch   1/50 loss=0.3223 H8_eval=0.7951
+[iso17_default|flat|variance|seed=1] epoch   5/50 loss=0.1006 H8_eval=0.1870
+[iso17_default|flat|variance|seed=1] epoch  10/50 loss=0.0998 H8_eval=0.0116
+[iso17_default|flat|variance|seed=1] epoch  15/50 loss=0.0997 H8_eval=0.0008
+[iso17_default|flat|variance|seed=1] epoch  20/50 loss=0.1002 H8_eval=0.0374
+[iso17_default|flat|variance|seed=1] epoch  25/50 loss=0.0996 H8_eval=0.0016
+[iso17_default|flat|variance|seed=1] epoch  30/50 loss=0.0995 H8_eval=0.0002
+[iso17_default|flat|variance|seed=1] epoch  35/50 loss=0.0994 H8_eval=0.0001
+[iso17_default|flat|variance|seed=1] epoch  40/50 loss=0.1004 H8_eval=0.0611
+[iso17_default|flat|variance|seed=1] epoch  45/50 loss=0.0993 H8_eval=0.0015
+[iso17_default|flat|variance|seed=1] epoch  50/50 loss=0.0993 H8_eval=0.0004
+=== Finished iso17|flat|variance|seed=1 | H1=0.0000 H8=0.0004 H16=0.0009 | r_eff=16.00 | wall=29.9s ===
+  -> saved partial; avg=31s/run; ETA=8min
+
+=== Starting iso17|flat|variance|seed=2 (6/21) ===
+[iso17_default|flat|variance|seed=2] epoch   1/50 loss=0.5521 H8_eval=0.6292
+[iso17_default|flat|variance|seed=2] epoch   5/50 loss=0.0991 H8_eval=0.1425
+[iso17_default|flat|variance|seed=2] epoch  10/50 loss=0.0987 H8_eval=0.0194
+[iso17_default|flat|variance|seed=2] epoch  15/50 loss=0.0987 H8_eval=0.0216
+[iso17_default|flat|variance|seed=2] epoch  20/50 loss=0.0991 H8_eval=0.0562
+[iso17_default|flat|variance|seed=2] epoch  25/50 loss=0.0985 H8_eval=0.0063
+[iso17_default|flat|variance|seed=2] epoch  30/50 loss=0.0990 H8_eval=0.0266
+[iso17_default|flat|variance|seed=2] epoch  35/50 loss=0.0985 H8_eval=0.0041
+[iso17_default|flat|variance|seed=2] epoch  40/50 loss=0.0985 H8_eval=0.0005
+[iso17_default|flat|variance|seed=2] epoch  45/50 loss=0.1000 H8_eval=0.0652
+[iso17_default|flat|variance|seed=2] epoch  50/50 loss=0.0985 H8_eval=0.0087
+=== Finished iso17|flat|variance|seed=2 | H1=0.0010 H8=0.0087 H16=0.0233 | r_eff=16.00 | wall=31.7s ===
+  -> saved partial; avg=31s/run; ETA=8min
+
+=== Starting iso17|flat|covariance|seed=0 (7/21) ===
+[iso17_default|flat|euclidean|seed=0] epoch   1/50 loss=0.7047 H8_eval=0.5945
+[iso17_default|flat|euclidean|seed=0] epoch   5/50 loss=0.4016 H8_eval=0.1061
+[iso17_default|flat|euclidean|seed=0] epoch  10/50 loss=0.4010 H8_eval=0.0292
+[iso17_default|flat|euclidean|seed=0] epoch  15/50 loss=0.4012 H8_eval=0.0359
+[iso17_default|flat|euclidean|seed=0] epoch  20/50 loss=0.4009 H8_eval=0.0408
+[iso17_default|flat|euclidean|seed=0] epoch  25/50 loss=0.4009 H8_eval=0.0569
+[iso17_default|flat|euclidean|seed=0] epoch  30/50 loss=0.4009 H8_eval=0.0609
+[iso17_default|flat|euclidean|seed=0] epoch  35/50 loss=0.4009 H8_eval=0.0323
+[iso17_default|flat|euclidean|seed=0] epoch  40/50 loss=0.4008 H8_eval=0.0313
+[iso17_default|flat|euclidean|seed=0] epoch  45/50 loss=0.4009 H8_eval=0.0432
+[iso17_default|flat|euclidean|seed=0] epoch  50/50 loss=0.4007 H8_eval=0.0426
+=== Finished iso17|flat|covariance|seed=0 | H1=0.0075 H8=0.0411 H16=0.1059 | r_eff=16.00 | wall=31.3s ===
+  -> saved partial; avg=31s/run; ETA=7min
+
+=== Starting iso17|flat|covariance|seed=1 (8/21) ===
+[iso17_default|flat|euclidean|seed=1] epoch   1/50 loss=0.6243 H8_eval=0.7951
+[iso17_default|flat|euclidean|seed=1] epoch   5/50 loss=0.4026 H8_eval=0.1870
+[iso17_default|flat|euclidean|seed=1] epoch  10/50 loss=0.4018 H8_eval=0.0116
+[iso17_default|flat|euclidean|seed=1] epoch  15/50 loss=0.4017 H8_eval=0.0008
+[iso17_default|flat|euclidean|seed=1] epoch  20/50 loss=0.4022 H8_eval=0.0396
+[iso17_default|flat|euclidean|seed=1] epoch  25/50 loss=0.4016 H8_eval=0.0006
+[iso17_default|flat|euclidean|seed=1] epoch  30/50 loss=0.4015 H8_eval=0.0003
+[iso17_default|flat|euclidean|seed=1] epoch  35/50 loss=0.4014 H8_eval=0.0001
+[iso17_default|flat|euclidean|seed=1] epoch  40/50 loss=0.4035 H8_eval=0.0742
+[iso17_default|flat|euclidean|seed=1] epoch  45/50 loss=0.4013 H8_eval=0.0039
+[iso17_default|flat|euclidean|seed=1] epoch  50/50 loss=0.4012 H8_eval=0.0004
+=== Finished iso17|flat|covariance|seed=1 | H1=0.0001 H8=0.0004 H16=0.0010 | r_eff=16.00 | wall=29.7s ===
+  -> saved partial; avg=31s/run; ETA=7min
+
+=== Starting iso17|flat|covariance|seed=2 (9/21) ===
+[iso17_default|flat|euclidean|seed=2] epoch   1/50 loss=0.8541 H8_eval=0.6292
+[iso17_default|flat|euclidean|seed=2] epoch   5/50 loss=0.4011 H8_eval=0.1425
+[iso17_default|flat|euclidean|seed=2] epoch  10/50 loss=0.4007 H8_eval=0.0194
+[iso17_default|flat|euclidean|seed=2] epoch  15/50 loss=0.4007 H8_eval=0.0213
+[iso17_default|flat|euclidean|seed=2] epoch  20/50 loss=0.4007 H8_eval=0.0251
+[iso17_default|flat|euclidean|seed=2] epoch  25/50 loss=0.4006 H8_eval=0.0186
+[iso17_default|flat|euclidean|seed=2] epoch  30/50 loss=0.4006 H8_eval=0.0229
+[iso17_default|flat|euclidean|seed=2] epoch  35/50 loss=0.4006 H8_eval=0.0316
+[iso17_default|flat|euclidean|seed=2] epoch  40/50 loss=0.4005 H8_eval=0.0061
+[iso17_default|flat|euclidean|seed=2] epoch  45/50 loss=0.4005 H8_eval=0.0125
+[iso17_default|flat|euclidean|seed=2] epoch  50/50 loss=0.4004 H8_eval=0.0017
+=== Finished iso17|flat|covariance|seed=2 | H1=0.0002 H8=0.0017 H16=0.0043 | r_eff=16.00 | wall=32.0s ===
+  -> saved partial; avg=31s/run; ETA=6min
+
+=== Starting iso17|flat|sigreg|seed=0 (10/21) ===
+[iso17_default|flat|sigreg|seed=0] epoch   1/50 loss=0.4416 H8_eval=0.5878
+[iso17_default|flat|sigreg|seed=0] epoch   5/50 loss=0.1141 H8_eval=0.1285
+[iso17_default|flat|sigreg|seed=0] epoch  10/50 loss=0.0584 H8_eval=0.0238
+[iso17_default|flat|sigreg|seed=0] epoch  15/50 loss=0.0267 H8_eval=0.0146
+[iso17_default|flat|sigreg|seed=0] epoch  20/50 loss=0.0202 H8_eval=0.0167
+[iso17_default|flat|sigreg|seed=0] epoch  25/50 loss=0.0179 H8_eval=0.0140
+[iso17_default|flat|sigreg|seed=0] epoch  30/50 loss=0.0157 H8_eval=0.0134
+[iso17_default|flat|sigreg|seed=0] epoch  35/50 loss=0.0154 H8_eval=0.0126
+[iso17_default|flat|sigreg|seed=0] epoch  40/50 loss=0.0149 H8_eval=0.0131
+[iso17_default|flat|sigreg|seed=0] epoch  45/50 loss=0.0142 H8_eval=0.0171
+[iso17_default|flat|sigreg|seed=0] epoch  50/50 loss=0.0139 H8_eval=0.0179
+=== Finished iso17|flat|sigreg|seed=0 | H1=0.0033 H8=0.0168 H16=0.0427 | r_eff=16.00 | wall=36.0s ===
+  -> saved partial; avg=32s/run; ETA=6min
+
+=== Starting iso17|flat|sigreg|seed=1 (11/21) ===
+[iso17_default|flat|sigreg|seed=1] epoch   1/50 loss=0.4131 H8_eval=0.7898
+[iso17_default|flat|sigreg|seed=1] epoch   5/50 loss=0.1988 H8_eval=0.0994
+[iso17_default|flat|sigreg|seed=1] epoch  10/50 loss=0.1508 H8_eval=0.0427
+[iso17_default|flat|sigreg|seed=1] epoch  15/50 loss=0.0481 H8_eval=0.0275
+[iso17_default|flat|sigreg|seed=1] epoch  20/50 loss=0.0230 H8_eval=0.0119
+[iso17_default|flat|sigreg|seed=1] epoch  25/50 loss=0.0174 H8_eval=0.0134
+[iso17_default|flat|sigreg|seed=1] epoch  30/50 loss=0.0160 H8_eval=0.0110
+[iso17_default|flat|sigreg|seed=1] epoch  35/50 loss=0.0146 H8_eval=0.0052
+[iso17_default|flat|sigreg|seed=1] epoch  40/50 loss=0.0141 H8_eval=0.0083
+[iso17_default|flat|sigreg|seed=1] epoch  45/50 loss=0.0138 H8_eval=0.0030
+[iso17_default|flat|sigreg|seed=1] epoch  50/50 loss=0.0136 H8_eval=0.0057
+=== Finished iso17|flat|sigreg|seed=1 | H1=0.0008 H8=0.0057 H16=0.0119 | r_eff=16.00 | wall=33.1s ===
+  -> saved partial; avg=32s/run; ETA=5min
+
+=== Starting iso17|flat|sigreg|seed=2 (12/21) ===
+[iso17_default|flat|sigreg|seed=2] epoch   1/50 loss=0.5535 H8_eval=0.6277
+[iso17_default|flat|sigreg|seed=2] epoch   5/50 loss=0.0669 H8_eval=0.0974
+[iso17_default|flat|sigreg|seed=2] epoch  10/50 loss=0.0326 H8_eval=0.0080
+[iso17_default|flat|sigreg|seed=2] epoch  15/50 loss=0.0229 H8_eval=0.0088
+[iso17_default|flat|sigreg|seed=2] epoch  20/50 loss=0.0193 H8_eval=0.0061
+[iso17_default|flat|sigreg|seed=2] epoch  25/50 loss=0.0168 H8_eval=0.0065
+[iso17_default|flat|sigreg|seed=2] epoch  30/50 loss=0.0155 H8_eval=0.0105
+[iso17_default|flat|sigreg|seed=2] epoch  35/50 loss=0.0147 H8_eval=0.0058
+[iso17_default|flat|sigreg|seed=2] epoch  40/50 loss=0.0146 H8_eval=0.0048
+[iso17_default|flat|sigreg|seed=2] epoch  45/50 loss=0.0143 H8_eval=0.0038
+[iso17_default|flat|sigreg|seed=2] epoch  50/50 loss=0.0141 H8_eval=0.0034
+=== Finished iso17|flat|sigreg|seed=2 | H1=0.0004 H8=0.0034 H16=0.0094 | r_eff=16.00 | wall=34.7s ===
+  -> saved partial; avg=32s/run; ETA=5min
+
+=== Starting iso17|flat|spectral|seed=0 (13/21) ===
+[iso17_default|flat|spectral|seed=0] epoch   1/50 loss=6.9341 H8_eval=0.6348
+[iso17_default|flat|spectral|seed=0] epoch   5/50 loss=0.4767 H8_eval=0.1186
+[iso17_default|flat|spectral|seed=0] epoch  10/50 loss=0.0680 H8_eval=0.0192
+[iso17_default|flat|spectral|seed=0] epoch  15/50 loss=0.0246 H8_eval=0.0141
+[iso17_default|flat|spectral|seed=0] epoch  20/50 loss=0.0116 H8_eval=0.0185
+[iso17_default|flat|spectral|seed=0] epoch  25/50 loss=0.0060 H8_eval=0.0197
+[iso17_default|flat|spectral|seed=0] epoch  30/50 loss=0.0037 H8_eval=0.0300
+[iso17_default|flat|spectral|seed=0] epoch  35/50 loss=0.0025 H8_eval=0.0168
+[iso17_default|flat|spectral|seed=0] epoch  40/50 loss=0.0020 H8_eval=0.0202
+[iso17_default|flat|spectral|seed=0] epoch  45/50 loss=0.0017 H8_eval=0.0233
+[iso17_default|flat|spectral|seed=0] epoch  50/50 loss=0.0015 H8_eval=0.0249
+=== Finished iso17|flat|spectral|seed=0 | H1=0.0045 H8=0.0235 H16=0.0568 | r_eff=16.00 | wall=47.9s ===
+  -> saved partial; avg=33s/run; ETA=4min
+
+=== Starting iso17|flat|spectral|seed=1 (14/21) ===
+[iso17_default|flat|spectral|seed=1] epoch   1/50 loss=16.6612 H8_eval=0.7473
+[iso17_default|flat|spectral|seed=1] epoch   5/50 loss=0.5322 H8_eval=0.0959
+[iso17_default|flat|spectral|seed=1] epoch  10/50 loss=0.1220 H8_eval=0.0114
+[iso17_default|flat|spectral|seed=1] epoch  15/50 loss=0.0662 H8_eval=0.0013
+[iso17_default|flat|spectral|seed=1] epoch  20/50 loss=0.0383 H8_eval=0.0014
+[iso17_default|flat|spectral|seed=1] epoch  25/50 loss=0.0216 H8_eval=0.0014
+[iso17_default|flat|spectral|seed=1] epoch  30/50 loss=0.0118 H8_eval=0.0013
+[iso17_default|flat|spectral|seed=1] epoch  35/50 loss=0.0066 H8_eval=0.0062
+[iso17_default|flat|spectral|seed=1] epoch  40/50 loss=0.0038 H8_eval=0.0005
+[iso17_default|flat|spectral|seed=1] epoch  45/50 loss=0.0024 H8_eval=0.0007
+[iso17_default|flat|spectral|seed=1] epoch  50/50 loss=0.0017 H8_eval=0.0079
+=== Finished iso17|flat|spectral|seed=1 | H1=0.0010 H8=0.0079 H16=0.0190 | r_eff=16.00 | wall=48.9s ===
+  -> saved partial; avg=34s/run; ETA=4min
+
+=== Starting iso17|flat|spectral|seed=2 (15/21) ===
+[iso17_default|flat|spectral|seed=2] epoch   1/50 loss=4.4400 H8_eval=0.5635
+[iso17_default|flat|spectral|seed=2] epoch   5/50 loss=0.1830 H8_eval=0.0729
+[iso17_default|flat|spectral|seed=2] epoch  10/50 loss=0.0312 H8_eval=0.0049
+[iso17_default|flat|spectral|seed=2] epoch  15/50 loss=0.0087 H8_eval=0.0037
+[iso17_default|flat|spectral|seed=2] epoch  20/50 loss=0.0041 H8_eval=0.0014
+[iso17_default|flat|spectral|seed=2] epoch  25/50 loss=0.0029 H8_eval=0.0067
+[iso17_default|flat|spectral|seed=2] epoch  30/50 loss=0.0023 H8_eval=0.0104
+[iso17_default|flat|spectral|seed=2] epoch  35/50 loss=0.0018 H8_eval=0.0022
+[iso17_default|flat|spectral|seed=2] epoch  40/50 loss=0.0014 H8_eval=0.0038
+[iso17_default|flat|spectral|seed=2] epoch  45/50 loss=0.0011 H8_eval=0.0004
+[iso17_default|flat|spectral|seed=2] epoch  50/50 loss=0.0009 H8_eval=0.0086
+=== Finished iso17|flat|spectral|seed=2 | H1=0.0010 H8=0.0086 H16=0.0219 | r_eff=16.00 | wall=50.3s ===
+  -> saved partial; avg=35s/run; ETA=4min
+
+=== Starting iso17|flat|permuted_spectral|seed=0 (16/21) ===
+[iso17_default|flat|permuted_spectral|seed=0] epoch   1/50 loss=7.5917 H8_eval=0.6445
+[iso17_default|flat|permuted_spectral|seed=0] epoch   5/50 loss=0.7710 H8_eval=0.0967
+[iso17_default|flat|permuted_spectral|seed=0] epoch  10/50 loss=0.0416 H8_eval=0.0177
+[iso17_default|flat|permuted_spectral|seed=0] epoch  15/50 loss=0.0092 H8_eval=0.0204
+[iso17_default|flat|permuted_spectral|seed=0] epoch  20/50 loss=0.0048 H8_eval=0.0161
+[iso17_default|flat|permuted_spectral|seed=0] epoch  25/50 loss=0.0028 H8_eval=0.0174
+[iso17_default|flat|permuted_spectral|seed=0] epoch  30/50 loss=0.0018 H8_eval=0.0215
+[iso17_default|flat|permuted_spectral|seed=0] epoch  35/50 loss=0.0012 H8_eval=0.0175
+[iso17_default|flat|permuted_spectral|seed=0] epoch  40/50 loss=0.0009 H8_eval=0.0185
+[iso17_default|flat|permuted_spectral|seed=0] epoch  45/50 loss=0.0006 H8_eval=0.0165
+[iso17_default|flat|permuted_spectral|seed=0] epoch  50/50 loss=0.0005 H8_eval=0.0237
+=== Finished iso17|flat|permuted_spectral|seed=0 | H1=0.0037 H8=0.0214 H16=0.0676 | r_eff=16.00 | wall=49.8s ===
+  -> saved partial; avg=36s/run; ETA=3min
+
+=== Starting iso17|flat|permuted_spectral|seed=1 (17/21) ===
+[iso17_default|flat|permuted_spectral|seed=1] epoch   1/50 loss=18.8167 H8_eval=0.8086
+[iso17_default|flat|permuted_spectral|seed=1] epoch   5/50 loss=0.5726 H8_eval=0.1048
+[iso17_default|flat|permuted_spectral|seed=1] epoch  10/50 loss=0.0162 H8_eval=0.0151
+[iso17_default|flat|permuted_spectral|seed=1] epoch  15/50 loss=0.0071 H8_eval=0.0033
+[iso17_default|flat|permuted_spectral|seed=1] epoch  20/50 loss=0.0043 H8_eval=0.0015
+[iso17_default|flat|permuted_spectral|seed=1] epoch  25/50 loss=0.0028 H8_eval=0.0011
+[iso17_default|flat|permuted_spectral|seed=1] epoch  30/50 loss=0.0019 H8_eval=0.0014
+[iso17_default|flat|permuted_spectral|seed=1] epoch  35/50 loss=0.0014 H8_eval=0.0009
+[iso17_default|flat|permuted_spectral|seed=1] epoch  40/50 loss=0.0010 H8_eval=0.0005
+[iso17_default|flat|permuted_spectral|seed=1] epoch  45/50 loss=0.0007 H8_eval=0.0014
+[iso17_default|flat|permuted_spectral|seed=1] epoch  50/50 loss=0.0006 H8_eval=0.0005
+=== Finished iso17|flat|permuted_spectral|seed=1 | H1=0.0001 H8=0.0005 H16=0.0011 | r_eff=16.00 | wall=47.7s ===
+  -> saved partial; avg=37s/run; ETA=2min
+
+=== Starting iso17|flat|permuted_spectral|seed=2 (18/21) ===
+[iso17_default|flat|permuted_spectral|seed=2] epoch   1/50 loss=4.4077 H8_eval=0.5364
+[iso17_default|flat|permuted_spectral|seed=2] epoch   5/50 loss=0.1351 H8_eval=0.0631
+[iso17_default|flat|permuted_spectral|seed=2] epoch  10/50 loss=0.0167 H8_eval=0.0090
+[iso17_default|flat|permuted_spectral|seed=2] epoch  15/50 loss=0.0088 H8_eval=0.0022
+[iso17_default|flat|permuted_spectral|seed=2] epoch  20/50 loss=0.0052 H8_eval=0.0017
+[iso17_default|flat|permuted_spectral|seed=2] epoch  25/50 loss=0.0033 H8_eval=0.0032
+[iso17_default|flat|permuted_spectral|seed=2] epoch  30/50 loss=0.0022 H8_eval=0.0090
+[iso17_default|flat|permuted_spectral|seed=2] epoch  35/50 loss=0.0015 H8_eval=0.0051
+[iso17_default|flat|permuted_spectral|seed=2] epoch  40/50 loss=0.0011 H8_eval=0.0032
+[iso17_default|flat|permuted_spectral|seed=2] epoch  45/50 loss=0.0008 H8_eval=0.0084
+[iso17_default|flat|permuted_spectral|seed=2] epoch  50/50 loss=0.0005 H8_eval=0.0039
+=== Finished iso17|flat|permuted_spectral|seed=2 | H1=0.0004 H8=0.0039 H16=0.0098 | r_eff=16.00 | wall=49.1s ===
+  -> saved partial; avg=38s/run; ETA=2min
+
+=== Starting iso17|flat|random_spectral|seed=0 (19/21) ===
+[iso17_default|flat|random_spectral|seed=0] epoch   1/50 loss=34.0575 H8_eval=0.6549
+[iso17_default|flat|random_spectral|seed=0] epoch   5/50 loss=3.2982 H8_eval=0.0913
+[iso17_default|flat|random_spectral|seed=0] epoch  10/50 loss=0.0929 H8_eval=0.0169
+[iso17_default|flat|random_spectral|seed=0] epoch  15/50 loss=0.0011 H8_eval=0.0259
+[iso17_default|flat|random_spectral|seed=0] epoch  20/50 loss=0.0004 H8_eval=0.0194
+[iso17_default|flat|random_spectral|seed=0] epoch  25/50 loss=0.0002 H8_eval=0.0229
+[iso17_default|flat|random_spectral|seed=0] epoch  30/50 loss=0.0002 H8_eval=0.0268
+[iso17_default|flat|random_spectral|seed=0] epoch  35/50 loss=0.0001 H8_eval=0.0227
+[iso17_default|flat|random_spectral|seed=0] epoch  40/50 loss=0.0001 H8_eval=0.0219
+[iso17_default|flat|random_spectral|seed=0] epoch  45/50 loss=0.0001 H8_eval=0.0320
+[iso17_default|flat|random_spectral|seed=0] epoch  50/50 loss=0.0001 H8_eval=0.0217
+=== Finished iso17|flat|random_spectral|seed=0 | H1=0.0038 H8=0.0198 H16=0.0481 | r_eff=16.00 | wall=31.9s ===
+  -> saved partial; avg=37s/run; ETA=1min
+
+=== Starting iso17|flat|random_spectral|seed=1 (20/21) ===
+[iso17_default|flat|random_spectral|seed=1] epoch   1/50 loss=84.9485 H8_eval=0.8324
+[iso17_default|flat|random_spectral|seed=1] epoch   5/50 loss=2.2836 H8_eval=0.0908
+[iso17_default|flat|random_spectral|seed=1] epoch  10/50 loss=0.0108 H8_eval=0.0240
+[iso17_default|flat|random_spectral|seed=1] epoch  15/50 loss=0.0018 H8_eval=0.0019
+[iso17_default|flat|random_spectral|seed=1] epoch  20/50 loss=0.0009 H8_eval=0.0003
+[iso17_default|flat|random_spectral|seed=1] epoch  25/50 loss=0.0005 H8_eval=0.0001
+[iso17_default|flat|random_spectral|seed=1] epoch  30/50 loss=0.0004 H8_eval=0.0001
+[iso17_default|flat|random_spectral|seed=1] epoch  35/50 loss=0.0003 H8_eval=0.0001
+[iso17_default|flat|random_spectral|seed=1] epoch  40/50 loss=0.0002 H8_eval=0.0001
+[iso17_default|flat|random_spectral|seed=1] epoch  45/50 loss=0.0002 H8_eval=0.0000
+[iso17_default|flat|random_spectral|seed=1] epoch  50/50 loss=0.0001 H8_eval=0.0000
+=== Finished iso17|flat|random_spectral|seed=1 | H1=0.0000 H8=0.0000 H16=0.0001 | r_eff=16.00 | wall=32.7s ===
+  -> saved partial; avg=37s/run; ETA=1min
+
+=== Starting iso17|flat|random_spectral|seed=2 (21/21) ===
+[iso17_default|flat|random_spectral|seed=2] epoch   1/50 loss=18.3805 H8_eval=0.5351
+[iso17_default|flat|random_spectral|seed=2] epoch   5/50 loss=0.3467 H8_eval=0.0609
+[iso17_default|flat|random_spectral|seed=2] epoch  10/50 loss=0.0024 H8_eval=0.0097
+[iso17_default|flat|random_spectral|seed=2] epoch  15/50 loss=0.0006 H8_eval=0.0072
+[iso17_default|flat|random_spectral|seed=2] epoch  20/50 loss=0.0003 H8_eval=0.0050
+[iso17_default|flat|random_spectral|seed=2] epoch  25/50 loss=0.0002 H8_eval=0.0085
+[iso17_default|flat|random_spectral|seed=2] epoch  30/50 loss=0.0002 H8_eval=0.0018
+[iso17_default|flat|random_spectral|seed=2] epoch  35/50 loss=0.0002 H8_eval=0.0174
+[iso17_default|flat|random_spectral|seed=2] epoch  40/50 loss=0.0001 H8_eval=0.0036
+[iso17_default|flat|random_spectral|seed=2] epoch  45/50 loss=0.0002 H8_eval=0.0453
+[iso17_default|flat|random_spectral|seed=2] epoch  50/50 loss=0.0001 H8_eval=0.0066
+=== Finished iso17|flat|random_spectral|seed=2 | H1=0.0007 H8=0.0066 H16=0.0168 | r_eff=16.00 | wall=31.2s ===
+  -> saved partial; avg=37s/run; ETA=0min
+
+=== Summary by dataset and prior ===
+dataset | prior | n | H=1 | H=8 | H=16 | r_eff | spec_align
+iso17_default | none | 3 | 0.0026+-0.0043 | 0.0144+-0.0231 | 0.0371+-0.0596 | 16.00 | nan
+iso17_default | variance | 3 | 0.0029+-0.0042 | 0.0180+-0.0236 | 0.0467+-0.0610 | 16.00 | nan
+iso17_default | covariance | 3 | 0.0026+-0.0043 | 0.0144+-0.0231 | 0.0371+-0.0596 | 16.00 | nan
+iso17_default | sigreg | 3 | 0.0015+-0.0016 | 0.0086+-0.0071 | 0.0214+-0.0185 | 16.00 | nan
+iso17_default | spectral | 3 | 0.0022+-0.0020 | 0.0133+-0.0088 | 0.0326+-0.0210 | 16.00 | 0.10
+iso17_default | permuted_spectral | 3 | 0.0014+-0.0020 | 0.0086+-0.0112 | 0.0262+-0.0362 | 16.00 | 0.10
+iso17_default | random_spectral | 3 | 0.0015+-0.0020 | 0.0088+-0.0101 | 0.0216+-0.0244 | 16.00 | 0.09
+
+Wrote /workspace/causalworld/iso17_mechanism_summary.json

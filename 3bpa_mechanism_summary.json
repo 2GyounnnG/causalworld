@@ -1,0 +1,375 @@
+{
+  "3bpa": {
+    "none": {
+      "n_success": 0,
+      "rollout_errors": {
+        "1": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "2": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "4": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "8": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "16": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        }
+      },
+      "diagnostics": {
+        "effective_rank": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "condition_number": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "projection_gaussianity": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "spectral_alignment": {
+          "mean": NaN,
+          "std": NaN
+        }
+      }
+    },
+    "variance": {
+      "n_success": 0,
+      "rollout_errors": {
+        "1": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "2": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "4": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "8": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "16": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        }
+      },
+      "diagnostics": {
+        "effective_rank": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "condition_number": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "projection_gaussianity": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "spectral_alignment": {
+          "mean": NaN,
+          "std": NaN
+        }
+      }
+    },
+    "covariance": {
+      "n_success": 0,
+      "rollout_errors": {
+        "1": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "2": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "4": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "8": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "16": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        }
+      },
+      "diagnostics": {
+        "effective_rank": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "condition_number": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "projection_gaussianity": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "spectral_alignment": {
+          "mean": NaN,
+          "std": NaN
+        }
+      }
+    },
+    "sigreg": {
+      "n_success": 0,
+      "rollout_errors": {
+        "1": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "2": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "4": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "8": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "16": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        }
+      },
+      "diagnostics": {
+        "effective_rank": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "condition_number": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "projection_gaussianity": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "spectral_alignment": {
+          "mean": NaN,
+          "std": NaN
+        }
+      }
+    },
+    "spectral": {
+      "n_success": 0,
+      "rollout_errors": {
+        "1": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "2": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "4": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "8": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "16": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        }
+      },
+      "diagnostics": {
+        "effective_rank": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "condition_number": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "projection_gaussianity": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "spectral_alignment": {
+          "mean": NaN,
+          "std": NaN
+        }
+      }
+    },
+    "permuted_spectral": {
+      "n_success": 0,
+      "rollout_errors": {
+        "1": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "2": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "4": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "8": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "16": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        }
+      },
+      "diagnostics": {
+        "effective_rank": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "condition_number": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "projection_gaussianity": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "spectral_alignment": {
+          "mean": NaN,
+          "std": NaN
+        }
+      }
+    },
+    "random_spectral": {
+      "n_success": 0,
+      "rollout_errors": {
+        "1": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "2": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "4": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "8": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        },
+        "16": {
+          "mean": NaN,
+          "std": NaN,
+          "ci_low": NaN,
+          "ci_high": NaN
+        }
+      },
+      "diagnostics": {
+        "effective_rank": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "condition_number": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "projection_gaussianity": {
+          "mean": NaN,
+          "std": NaN
+        },
+        "spectral_alignment": {
+          "mean": NaN,
+          "std": NaN
+        }
+      }
+    }
+  }
+}

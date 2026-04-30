@@ -265,3 +265,77 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
  create mode 100644 logs/aspirin_high_weight_20260430_0529.log
 To https://github.com/2GyounnnG/causalworld.git
    a25014d..314bec0  mechanism-ablation -> mechanism-ablation
+fatal: pathspec 'checkpoints/' did not match any files
+On branch mechanism-ablation
+Your branch is up to date with 'origin/mechanism-ablation'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   logs/auto_push.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Everything up-to-date
+fatal: pathspec 'checkpoints/' did not match any files
+On branch mechanism-ablation
+Your branch is up to date with 'origin/mechanism-ablation'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   logs/auto_push.log
+	modified:   scripts/convert_3bpa.py
+	modified:   scripts/iso17_loader.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Everything up-to-date
+fatal: pathspec 'checkpoints/' did not match any files
+On branch mechanism-ablation
+Your branch is up to date with 'origin/mechanism-ablation'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   logs/auto_push.log
+	modified:   scripts/convert_3bpa.py
+	modified:   scripts/iso17_loader.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Everything up-to-date
+fatal: pathspec 'checkpoints/' did not match any files
+On branch mechanism-ablation
+Your branch is up to date with 'origin/mechanism-ablation'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   logs/auto_push.log
+	modified:   scripts/convert_3bpa.py
+	modified:   scripts/iso17_loader.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Everything up-to-date
+fatal: pathspec 'checkpoints/' did not match any files
+On branch mechanism-ablation
+Your branch is up to date with 'origin/mechanism-ablation'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   logs/auto_push.log
+	modified:   scripts/convert_3bpa.py
+	modified:   scripts/iso17_loader.py
+	modified:   scripts/run_iso17_mechanism.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	iso17_mechanism.json
+	iso17_mechanism_summary.json
+	logs/3bpa_20260430_0822.log
+	logs/iso17_20260430_0822.log
+	logs/lj_mech_20260430_0823.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.

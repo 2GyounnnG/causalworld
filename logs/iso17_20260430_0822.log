@@ -1,0 +1,394 @@
+nohup: ignoring input
+device=cuda (NVIDIA GeForce RTX 4090)
+Resume: 21/21 runs pending
+output: /workspace/causalworld/iso17_mechanism.json
+
+=== Starting iso17|flat|none|seed=0 (1/21) ===
+=== FAILED iso17|flat|none|seed=0: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|none|seed=1 (2/21) ===
+=== FAILED iso17|flat|none|seed=1: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|none|seed=2 (3/21) ===
+=== FAILED iso17|flat|none|seed=2: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|variance|seed=0 (4/21) ===
+=== FAILED iso17|flat|variance|seed=0: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|variance|seed=1 (5/21) ===
+=== FAILED iso17|flat|variance|seed=1: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|variance|seed=2 (6/21) ===
+=== FAILED iso17|flat|variance|seed=2: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|covariance|seed=0 (7/21) ===
+=== FAILED iso17|flat|covariance|seed=0: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|covariance|seed=1 (8/21) ===
+=== FAILED iso17|flat|covariance|seed=1: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|covariance|seed=2 (9/21) ===
+=== FAILED iso17|flat|covariance|seed=2: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|sigreg|seed=0 (10/21) ===
+=== FAILED iso17|flat|sigreg|seed=0: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|sigreg|seed=1 (11/21) ===
+=== FAILED iso17|flat|sigreg|seed=1: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|sigreg|seed=2 (12/21) ===
+=== FAILED iso17|flat|sigreg|seed=2: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|spectral|seed=0 (13/21) ===
+=== FAILED iso17|flat|spectral|seed=0: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|spectral|seed=1 (14/21) ===
+=== FAILED iso17|flat|spectral|seed=1: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|spectral|seed=2 (15/21) ===
+=== FAILED iso17|flat|spectral|seed=2: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|permuted_spectral|seed=0 (16/21) ===
+=== FAILED iso17|flat|permuted_spectral|seed=0: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|permuted_spectral|seed=1 (17/21) ===
+=== FAILED iso17|flat|permuted_spectral|seed=1: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|permuted_spectral|seed=2 (18/21) ===
+=== FAILED iso17|flat|permuted_spectral|seed=2: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|random_spectral|seed=0 (19/21) ===
+=== FAILED iso17|flat|random_spectral|seed=0: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|random_spectral|seed=1 (20/21) ===
+=== FAILED iso17|flat|random_spectral|seed=1: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Starting iso17|flat|random_spectral|seed=2 (21/21) ===
+=== FAILED iso17|flat|random_spectral|seed=2: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1 ===
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_iso17_mechanism.py", line 209, in main
+    result = train_one_seed(config)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 456, in train_one_seed
+    transitions = collect_dataset_transitions(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/train_rmd17.py", line 215, in collect_dataset_transitions
+    return collect_iso17_transitions(dataset_id=dataset_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/causalworld/scripts/iso17_loader.py", line 332, in collect_iso17_transitions
+    raise ValueError(
+ValueError: Requested 2000 but only 400 candidates for dataset_id='iso17_default', stride=10, horizon=1
+
+  -> saved partial; avg=0s/run; ETA=0min
+
+=== Summary by dataset and prior ===
+dataset | prior | n | H=1 | H=8 | H=16 | r_eff | spec_align
+iso17_default | none | 0 | nan+-nan | nan+-nan | nan+-nan | nan | nan
+iso17_default | variance | 0 | nan+-nan | nan+-nan | nan+-nan | nan | nan
+iso17_default | covariance | 0 | nan+-nan | nan+-nan | nan+-nan | nan | nan
+iso17_default | sigreg | 0 | nan+-nan | nan+-nan | nan+-nan | nan | nan
+iso17_default | spectral | 0 | nan+-nan | nan+-nan | nan+-nan | nan | nan
+iso17_default | permuted_spectral | 0 | nan+-nan | nan+-nan | nan+-nan | nan | nan
+iso17_default | random_spectral | 0 | nan+-nan | nan+-nan | nan+-nan | nan | nan
+
+Wrote /workspace/causalworld/iso17_mechanism_summary.json

@@ -1,0 +1,10 @@
+nohup: ignoring input
+device=cuda (NVIDIA GeForce RTX 4090)
+Resume: 63/63 runs pending
+output: /workspace/causalworld/lj_mechanism.json
+
+=== Starting lj_N64|flat|none|seed=0 (1/63) ===
+[lj_N64|flat|none|seed=0] epoch   1/50 loss=48.0321 H8_eval=9.9072
+[lj_N64|flat|none|seed=0] epoch   5/50 loss=1.9942 H8_eval=1.1262
+[lj_N64|flat|none|seed=0] epoch  10/50 loss=1.7707 H8_eval=1.0491
+[lj_N64|flat|none|seed=0] epoch  15/50 loss=1.5112 H8_eval=1.1730

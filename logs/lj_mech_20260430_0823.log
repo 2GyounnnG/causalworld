@@ -1,0 +1,5 @@
+nohup: ignoring input
+Traceback (most recent call last):
+  File "/workspace/causalworld/scripts/run_lj_mechanism.py", line 3, in <module>
+    from scripts.run_iso17_mechanism import (
+ModuleNotFoundError: No module named 'scripts'
