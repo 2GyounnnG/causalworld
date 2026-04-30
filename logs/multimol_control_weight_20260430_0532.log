@@ -417,3 +417,63 @@ torch._C._LinAlgError: linalg.eigh: The algorithm failed to converge because the
 [malonaldehyde|flat|permuted_spectral|seed=2] epoch  25/50 loss=0.0002 H8_eval=0.0088
 [malonaldehyde|flat|permuted_spectral|seed=2] epoch  30/50 loss=0.0001 H8_eval=0.0247
 [malonaldehyde|flat|permuted_spectral|seed=2] epoch  35/50 loss=0.0001 H8_eval=0.0222
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  40/50 loss=0.0001 H8_eval=0.0080
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  45/50 loss=0.0000 H8_eval=0.0129
+[malonaldehyde|flat|permuted_spectral|seed=2] epoch  50/50 loss=0.0000 H8_eval=0.0136
+=== Finished malonaldehyde|flat|permuted_spectral|w=0.1|seed=2 | H1=0.0018 H8=0.0136 H16=0.0274 | r_eff=16.00 | wall=648.4s ===
+  -> saved partial; avg=599s/run; ETA=450min for 45 remaining
+
+=== Starting malonaldehyde|flat|random_spectral|w=0.001|seed=0 (28/72) ===
+[malonaldehyde|flat|random_spectral|seed=0] epoch   1/50 loss=0.4148 H8_eval=0.0498
+[malonaldehyde|flat|random_spectral|seed=0] epoch   5/50 loss=0.0003 H8_eval=0.0001
+[malonaldehyde|flat|random_spectral|seed=0] epoch  10/50 loss=0.0002 H8_eval=0.0031
+[malonaldehyde|flat|random_spectral|seed=0] epoch  15/50 loss=0.0002 H8_eval=0.0000
+[malonaldehyde|flat|random_spectral|seed=0] epoch  20/50 loss=0.0002 H8_eval=0.0036
+[malonaldehyde|flat|random_spectral|seed=0] epoch  25/50 loss=0.0001 H8_eval=0.0015
+[malonaldehyde|flat|random_spectral|seed=0] epoch  30/50 loss=0.0001 H8_eval=0.0121
+[malonaldehyde|flat|random_spectral|seed=0] epoch  35/50 loss=0.0001 H8_eval=0.0216
+[malonaldehyde|flat|random_spectral|seed=0] epoch  40/50 loss=0.0001 H8_eval=0.0152
+[malonaldehyde|flat|random_spectral|seed=0] epoch  45/50 loss=0.0001 H8_eval=0.0015
+[malonaldehyde|flat|random_spectral|seed=0] epoch  50/50 loss=0.0001 H8_eval=0.0305
+=== Finished malonaldehyde|flat|random_spectral|w=0.001|seed=0 | H1=0.0030 H8=0.0305 H16=0.0833 | r_eff=16.00 | wall=452.4s ===
+  -> saved partial; avg=594s/run; ETA=436min for 44 remaining
+
+=== Starting malonaldehyde|flat|random_spectral|w=0.001|seed=1 (29/72) ===
+[malonaldehyde|flat|random_spectral|seed=1] epoch   1/50 loss=0.5066 H8_eval=0.0667
+[malonaldehyde|flat|random_spectral|seed=1] epoch   5/50 loss=0.0003 H8_eval=0.0040
+[malonaldehyde|flat|random_spectral|seed=1] epoch  10/50 loss=0.0002 H8_eval=0.0008
+[malonaldehyde|flat|random_spectral|seed=1] epoch  15/50 loss=0.0002 H8_eval=0.0095
+[malonaldehyde|flat|random_spectral|seed=1] epoch  20/50 loss=0.0001 H8_eval=0.0232
+[malonaldehyde|flat|random_spectral|seed=1] epoch  25/50 loss=0.0002 H8_eval=0.0210
+[malonaldehyde|flat|random_spectral|seed=1] epoch  30/50 loss=0.0001 H8_eval=0.0244
+[malonaldehyde|flat|random_spectral|seed=1] epoch  35/50 loss=0.0001 H8_eval=0.0034
+[malonaldehyde|flat|random_spectral|seed=1] epoch  40/50 loss=0.0001 H8_eval=0.0361
+[malonaldehyde|flat|random_spectral|seed=1] epoch  45/50 loss=0.0001 H8_eval=0.0325
+[malonaldehyde|flat|random_spectral|seed=1] epoch  50/50 loss=0.0002 H8_eval=0.0222
+=== Finished malonaldehyde|flat|random_spectral|w=0.001|seed=1 | H1=0.0032 H8=0.0222 H16=0.0388 | r_eff=16.00 | wall=460.1s ===
+  -> saved partial; avg=590s/run; ETA=423min for 43 remaining
+
+=== Starting malonaldehyde|flat|random_spectral|w=0.001|seed=2 (30/72) ===
+[malonaldehyde|flat|random_spectral|seed=2] epoch   1/50 loss=0.2196 H8_eval=0.0532
+[malonaldehyde|flat|random_spectral|seed=2] epoch   5/50 loss=0.0002 H8_eval=0.0110
+[malonaldehyde|flat|random_spectral|seed=2] epoch  10/50 loss=0.0002 H8_eval=0.0808
+[malonaldehyde|flat|random_spectral|seed=2] epoch  15/50 loss=0.0002 H8_eval=0.0100
+[malonaldehyde|flat|random_spectral|seed=2] epoch  20/50 loss=0.0002 H8_eval=0.0127
+[malonaldehyde|flat|random_spectral|seed=2] epoch  25/50 loss=0.0001 H8_eval=0.0031
+[malonaldehyde|flat|random_spectral|seed=2] epoch  30/50 loss=0.0001 H8_eval=0.0087
+[malonaldehyde|flat|random_spectral|seed=2] epoch  35/50 loss=0.0002 H8_eval=0.0367
+[malonaldehyde|flat|random_spectral|seed=2] epoch  40/50 loss=0.0001 H8_eval=0.0054
+[malonaldehyde|flat|random_spectral|seed=2] epoch  45/50 loss=0.0001 H8_eval=0.0273
+[malonaldehyde|flat|random_spectral|seed=2] epoch  50/50 loss=0.0001 H8_eval=0.0128
+=== Finished malonaldehyde|flat|random_spectral|w=0.001|seed=2 | H1=0.0015 H8=0.0128 H16=0.0280 | r_eff=16.00 | wall=453.0s ===
+  -> saved partial; avg=585s/run; ETA=410min for 42 remaining
+
+=== Starting malonaldehyde|flat|random_spectral|w=0.01|seed=0 (31/72) ===
+[malonaldehyde|flat|random_spectral|seed=0] epoch   1/50 loss=2.7502 H8_eval=0.0610
+[malonaldehyde|flat|random_spectral|seed=0] epoch   5/50 loss=0.0003 H8_eval=0.0001
+[malonaldehyde|flat|random_spectral|seed=0] epoch  10/50 loss=0.0002 H8_eval=0.0189
+[malonaldehyde|flat|random_spectral|seed=0] epoch  15/50 loss=0.0003 H8_eval=0.0100
+[malonaldehyde|flat|random_spectral|seed=0] epoch  20/50 loss=0.0002 H8_eval=0.0028
+[malonaldehyde|flat|random_spectral|seed=0] epoch  25/50 loss=0.0002 H8_eval=0.0005
+[malonaldehyde|flat|random_spectral|seed=0] epoch  30/50 loss=0.0001 H8_eval=0.0279
+[malonaldehyde|flat|random_spectral|seed=0] epoch  35/50 loss=0.0002 H8_eval=0.0070
