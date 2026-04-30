@@ -34,6 +34,7 @@ DEFAULT_OUTPUT = RESULT_DIR / "cycle0_aspirin_smoke_results.json"
 DEFAULT_DATA_ROOT = ROOT / "data" / "rmd17_raw" / "rmd17" / "npz_data"
 SCHEMA_VERSION = "cycle0_smoke_v1"
 GRAPH_PRIORS = {"graph", "permuted_graph", "random_graph"}
+GLOBAL_PRIORS = {"none", "variance", "covariance", "sigreg"}
 
 
 @dataclass
@@ -248,6 +249,13 @@ def covariance_penalty(z_batch: Tensor) -> Tensor:
     return torch.norm(cov - eye, p="fro")
 
 
+def variance_penalty(z_batch: Tensor, gamma: float = 1.0) -> Tensor:
+    if z_batch.shape[0] < 2:
+        return z_batch.new_tensor(0.0)
+    std = torch.sqrt(z_batch.var(dim=0, unbiased=False) + 1e-6)
+    return F.relu(gamma - std).mean()
+
+
 def projection_gaussianity_penalty(z_batch: Tensor, num_slices: int, seed: int) -> Tensor:
     if z_batch.shape[0] < 4:
         return z_batch.new_tensor(0.0)
@@ -403,7 +411,7 @@ def validate_config(config: Cycle0Config) -> None:
         )
     if config.encoder == "mlp_global" and config.prior in GRAPH_PRIORS:
         raise ValueError("MLP graph priors are disabled unless MLP explicitly emits node-wise H")
-    if config.prior not in {"none", "covariance", "sigreg", *GRAPH_PRIORS}:
+    if config.prior not in {*GLOBAL_PRIORS, *GRAPH_PRIORS}:
         raise ValueError(f"Unknown prior {config.prior!r}")
 
 
@@ -438,7 +446,9 @@ def train_batch(
 
     transition_loss = torch.stack(transition_losses).mean()
     z_batch = torch.stack(z_values, dim=0)
-    if config.prior == "covariance":
+    if config.prior == "variance":
+        prior_loss = variance_penalty(z_batch)
+    elif config.prior == "covariance":
         prior_loss = covariance_penalty(z_batch)
     elif config.prior == "sigreg":
         prior_loss = projection_gaussianity_penalty(z_batch, config.sigreg_num_slices, config.seed)
@@ -699,8 +709,9 @@ def flatten_numeric(obj: Any) -> list[float]:
     return values
 
 
-def run_configs(config_paths: list[Path], output_path: Path) -> dict[str, Any]:
+def run_configs(config_paths: list[Path], output_path: Path, schema_version: str = SCHEMA_VERSION) -> dict[str, Any]:
     payload = load_results(output_path)
+    payload["schema_version"] = schema_version
     payload["updated_at"] = datetime.now(timezone.utc).isoformat()
     for config_path in config_paths:
         config = load_config(config_path)
@@ -725,6 +736,7 @@ def main() -> None:
     parser.add_argument("--config", action="append", type=Path, help="Config JSON path. May be repeated.")
     parser.add_argument("--config-dir", type=Path, default=CONFIG_DIR)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--schema-version", default=SCHEMA_VERSION)
     parser.add_argument("--all", action="store_true", help="Run all configs in --config-dir.")
     args = parser.parse_args()
 
@@ -734,7 +746,7 @@ def main() -> None:
         config_paths = args.config or []
     if not config_paths:
         raise SystemExit("No configs selected. Use --all or --config PATH.")
-    run_configs(config_paths, args.output)
+    run_configs(config_paths, args.output, schema_version=args.schema_version)
 
 
 if __name__ == "__main__":
