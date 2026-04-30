@@ -54,3 +54,91 @@ output: /workspace/causalworld/rmd17_multimolecule_mechanism.json
 [ethanol|flat|variance|seed=0] epoch  15/50 loss=0.0988 H8_eval=0.0002
 [ethanol|flat|variance|seed=0] epoch  20/50 loss=0.0986 H8_eval=0.0259
 [ethanol|flat|variance|seed=0] epoch  25/50 loss=0.0984 H8_eval=0.0003
+[ethanol|flat|variance|seed=0] epoch  30/50 loss=0.0983 H8_eval=0.0001
+[ethanol|flat|variance|seed=0] epoch  35/50 loss=0.0983 H8_eval=0.0046
+[ethanol|flat|variance|seed=0] epoch  40/50 loss=0.0982 H8_eval=0.0004
+[ethanol|flat|variance|seed=0] epoch  45/50 loss=0.0982 H8_eval=0.0151
+[ethanol|flat|variance|seed=0] epoch  50/50 loss=0.0981 H8_eval=0.0317
+=== Finished ethanol|flat|variance|seed=0 | H1=0.0036 H8=0.0317 H16=0.0849 | r_eff=16.00 | wall=309.1s ===
+  -> saved partial; avg=299s/run; ETA=399min for 80 remaining
+
+=== Starting ethanol|flat|variance|seed=1 (5/84) ===
+[ethanol|flat|variance|seed=1] epoch   1/50 loss=0.1512 H8_eval=0.1032
+[ethanol|flat|variance|seed=1] epoch   5/50 loss=0.1001 H8_eval=0.0003
+[ethanol|flat|variance|seed=1] epoch  10/50 loss=0.0998 H8_eval=0.0323
+[ethanol|flat|variance|seed=1] epoch  15/50 loss=0.0990 H8_eval=0.0102
+[ethanol|flat|variance|seed=1] epoch  20/50 loss=0.0987 H8_eval=0.0001
+[ethanol|flat|variance|seed=1] epoch  25/50 loss=0.0985 H8_eval=0.0004
+[ethanol|flat|variance|seed=1] epoch  30/50 loss=0.0983 H8_eval=0.0021
+[ethanol|flat|variance|seed=1] epoch  35/50 loss=0.0983 H8_eval=0.0112
+[ethanol|flat|variance|seed=1] epoch  40/50 loss=0.0982 H8_eval=0.0063
+[ethanol|flat|variance|seed=1] epoch  45/50 loss=0.0981 H8_eval=0.0018
+[ethanol|flat|variance|seed=1] epoch  50/50 loss=0.0981 H8_eval=0.0702
+=== Finished ethanol|flat|variance|seed=1 | H1=0.0079 H8=0.0702 H16=0.1658 | r_eff=16.00 | wall=311.2s ===
+  -> saved partial; avg=301s/run; ETA=397min for 79 remaining
+
+=== Starting ethanol|flat|variance|seed=2 (6/84) ===
+[ethanol|flat|variance|seed=2] epoch   1/50 loss=0.1587 H8_eval=0.0753
+[ethanol|flat|variance|seed=2] epoch   5/50 loss=0.0988 H8_eval=0.0009
+[ethanol|flat|variance|seed=2] epoch  10/50 loss=0.0986 H8_eval=0.0015
+[ethanol|flat|variance|seed=2] epoch  15/50 loss=0.0985 H8_eval=0.0003
+[ethanol|flat|variance|seed=2] epoch  20/50 loss=0.0985 H8_eval=0.0117
+[ethanol|flat|variance|seed=2] epoch  25/50 loss=0.0983 H8_eval=0.0002
+[ethanol|flat|variance|seed=2] epoch  30/50 loss=0.0982 H8_eval=0.0021
+[ethanol|flat|variance|seed=2] epoch  35/50 loss=0.0983 H8_eval=0.0152
+[ethanol|flat|variance|seed=2] epoch  40/50 loss=0.0981 H8_eval=0.0002
+[ethanol|flat|variance|seed=2] epoch  45/50 loss=0.0981 H8_eval=0.0317
+[ethanol|flat|variance|seed=2] epoch  50/50 loss=0.0981 H8_eval=0.0199
+=== Finished ethanol|flat|variance|seed=2 | H1=0.0025 H8=0.0199 H16=0.0427 | r_eff=16.00 | wall=307.5s ===
+  -> saved partial; avg=303s/run; ETA=393min for 78 remaining
+
+=== Starting ethanol|flat|covariance|seed=0 (7/84) ===
+[ethanol|flat|euclidean|seed=0] epoch   1/50 loss=0.4584 H8_eval=0.0872
+[ethanol|flat|euclidean|seed=0] epoch   5/50 loss=0.4016 H8_eval=0.0375
+[ethanol|flat|euclidean|seed=0] epoch  10/50 loss=0.4013 H8_eval=0.0026
+[ethanol|flat|euclidean|seed=0] epoch  15/50 loss=0.4008 H8_eval=0.0001
+[ethanol|flat|euclidean|seed=0] epoch  20/50 loss=0.4006 H8_eval=0.0003
+[ethanol|flat|euclidean|seed=0] epoch  25/50 loss=0.4004 H8_eval=0.0472
+[ethanol|flat|euclidean|seed=0] epoch  30/50 loss=0.4003 H8_eval=0.0005
+[ethanol|flat|euclidean|seed=0] epoch  35/50 loss=0.4002 H8_eval=0.0002
+[ethanol|flat|euclidean|seed=0] epoch  40/50 loss=0.4002 H8_eval=0.0014
+[ethanol|flat|euclidean|seed=0] epoch  45/50 loss=0.4001 H8_eval=0.0136
+[ethanol|flat|euclidean|seed=0] epoch  50/50 loss=0.4001 H8_eval=0.0137
+=== Finished ethanol|flat|covariance|seed=0 | H1=0.0016 H8=0.0137 H16=0.0355 | r_eff=16.00 | wall=311.0s ===
+  -> saved partial; avg=304s/run; ETA=390min for 77 remaining
+
+=== Starting ethanol|flat|covariance|seed=1 (8/84) ===
+[ethanol|flat|euclidean|seed=1] epoch   1/50 loss=0.4532 H8_eval=0.1032
+[ethanol|flat|euclidean|seed=1] epoch   5/50 loss=0.4021 H8_eval=0.0003
+[ethanol|flat|euclidean|seed=1] epoch  10/50 loss=0.4018 H8_eval=0.0123
+[ethanol|flat|euclidean|seed=1] epoch  15/50 loss=0.4012 H8_eval=0.0093
+[ethanol|flat|euclidean|seed=1] epoch  20/50 loss=0.4007 H8_eval=0.0005
+[ethanol|flat|euclidean|seed=1] epoch  25/50 loss=0.4005 H8_eval=0.0070
+[ethanol|flat|euclidean|seed=1] epoch  30/50 loss=0.4003 H8_eval=0.0010
+[ethanol|flat|euclidean|seed=1] epoch  35/50 loss=0.4003 H8_eval=0.0176
+[ethanol|flat|euclidean|seed=1] epoch  40/50 loss=0.4003 H8_eval=0.0541
+[ethanol|flat|euclidean|seed=1] epoch  45/50 loss=0.4001 H8_eval=0.0055
+[ethanol|flat|euclidean|seed=1] epoch  50/50 loss=0.4001 H8_eval=0.0420
+=== Finished ethanol|flat|covariance|seed=1 | H1=0.0056 H8=0.0420 H16=0.0812 | r_eff=16.00 | wall=305.3s ===
+  -> saved partial; avg=304s/run; ETA=385min for 76 remaining
+
+=== Starting ethanol|flat|covariance|seed=2 (9/84) ===
+[ethanol|flat|euclidean|seed=2] epoch   1/50 loss=0.4607 H8_eval=0.0753
+[ethanol|flat|euclidean|seed=2] epoch   5/50 loss=0.4008 H8_eval=0.0007
+[ethanol|flat|euclidean|seed=2] epoch  10/50 loss=0.4006 H8_eval=0.0004
+[ethanol|flat|euclidean|seed=2] epoch  15/50 loss=0.4005 H8_eval=0.0000
+[ethanol|flat|euclidean|seed=2] epoch  20/50 loss=0.4004 H8_eval=0.0001
+[ethanol|flat|euclidean|seed=2] epoch  25/50 loss=0.4003 H8_eval=0.0012
+[ethanol|flat|euclidean|seed=2] epoch  30/50 loss=0.4002 H8_eval=0.0034
+[ethanol|flat|euclidean|seed=2] epoch  35/50 loss=0.4003 H8_eval=0.0276
+[ethanol|flat|euclidean|seed=2] epoch  40/50 loss=0.4001 H8_eval=0.0012
+[ethanol|flat|euclidean|seed=2] epoch  45/50 loss=0.4002 H8_eval=0.0065
+[ethanol|flat|euclidean|seed=2] epoch  50/50 loss=0.4002 H8_eval=0.0304
+=== Finished ethanol|flat|covariance|seed=2 | H1=0.0037 H8=0.0304 H16=0.0631 | r_eff=16.00 | wall=310.3s ===
+  -> saved partial; avg=305s/run; ETA=381min for 75 remaining
+
+=== Starting ethanol|flat|sigreg|seed=0 (10/84) ===
+[ethanol|flat|sigreg|seed=0] epoch   1/50 loss=0.2365 H8_eval=0.0866
+[ethanol|flat|sigreg|seed=0] epoch   5/50 loss=0.0180 H8_eval=0.0119
+[ethanol|flat|sigreg|seed=0] epoch  10/50 loss=0.0137 H8_eval=0.0044
+[ethanol|flat|sigreg|seed=0] epoch  15/50 loss=0.0133 H8_eval=0.0015
