@@ -15,10 +15,13 @@ No new experiments, ISO17, rMD17 top-up, METR-LA standard run, full sweeps, or m
 | Graph heat lattice | graph-generated cautionary case | true generator graph | 5 | 0.603606 | 0.690180 | 0.605792 | -14.34% | -13.93% | no_graph_gain |
 | Graph low-frequency lattice | synthetic alignment stress test | constructed true low-frequency Laplacian basis | 5; analysis 20/50 | 0.720953 | 0.691928 | 0.670257 | +4.03% | -3.23% | generic_smoothing |
 | Spring-mass lattice quick | second-order mechanics, low budget | true spring lattice | 5 | 0.686395 | 0.573988 | 0.584110 | +16.38% | +1.73% | topology_aligned_latent_smoothing |
+| Spring-mass lattice quick + calibrated temporal | prior-family attribution check | true spring lattice plus temporal_smooth baseline | 5 | 0.686395 | 0.573988 | 0.576864 | +16.38% | +0.50% | topology_aligned_latent_smoothing |
 | Spring-mass lattice standard | second-order mechanics, longer budget | true spring lattice | 20 | 0.080921 | 0.104796 | 0.123826 | -29.51% | +15.37% | no_graph_gain |
 | Graph-wave lattice quick | PDE-like wave dynamics, low budget | true wave lattice | 5 | 0.682496 | 0.571246 | 0.575382 | +16.30% | +0.72% | topology_aligned_latent_smoothing |
+| Graph-wave lattice quick + calibrated temporal | prior-family attribution check | true wave lattice plus temporal_smooth baseline | 5 | 0.682496 | 0.571246 | 0.571114 | +16.30% | -0.02% | generic_smoothing |
 | Graph-wave lattice standard | PDE-like wave dynamics, longer budget | true wave lattice | 20 | 0.082617 | 0.095294 | 0.102072 | -15.34% | +6.64% | no_graph_gain |
 | N-body distance quick | long-range particle interaction, low budget | initial distance-kNN weighted graph | 5 | 0.821576 | 0.543263 | 0.560362 | +33.88% | +3.05% | topology_aligned_latent_smoothing |
+| N-body distance quick + calibrated temporal | prior-family attribution check | distance-kNN plus temporal_smooth baseline | 5 | 0.821576 | 0.543264 | 0.583762 | +33.88% | +6.94% | candidate_topology_specific |
 | N-body distance standard | long-range particle interaction, longer budget | initial distance-kNN weighted graph | 20 | 0.156127 | 0.113463 | 0.089004 | +27.33% | -27.48% | generic_smoothing |
 | METR-LA correlation T=2000 | main real traffic application case | correlation_topk sensor graph | 5 | 0.406830 | 0.446130 | 0.433669 | -9.66% | -2.87% | no_graph_gain |
 | METR-LA correlation smoke | short traffic smoke check | correlation_topk sensor graph | 1 | 3.755799 | 3.706100 | 3.697807 | +1.32% | -0.22% | generic_smoothing |
@@ -49,6 +52,18 @@ Across the newer physical adapters, a consistent budget-dependent pattern appear
 - N-body distance: at 5 epochs the true graph is best at H=32 (`0.543263` versus none `0.821576` and permuted `0.560362`); at 20 epochs the permuted graph is best (`0.089004` versus true graph `0.113463`).
 
 Interpretation: true graph priors can improve low-budget rollout as topology-aligned regularizers, but with more training the advantage may disappear, and graph-aware architecture or spectrum-matched smoothing controls can catch up or outperform.
+
+## Prior-Family Attribution: Graph vs Temporal Smoothing
+
+Calibrated prior-strength comparison is necessary because uncalibrated temporal_smooth prior losses are orders of magnitude smaller than graph prior losses. Without calibration, temporal_smooth can look ineffective simply because its regularization contribution is nearly zero.
+
+The calibrated quick-budget comparisons show three distinct attribution outcomes:
+
+- Spring-mass lattice ep5: calibrated `temporal_smooth` H32 was `0.5689`, while graph H32 was `0.5740`. Interpretation: temporal smoothing is sufficient; graph topology is not necessary to explain the gain.
+- Graph-wave lattice ep5: calibrated `temporal_smooth` H32 was `0.5663`, while graph H32 was `0.5712`. Interpretation: temporal smoothing is sufficient; graph gain is smoothness-like.
+- N-body distance ep5: graph H32 was `0.5433`, permuted H32 was `0.5838`, and calibrated `temporal_smooth` H32 was `0.6453`. Interpretation: graph prior provides value beyond temporal smoothing and spectrum-matched permuted control; classify as candidate topology-specific under quick budget.
+
+Conclusion: the temporal baseline changes the attribution story. For spring-mass and graph-wave, calibrated temporal smoothing explains the low-budget graph gains. For n-body distance, the candidate graph remains useful beyond both temporal smoothing and the permuted control in the quick run.
 
 ## Case Notes
 
