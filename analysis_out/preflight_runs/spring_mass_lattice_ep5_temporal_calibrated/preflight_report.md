@@ -1,0 +1,85 @@
+# Graph Prior Preflight Report
+
+Created: `2026-05-01T02:07:14.610757+00:00`
+Schema version: `graph_prior_preflight_v2`
+
+Scope: lightweight dataset-adapter preflight using the existing GNN trainer, graph prior loss, and rollout evaluator.
+No ISO17, rMD17 top-up, full sweeps, or large experiments were run.
+
+## Configuration
+
+| field | value |
+| --- | --- |
+| dataset | spring_mass_lattice |
+| topology | lattice |
+| prior_weight | 0.1 |
+| seeds | 0 |
+| epochs | 5 |
+| train transitions | 96 |
+| eval transitions | 32 |
+| horizons | 16,32 |
+| raw normalization | lambda_max |
+| N permuted graphs | 8 |
+| M random graphs | 8 |
+| include temporal prior | True |
+| calibrate prior strength | True |
+| calibration reference prior | graph |
+| calibration target ratio | 1.0 |
+
+## Stage 0: Raw Graph-Dynamics Diagnostic
+
+| graph type | D_dX_norm | R_low K=2 | R_low K=4 | R_low K=8 | D gap control-true |
+| --- | --- | --- | --- | --- | --- |
+| true_graph | 0.576065 | 0.0001 | 0.0017 | 0.0085 | 0.000000 |
+| permuted_graph | 0.466370 | 0.0251 | 0.0757 | 0.1957 | -0.109696 |
+| random_graph | 0.385723 | 0.0351 | 0.1029 | 0.2054 | -0.190343 |
+
+Positive `D gap control-true` means raw temporal changes are smoother on the true graph than on that control.
+
+## Stage 1: Mini Training
+
+| prior | H=16 | H=32 | nominal lambda | effective lambda | initial prior loss | prior loss mean | effective prior contribution | final train loss |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| none | 0.2299 +/- 0.0000 (n=1) | 0.6864 +/- 0.0000 (n=1) | 0.100000 +/- 0.000000 (n=1) | 0.100000 +/- 0.000000 (n=1) | 0.000000 +/- 0.000000 (n=1) | 0.0000 +/- 0.0000 (n=1) | 0.000000 +/- 0.000000 (n=1) | 0.000231 +/- 0.000000 (n=1) |
+| graph | 0.1937 +/- 0.0000 (n=1) | 0.5740 +/- 0.0000 (n=1) | 0.100000 +/- 0.000000 (n=1) | 0.100000 +/- 0.000000 (n=1) | 0.434840 +/- 0.000000 (n=1) | 0.0615 +/- 0.0000 (n=1) | 0.006152 +/- 0.000000 (n=1) | 0.001927 +/- 0.000000 (n=1) |
+| permuted_graph | 0.1957 +/- 0.0000 (n=1) | 0.5769 +/- 0.0000 (n=1) | 0.100000 +/- 0.000000 (n=1) | 0.114681 +/- 0.000000 (n=1) | 0.379172 +/- 0.000000 (n=1) | 0.0523 +/- 0.0000 (n=1) | 0.005997 +/- 0.000000 (n=1) | 0.002027 +/- 0.000000 (n=1) |
+| temporal_smooth | 0.1931 +/- 0.0000 (n=1) | 0.5689 +/- 0.0000 (n=1) | 0.100000 +/- 0.000000 (n=1) | 16676.681349 +/- 0.000000 (n=1) | 0.000003 +/- 0.000000 (n=1) | 0.0000 +/- 0.0000 (n=1) | 0.007064 +/- 0.000000 (n=1) | 0.002745 +/- 0.000000 (n=1) |
+
+Graph gain vs none at H=32: `+16.4%`
+True-vs-permuted gain at H=32: `+0.5%`
+
+## Stage 2: Latent Audit
+
+| prior | D_true(Delta_H) norm | R_low true K=2 | R_low true K=4 | R_low true K=8 |
+| --- | --- | --- | --- | --- |
+| graph | 3.1906 +/- 0.0000 (n=1) | 0.1318 +/- 0.0000 (n=1) | 0.1992 +/- 0.0000 (n=1) | 0.3088 +/- 0.0000 (n=1) |
+| permuted_graph | 3.4795 +/- 0.0000 (n=1) | 0.1008 +/- 0.0000 (n=1) | 0.1550 +/- 0.0000 (n=1) | 0.2531 +/- 0.0000 (n=1) |
+
+Paired `D_true_norm(permuted - graph)`: `0.2888 +/- 0.0000 (n=1)`
+Graph lower latent-energy count: `1/1`
+
+## Latent-Energy Correlation
+
+Pearson r between `D_true_norm(Delta_H)` and H=32 rollout over audited runs: `NA`
+
+## Final Classification
+
+`topology_aligned_latent_smoothing`
+
+## Temporal Prior Interpretation
+
+H=32 temporal_smooth rollout: `0.5689`; temporal gain vs none: `+17.1%`; graph gain vs temporal_smooth: `-0.9%`.
+
+Interpretation: graph gain may be temporal-smoothing-like rather than topology-specific.
+
+Decision rules:
+- `no_graph_gain`: true graph mini run does not beat GNN none at H=32.
+- `generic_smoothing`: true graph beats none but does not beat the permuted graph at H=32.
+- `candidate_topology_specific`: true graph beats both none and permuted, but latent alignment is absent or not audited.
+- `topology_aligned_latent_smoothing`: true graph beats both rollout controls and its learned `Delta_H` is smoother/more low-frequency in the true graph basis.
+- `temporal_smooth`: graph-free temporal baseline; it does not change the graph classification by itself.
+
+## Files
+
+- `analysis_out/preflight_runs/spring_mass_lattice_ep5_temporal_calibrated/summary.csv`
+- latent artifacts under `analysis_out/preflight_runs/spring_mass_lattice_ep5_temporal_calibrated/artifacts`
