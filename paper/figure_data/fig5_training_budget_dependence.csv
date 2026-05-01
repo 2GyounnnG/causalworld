@@ -1,0 +1,19 @@
+dataset,display_case,epochs,budget_mode,prior_family,h32_rollout,protocol_message,source_files
+spring_mass_lattice,Spring-mass,5,quick,none,0.686394960,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/spring_mass_lattice_ep5/summary.csv
+spring_mass_lattice,Spring-mass,5,quick,graph_laplacian,0.573987776,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/spring_mass_lattice_ep5/summary.csv
+spring_mass_lattice,Spring-mass,5,quick,permuted_graph,0.584109820,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/spring_mass_lattice_ep5/summary.csv
+spring_mass_lattice,Spring-mass,20,standard,none,0.080920761,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/spring_mass_lattice_ep20/summary.csv
+spring_mass_lattice,Spring-mass,20,standard,graph_laplacian,0.104796463,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/spring_mass_lattice_ep20/summary.csv
+spring_mass_lattice,Spring-mass,20,standard,permuted_graph,0.123826402,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/spring_mass_lattice_ep20/summary.csv
+graph_wave_lattice,Graph-wave,5,quick,none,0.682496121,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/graph_wave_lattice_ep5/summary.csv
+graph_wave_lattice,Graph-wave,5,quick,graph_laplacian,0.571246235,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/graph_wave_lattice_ep5/summary.csv
+graph_wave_lattice,Graph-wave,5,quick,permuted_graph,0.575382246,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/graph_wave_lattice_ep5/summary.csv
+graph_wave_lattice,Graph-wave,20,standard,none,0.082616677,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/graph_wave_lattice_ep20/summary.csv
+graph_wave_lattice,Graph-wave,20,standard,graph_laplacian,0.095294085,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/graph_wave_lattice_ep20/summary.csv
+graph_wave_lattice,Graph-wave,20,standard,permuted_graph,0.102072082,Graph helps in quick mode but no-prior is best at standard budget,analysis_out/preflight_runs/graph_wave_lattice_ep20/summary.csv
+nbody_distance,N-body,5,quick,none,0.821576318,Graph helps in quick mode; permuted control is best at standard budget,analysis_out/preflight_runs/nbody_distance_ep5/summary.csv
+nbody_distance,N-body,5,quick,graph_laplacian,0.543263474,Graph helps in quick mode; permuted control is best at standard budget,analysis_out/preflight_runs/nbody_distance_ep5/summary.csv
+nbody_distance,N-body,5,quick,permuted_graph,0.560362091,Graph helps in quick mode; permuted control is best at standard budget,analysis_out/preflight_runs/nbody_distance_ep5/summary.csv
+nbody_distance,N-body,20,standard,none,0.156126955,Graph helps in quick mode; permuted control is best at standard budget,analysis_out/preflight_runs/nbody_distance_ep20/summary.csv
+nbody_distance,N-body,20,standard,graph_laplacian,0.113463236,Graph helps in quick mode; permuted control is best at standard budget,analysis_out/preflight_runs/nbody_distance_ep20/summary.csv
+nbody_distance,N-body,20,standard,permuted_graph,0.089003972,Graph helps in quick mode; permuted control is best at standard budget,analysis_out/preflight_runs/nbody_distance_ep20/summary.csv
