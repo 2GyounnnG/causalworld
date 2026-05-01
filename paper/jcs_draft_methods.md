@@ -12,6 +12,13 @@ The central question is:
 
 This framing deliberately avoids causal graph discovery and avoids asserting that a candidate graph is physically true. The purpose is computational triage: reduce wasted full training, avoid false topology attribution, and choose among no prior, graph prior, temporal smoothing, or audit mode.
 
+Figure 1 summarizes the proposed model-conditioned preflight protocol, while Figure 2 specifies the downstream decision logic used to separate practical prior utility from topology-specific attribution.
+
+<a id="fig-preflight-protocol"></a>
+![Figure 1. Overview of the model-conditioned prior preflight protocol.](figures/fig1_protocol_schematic.png)
+
+Figure 1. Overview of the model-conditioned prior preflight protocol. Given node-wise trajectories, candidate priors, and a fixed model/budget specification, the protocol runs lightweight diagnostics and controlled mini-training comparisons before assigning an actionable recommendation. The workflow is explicitly model-conditioned: its recommendation applies to the tested encoder, transition model, prior placement, prior strength, training budget, and rollout horizon.
+
 ## Prior Families and Controls
 
 The baseline condition is `none`, in which the latent dynamics model is trained without an auxiliary prior. The candidate graph prior is a graph Laplacian smoothness penalty applied to learned node-wise latent states. For a latent matrix `H`, the graph penalty is
@@ -76,18 +83,11 @@ Audit mode saves latent traces or checkpoints and evaluates learned latent geome
 
 The preflight report assigns labels that are intended to guide computational action. `no_prior_gain` means that no tested prior meaningfully improves over no-prior training; the recommendation is to skip the prior for larger runs unless there is another scientific reason to test it. `graph_generic_smoothing` means that the graph prior improves over no-prior training but does not beat spectrum-matched or other smoothing controls; the recommendation is to avoid topology claims and consider whether generic smoothing is sufficient. `temporal_smoothing_sufficient` means that calibrated temporal smoothing matches or beats the graph prior; the recommendation is to use the temporal prior unless graph attribution is itself the scientific question.
 
+<a id="fig-decision-logic"></a>
+![Figure 2. Decision logic for assigning preflight labels and prior recommendations.](figures/fig2_decision_logic.png)
+
+Figure 2. Decision logic for assigning preflight labels and prior recommendations. The tree separates practical utility from topology-specific attribution by comparing graph-prior rollout performance against no-prior baselines, spectrum-matched permuted graph controls, calibrated temporal smoothing, and optional latent-space audits. Positive graph-prior performance alone is therefore not treated as sufficient evidence of topology-specific structure.
+
 `candidate_topology_specific` means that the candidate graph prior beats no-prior training, the spectrum-matched permuted graph, and calibrated temporal smoothing under the tested budget. This label supports carrying the graph prior forward, but it remains model-conditioned and does not prove that the graph is the true physical interaction graph. `topology_aligned_latent_smoothing` adds audit evidence: learned temporal deltas are smoother or more low-frequency in the candidate graph basis when the graph prior is used. `low_budget_only` is assigned when a prior helps in quick mode but loses the advantage under standard or longer training. `overconstrained` indicates that a prior appears to harm rollout, likely by suppressing useful latent variation. `inconclusive` is used when controls, audits, or repeated runs are insufficient for a stronger label.
 
 These labels are intentionally conservative. A graph prior must beat no-prior training to be useful, beat a spectrum-matched permuted graph to support topology-specific attribution, and beat calibrated temporal smoothing to show value beyond graph-free temporal regularization. Stronger topology-aligned claims require audit evidence.
-
-## Implementation Overview
-
-Algorithm 1 can be described as a sequence of computational checks. The workflow begins by loading a dataset adapter, which returns the trajectory tensor, candidate Laplacian, and metadata about graph source and data generation. The protocol then builds the prior family set: no prior, the candidate graph Laplacian prior, a spectrum-matched permuted graph control, optional random graph controls, and, when requested, a temporal smoothness prior.
-
-When unlike prior families are compared, the protocol first estimates their initial auxiliary loss scales and calibrates temporal prior strength to match the graph prior's initial effective contribution. It then optionally computes raw graph-dynamics diagnostics, such as one-step differences `Delta X_t = X_{t+1} - X_t`, candidate-graph Dirichlet energy, and low-frequency energy ratios. These diagnostics are recorded as supporting information, not as sufficient evidence for prior usefulness.
-
-For each prior family, the fixed model condition is trained under the selected budget and evaluated at the requested rollout horizons. The report stores rollout errors, training losses, prior losses, calibrated weights, graph metadata, and run settings. If audit mode is enabled, the run also stores latent traces or checkpoints so that learned temporal deltas can be analyzed after training.
-
-The protocol then performs the core comparisons. It compares graph against no-prior training to test whether the prior helps at all. It compares graph against the spectrum-matched permuted graph to test whether node-label topology matters beyond graph-frequency smoothing scale. It compares graph against calibrated temporal smoothing to test whether graph-free temporal regularization is sufficient. When both quick and standard runs exist, it compares budgets to identify low-budget-only effects.
-
-Finally, the workflow assigns a label and recommendation. The recommendation may be to skip priors, use temporal smoothing, continue with the graph prior only under the tested condition, run additional seeds and controls, or enter audit mode before making topology-oriented claims. The output is therefore not a final scientific verdict, but a structured computational decision report for allocating subsequent training and analysis effort.
