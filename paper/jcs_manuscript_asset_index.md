@@ -14,10 +14,10 @@
 
 ## Figure Files
 
-- `paper/figures/fig1_protocol_schematic.png` expected schematic image referenced by Methods.
-- `paper/figures/fig2_decision_logic.png` expected schematic image referenced by Methods.
+- `paper/figures/fig1_protocol_schematic.png` present; main Figure 1 workflow schematic referenced by Methods.
+- `paper/figures/fig2_decision_logic.png` present; main Figure 2 decision-logic schematic referenced by Methods.
 - `paper/figures/fig1_protocol_schematic.md` current text/diagram draft.
-- `paper/figures/fig2_laplacian_smoothing_mechanism.md` current text/diagram draft.
+- `paper/figures/fig2_laplacian_smoothing_mechanism.md` auxiliary mechanism note / legacy draft, not the main Figure 2.
 - `paper/figures/fig3_preflight_classification_overview.png`
 - `paper/figures/fig4_prior_family_comparison.png`
 - `paper/figures/fig5_training_budget_dependence.png`

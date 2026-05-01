@@ -1,4 +1,4 @@
-# Figure 2 Draft. Laplacian Smoothing Mechanism and Permuted Control
+# Auxiliary Mechanism Note. Laplacian Smoothing and Permuted Control
 
 ## Panel A: Graph-Frequency Smoothing Identity
 

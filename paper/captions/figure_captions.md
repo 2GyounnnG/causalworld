@@ -4,9 +4,9 @@
 
 The preflight protocol converts prior selection into a staged computational decision rather than a full-training gamble. Node-wise trajectories and a candidate prior first pass through raw diagnostics, then quick preflight comparisons, then spectrum-matched graph and calibrated temporal controls. Standard and audit modes are used only when the quick result warrants persistence or mechanism checks. The output is a decision label and recommendation, not a claim that the candidate graph is physically true.
 
-## Figure 2. Laplacian smoothing mechanism and spectrum-matched control
+## Figure 2. Decision logic for label assignment and prior recommendation
 
-The graph Laplacian prior penalizes graph-frequency energy, `Tr(H^T L H)=sum_k lambda_k ||a_k||^2`, so rollout gains can arise from smoothing even when node-label topology is not used. The permuted control `L_perm = P^T L P` preserves the Laplacian spectrum and therefore the smoothing scale while disrupting node-label semantics. A candidate graph must beat this control before topology-specific attribution is considered.
+The decision tree separates practical prior utility from topology-specific attribution. A graph prior must first improve over no-prior training, then beat spectrum-matched permuted graph controls and calibrated temporal smoothing before it supports candidate-topology-specific usefulness; optional latent-space audits provide the stronger topology-aligned latent smoothing label. Positive graph-prior performance alone is therefore not sufficient evidence of topology-specific structure.
 
 ## Figure 3. Preflight classification overview across regimes
 
