@@ -27,11 +27,11 @@ from scripts.train_cycle0 import (
     Cycle0LatentDynamics,
     collect_transitions,
     evaluate_rollout,
+    graph_prior_loss,
     latent_diagnostics,
     move_obs,
     select_device,
     set_seed,
-    train_batch,
 )
 from scripts.train_cycle3_ho_networks import (
     Cycle3HOConfig,
@@ -51,6 +51,7 @@ DEFAULT_DATA_ROOT = ROOT / "data" / "ho_raw"
 DEFAULT_METR_LA_ROOT = ROOT / "data" / "metr_la"
 SCHEMA_VERSION = "graph_prior_preflight_v2"
 TRACE_SEED = 4242
+CALIBRATION_EPS = 1e-12
 
 
 def log_progress(message: str) -> None:
@@ -1892,9 +1893,116 @@ def stage0_raw_diagnostics(args: argparse.Namespace, adapter: DatasetAdapter) ->
     return rows
 
 
+def prior_metadata(prior: str) -> dict[str, Any]:
+    if prior == "temporal_smooth":
+        return {
+            "prior_type": "temporal_smooth",
+            "graph_used_for_prior": False,
+            "prior_family": "temporal",
+        }
+    if prior in {"graph", "permuted_graph", "random_graph"}:
+        return {
+            "prior_type": prior,
+            "graph_used_for_prior": True,
+            "prior_family": "graph",
+        }
+    return {
+        "prior_type": prior,
+        "graph_used_for_prior": False,
+        "prior_family": "none" if prior == "none" else "global",
+    }
+
+
+def preflight_train_batch(
+    model: Cycle0LatentDynamics,
+    transitions: list[dict[str, Any]],
+    config: Cycle3HOConfig,
+    device: torch.device,
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    transition_losses: list[torch.Tensor] = []
+    prior_losses: list[torch.Tensor] = []
+    z_values: list[torch.Tensor] = []
+    for transition in transitions:
+        obs = move_obs(transition["obs"], device)
+        next_obs = move_obs(transition["next_obs"], device)
+        z, h = model.encode(obs)
+        if config.prior == "temporal_smooth":
+            z_next, h_next = model.encode(next_obs)
+        else:
+            with torch.no_grad():
+                z_next, h_next = model.encode(next_obs)
+        z_pred = model.step_latent(z)
+        transition_losses.append(torch.nn.functional.mse_loss(z_pred, z_next.detach()))
+        z_values.append(z)
+        if config.prior in {"graph", "permuted_graph", "random_graph"}:
+            prior_losses.append(
+                graph_prior_loss(
+                    config.prior,
+                    obs,
+                    h,
+                    seed=config.seed,
+                    frame_idx=int(transition["frame_idx"]),
+                )
+            )
+        elif config.prior == "temporal_smooth":
+            if h is None or h_next is None:
+                raise ValueError("temporal_smooth prior requires an encoder that emits node-wise states")
+            prior_losses.append(torch.mean((h_next - h) ** 2))
+
+    transition_loss = torch.stack(transition_losses).mean()
+    z_batch = torch.stack(z_values, dim=0)
+    if config.prior in {"graph", "permuted_graph", "random_graph", "temporal_smooth"}:
+        prior_loss = torch.stack(prior_losses).mean()
+    else:
+        prior_loss = transition_loss.new_tensor(0.0)
+    total = transition_loss + config.prior_weight * prior_loss
+    return total, transition_loss, prior_loss, z_batch
+
+
+def estimate_initial_prior_losses(
+    model: Cycle0LatentDynamics,
+    transitions: list[dict[str, Any]],
+    config: Cycle3HOConfig,
+    device: torch.device,
+) -> dict[str, float]:
+    batch = transitions[: max(1, min(len(transitions), int(config.batch_size), 16))]
+    losses: dict[str, float] = {}
+    was_training = model.training
+    model.eval()
+    with torch.no_grad():
+        for prior in ("graph", "permuted_graph", "temporal_smooth"):
+            probe_config = copy.copy(config)
+            probe_config.prior = prior
+            _total, _transition_loss, prior_loss, _z_batch = preflight_train_batch(model, batch, probe_config, device)
+            losses[prior] = float(prior_loss.detach().cpu())
+    if was_training:
+        model.train()
+    return losses
+
+
+def calibration_metadata(
+    *,
+    prior: str,
+    nominal_prior_weight: float,
+    effective_prior_weight: float,
+    initial_prior_loss: float,
+    target_regularization_strength: float,
+    calibration_reference_prior: str,
+) -> dict[str, Any]:
+    return {
+        "nominal_prior_weight": nominal_prior_weight,
+        "effective_prior_weight": effective_prior_weight,
+        "initial_prior_loss": initial_prior_loss,
+        "target_regularization_strength": target_regularization_strength,
+        "calibration_reference_prior": calibration_reference_prior,
+        "effective_prior_contribution_mean": float("nan"),
+    }
+
+
 def mini_train(
     config: Cycle3HOConfig,
     adapter: DatasetAdapter,
+    args: argparse.Namespace | None = None,
 ) -> tuple[dict[str, Any], Cycle0LatentDynamics | None, torch.device]:
     set_seed(config.seed)
     device = select_device(config.device)
@@ -1911,6 +2019,32 @@ def mini_train(
         seed=config.seed + 1000,
     )
     model = Cycle0LatentDynamics(config, n_atoms=adapter.n_nodes).to(device)
+    nominal_prior_weight = float(config.prior_weight)
+    effective_prior_weight = nominal_prior_weight
+    initial_prior_loss = float("nan")
+    target_regularization_strength = float("nan")
+    calibration_reference_prior = getattr(args, "calibration_reference_prior", "graph") if args is not None else "graph"
+    if args is not None and bool(getattr(args, "calibrate_prior_strength", False)):
+        initial_losses = estimate_initial_prior_losses(model, train_transitions, config, device)
+        reference_loss = initial_losses.get(str(calibration_reference_prior), float("nan"))
+        target_regularization_strength = (
+            float(getattr(args, "calibration_target_ratio", 1.0)) * nominal_prior_weight * reference_loss
+            if finite(reference_loss)
+            else float("nan")
+        )
+        if config.prior in initial_losses:
+            initial_prior_loss = initial_losses[config.prior]
+            effective_prior_weight = (
+                target_regularization_strength / (initial_prior_loss + CALIBRATION_EPS)
+                if finite(target_regularization_strength) and finite(initial_prior_loss)
+                else nominal_prior_weight
+            )
+            config.prior_weight = float(effective_prior_weight)
+        else:
+            initial_prior_loss = 0.0
+            effective_prior_weight = nominal_prior_weight
+    else:
+        config.prior_weight = nominal_prior_weight
     optimizer = torch.optim.Adam(model.parameters(), lr=config.lr)
     epoch_losses: list[float] = []
     prior_values: list[float] = []
@@ -1923,7 +2057,7 @@ def mini_train(
         for start_idx in range(0, len(order), config.batch_size):
             batch = [train_transitions[int(index)] for index in order[start_idx : start_idx + config.batch_size]]
             optimizer.zero_grad()
-            total, transition_loss, prior_loss, _z_batch = train_batch(model, batch, config, device)
+            total, transition_loss, prior_loss, _z_batch = preflight_train_batch(model, batch, config, device)
             if not torch.isfinite(total):
                 raise FloatingPointError(f"Non-finite loss in {config.run_name} at epoch {epoch + 1}")
             total.backward()
@@ -1965,6 +2099,15 @@ def mini_train(
             "encoder": config.encoder,
             "prior": config.prior,
             "prior_weight": config.prior_weight,
+            **prior_metadata(config.prior),
+            **calibration_metadata(
+                prior=config.prior,
+                nominal_prior_weight=nominal_prior_weight,
+                effective_prior_weight=effective_prior_weight,
+                initial_prior_loss=initial_prior_loss,
+                target_regularization_strength=target_regularization_strength,
+                calibration_reference_prior=str(calibration_reference_prior),
+            ),
             "seed": config.seed,
             "config_hash": config_hash(config),
             "git_commit": get_git_commit(),
@@ -1973,6 +2116,7 @@ def mini_train(
             **{f"H{horizon}": rollout_errors.get(str(horizon)) for horizon in config.eval_horizons},
             "final_train_loss": diagnostics["final_train_loss"],
             "prior_loss_mean": diagnostics["prior_loss_mean"],
+            "effective_prior_contribution_mean": float(effective_prior_weight) * float(diagnostics["prior_loss_mean"]),
             "wall_time_sec": time.time() - start_time,
         },
         model,
@@ -1987,12 +2131,15 @@ def stage1_mini_training(
     rows: list[dict[str, Any]] = []
     models: dict[tuple[str, int], Cycle0LatentDynamics] = {}
     devices: dict[int, torch.device] = {}
+    priors = ["none", "graph", "permuted_graph"]
+    if args.include_temporal_prior:
+        priors.append("temporal_smooth")
     for seed in args.seeds:
-        for prior in ("none", "graph", "permuted_graph"):
+        for prior in priors:
             config = adapter.training_config(args, prior=prior, seed=int(seed))
             log_progress(f"Mini-training start: {config.run_name}")
             try:
-                row, model, device = mini_train(config, adapter)
+                row, model, device = mini_train(config, adapter, args)
                 rows.append(row)
                 if prior in {"graph", "permuted_graph"}:
                     assert model is not None
@@ -2011,6 +2158,15 @@ def stage1_mini_training(
                         "encoder": config.encoder,
                         "prior": prior,
                         "prior_weight": config.prior_weight,
+                        **prior_metadata(prior),
+                        **calibration_metadata(
+                            prior=prior,
+                            nominal_prior_weight=float(args.prior_weight),
+                            effective_prior_weight=float(config.prior_weight),
+                            initial_prior_loss=float("nan"),
+                            target_regularization_strength=float("nan"),
+                            calibration_reference_prior=str(args.calibration_reference_prior),
+                        ),
                         "seed": int(seed),
                         "error": str(exc),
                         "H16": float("nan"),
@@ -2162,15 +2318,21 @@ def classify(stage1_rows: list[dict[str, Any]], stage2_rows: list[dict[str, Any]
     h32 = grouped_rollout_means(stage1_rows, "32")
     graph_gain = pct_gain(h32.get("none", float("nan")), h32.get("graph", float("nan")))
     specificity_gain = pct_gain(h32.get("permuted_graph", float("nan")), h32.get("graph", float("nan")))
+    temporal_gain = pct_gain(h32.get("none", float("nan")), h32.get("temporal_smooth", float("nan")))
+    graph_vs_temporal_gain = pct_gain(h32.get("temporal_smooth", float("nan")), h32.get("graph", float("nan")))
     metrics = {
         "graph_gain_h32_pct": graph_gain,
         "true_vs_permuted_gain_h32_pct": specificity_gain,
+        "temporal_gain_h32_pct": temporal_gain,
+        "graph_vs_temporal_gain_h32_pct": graph_vs_temporal_gain,
         "none_h32": h32.get("none", float("nan")),
         "graph_h32": h32.get("graph", float("nan")),
         "permuted_h32": h32.get("permuted_graph", float("nan")),
+        "temporal_smooth_h32": h32.get("temporal_smooth", float("nan")),
         "none_h16": h16.get("none", float("nan")),
         "graph_h16": h16.get("graph", float("nan")),
         "permuted_h16": h16.get("permuted_graph", float("nan")),
+        "temporal_smooth_h16": h16.get("temporal_smooth", float("nan")),
     }
     if not finite(graph_gain) or graph_gain <= 0.0:
         return "no_graph_gain", metrics
@@ -2348,6 +2510,10 @@ def write_report(
                 ["raw normalization", args.laplacian_normalization],
                 ["N permuted graphs", args.n_permuted],
                 ["M random graphs", 0 if args.skip_random_graph else args.n_random],
+                ["include temporal prior", bool(args.include_temporal_prior)],
+                ["calibrate prior strength", bool(args.calibrate_prior_strength)],
+                ["calibration reference prior", args.calibration_reference_prior],
+                ["calibration target ratio", args.calibration_target_ratio],
             ],
         ),
         "",
@@ -2373,14 +2539,28 @@ def write_report(
         "## Stage 1: Mini Training",
         "",
         *report_table(
-            ["prior", "H=16", "H=32", "final train loss", "prior loss mean"],
+            [
+                "prior",
+                "H=16",
+                "H=32",
+                "nominal lambda",
+                "effective lambda",
+                "initial prior loss",
+                "prior loss mean",
+                "effective prior contribution",
+                "final train loss",
+            ],
             [
                 [
                     prior,
                     fmt_mean_std([row.get("H16") for row in rows], 4),
                     fmt_mean_std([row.get("H32") for row in rows], 4),
-                    fmt_mean_std([row.get("final_train_loss") for row in rows], 6),
+                    fmt_mean_std([row.get("nominal_prior_weight") for row in rows], 6),
+                    fmt_mean_std([row.get("effective_prior_weight") for row in rows], 6),
+                    fmt_mean_std([row.get("initial_prior_loss") for row in rows], 6),
                     fmt_mean_std([row.get("prior_loss_mean") for row in rows], 4),
+                    fmt_mean_std([row.get("effective_prior_contribution_mean") for row in rows], 6),
+                    fmt_mean_std([row.get("final_train_loss") for row in rows], 6),
                 ]
                 for prior, rows in train_by_prior.items()
             ],
@@ -2473,11 +2653,13 @@ def write_report(
             "",
             f"`{classification}`",
             "",
+            *temporal_prior_interpretation(stage1_rows),
             "Decision rules:",
             "- `no_graph_gain`: true graph mini run does not beat GNN none at H=32.",
             "- `generic_smoothing`: true graph beats none but does not beat the permuted graph at H=32.",
             "- `candidate_topology_specific`: true graph beats both none and permuted, but latent alignment is absent or not audited.",
             "- `topology_aligned_latent_smoothing`: true graph beats both rollout controls and its learned `Delta_H` is smoother/more low-frequency in the true graph basis.",
+            "- `temporal_smooth`: graph-free temporal baseline; it does not change the graph classification by itself.",
             "",
             "## Files",
             "",
@@ -2499,6 +2681,40 @@ def first_prior_row(rows: list[dict[str, Any]], prior: str) -> dict[str, Any] | 
         if row.get("prior") == prior:
             return row
     return None
+
+
+def temporal_prior_interpretation(stage1_rows: list[dict[str, Any]]) -> list[str]:
+    h32 = grouped_rollout_means(stage1_rows, "32")
+    none = h32.get("none", float("nan"))
+    graph = h32.get("graph", float("nan"))
+    permuted = h32.get("permuted_graph", float("nan"))
+    temporal = h32.get("temporal_smooth", float("nan"))
+    if not finite(temporal):
+        return []
+    lines = [
+        "## Temporal Prior Interpretation",
+        "",
+        (
+            "H=32 temporal_smooth rollout: "
+            f"`{fmt(temporal, 4)}`; temporal gain vs none: `{fmt_pct(pct_gain(none, temporal))}`; "
+            f"graph gain vs temporal_smooth: `{fmt_pct(pct_gain(temporal, graph))}`."
+        ),
+        "",
+    ]
+    if finite(graph) and finite(none) and graph >= none and temporal < none:
+        lines.append("Interpretation: graph-free temporal smoothing may be preferable.")
+    elif finite(graph) and graph < none and temporal <= graph:
+        lines.append("Interpretation: graph gain may be temporal-smoothing-like rather than topology-specific.")
+    elif finite(graph) and finite(permuted) and graph < temporal and graph < permuted:
+        lines.append(
+            "Interpretation: graph beats temporal_smooth and permuted_graph, which is stronger evidence for topology-specific graph usefulness."
+        )
+    else:
+        lines.append(
+            "Interpretation: temporal_smooth is included as a graph-free baseline; use it to separate temporal regularization from graph-specific effects."
+        )
+    lines.append("")
+    return lines
 
 
 def write_graph_heat_failure_audit(
@@ -2844,6 +3060,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--device", default="auto")
     parser.add_argument("--force-latent-audit", action="store_true")
+    parser.add_argument("--include-temporal-prior", action="store_true")
+    parser.add_argument("--calibrate-prior-strength", action="store_true")
+    parser.add_argument(
+        "--calibration-reference-prior",
+        default="graph",
+        choices=["graph", "permuted_graph", "temporal_smooth"],
+    )
+    parser.add_argument("--calibration-target-ratio", type=float, default=1.0)
     parser.add_argument("--graph-heat-failure-audit-only", action="store_true")
     parser.add_argument("--graph-lowfreq-failure-analysis-only", action="store_true")
     parser.add_argument("--graph-heat-n", type=int, default=36)
