@@ -5,6 +5,8 @@ import copy
 import csv
 import json
 import math
+import os
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -19,6 +21,73 @@ if str(ROOT) not in sys.path:
 
 
 DEFAULT_OUT_DIR = ROOT / "analysis_out" / "preflight_runs" / "node_order_sanity"
+
+
+def shell_quote(parts: list[str]) -> str:
+    return " ".join(subprocess.list2cmdline([part]) for part in parts)
+
+
+def strip_option(argv: list[str], option: str) -> list[str]:
+    out: list[str] = []
+    skip_next = False
+    for idx, value in enumerate(argv):
+        if skip_next:
+            skip_next = False
+            continue
+        if value == option:
+            skip_next = idx + 1 < len(argv)
+            continue
+        if value.startswith(f"{option}="):
+            continue
+        out.append(value)
+    return out
+
+
+def maybe_reexec_with_requested_interpreter(args: argparse.Namespace) -> bool:
+    print(f"Current sys.executable: {sys.executable}", flush=True)
+    current_env = os.environ.get("CONDA_DEFAULT_ENV", "")
+    if args.conda_env:
+        print(f"Interpreter mode: conda run -n {args.conda_env}", flush=True)
+        if current_env != args.conda_env:
+            forwarded = strip_option(strip_option(sys.argv[1:], "--conda-env"), "--python-exe")
+            command = ["conda", "run", "-n", args.conda_env, "python", str(Path(__file__).resolve()), *forwarded]
+            print(f"Re-exec command: {shell_quote(command)}", flush=True)
+            if args.dry_run:
+                print("Dry run only. Target environment was not launched.", flush=True)
+                return True
+            subprocess.run(command, cwd=ROOT, check=True)
+            return True
+        return False
+
+    if Path(args.python_exe) != Path(sys.executable):
+        print(f"Interpreter mode: --python-exe ({args.python_exe})", flush=True)
+        forwarded = strip_option(sys.argv[1:], "--python-exe")
+        command = [args.python_exe, str(Path(__file__).resolve()), *forwarded]
+        print(f"Re-exec command: {shell_quote(command)}", flush=True)
+        if args.dry_run:
+            print("Dry run only. Target interpreter was not launched.", flush=True)
+            return True
+        subprocess.run(command, cwd=ROOT, check=True)
+        return True
+
+    print(f"Interpreter mode: sys.executable ({sys.executable})", flush=True)
+    return False
+
+
+def require_torch() -> None:
+    try:
+        import torch
+    except ModuleNotFoundError as exc:
+        raise SystemExit(
+            "ERROR: torch is not importable from this Python interpreter.\n"
+            f"Current sys.executable: {sys.executable}\n"
+            "Run from the causalworld environment, for example:\n"
+            "  conda run -n causalworld python scripts/run_node_order_sanity_check.py\n"
+            "or activate the environment first:\n"
+            "  conda activate causalworld\n"
+            "  python scripts/run_node_order_sanity_check.py"
+        ) from exc
+    print(f"torch import ok: version {torch.__version__}", flush=True)
 
 
 def mean(values: list[float]) -> float:
@@ -262,6 +331,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--device", default="auto")
+    parser.add_argument("--python-exe", default=sys.executable)
+    parser.add_argument(
+        "--conda-env",
+        default=None,
+        help="Re-run this script as `conda run -n ENV python ...`; overrides --python-exe.",
+    )
     parser.add_argument("--data-root", type=Path, default=ROOT / "data" / "ho_raw")
     parser.add_argument("--nbody-n", type=int, default=36)
     parser.add_argument("--nbody-graph-k", type=int, default=8)
@@ -276,6 +351,9 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    if maybe_reexec_with_requested_interpreter(args):
+        return
+    require_torch()
     args.out_dir = args.out_dir.resolve()
     args.summary = args.out_dir / "summary.csv"
     args.report = args.out_dir / "node_order_sanity_report.md"

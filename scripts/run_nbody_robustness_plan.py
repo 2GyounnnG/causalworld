@@ -28,10 +28,19 @@ def has_classification(summary_path: Path) -> bool:
     return False
 
 
+def interpreter_command(args: argparse.Namespace) -> tuple[list[str], str]:
+    if args.conda_env:
+        return ["conda", "run", "-n", args.conda_env, "python"], f"conda run -n {args.conda_env}"
+    if Path(args.python_exe) == Path(sys.executable):
+        return [args.python_exe], f"sys.executable ({args.python_exe})"
+    return [args.python_exe], f"--python-exe ({args.python_exe})"
+
+
 def command_for_run(args: argparse.Namespace, *, distance_k: int, budget_label: str, epochs: int) -> list[str]:
     out_dir = args.out_root / f"distance_k_{distance_k:02d}" / f"{budget_label}_ep{epochs}"
+    python_cmd, _source = interpreter_command(args)
     return [
-        sys.executable,
+        *python_cmd,
         str(PREFLIGHT_SCRIPT),
         "--dataset",
         "nbody_distance",
@@ -112,6 +121,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prior-weight", type=float, default=0.1)
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--device", default="auto")
+    parser.add_argument("--python-exe", default=sys.executable)
+    parser.add_argument(
+        "--conda-env",
+        default=None,
+        help="Run child preflight commands as `conda run -n ENV python ...`; overrides --python-exe.",
+    )
     parser.add_argument("--calibration-reference-prior", default="graph")
     parser.add_argument("--calibration-target-ratio", type=float, default=1.0)
     parser.add_argument("--force", action="store_true", help="Re-run completed output directories.")
@@ -123,6 +138,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     args.out_root = args.out_root.resolve()
+    _python_cmd, interpreter_source = interpreter_command(args)
+    print(f"Interpreter mode: {interpreter_source}")
     if 32 not in set(args.horizons):
         raise ValueError("--horizons must include 32 for preflight classification")
 
@@ -160,6 +177,7 @@ def main() -> None:
     if args.smoke:
         commands = commands[:1]
     for command in commands:
+        print(f"Running: {shell_quote(command)}", flush=True)
         subprocess.run(command, cwd=ROOT, check=True)
 
 
