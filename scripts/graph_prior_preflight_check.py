@@ -3,7 +3,9 @@ from __future__ import annotations
 import argparse
 import copy
 import csv
+import json
 import math
+import pickle
 import sys
 import time
 from collections import defaultdict
@@ -46,8 +48,13 @@ DEFAULT_REPORT = ROOT / "analysis_out" / "GRAPH_PRIOR_PREFLIGHT_REPORT.md"
 DEFAULT_SUMMARY = ROOT / "analysis_out" / "graph_prior_preflight_summary.csv"
 DEFAULT_ARTIFACT_DIR = ROOT / "experiments" / "artifacts" / "graph_prior_preflight"
 DEFAULT_DATA_ROOT = ROOT / "data" / "ho_raw"
+DEFAULT_METR_LA_ROOT = ROOT / "data" / "metr_la"
 SCHEMA_VERSION = "graph_prior_preflight_v2"
 TRACE_SEED = 4242
+
+
+def log_progress(message: str) -> None:
+    print(f"[{datetime.now().isoformat(timespec='seconds')}] {message}", flush=True)
 
 
 @dataclass(frozen=True)
@@ -520,10 +527,431 @@ class GraphLowFreqAdapter:
         }
 
 
+def read_metr_la_csv(path: Path, max_timesteps: int | None = None) -> tuple[np.ndarray, list[str]]:
+    if max_timesteps is not None and max_timesteps < 2:
+        raise ValueError("--metr-la-max-timesteps must be at least 2 when set")
+    log_progress(f"METR-LA: loading CSV {rel_to_root(path)}")
+    try:
+        import pandas as pd
+    except Exception:
+        pd = None
+    if pd is not None:
+        frame = pd.read_csv(path, nrows=max_timesteps)
+        if frame.shape[1] >= 2 and not np.issubdtype(frame.dtypes.iloc[0], np.number):
+            frame = frame.iloc[:, 1:]
+        values = frame.apply(lambda col: pd.to_numeric(col, errors="coerce")).to_numpy(dtype=np.float32)
+        sensor_ids = [str(col) for col in frame.columns]
+    else:
+        with path.open("r", newline="", encoding="utf-8") as file:
+            reader = csv.reader(file)
+            header = next(reader)
+            rows = []
+            for row_idx, row in enumerate(reader):
+                if max_timesteps is not None and row_idx >= max_timesteps:
+                    break
+                rows.append(row)
+        start_col = 1
+        try:
+            float(rows[0][0])
+            start_col = 0
+        except (ValueError, IndexError):
+            start_col = 1
+        sensor_ids = [str(value) for value in header[start_col:]]
+        values = np.asarray([[float(value) if value else np.nan for value in row[start_col:]] for row in rows], dtype=np.float32)
+    n_rows = values.shape[0] if values.ndim >= 1 else 0
+    n_sensors = values.shape[1] if values.ndim >= 2 else 0
+    log_progress(f"METR-LA: CSV shape after loading rows={n_rows} sensors={n_sensors}")
+    if max_timesteps is not None:
+        log_progress(f"METR-LA: applying --metr-la-max-timesteps {max_timesteps}")
+    if values.ndim != 2 or values.shape[0] < 2 or values.shape[1] < 2:
+        raise ValueError(f"METR-LA CSV must contain a [time, sensor] table, got shape {values.shape}")
+    col_means = np.nanmean(values, axis=0)
+    row_idx, col_idx = np.where(~np.isfinite(values))
+    if row_idx.size:
+        values[row_idx, col_idx] = col_means[col_idx]
+    return values[:, :, None].astype(np.float32), sensor_ids
+
+
+def read_metr_la_adj_pkl(path: Path, sensor_ids: list[str] | None = None) -> np.ndarray:
+    with path.open("rb") as file:
+        try:
+            payload = pickle.load(file)
+        except UnicodeDecodeError:
+            file.seek(0)
+            payload = pickle.load(file, encoding="latin1")
+    if isinstance(payload, tuple) and len(payload) >= 3:
+        pkl_sensor_ids, sensor_id_to_ind, adj = payload[:3]
+        adj = np.asarray(adj, dtype=np.float64)
+        if sensor_ids:
+            indices = [int(sensor_id_to_ind[str(sensor_id)]) for sensor_id in sensor_ids if str(sensor_id) in sensor_id_to_ind]
+            if len(indices) == len(sensor_ids):
+                adj = adj[np.ix_(indices, indices)]
+        return adj
+    if isinstance(payload, dict):
+        for key in ("adj_mx", "adjacency", "adj", "W"):
+            if key in payload:
+                return np.asarray(payload[key], dtype=np.float64)
+    return np.asarray(payload, dtype=np.float64)
+
+
+def infer_metr_la_csv_path(root: Path, csv_path: Path | None) -> Path:
+    csv_candidates = [
+        csv_path,
+        root / "metr-la.csv",
+        root / "METR-LA.csv",
+        root / "metr_la.csv",
+        root / "METR_LA.csv",
+    ]
+    found_csv = next((path for path in csv_candidates if path is not None and path.exists()), None)
+    if found_csv is None:
+        raise FileNotFoundError(
+            "METR-LA CSV not found. Expected a speed CSV, e.g. "
+            f"{root / 'metr-la.csv'}, or pass --metr-la-csv."
+        )
+    return found_csv
+
+
+def infer_metr_la_adj_path(root: Path, adj_path: Path | None) -> Path:
+    adj_candidates = [
+        adj_path,
+        root / "adj_mx.pkl",
+        root / "adjacency.pkl",
+        root / "metr-la-adj.pkl",
+        root / "METR-LA-adj.pkl",
+    ]
+    found_adj = next((path for path in adj_candidates if path is not None and path.exists()), None)
+    if found_adj is None:
+        raise FileNotFoundError(
+            "METR-LA adjacency pkl not found. Expected e.g. "
+            f"{root / 'adj_mx.pkl'}, or pass --metr-la-adj-pkl."
+        )
+    return found_adj
+
+
+def metr_la_corr_topk_cache_path(root: Path, top_k: int, corr_mode: str, max_timesteps: int | None) -> Path:
+    timestep_label = str(int(max_timesteps)) if max_timesteps is not None else "all"
+    return root / f"processed_corr_topk_k{int(top_k)}_{corr_mode}_T{timestep_label}.pt"
+
+
+def load_metr_la_corr_topk_cache(cache_path: Path) -> tuple[np.ndarray, np.ndarray, list[str]] | None:
+    if not cache_path.exists():
+        log_progress(f"METR-LA: cache not found {rel_to_root(cache_path)}")
+        return None
+    log_progress(f"METR-LA: loading cache {rel_to_root(cache_path)}")
+    payload = torch.load(cache_path, map_location="cpu")
+    coords = payload["coords"]
+    adjacency = payload["adjacency"]
+    sensor_ids = payload.get("sensor_ids", [])
+    if isinstance(coords, torch.Tensor):
+        coords = coords.cpu().numpy()
+    if isinstance(adjacency, torch.Tensor):
+        adjacency = adjacency.cpu().numpy()
+    return np.asarray(coords, dtype=np.float32), np.asarray(adjacency, dtype=np.float64), [str(value) for value in sensor_ids]
+
+
+def save_metr_la_corr_topk_cache(
+    cache_path: Path,
+    *,
+    coords: np.ndarray,
+    adjacency: np.ndarray,
+    sensor_ids: list[str],
+) -> None:
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    log_progress(f"METR-LA: saving cache {rel_to_root(cache_path)}")
+    torch.save(
+        {
+            "coords": torch.from_numpy(np.asarray(coords, dtype=np.float32)),
+            "adjacency": torch.from_numpy(np.asarray(adjacency, dtype=np.float64)),
+            "sensor_ids": sensor_ids,
+        },
+        cache_path,
+    )
+
+
+def correlation_topk_adjacency(
+    coords: np.ndarray,
+    *,
+    top_k: int,
+    mode: str,
+    train_fraction: float = 0.7,
+) -> np.ndarray:
+    if mode not in {"positive", "absolute"}:
+        raise ValueError("--metr-la-corr-mode must be positive or absolute")
+    n_train = max(2, int(coords.shape[0] * train_fraction))
+    series = np.asarray(coords[:n_train, :, 0], dtype=np.float64)
+    log_progress(f"METR-LA: computing correlation over {n_train} timesteps x {series.shape[1]} sensors")
+    corr = np.corrcoef(series, rowvar=False)
+    corr = np.nan_to_num(corr, nan=0.0, posinf=0.0, neginf=0.0)
+    np.fill_diagonal(corr, 0.0)
+    weights = np.maximum(corr, 0.0) if mode == "positive" else np.abs(corr)
+    np.fill_diagonal(weights, 0.0)
+    k = min(max(0, int(top_k)), max(0, weights.shape[0] - 1))
+    log_progress(f"METR-LA: building top-k graph k={k} mode={mode}")
+    adjacency = np.zeros_like(weights)
+    if k > 0:
+        top_idx = np.argpartition(-weights, kth=k - 1, axis=1)[:, :k]
+        row_idx = np.broadcast_to(np.arange(weights.shape[0])[:, None], top_idx.shape)
+        top_weights = weights[row_idx, top_idx]
+        keep = top_weights > 0.0
+        adjacency[row_idx[keep], top_idx[keep]] = top_weights[keep]
+    adjacency = np.maximum(adjacency, adjacency.T)
+    np.fill_diagonal(adjacency, 0.0)
+    return adjacency
+
+
+def load_metr_la_from_pyg_temporal() -> tuple[np.ndarray, np.ndarray, str]:
+    try:
+        from torch_geometric_temporal.dataset import METRLADatasetLoader
+    except Exception as exc:
+        raise ImportError(f"PyTorch Geometric Temporal METRLADatasetLoader unavailable: {exc}") from exc
+    loader = METRLADatasetLoader()
+    dataset = loader.get_dataset()
+    features: list[np.ndarray] = []
+    edge_index = None
+    edge_weight = None
+    for snapshot in dataset:
+        x = np.asarray(snapshot.x, dtype=np.float32)
+        if x.ndim == 1:
+            x = x[:, None]
+        if x.ndim == 2:
+            x = x[:, :1]
+        elif x.ndim > 2:
+            x = x.reshape(x.shape[0], -1)[:, :1]
+        features.append(x)
+        if edge_index is None:
+            edge_index = np.asarray(snapshot.edge_index, dtype=np.int64)
+            edge_weight = np.asarray(getattr(snapshot, "edge_attr", np.ones(edge_index.shape[1])), dtype=np.float64).reshape(-1)
+    if not features or edge_index is None:
+        raise RuntimeError("PyG Temporal METR-LA loader returned no snapshots")
+    coords = np.stack(features, axis=0).astype(np.float32)
+    n_nodes = coords.shape[1]
+    adjacency = np.zeros((n_nodes, n_nodes), dtype=np.float64)
+    for idx in range(edge_index.shape[1]):
+        src = int(edge_index[0, idx])
+        dst = int(edge_index[1, idx])
+        if src == dst:
+            continue
+        weight = float(edge_weight[idx]) if edge_weight is not None and idx < edge_weight.shape[0] else 1.0
+        adjacency[src, dst] = max(adjacency[src, dst], weight)
+        adjacency[dst, src] = max(adjacency[dst, src], weight)
+    return coords, adjacency, "pyg_temporal"
+
+
+class METRLAAdapter:
+    """METR-LA traffic speed forecasting adapter."""
+
+    def __init__(
+        self,
+        *,
+        root: Path,
+        csv_path: Path | None = None,
+        adj_path: Path | None = None,
+        graph_source: str = "adjacency_pkl",
+        top_k: int = 8,
+        corr_mode: str = "positive",
+        max_timesteps: int | None = None,
+        prefer_pyg_temporal: bool = True,
+    ):
+        self.name = "metr_la"
+        self.topology = "traffic"
+        if graph_source not in {"adjacency_pkl", "correlation_topk"}:
+            raise ValueError("--metr-la-graph-source must be adjacency_pkl or correlation_topk")
+        self.source = "local"
+        self.graph_source = graph_source
+        self.top_k = int(top_k)
+        self.correlation_mode = corr_mode
+        self.max_timesteps = max_timesteps
+        self.csv_path: Path | None = None
+        self.adj_path: Path | None = None
+        errors: list[str] = []
+        coords: np.ndarray | None = None
+        adjacency: np.ndarray | None = None
+        if prefer_pyg_temporal:
+            try:
+                log_progress("METR-LA: loading PyG Temporal dataset")
+                coords, adjacency, self.source = load_metr_la_from_pyg_temporal()
+                log_progress(f"METR-LA: PyG dataset shape after loading timesteps={coords.shape[0]} sensors={coords.shape[1]}")
+                if max_timesteps is not None:
+                    log_progress(f"METR-LA: applying --metr-la-max-timesteps {max_timesteps}")
+                    coords = coords[:max_timesteps]
+            except Exception as exc:
+                errors.append(str(exc))
+        if coords is None or adjacency is None:
+            try:
+                self.csv_path = infer_metr_la_csv_path(root, csv_path)
+                if graph_source == "correlation_topk":
+                    if max_timesteps is not None:
+                        log_progress(f"METR-LA: applying --metr-la-max-timesteps {max_timesteps}")
+                    cache_path = metr_la_corr_topk_cache_path(root, self.top_k, self.correlation_mode, max_timesteps)
+                    cached = load_metr_la_corr_topk_cache(cache_path)
+                    if cached is not None:
+                        coords, adjacency, sensor_ids = cached
+                    else:
+                        coords, sensor_ids = read_metr_la_csv(self.csv_path, max_timesteps=max_timesteps)
+                        adjacency = correlation_topk_adjacency(coords, top_k=self.top_k, mode=self.correlation_mode)
+                        save_metr_la_corr_topk_cache(
+                            cache_path,
+                            coords=coords,
+                            adjacency=adjacency,
+                            sensor_ids=sensor_ids,
+                        )
+                    self.graph_source = "correlation_topk"
+                else:
+                    coords, sensor_ids = read_metr_la_csv(self.csv_path, max_timesteps=max_timesteps)
+                    self.adj_path = infer_metr_la_adj_path(root, adj_path)
+                    adjacency = read_metr_la_adj_pkl(self.adj_path, sensor_ids)
+                    self.graph_source = "adjacency_pkl"
+                self.source = "local_csv_pkl"
+            except Exception as exc:
+                errors.append(str(exc))
+                raise FileNotFoundError("Could not load METR-LA. " + " | ".join(errors)) from exc
+        adjacency = np.asarray(adjacency, dtype=np.float64)
+        adjacency = np.nan_to_num(adjacency, nan=0.0, posinf=0.0, neginf=0.0)
+        adjacency = 0.5 * (adjacency + adjacency.T)
+        np.fill_diagonal(adjacency, 0.0)
+        if adjacency.shape[0] != coords.shape[1] or adjacency.shape[1] != coords.shape[1]:
+            raise ValueError(f"METR-LA adjacency shape {adjacency.shape} does not match coords nodes {coords.shape[1]}")
+        self.coords = coords.astype(np.float32)
+        self.adjacency = adjacency
+        self.laplacian = self._laplacian_from_adjacency(adjacency)
+        self.n_frames = int(self.coords.shape[0])
+        self.n_nodes = int(self.coords.shape[1])
+        self.n_dim = int(self.coords.shape[2])
+        self.mean = float(np.mean(self.coords))
+        self.std = float(np.std(self.coords) + 1e-6)
+        self.energies = np.mean(self.coords * self.coords, axis=(1, 2)).astype(np.float32)
+
+    @staticmethod
+    def _laplacian_from_adjacency(adjacency: np.ndarray) -> np.ndarray:
+        weights = np.maximum(np.asarray(adjacency, dtype=np.float64), 0.0)
+        return np.diag(weights.sum(axis=1)) - weights
+
+    def _edge_pairs_and_weights(self) -> tuple[np.ndarray, np.ndarray]:
+        src, dst = np.where(np.triu(self.adjacency, k=1) > 0)
+        edges = np.stack([src, dst], axis=1).astype(np.int64)
+        weights = self.adjacency[src, dst].astype(np.float32)
+        return edges, weights
+
+    def __getitem__(self, idx: int) -> HeteroData:
+        values = torch.from_numpy(((self.coords[idx, :, 0] - self.mean) / self.std).astype(np.float32))
+        pos = torch.zeros((self.n_nodes, 3), dtype=torch.float32)
+        atomic_numbers = 10.0 * values
+        edges, weights = self._edge_pairs_and_weights()
+        directed = np.concatenate([edges, edges[:, ::-1]], axis=0)
+        directed_weights = np.concatenate([weights, weights], axis=0)
+        edge_index = torch.from_numpy(directed.T.copy()).to(dtype=torch.long)
+        edge_attr = torch.from_numpy((1.0 / np.maximum(directed_weights, 1e-6)).reshape(-1, 1)).to(dtype=torch.float32)
+        data = HeteroData()
+        data["atom"].pos = pos
+        data["atom"].atomic_number = atomic_numbers
+        data["atom"].x = torch.cat([values.view(-1, 1), pos], dim=-1)
+        data["atom", "bonded", "atom"].edge_index = edge_index
+        data["atom", "bonded", "atom"].edge_attr = edge_attr
+        return data
+
+    def sample_transitions(
+        self,
+        *,
+        n_transitions: int,
+        stride: int,
+        horizon: int,
+        seed: int,
+    ) -> list[dict[str, Any]]:
+        frame_indices = sampled_frame_indices(self.n_frames, n_transitions, stride, horizon, seed)
+        transitions = []
+        for frame_idx in frame_indices:
+            obs, next_obs, energy, _force = self.get_pair(frame_idx, horizon=horizon)
+            transitions.append(
+                {
+                    "obs": obs,
+                    "next_obs": next_obs,
+                    "frame_idx": int(frame_idx),
+                    "horizon": int(horizon),
+                    "energy": float(energy),
+                    "molecule": self.name,
+                }
+            )
+        return transitions
+
+    def get_pair(self, idx: int, horizon: int = 1) -> tuple[HeteroData, HeteroData, float, None]:
+        if idx + horizon >= self.n_frames:
+            raise IndexError(f"idx+horizon={idx + horizon} >= n_frames={self.n_frames}")
+        return self[idx], self[idx + horizon], float(self.energies[idx]), None
+
+    def true_laplacian(self) -> np.ndarray:
+        return self.laplacian
+
+    def coordinates(self, frame_idx: int) -> np.ndarray:
+        return np.asarray(self.coords[frame_idx], dtype=np.float64)
+
+    def training_config(
+        self,
+        args: argparse.Namespace,
+        *,
+        prior: str,
+        seed: int,
+    ) -> Cycle3HOConfig:
+        return Cycle3HOConfig(
+            run_name=(
+                f"preflight_{self.name}_gnn_{prior}_"
+                f"lambda{str(args.prior_weight).replace('.', 'p')}_seed{seed}"
+            ),
+            topology="metr_la",
+            encoder="gnn_node",
+            prior=prior,
+            seed=int(seed),
+            num_epochs=int(args.epochs),
+            n_transitions=int(args.train_transitions),
+            eval_n_transitions=int(args.eval_transitions),
+            stride=int(args.train_stride),
+            eval_stride=int(args.eval_stride),
+            horizon=1,
+            eval_horizons=tuple(int(value) for value in args.horizons),
+            latent_dim=16,
+            node_dim=16,
+            hidden_dim=64,
+            transition_hidden_dim=64,
+            batch_size=int(args.batch_size),
+            lr=float(args.lr),
+            prior_weight=float(args.prior_weight),
+            device=args.device,
+            data_root=str(args.data_root),
+        )
+
+    def metadata(self) -> dict[str, Any]:
+        return {
+            "dataset": self.name,
+            "domain": "traffic",
+            "source": self.source,
+            "graph_source": self.graph_source,
+            "top_k": self.top_k if self.graph_source == "correlation_topk" else "",
+            "correlation_mode": self.correlation_mode if self.graph_source == "correlation_topk" else "",
+            "max_timesteps": self.max_timesteps or "",
+            "topology": self.topology,
+            "n_nodes": self.n_nodes,
+            "n_edges": int(np.count_nonzero(np.triu(self.adjacency, k=1))),
+            "n_frames": self.n_frames,
+            "n_dim": self.n_dim,
+            "csv_path": str(self.csv_path) if self.csv_path else "",
+            "adj_path": str(self.adj_path) if self.adj_path else "",
+        }
+
+
 def build_adapter(args: argparse.Namespace) -> DatasetAdapter:
     dataset = str(args.dataset)
     if dataset.startswith("ho_"):
         return HOAdapter(dataset, args.data_root)
+    if dataset == "metr_la":
+        return METRLAAdapter(
+            root=args.metr_la_root,
+            csv_path=args.metr_la_csv,
+            adj_path=args.metr_la_adj_pkl,
+            graph_source=args.metr_la_graph_source,
+            top_k=args.metr_la_top_k,
+            corr_mode=args.metr_la_corr_mode,
+            max_timesteps=args.metr_la_max_timesteps,
+            prefer_pyg_temporal=not args.metr_la_no_pyg_temporal,
+        )
     if dataset == "graph_heat" or dataset.startswith("graph_heat_"):
         topology = args.topology or (dataset.removeprefix("graph_heat_") if dataset.startswith("graph_heat_") else "lattice")
         return GraphHeatAdapter(
@@ -595,6 +1023,30 @@ def rel_to_root(path: Path) -> str:
         return str(path.resolve().relative_to(ROOT))
     except ValueError:
         return str(path)
+
+
+def json_ready(value: Any) -> Any:
+    if isinstance(value, Path):
+        return str(value)
+    if isinstance(value, (list, tuple)):
+        return [json_ready(item) for item in value]
+    if isinstance(value, dict):
+        return {str(key): json_ready(item) for key, item in value.items()}
+    return value
+
+
+def write_run_config(args: argparse.Namespace) -> Path:
+    output_dir = args.out_dir or args.report.parent
+    output_dir.mkdir(parents=True, exist_ok=True)
+    config_path = output_dir / "run_config.json"
+    payload = {
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "schema_version": SCHEMA_VERSION,
+        "args": json_ready(vars(args)),
+    }
+    log_progress(f"Writing run config: {rel_to_root(config_path)}")
+    config_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return config_path
 
 
 def pct_gain(base: float, candidate: float) -> float:
@@ -777,6 +1229,7 @@ def raw_alignment_for_controls(
 
 
 def stage0_raw_diagnostics(args: argparse.Namespace, adapter: DatasetAdapter) -> list[dict[str, Any]]:
+    log_progress("Stage 0: raw graph-dynamics diagnostics start")
     frame_indices = sampled_frame_indices(
         adapter.n_frames,
         args.raw_transitions,
@@ -816,6 +1269,7 @@ def stage0_raw_diagnostics(args: argparse.Namespace, adapter: DatasetAdapter) ->
     true["gap_D_dX_norm_control_minus_true"] = 0.0
     for k in (2, 4, 8):
         true[f"gap_R_low_dX_{k}_true_minus_control"] = 0.0
+    log_progress("Stage 0: raw graph-dynamics diagnostics end")
     return rows
 
 
@@ -917,6 +1371,7 @@ def stage1_mini_training(
     for seed in args.seeds:
         for prior in ("none", "graph", "permuted_graph"):
             config = adapter.training_config(args, prior=prior, seed=int(seed))
+            log_progress(f"Mini-training start: {config.run_name}")
             try:
                 row, model, device = mini_train(config, adapter)
                 rows.append(row)
@@ -924,6 +1379,7 @@ def stage1_mini_training(
                     assert model is not None
                     models[(prior, int(seed))] = model
                     devices[int(seed)] = device
+                log_progress(f"Mini-training end: {config.run_name}")
             except Exception as exc:
                 rows.append(
                     {
@@ -943,6 +1399,7 @@ def stage1_mini_training(
                     }
                 )
                 print(f"FAILED {config.run_name}: {exc}", flush=True)
+                log_progress(f"Mini-training end: {config.run_name} failed")
     return rows, models, devices
 
 
@@ -1235,6 +1692,7 @@ def write_report(
     class_metrics: dict[str, float],
     oracle_row: dict[str, Any] | None = None,
 ) -> None:
+    log_progress(f"Report writing start: {rel_to_root(path)}")
     path.parent.mkdir(parents=True, exist_ok=True)
     raw_by_type = {str(row["graph_type"]): row for row in raw_rows}
     train_by_prior: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -1410,6 +1868,7 @@ def write_report(
     if stage2_rows:
         lines.append(f"- latent artifacts under `{rel_to_root(args.artifact_dir)}`")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log_progress(f"Report writing end: {rel_to_root(path)}")
 
 
 def rows_for_stage(rows: list[dict[str, Any]], stage: str) -> list[dict[str, Any]]:
@@ -1432,6 +1891,7 @@ def write_graph_heat_failure_audit(
     existing_rows: list[dict[str, Any]],
     lambda_rows: list[dict[str, Any]],
 ) -> None:
+    log_progress(f"Report writing start: {rel_to_root(path)}")
     path.parent.mkdir(parents=True, exist_ok=True)
     raw_by_type = {str(row.get("graph_type")): row for row in raw_rows}
     stage1_rows = rows_for_stage(existing_rows, "stage1_mini_train")
@@ -1546,6 +2006,7 @@ def write_graph_heat_failure_audit(
         f"- `{rel_to_root(path)}`",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log_progress(f"Report writing end: {rel_to_root(path)}")
 
 
 def graph_lowfreq_failure_analysis(args: argparse.Namespace, adapter: DatasetAdapter) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -1620,6 +2081,7 @@ def write_graph_lowfreq_failure_analysis(
     training_rows: list[dict[str, Any]],
     latent_rows: list[dict[str, Any]],
 ) -> None:
+    log_progress(f"Report writing start: {rel_to_root(path)}")
     path.parent.mkdir(parents=True, exist_ok=True)
     raw_by_type = {str(row.get("graph_type")): row for row in raw_rows}
     comparison_rows: list[list[Any]] = []
@@ -1723,6 +2185,7 @@ def write_graph_lowfreq_failure_analysis(
         f"- latent artifacts under `{rel_to_root(args.artifact_dir)}`",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log_progress(f"Report writing end: {rel_to_root(path)}")
 
 
 def parse_seeds(raw: str) -> list[int]:
@@ -1777,7 +2240,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lowfreq-noise", type=float, default=0.01)
     parser.add_argument("--lowfreq-decay", type=float, default=0.95)
     parser.add_argument("--lowfreq-seed", type=int, default=0)
+    parser.add_argument("--metr-la-root", type=Path, default=DEFAULT_METR_LA_ROOT)
+    parser.add_argument("--metr-la-csv", type=Path, default=None)
+    parser.add_argument("--metr-la-adj-pkl", type=Path, default=None)
+    parser.add_argument("--metr-la-no-pyg-temporal", action="store_true")
+    parser.add_argument("--metr-la-graph-source", choices=["adjacency_pkl", "correlation_topk"], default="adjacency_pkl")
+    parser.add_argument("--metr-la-top-k", type=int, default=8)
+    parser.add_argument("--metr-la-corr-mode", choices=["positive", "absolute"], default="positive")
+    parser.add_argument("--metr-la-max-timesteps", type=int, default=None)
     args = parser.parse_args()
+    if args.metr_la_max_timesteps is not None and args.metr_la_max_timesteps < 2:
+        raise ValueError("--metr-la-max-timesteps must be at least 2 when set")
     if args.dataset is None:
         args.dataset = f"ho_{args.topology}" if args.topology else "ho_lattice"
     if str(args.dataset).startswith("ho_"):
@@ -1806,6 +2279,11 @@ def parse_args() -> argparse.Namespace:
             args.train_stride = 5
         if args.eval_stride == 20:
             args.eval_stride = 10
+    args.metr_la_root = args.metr_la_root.resolve()
+    if args.metr_la_csv is not None:
+        args.metr_la_csv = args.metr_la_csv.resolve()
+    if args.metr_la_adj_pkl is not None:
+        args.metr_la_adj_pkl = args.metr_la_adj_pkl.resolve()
     if 32 not in [int(value) for value in args.horizons]:
         raise ValueError("--horizons must include 32 because classification is defined at H=32")
     if args.out_dir is not None:
@@ -1827,6 +2305,11 @@ def main() -> None:
     args.report = args.report.resolve()
     args.summary = args.summary.resolve()
     args.artifact_dir = args.artifact_dir.resolve()
+
+    output_dir = args.out_dir or args.report.parent
+    log_progress(f"Creating output directory: {rel_to_root(output_dir)}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    write_run_config(args)
 
     adapter = build_adapter(args)
     if args.graph_heat_failure_audit_only:
