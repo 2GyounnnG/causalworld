@@ -194,7 +194,7 @@ class HOAdapter:
 def grid_edges(n_nodes: int) -> np.ndarray:
     side = int(round(math.sqrt(n_nodes)))
     if side * side != n_nodes:
-        raise ValueError("lattice graph_heat topology requires N to be a perfect square")
+        raise ValueError("lattice topology requires N to be a perfect square")
     edges: list[tuple[int, int]] = []
     for row in range(side):
         for col in range(side):
@@ -235,7 +235,7 @@ def graph_heat_edges(topology: str, n_nodes: int, seed: int) -> np.ndarray:
                 degrees[pair[0]] += 1.0
                 degrees[pair[1]] += 1.0
         return np.asarray(sorted(edges), dtype=np.int64)
-    raise ValueError("graph_heat topology must be one of chain, ring, lattice, random, scalefree")
+    raise ValueError("topology must be one of chain, ring, lattice, random, scalefree")
 
 
 class GraphHeatAdapter:
@@ -523,6 +523,586 @@ class GraphLowFreqAdapter:
             "low_k": self.low_k,
             "noise": self.noise,
             "coefficient_decay": self.coefficient_decay,
+            "seed": self.seed,
+        }
+
+
+class SpringMassAdapter:
+    """Second-order spring-mass dynamics on a known interaction graph."""
+
+    def __init__(
+        self,
+        *,
+        topology: str,
+        n_nodes: int = 36,
+        position_dim: int = 1,
+        n_frames: int = 512,
+        spring_k: float = 1.0,
+        damping: float = 0.05,
+        dt: float = 0.05,
+        noise: float = 0.001,
+        seed: int = 0,
+    ):
+        if position_dim < 1:
+            raise ValueError("--spring-position-dim must be at least 1")
+        if 2 * int(position_dim) > 4:
+            raise ValueError(
+                "spring_mass supports --spring-position-dim up to 2 with the current 4-channel GNN input"
+            )
+        self.name = f"spring_mass_{topology}"
+        self.topology = topology
+        self.n_nodes = int(n_nodes)
+        self.position_dim = int(position_dim)
+        self.n_dim = 2 * self.position_dim
+        self.n_frames = int(n_frames)
+        self.spring_k = float(spring_k)
+        self.damping = float(damping)
+        self.dt = float(dt)
+        self.noise = float(noise)
+        self.seed = int(seed)
+        self.edges = graph_heat_edges(topology, self.n_nodes, self.seed)
+        self.laplacian = laplacian_from_edges(self.n_nodes, self.edges)
+        self.coords = self._simulate()
+        self.energies = self._energy_series().astype(np.float32)
+
+    def _simulate(self) -> np.ndarray:
+        rng = np.random.default_rng(self.seed)
+        positions = np.zeros((self.n_frames, self.n_nodes, self.position_dim), dtype=np.float64)
+        velocities = np.zeros_like(positions)
+        positions[0] = rng.normal(scale=0.5, size=(self.n_nodes, self.position_dim))
+        velocities[0] = rng.normal(scale=0.1, size=(self.n_nodes, self.position_dim))
+        for frame_idx in range(self.n_frames - 1):
+            spring_acc = -self.spring_k * (self.laplacian @ positions[frame_idx])
+            damping_acc = -self.damping * velocities[frame_idx]
+            eps = self.noise * rng.normal(size=(self.n_nodes, self.position_dim))
+            acceleration = spring_acc + damping_acc + eps
+            velocities[frame_idx + 1] = velocities[frame_idx] + self.dt * acceleration
+            positions[frame_idx + 1] = positions[frame_idx] + self.dt * velocities[frame_idx + 1]
+        coords = np.concatenate([positions, velocities], axis=-1)
+        return coords.astype(np.float32)
+
+    def _energy_series(self) -> np.ndarray:
+        positions = self.coords[:, :, : self.position_dim].astype(np.float64)
+        velocities = self.coords[:, :, self.position_dim :].astype(np.float64)
+        kinetic = 0.5 * np.sum(velocities * velocities, axis=(1, 2))
+        potential = np.zeros(self.n_frames, dtype=np.float64)
+        for src, dst in self.edges:
+            displacement = positions[:, int(src), :] - positions[:, int(dst), :]
+            potential += 0.5 * self.spring_k * np.sum(displacement * displacement, axis=1)
+        return kinetic + potential
+
+    def _model_features(self, idx: int) -> torch.Tensor:
+        state = torch.from_numpy(self.coords[idx]).to(dtype=torch.float32)
+        if state.shape[1] < 4:
+            padding = torch.zeros((self.n_nodes, 4 - state.shape[1]), dtype=torch.float32)
+            state = torch.cat([state, padding], dim=-1)
+        return state[:, :4]
+
+    def __getitem__(self, idx: int) -> HeteroData:
+        features = self._model_features(idx)
+        atomic_numbers = 10.0 * features[:, 0]
+        pos = features[:, 1:4]
+        directed = np.concatenate([self.edges, self.edges[:, ::-1]], axis=0)
+        edge_index = torch.from_numpy(directed.T.copy()).to(dtype=torch.long)
+        edge_attr = torch.ones((edge_index.shape[1], 1), dtype=torch.float32)
+
+        data = HeteroData()
+        data["atom"].pos = pos
+        data["atom"].atomic_number = atomic_numbers
+        data["atom"].x = features
+        data["atom", "bonded", "atom"].edge_index = edge_index
+        data["atom", "bonded", "atom"].edge_attr = edge_attr
+        return data
+
+    def sample_transitions(
+        self,
+        *,
+        n_transitions: int,
+        stride: int,
+        horizon: int,
+        seed: int,
+    ) -> list[dict[str, Any]]:
+        frame_indices = sampled_frame_indices(self.n_frames, n_transitions, stride, horizon, seed)
+        transitions = []
+        for frame_idx in frame_indices:
+            obs, next_obs, energy, _force = self.get_pair(frame_idx, horizon=horizon)
+            transitions.append(
+                {
+                    "obs": obs,
+                    "next_obs": next_obs,
+                    "frame_idx": int(frame_idx),
+                    "horizon": int(horizon),
+                    "energy": float(energy),
+                    "molecule": self.name,
+                }
+            )
+        return transitions
+
+    def get_pair(self, idx: int, horizon: int = 1) -> tuple[HeteroData, HeteroData, float, None]:
+        if idx + horizon >= self.n_frames:
+            raise IndexError(f"idx+horizon={idx + horizon} >= n_frames={self.n_frames}")
+        return self[idx], self[idx + horizon], float(self.energies[idx]), None
+
+    def true_laplacian(self) -> np.ndarray:
+        return self.laplacian
+
+    def coordinates(self, frame_idx: int) -> np.ndarray:
+        return np.asarray(self.coords[frame_idx], dtype=np.float64)
+
+    def training_config(
+        self,
+        args: argparse.Namespace,
+        *,
+        prior: str,
+        seed: int,
+    ) -> Cycle3HOConfig:
+        return Cycle3HOConfig(
+            run_name=(
+                f"preflight_{self.name}_gnn_{prior}_"
+                f"lambda{str(args.prior_weight).replace('.', 'p')}_seed{seed}"
+            ),
+            topology=self.topology,
+            encoder="gnn_node",
+            prior=prior,
+            seed=int(seed),
+            num_epochs=int(args.epochs),
+            n_transitions=int(args.train_transitions),
+            eval_n_transitions=int(args.eval_transitions),
+            stride=int(args.train_stride),
+            eval_stride=int(args.eval_stride),
+            horizon=1,
+            eval_horizons=tuple(int(value) for value in args.horizons),
+            latent_dim=16,
+            node_dim=16,
+            hidden_dim=64,
+            transition_hidden_dim=64,
+            batch_size=int(args.batch_size),
+            lr=float(args.lr),
+            prior_weight=float(args.prior_weight),
+            device=args.device,
+            data_root=str(args.data_root),
+        )
+
+    def metadata(self) -> dict[str, Any]:
+        return {
+            "dataset": self.name,
+            "domain": "spring_mass",
+            "topology": self.topology,
+            "n_nodes": self.n_nodes,
+            "n_edges": int(self.edges.shape[0]),
+            "n_frames": self.n_frames,
+            "n_dim": self.n_dim,
+            "position_dim": self.position_dim,
+            "trajectory_shape": list(self.coords.shape),
+            "k": self.spring_k,
+            "damping": self.damping,
+            "dt": self.dt,
+            "noise": self.noise,
+            "seed": self.seed,
+        }
+
+
+class GraphWaveAdapter:
+    """Graph-discretized damped wave equation on a known interaction graph."""
+
+    def __init__(
+        self,
+        *,
+        topology: str,
+        n_nodes: int = 36,
+        n_frames: int = 512,
+        wave_c: float = 1.0,
+        damping: float = 0.02,
+        dt: float = 0.05,
+        noise: float = 0.001,
+        seed: int = 0,
+    ):
+        self.name = f"graph_wave_{topology}"
+        self.topology = topology
+        self.n_nodes = int(n_nodes)
+        self.n_dim = 2
+        self.n_frames = int(n_frames)
+        self.wave_c = float(wave_c)
+        self.damping = float(damping)
+        self.dt = float(dt)
+        self.noise = float(noise)
+        self.seed = int(seed)
+        self.edges = graph_heat_edges(topology, self.n_nodes, self.seed)
+        self.laplacian = laplacian_from_edges(self.n_nodes, self.edges)
+        self.coords = self._simulate()
+        self.energies = self._energy_series().astype(np.float32)
+
+    def _simulate(self) -> np.ndarray:
+        rng = np.random.default_rng(self.seed)
+        displacement = np.zeros((self.n_frames, self.n_nodes, 1), dtype=np.float64)
+        velocity = np.zeros_like(displacement)
+        displacement[0] = rng.normal(scale=0.5, size=(self.n_nodes, 1))
+        velocity[0] = rng.normal(scale=0.1, size=(self.n_nodes, 1))
+        for frame_idx in range(self.n_frames - 1):
+            acceleration = -(self.wave_c**2) * (self.laplacian @ displacement[frame_idx])
+            acceleration = acceleration - self.damping * velocity[frame_idx]
+            eps = self.noise * rng.normal(size=(self.n_nodes, 1))
+            velocity[frame_idx + 1] = velocity[frame_idx] + self.dt * acceleration + eps
+            displacement[frame_idx + 1] = displacement[frame_idx] + self.dt * velocity[frame_idx + 1]
+        coords = np.concatenate([displacement, velocity], axis=-1)
+        return coords.astype(np.float32)
+
+    def _energy_series(self) -> np.ndarray:
+        displacement = self.coords[:, :, :1].astype(np.float64)
+        velocity = self.coords[:, :, 1:].astype(np.float64)
+        kinetic = 0.5 * np.sum(velocity * velocity, axis=(1, 2))
+        potential = np.zeros(self.n_frames, dtype=np.float64)
+        for src, dst in self.edges:
+            diff = displacement[:, int(src), :] - displacement[:, int(dst), :]
+            potential += 0.5 * (self.wave_c**2) * np.sum(diff * diff, axis=1)
+        return kinetic + potential
+
+    def _model_features(self, idx: int) -> torch.Tensor:
+        state = torch.from_numpy(self.coords[idx]).to(dtype=torch.float32)
+        padding = torch.zeros((self.n_nodes, 2), dtype=torch.float32)
+        return torch.cat([state, padding], dim=-1)
+
+    def __getitem__(self, idx: int) -> HeteroData:
+        features = self._model_features(idx)
+        atomic_numbers = 10.0 * features[:, 0]
+        pos = features[:, 1:4]
+        directed = np.concatenate([self.edges, self.edges[:, ::-1]], axis=0)
+        edge_index = torch.from_numpy(directed.T.copy()).to(dtype=torch.long)
+        edge_attr = torch.ones((edge_index.shape[1], 1), dtype=torch.float32)
+
+        data = HeteroData()
+        data["atom"].pos = pos
+        data["atom"].atomic_number = atomic_numbers
+        data["atom"].x = features
+        data["atom", "bonded", "atom"].edge_index = edge_index
+        data["atom", "bonded", "atom"].edge_attr = edge_attr
+        return data
+
+    def sample_transitions(
+        self,
+        *,
+        n_transitions: int,
+        stride: int,
+        horizon: int,
+        seed: int,
+    ) -> list[dict[str, Any]]:
+        frame_indices = sampled_frame_indices(self.n_frames, n_transitions, stride, horizon, seed)
+        transitions = []
+        for frame_idx in frame_indices:
+            obs, next_obs, energy, _force = self.get_pair(frame_idx, horizon=horizon)
+            transitions.append(
+                {
+                    "obs": obs,
+                    "next_obs": next_obs,
+                    "frame_idx": int(frame_idx),
+                    "horizon": int(horizon),
+                    "energy": float(energy),
+                    "molecule": self.name,
+                }
+            )
+        return transitions
+
+    def get_pair(self, idx: int, horizon: int = 1) -> tuple[HeteroData, HeteroData, float, None]:
+        if idx + horizon >= self.n_frames:
+            raise IndexError(f"idx+horizon={idx + horizon} >= n_frames={self.n_frames}")
+        return self[idx], self[idx + horizon], float(self.energies[idx]), None
+
+    def true_laplacian(self) -> np.ndarray:
+        return self.laplacian
+
+    def coordinates(self, frame_idx: int) -> np.ndarray:
+        return np.asarray(self.coords[frame_idx], dtype=np.float64)
+
+    def training_config(
+        self,
+        args: argparse.Namespace,
+        *,
+        prior: str,
+        seed: int,
+    ) -> Cycle3HOConfig:
+        return Cycle3HOConfig(
+            run_name=(
+                f"preflight_{self.name}_gnn_{prior}_"
+                f"lambda{str(args.prior_weight).replace('.', 'p')}_seed{seed}"
+            ),
+            topology=self.topology,
+            encoder="gnn_node",
+            prior=prior,
+            seed=int(seed),
+            num_epochs=int(args.epochs),
+            n_transitions=int(args.train_transitions),
+            eval_n_transitions=int(args.eval_transitions),
+            stride=int(args.train_stride),
+            eval_stride=int(args.eval_stride),
+            horizon=1,
+            eval_horizons=tuple(int(value) for value in args.horizons),
+            latent_dim=16,
+            node_dim=16,
+            hidden_dim=64,
+            transition_hidden_dim=64,
+            batch_size=int(args.batch_size),
+            lr=float(args.lr),
+            prior_weight=float(args.prior_weight),
+            device=args.device,
+            data_root=str(args.data_root),
+        )
+
+    def metadata(self) -> dict[str, Any]:
+        return {
+            "dataset": self.name,
+            "domain": "graph_wave",
+            "topology": self.topology,
+            "n_nodes": self.n_nodes,
+            "n_edges": int(self.edges.shape[0]),
+            "n_frames": self.n_frames,
+            "n_dim": self.n_dim,
+            "trajectory_shape": list(self.coords.shape),
+            "c": self.wave_c,
+            "damping": self.damping,
+            "dt": self.dt,
+            "noise": self.noise,
+            "seed": self.seed,
+        }
+
+
+class NBodyDistanceAdapter:
+    """Long-range n-body dynamics with a fixed distance-kNN candidate graph."""
+
+    def __init__(
+        self,
+        *,
+        n_nodes: int = 36,
+        position_dim: int = 2,
+        n_frames: int = 512,
+        gravitational_constant: float = 0.1,
+        dt: float = 0.02,
+        softening: float = 0.1,
+        damping: float = 0.0,
+        noise: float = 0.0005,
+        graph_k: int = 8,
+        seed: int = 0,
+    ):
+        if position_dim < 1:
+            raise ValueError("--nbody-position-dim must be at least 1")
+        if n_nodes < 2:
+            raise ValueError("--nbody-n must be at least 2")
+        self.name = "nbody_distance"
+        self.topology = "distance_knn"
+        self.graph_source = "distance_knn"
+        self.n_nodes = int(n_nodes)
+        self.position_dim = int(position_dim)
+        self.n_dim = 2 * self.position_dim + 1
+        self.n_frames = int(n_frames)
+        self.gravitational_constant = float(gravitational_constant)
+        self.dt = float(dt)
+        self.softening = float(softening)
+        self.damping = float(damping)
+        self.noise = float(noise)
+        self.graph_k = min(max(1, int(graph_k)), self.n_nodes - 1)
+        self.seed = int(seed)
+        self.coords = self._simulate()
+        self.adjacency, self.sigma = self._distance_knn_adjacency(self.coords[0, :, : self.position_dim])
+        self.edges, self.edge_weights = self._edge_pairs_and_weights()
+        self.laplacian = self._laplacian_from_adjacency(self.adjacency)
+        self.energies = self._energy_series().astype(np.float32)
+
+    def _initial_state(self, rng: np.random.Generator) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        positions = rng.normal(scale=1.0, size=(self.n_nodes, self.position_dim))
+        positions = positions - positions.mean(axis=0, keepdims=True)
+        velocities = rng.normal(scale=0.05, size=(self.n_nodes, self.position_dim))
+        velocities = velocities - velocities.mean(axis=0, keepdims=True)
+        masses = rng.uniform(0.5, 1.5, size=(self.n_nodes, 1))
+        return positions, velocities, masses
+
+    def _accelerations(
+        self,
+        positions: np.ndarray,
+        velocities: np.ndarray,
+        masses: np.ndarray,
+        rng: np.random.Generator,
+    ) -> np.ndarray:
+        delta = positions[None, :, :] - positions[:, None, :]
+        dist_sq = np.sum(delta * delta, axis=-1) + self.softening**2
+        inv_dist3 = np.power(dist_sq, -1.5)
+        np.fill_diagonal(inv_dist3, 0.0)
+        pair_scale = self.gravitational_constant * masses.reshape(1, self.n_nodes) * inv_dist3
+        acceleration = np.einsum("ij,ijd->id", pair_scale, delta)
+        acceleration = acceleration - self.damping * velocities
+        if self.noise > 0.0:
+            acceleration = acceleration + self.noise * rng.normal(size=velocities.shape)
+        return acceleration
+
+    def _simulate(self) -> np.ndarray:
+        rng = np.random.default_rng(self.seed)
+        positions = np.zeros((self.n_frames, self.n_nodes, self.position_dim), dtype=np.float64)
+        velocities = np.zeros_like(positions)
+        masses = np.zeros((self.n_frames, self.n_nodes, 1), dtype=np.float64)
+        positions[0], velocities[0], masses[0] = self._initial_state(rng)
+        for frame_idx in range(self.n_frames - 1):
+            acceleration = self._accelerations(positions[frame_idx], velocities[frame_idx], masses[frame_idx], rng)
+            velocities[frame_idx + 1] = velocities[frame_idx] + self.dt * acceleration
+            positions[frame_idx + 1] = positions[frame_idx] + self.dt * velocities[frame_idx + 1]
+            masses[frame_idx + 1] = masses[frame_idx]
+        coords = np.concatenate([positions, velocities, masses], axis=-1)
+        return coords.astype(np.float32)
+
+    def _distance_knn_adjacency(self, initial_positions: np.ndarray) -> tuple[np.ndarray, float]:
+        diff = initial_positions[:, None, :] - initial_positions[None, :, :]
+        distances = np.sqrt(np.sum(diff * diff, axis=-1))
+        np.fill_diagonal(distances, np.inf)
+        k = min(self.graph_k, self.n_nodes - 1)
+        neighbor_idx = np.argpartition(distances, kth=k - 1, axis=1)[:, :k]
+        neighbor_distances = distances[np.arange(self.n_nodes)[:, None], neighbor_idx]
+        finite_distances = neighbor_distances[np.isfinite(neighbor_distances)]
+        sigma = float(np.median(finite_distances)) if finite_distances.size else 1.0
+        sigma = max(sigma, 1e-6)
+        adjacency = np.zeros((self.n_nodes, self.n_nodes), dtype=np.float64)
+        weights = np.exp(-(neighbor_distances**2) / (sigma**2))
+        row_idx = np.broadcast_to(np.arange(self.n_nodes)[:, None], neighbor_idx.shape)
+        adjacency[row_idx, neighbor_idx] = weights
+        adjacency = np.maximum(adjacency, adjacency.T)
+        np.fill_diagonal(adjacency, 0.0)
+        return adjacency, sigma
+
+    def _edge_pairs_and_weights(self) -> tuple[np.ndarray, np.ndarray]:
+        src, dst = np.where(np.triu(self.adjacency, k=1) > 0)
+        edges = np.stack([src, dst], axis=1).astype(np.int64)
+        weights = self.adjacency[src, dst].astype(np.float32)
+        return edges, weights
+
+    @staticmethod
+    def _laplacian_from_adjacency(adjacency: np.ndarray) -> np.ndarray:
+        weights = np.maximum(np.asarray(adjacency, dtype=np.float64), 0.0)
+        return np.diag(weights.sum(axis=1)) - weights
+
+    def _energy_series(self) -> np.ndarray:
+        positions = self.coords[:, :, : self.position_dim].astype(np.float64)
+        velocities = self.coords[:, :, self.position_dim : 2 * self.position_dim].astype(np.float64)
+        masses = self.coords[:, :, -1].astype(np.float64)
+        kinetic = 0.5 * np.sum(masses[:, :, None] * velocities * velocities, axis=(1, 2))
+        potential = np.zeros(self.n_frames, dtype=np.float64)
+        for src in range(self.n_nodes):
+            for dst in range(src + 1, self.n_nodes):
+                diff = positions[:, dst, :] - positions[:, src, :]
+                distance = np.sqrt(np.sum(diff * diff, axis=1) + self.softening**2)
+                potential -= self.gravitational_constant * masses[:, src] * masses[:, dst] / distance
+        return kinetic + potential
+
+    def _model_features(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
+        state = torch.from_numpy(self.coords[idx]).to(dtype=torch.float32)
+        mass = state[:, -1]
+        dynamic = state[:, :-1]
+        if dynamic.shape[1] < 3:
+            padding = torch.zeros((self.n_nodes, 3 - dynamic.shape[1]), dtype=torch.float32)
+            pos = torch.cat([dynamic, padding], dim=-1)
+        else:
+            pos = dynamic[:, :3]
+        features = torch.cat([mass.view(-1, 1), pos], dim=-1)
+        return features, mass
+
+    def __getitem__(self, idx: int) -> HeteroData:
+        features, mass = self._model_features(idx)
+        directed = np.concatenate([self.edges, self.edges[:, ::-1]], axis=0)
+        directed_weights = np.concatenate([self.edge_weights, self.edge_weights], axis=0)
+        edge_index = torch.from_numpy(directed.T.copy()).to(dtype=torch.long)
+        edge_attr = torch.from_numpy((1.0 / np.maximum(directed_weights, 1e-6)).reshape(-1, 1)).to(dtype=torch.float32)
+
+        data = HeteroData()
+        data["atom"].pos = features[:, 1:4]
+        data["atom"].atomic_number = 10.0 * mass
+        data["atom"].x = features
+        data["atom", "bonded", "atom"].edge_index = edge_index
+        data["atom", "bonded", "atom"].edge_attr = edge_attr
+        return data
+
+    def sample_transitions(
+        self,
+        *,
+        n_transitions: int,
+        stride: int,
+        horizon: int,
+        seed: int,
+    ) -> list[dict[str, Any]]:
+        frame_indices = sampled_frame_indices(self.n_frames, n_transitions, stride, horizon, seed)
+        transitions = []
+        for frame_idx in frame_indices:
+            obs, next_obs, energy, _force = self.get_pair(frame_idx, horizon=horizon)
+            transitions.append(
+                {
+                    "obs": obs,
+                    "next_obs": next_obs,
+                    "frame_idx": int(frame_idx),
+                    "horizon": int(horizon),
+                    "energy": float(energy),
+                    "molecule": self.name,
+                }
+            )
+        return transitions
+
+    def get_pair(self, idx: int, horizon: int = 1) -> tuple[HeteroData, HeteroData, float, None]:
+        if idx + horizon >= self.n_frames:
+            raise IndexError(f"idx+horizon={idx + horizon} >= n_frames={self.n_frames}")
+        return self[idx], self[idx + horizon], float(self.energies[idx]), None
+
+    def true_laplacian(self) -> np.ndarray:
+        return self.laplacian
+
+    def coordinates(self, frame_idx: int) -> np.ndarray:
+        return np.asarray(self.coords[frame_idx], dtype=np.float64)
+
+    def training_config(
+        self,
+        args: argparse.Namespace,
+        *,
+        prior: str,
+        seed: int,
+    ) -> Cycle3HOConfig:
+        return Cycle3HOConfig(
+            run_name=(
+                f"preflight_{self.name}_gnn_{prior}_"
+                f"lambda{str(args.prior_weight).replace('.', 'p')}_seed{seed}"
+            ),
+            topology=self.topology,
+            encoder="gnn_node",
+            prior=prior,
+            seed=int(seed),
+            num_epochs=int(args.epochs),
+            n_transitions=int(args.train_transitions),
+            eval_n_transitions=int(args.eval_transitions),
+            stride=int(args.train_stride),
+            eval_stride=int(args.eval_stride),
+            horizon=1,
+            eval_horizons=tuple(int(value) for value in args.horizons),
+            latent_dim=16,
+            node_dim=16,
+            hidden_dim=64,
+            transition_hidden_dim=64,
+            batch_size=int(args.batch_size),
+            lr=float(args.lr),
+            prior_weight=float(args.prior_weight),
+            device=args.device,
+            data_root=str(args.data_root),
+        )
+
+    def metadata(self) -> dict[str, Any]:
+        return {
+            "dataset": self.name,
+            "domain": "nbody_distance",
+            "topology": self.topology,
+            "graph_source": self.graph_source,
+            "n_nodes": self.n_nodes,
+            "n_edges": int(self.edges.shape[0]),
+            "n_frames": self.n_frames,
+            "n_dim": self.n_dim,
+            "position_dim": self.position_dim,
+            "trajectory_shape": list(self.coords.shape),
+            "G": self.gravitational_constant,
+            "dt": self.dt,
+            "softening": self.softening,
+            "damping": self.damping,
+            "noise": self.noise,
+            "graph_k": self.graph_k,
+            "sigma": self.sigma,
             "seed": self.seed,
         }
 
@@ -975,9 +1555,48 @@ def build_adapter(args: argparse.Namespace) -> DatasetAdapter:
             coefficient_decay=args.lowfreq_decay,
             seed=args.lowfreq_seed,
         )
+    if dataset == "spring_mass" or dataset.startswith("spring_mass_"):
+        topology = args.topology or (dataset.removeprefix("spring_mass_") if dataset.startswith("spring_mass_") else "lattice")
+        return SpringMassAdapter(
+            topology=topology,
+            n_nodes=args.spring_n,
+            position_dim=args.spring_position_dim,
+            n_frames=args.spring_t,
+            spring_k=args.spring_k,
+            damping=args.spring_damping,
+            dt=args.spring_dt,
+            noise=args.spring_noise,
+            seed=args.spring_seed,
+        )
+    if dataset == "graph_wave" or dataset.startswith("graph_wave_"):
+        topology = args.topology or (dataset.removeprefix("graph_wave_") if dataset.startswith("graph_wave_") else "lattice")
+        return GraphWaveAdapter(
+            topology=topology,
+            n_nodes=args.wave_n,
+            n_frames=args.wave_t,
+            wave_c=args.wave_c,
+            damping=args.wave_damping,
+            dt=args.wave_dt,
+            noise=args.wave_noise,
+            seed=args.wave_seed,
+        )
+    if dataset == "nbody_distance":
+        return NBodyDistanceAdapter(
+            n_nodes=args.nbody_n,
+            position_dim=args.nbody_position_dim,
+            n_frames=args.nbody_t,
+            gravitational_constant=args.nbody_g,
+            dt=args.nbody_dt,
+            softening=args.nbody_softening,
+            damping=args.nbody_damping,
+            noise=args.nbody_noise,
+            graph_k=args.nbody_graph_k,
+            seed=args.nbody_seed,
+        )
     raise ValueError(
         f"Unknown dataset {dataset!r}. Available: ho_lattice, ho_random, ho_scalefree, "
-        "graph_heat, graph_heat_<topology>, graph_lowfreq, graph_lowfreq_<topology>"
+        "graph_heat, graph_heat_<topology>, graph_lowfreq, graph_lowfreq_<topology>, "
+        "spring_mass, spring_mass_<topology>, graph_wave, graph_wave_<topology>, nbody_distance"
     )
 
 
@@ -2199,7 +2818,7 @@ def parse_args() -> argparse.Namespace:
         "--topology",
         default=None,
         choices=["chain", "ring", "lattice", "random", "scalefree"],
-        help="Topology alias for HO or graph_heat datasets.",
+        help="Topology alias for HO, graph_heat, graph_lowfreq, spring_mass, or graph_wave datasets.",
     )
     parser.add_argument("--data-root", type=Path, default=DEFAULT_DATA_ROOT)
     parser.add_argument("--out-dir", type=Path, default=None)
@@ -2240,6 +2859,31 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lowfreq-noise", type=float, default=0.01)
     parser.add_argument("--lowfreq-decay", type=float, default=0.95)
     parser.add_argument("--lowfreq-seed", type=int, default=0)
+    parser.add_argument("--spring-n", type=int, default=36)
+    parser.add_argument("--spring-position-dim", type=int, default=1)
+    parser.add_argument("--spring-t", type=int, default=512)
+    parser.add_argument("--spring-k", type=float, default=1.0)
+    parser.add_argument("--spring-damping", type=float, default=0.05)
+    parser.add_argument("--spring-dt", type=float, default=0.05)
+    parser.add_argument("--spring-noise", type=float, default=0.001)
+    parser.add_argument("--spring-seed", type=int, default=0)
+    parser.add_argument("--wave-n", type=int, default=36)
+    parser.add_argument("--wave-t", type=int, default=512)
+    parser.add_argument("--wave-c", type=float, default=1.0)
+    parser.add_argument("--wave-damping", type=float, default=0.02)
+    parser.add_argument("--wave-dt", type=float, default=0.05)
+    parser.add_argument("--wave-noise", type=float, default=0.001)
+    parser.add_argument("--wave-seed", type=int, default=0)
+    parser.add_argument("--nbody-n", type=int, default=36)
+    parser.add_argument("--nbody-position-dim", type=int, default=2)
+    parser.add_argument("--nbody-t", type=int, default=512)
+    parser.add_argument("--nbody-g", type=float, default=0.1)
+    parser.add_argument("--nbody-dt", type=float, default=0.02)
+    parser.add_argument("--nbody-softening", type=float, default=0.1)
+    parser.add_argument("--nbody-damping", type=float, default=0.0)
+    parser.add_argument("--nbody-noise", type=float, default=0.0005)
+    parser.add_argument("--nbody-graph-k", type=int, default=8)
+    parser.add_argument("--nbody-seed", type=int, default=0)
     parser.add_argument("--metr-la-root", type=Path, default=DEFAULT_METR_LA_ROOT)
     parser.add_argument("--metr-la-csv", type=Path, default=None)
     parser.add_argument("--metr-la-adj-pkl", type=Path, default=None)
@@ -2272,7 +2916,29 @@ def parse_args() -> argparse.Namespace:
         args.topology = dataset_topology
     if str(args.dataset) == "graph_lowfreq" and args.topology is None:
         args.topology = "lattice"
-    if str(args.dataset).startswith("graph_heat") or str(args.dataset).startswith("graph_lowfreq"):
+    if str(args.dataset).startswith("spring_mass_"):
+        dataset_topology = str(args.dataset).removeprefix("spring_mass_")
+        if args.topology is not None and args.topology != dataset_topology:
+            raise ValueError(f"--dataset {args.dataset!r} conflicts with --topology {args.topology!r}")
+        args.topology = dataset_topology
+    if str(args.dataset) == "spring_mass" and args.topology is None:
+        args.topology = "lattice"
+    if str(args.dataset).startswith("graph_wave_"):
+        dataset_topology = str(args.dataset).removeprefix("graph_wave_")
+        if args.topology is not None and args.topology != dataset_topology:
+            raise ValueError(f"--dataset {args.dataset!r} conflicts with --topology {args.topology!r}")
+        args.topology = dataset_topology
+    if str(args.dataset) == "graph_wave" and args.topology is None:
+        args.topology = "lattice"
+    if str(args.dataset) == "nbody_distance":
+        args.topology = "distance_knn"
+    if (
+        str(args.dataset).startswith("graph_heat")
+        or str(args.dataset).startswith("graph_lowfreq")
+        or str(args.dataset).startswith("spring_mass")
+        or str(args.dataset).startswith("graph_wave")
+        or str(args.dataset) == "nbody_distance"
+    ):
         if args.raw_stride == 10:
             args.raw_stride = 5
         if args.train_stride == 10:
