@@ -32,3 +32,8 @@ Thumbs.db
 *.pth
 .codex
 data/
+
+# Preflight latent artifacts
+analysis_out/preflight_runs/**/artifacts/
+*.pt
+*.pth
