@@ -1,0 +1,56 @@
+# Master Multiseed Summary
+
+| regime | config | prior | mean_h32 | std_h32 | ci95_low | ci95_high | n_seeds | protocol_label | label_confidence | record_status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| spring_mass_5seed | standard_ep20 | none | 0.0815 | 0.0136 | 0.0646 | 0.0983 | 5 | temporal_sufficient | marginal | active |
+| spring_mass_5seed | standard_ep20 | graph | 0.0800 | 0.0379 | 0.0329 | 0.1270 | 5 | temporal_sufficient | marginal | active |
+| spring_mass_5seed | standard_ep20 | permuted_graph | 0.0832 | 0.0452 | 0.0272 | 0.1393 | 5 | temporal_sufficient | marginal | active |
+| spring_mass_5seed | standard_ep20 | temporal_smooth | 0.0796 | 0.0505 | 0.0169 | 0.1422 | 5 | temporal_sufficient | marginal | active |
+| graph_wave_5seed | standard_ep20 | none | 0.0833 | 0.0249 | 0.0524 | 0.1143 | 5 | generic_smoothing | marginal | active |
+| graph_wave_5seed | standard_ep20 | graph | 0.0782 | 0.0324 | 0.0380 | 0.1185 | 5 | generic_smoothing | marginal | active |
+| graph_wave_5seed | standard_ep20 | permuted_graph | 0.0714 | 0.0353 | 0.0276 | 0.1152 | 5 | generic_smoothing | marginal | active |
+| graph_wave_5seed | standard_ep20 | temporal_smooth | 0.0701 | 0.0404 | 0.0199 | 0.1202 | 5 | generic_smoothing | marginal | active |
+| nbody_robustness_5seed | distance_k_04/standard_ep20 | none | 0.1507 | 0.0129 | 0.1346 | 0.1667 | 5 | candidate_graph_favorable | robust | active |
+| nbody_robustness_5seed | distance_k_04/standard_ep20 | graph | 0.0641 | 0.0322 | 0.0242 | 0.1041 | 5 | candidate_graph_favorable | robust | active |
+| nbody_robustness_5seed | distance_k_04/standard_ep20 | permuted_graph | 0.0718 | 0.0245 | 0.0414 | 0.1021 | 5 | candidate_graph_favorable | robust | active |
+| nbody_robustness_5seed | distance_k_04/standard_ep20 | temporal_smooth | 0.0661 | 0.0147 | 0.0479 | 0.0843 | 5 | candidate_graph_favorable | robust | active |
+| nbody_robustness_5seed | distance_k_08/standard_ep20 | none | 0.1522 | 0.0115 | 0.1379 | 0.1665 | 5 | generic_smoothing | marginal | active |
+| nbody_robustness_5seed | distance_k_08/standard_ep20 | graph | 0.0814 | 0.0332 | 0.0402 | 0.1226 | 5 | generic_smoothing | marginal | active |
+| nbody_robustness_5seed | distance_k_08/standard_ep20 | permuted_graph | 0.0759 | 0.0276 | 0.0416 | 0.1102 | 5 | generic_smoothing | marginal | active |
+| nbody_robustness_5seed | distance_k_08/standard_ep20 | temporal_smooth | 0.0695 | 0.0240 | 0.0397 | 0.0992 | 5 | generic_smoothing | marginal | active |
+| nbody_robustness_5seed | distance_k_12/standard_ep20 | none | 0.1443 | 0.0121 | 0.1293 | 0.1593 | 5 | temporal_sufficient | marginal | active |
+| nbody_robustness_5seed | distance_k_12/standard_ep20 | graph | 0.0772 | 0.0311 | 0.0386 | 0.1158 | 5 | temporal_sufficient | marginal | active |
+| nbody_robustness_5seed | distance_k_12/standard_ep20 | permuted_graph | 0.0898 | 0.0417 | 0.0380 | 0.1416 | 5 | temporal_sufficient | marginal | active |
+| nbody_robustness_5seed | distance_k_12/standard_ep20 | temporal_smooth | 0.0596 | 0.0265 | 0.0267 | 0.0925 | 5 | temporal_sufficient | marginal | active |
+| metr_la_3seed | corr_T2000_train160_ep5 | none | 0.4034 | 0.0609 | 0.2521 | 0.5547 | 3 | no_graph_gain | marginal | active |
+| metr_la_3seed | corr_T2000_train160_ep5 | graph | 0.5243 | 0.2845 | -0.1826 | 1.2312 | 3 | no_graph_gain | marginal | active |
+| metr_la_3seed | corr_T2000_train160_ep5 | permuted_graph | 0.5026 | 0.2222 | -0.0494 | 1.0546 | 3 | no_graph_gain | marginal | active |
+| metr_la_3seed | corr_T2000_train160_ep5 | temporal_smooth | 0.5097 | 0.2517 | -0.1157 | 1.1350 | 3 | no_graph_gain | marginal | active |
+| graph_heat_lattice | legacy_ep5_no_quick_tag | none | 0.6036 | 0.0000 | 0.6036 | 0.6036 | 1 | no_graph_gain | legacy_single_seed | active |
+| graph_heat_lattice | legacy_ep5_no_quick_tag | graph | 0.6902 | 0.0000 | 0.6902 | 0.6902 | 1 | no_graph_gain | legacy_single_seed | active |
+| graph_heat_lattice | legacy_ep5_no_quick_tag | permuted_graph | 0.6058 | 0.0000 | 0.6058 | 0.6058 | 1 | no_graph_gain | legacy_single_seed | active |
+| ho_audit_5seed | ho_lattice_audit | graph | 0.0169 | 0.0054 | 0.0102 | 0.0236 | 5 | candidate_graph_favorable | robust | active |
+| ho_audit_5seed | ho_lattice_audit | permuted_graph | 0.0198 | 0.0059 | 0.0125 | 0.0271 | 5 | candidate_graph_favorable | robust | active |
+| ho_audit_5seed | ho_lattice_audit | random_graph | 0.0199 | 0.0062 | 0.0122 | 0.0275 | 5 | candidate_graph_favorable | robust | active |
+| rmd17_cycle2_3seed | aspirin | gnn_node_none | 0.0934 | 0.0230 | 0.0673 | 0.1194 | 3 | random_control_equivalent | appendix_3seed | active |
+| rmd17_cycle2_3seed | aspirin | graph | 0.0306 | 0.0130 | 0.0159 | 0.0453 | 3 | random_control_equivalent | appendix_3seed | active |
+| rmd17_cycle2_3seed | aspirin | permuted_graph | 0.0317 | 0.0078 | 0.0229 | 0.0405 | 3 | random_control_equivalent | appendix_3seed | active |
+| rmd17_cycle2_3seed | aspirin | random_graph | 0.0305 | 0.0083 | 0.0211 | 0.0399 | 3 | random_control_equivalent | appendix_3seed | active |
+| rmd17_cycle2_3seed | ethanol | gnn_node_none | 0.0557 | 0.0163 | 0.0372 | 0.0742 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | ethanol | graph | 0.0449 | 0.0036 | 0.0408 | 0.0490 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | ethanol | permuted_graph | 0.0388 | 0.0081 | 0.0296 | 0.0480 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | ethanol | random_graph | 0.0400 | 0.0040 | 0.0355 | 0.0446 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | malonaldehyde | gnn_node_none | 0.0686 | 0.0189 | 0.0471 | 0.0900 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | malonaldehyde | graph | 0.0346 | 0.0148 | 0.0178 | 0.0514 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | malonaldehyde | permuted_graph | 0.0308 | 0.0082 | 0.0215 | 0.0401 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | malonaldehyde | random_graph | 0.0305 | 0.0091 | 0.0202 | 0.0408 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | naphthalene | gnn_node_none | 0.0637 | 0.0219 | 0.0390 | 0.0885 | 3 | random_control_equivalent | appendix_3seed | active |
+| rmd17_cycle2_3seed | naphthalene | graph | 0.0210 | 0.0109 | 0.0087 | 0.0333 | 3 | random_control_equivalent | appendix_3seed | active |
+| rmd17_cycle2_3seed | naphthalene | permuted_graph | 0.0222 | 0.0125 | 0.0081 | 0.0364 | 3 | random_control_equivalent | appendix_3seed | active |
+| rmd17_cycle2_3seed | naphthalene | random_graph | 0.0234 | 0.0122 | 0.0095 | 0.0372 | 3 | random_control_equivalent | appendix_3seed | active |
+| rmd17_cycle2_3seed | toluene | gnn_node_none | 0.0609 | 0.0226 | 0.0353 | 0.0866 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | toluene | graph | 0.0323 | 0.0210 | 0.0085 | 0.0561 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | toluene | permuted_graph | 0.0288 | 0.0125 | 0.0146 | 0.0430 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+| rmd17_cycle2_3seed | toluene | random_graph | 0.0293 | 0.0136 | 0.0139 | 0.0447 | 3 | graph_smoothing_dominated | appendix_3seed | active |
+
+Footnote: rMD17 rows are 3-seed Cycle 2 historical data; uses node-wise graph prior compatible with modern preflight; no temporal_smooth control. Graph-heat is retained as legacy single-seed no-effect aggregate because no non-quick multiseed graph-heat standard row exists in the current derived outputs.

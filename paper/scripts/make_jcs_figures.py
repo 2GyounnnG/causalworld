@@ -50,6 +50,22 @@ LABEL_COLOR = {
     "overconstrained": "#991b1b",
     "inconclusive": "#6b7280",
 }
+FIG3_LABELS = [
+    ("no_graph_gain", "no graph gain"),
+    ("quick_topology_signal", "quick_topology_signal"),
+    ("candidate_graph_favorable", "candidate graph favorable\nunder this construction"),
+    ("generic_smoothing", "generic_smoothing"),
+    ("temporal_sufficient", "temporal_sufficient"),
+    ("topology_aligned_audit", "topology_aligned_audit"),
+]
+FIG3_LABEL_COLOR = {
+    "no_graph_gain": "#dc2626",
+    "quick_topology_signal": "#60a5fa",
+    "candidate_graph_favorable": "#1d4ed8",
+    "generic_smoothing": "#f59e0b",
+    "temporal_sufficient": "#059669",
+    "topology_aligned_audit": "#7c3aed",
+}
 FIG3_SHORT_LABEL = {
     "HO lattice": "HO lattice",
     "Graph heat lattice": "Heat lattice",
@@ -65,7 +81,7 @@ FIG3_SHORT_LABEL = {
 FIG4_SHORT_LABEL = {
     "Spring-mass quick": "Spring-mass\nquick",
     "Graph-wave quick": "Graph-wave\nquick",
-    "N-body quick": "N-body\nquick",
+    "N-body quick": "N-body k=8\nquick",
 }
 LABEL_LEGEND = {
     "topology_aligned_latent_smoothing": "Topology-aligned audit",
@@ -97,43 +113,96 @@ def savefig(fig: plt.Figure, filename: str) -> None:
     print(f"wrote {path}")
 
 
+def savefig_many(fig: plt.Figure, filenames: list[str]) -> None:
+    FIG_DIR.mkdir(parents=True, exist_ok=True)
+    fig.tight_layout()
+    for filename in filenames:
+        path = FIG_DIR / filename
+        fig.savefig(path, dpi=300, bbox_inches="tight")
+        print(f"wrote {path}")
+    plt.close(fig)
+
+
 def make_fig3() -> None:
-    rows = read_csv(DATA_DIR / "fig3_preflight_classification_overview.csv")
-    rows = list(reversed(rows))
-    labels = [FIG3_SHORT_LABEL.get(r["display_case"], r["display_case"]) for r in rows]
-    gains = [as_float(r["graph_gain_vs_none_pct"]) or 0.0 for r in rows]
-    colors = [LABEL_COLOR.get(r["protocol_label"], "#6b7280") for r in rows]
-
-    fig, ax = plt.subplots(figsize=(10.8, 7.0))
-    y = list(range(len(rows)))
-    ax.barh(y, gains, color=colors, edgecolor="black", linewidth=0.4)
-    ax.axvline(0, color="black", linewidth=0.8)
-    ax.set_yticks(y)
-    ax.set_yticklabels(labels, fontsize=9)
-    ax.set_xlabel("Graph gain vs no prior at H=32 (%)", fontsize=10)
-    ax.set_title("Preflight labels separate utility from attribution", fontsize=12, pad=12)
-    ax.grid(axis="x", color="#e5e7eb", linewidth=0.8)
-    ax.tick_params(axis="x", labelsize=9)
-
-    legend_labels = [
-        "topology_aligned_latent_smoothing",
-        "candidate_topology_specific",
-        "temporal_smoothing_sufficient",
-        "graph_generic_smoothing",
-        "low_budget_only",
-        "no_prior_gain",
+    matrix_rows = [
+        ("HO lattice audit", ["topology_aligned_audit"], False),
+        ("Graph heat lattice", ["no_graph_gain"], False),
+        ("METR-LA correlation", ["no_graph_gain"], False),
+        ("Spring-mass quick", ["temporal_sufficient"], False),
+        ("Spring-mass standard", ["no_graph_gain"], False),
+        ("Graph-wave quick", ["temporal_sufficient"], False),
+        ("Graph-wave standard", ["no_graph_gain"], False),
+        ("N-body k=4 quick", ["no_graph_gain"], True),
+        ("N-body k=4 standard", ["candidate_graph_favorable"], True),
+        ("N-body k=8 quick", ["quick_topology_signal"], True),
+        ("N-body k=8 standard", ["temporal_sufficient", "generic_smoothing"], True),
+        ("N-body k=12 quick", ["generic_smoothing"], True),
+        ("N-body k=12 standard", ["temporal_sufficient"], True),
     ]
-    handles = [
-        plt.Rectangle((0, 0), 1, 1, color=LABEL_COLOR[label], label=LABEL_LEGEND[label])
-        for label in legend_labels
-    ]
-    ax.legend(
-        handles=handles,
-        loc="upper center",
-        bbox_to_anchor=(0.5, -0.12),
-        ncol=3,
-        fontsize=8,
-        frameon=False,
+
+    fig, ax = plt.subplots(figsize=(11.8, 7.6))
+    n_rows = len(matrix_rows)
+    n_cols = len(FIG3_LABELS)
+    ax.set_xlim(-0.5, n_cols - 0.5)
+    ax.set_ylim(-0.5, n_rows - 0.5)
+    ax.invert_yaxis()
+
+    for row_idx, (_name, active_labels, is_nbody) in enumerate(matrix_rows):
+        if is_nbody:
+            ax.axhspan(row_idx - 0.5, row_idx + 0.5, color="#eff6ff", zorder=0)
+        for col_idx, (label_key, _label_text) in enumerate(FIG3_LABELS):
+            rect = plt.Rectangle(
+                (col_idx - 0.47, row_idx - 0.38),
+                0.94,
+                0.76,
+                facecolor="#f9fafb",
+                edgecolor="#d1d5db",
+                linewidth=0.8,
+                zorder=1,
+            )
+            ax.add_patch(rect)
+            if label_key in active_labels:
+                active = plt.Rectangle(
+                    (col_idx - 0.39, row_idx - 0.30),
+                    0.78,
+                    0.60,
+                    facecolor=FIG3_LABEL_COLOR[label_key],
+                    edgecolor="black",
+                    linewidth=0.7,
+                    zorder=2,
+                )
+                ax.add_patch(active)
+                ax.text(
+                    col_idx,
+                    row_idx,
+                    "✓",
+                    ha="center",
+                    va="center",
+                    fontsize=13,
+                    fontweight="bold",
+                    color="white",
+                    zorder=3,
+                )
+
+    ax.set_yticks(list(range(n_rows)))
+    ax.set_yticklabels([row[0] for row in matrix_rows], fontsize=9)
+    ax.set_xticks(list(range(n_cols)))
+    ax.set_xticklabels([label for _key, label in FIG3_LABELS], fontsize=8)
+    ax.xaxis.tick_top()
+    ax.tick_params(axis="both", length=0)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    fig.suptitle(
+        "Preflight labels are protocol interpretations, not a prior ranking",
+        fontsize=12,
+        y=0.995,
+    )
+    ax.set_title(
+        "N-body rows vary distance-kNN construction and budget; graph gain alone is not attribution.",
+        fontsize=9,
+        color="#374151",
+        pad=28,
     )
     savefig(fig, "fig3_preflight_classification_overview.png")
 
@@ -176,45 +245,90 @@ def make_fig4() -> None:
         bbox_to_anchor=(0.5, -0.14),
         frameon=False,
     )
-    savefig(fig, "fig4_prior_family_comparison.png")
+    savefig_many(fig, ["fig4_prior_family_comparison.png", "fig4_prior_family_comparison.pdf"])
 
 
 def make_fig5() -> None:
-    rows = read_csv(DATA_DIR / "fig5_training_budget_dependence.csv")
-    datasets = []
-    for row in rows:
-        if row["display_case"] not in datasets:
-            datasets.append(row["display_case"])
-    priors = ["none", "graph_laplacian", "permuted_graph"]
+    priors = ["none", "graph_laplacian", "permuted_graph", "temporal_smooth"]
+    rows = [
+        {
+            "budget": "quick_ep5",
+            "k": 4,
+            "label": "no graph gain",
+            "values": {"none": 0.9198, "graph_laplacian": 0.9690, "permuted_graph": 0.9313, "temporal_smooth": 0.9655},
+        },
+        {
+            "budget": "standard_ep20",
+            "k": 4,
+            "label": "candidate graph favorable",
+            "values": {"none": 0.1494, "graph_laplacian": 0.0560, "permuted_graph": 0.0649, "temporal_smooth": 0.0679},
+        },
+        {
+            "budget": "quick_ep5",
+            "k": 8,
+            "label": "quick_topology_signal",
+            "values": {"none": 0.9150, "graph_laplacian": 0.8727, "permuted_graph": 0.9102, "temporal_smooth": 0.9599},
+        },
+        {
+            "budget": "standard_ep20",
+            "k": 8,
+            "label": "temporal_sufficient / generic_smoothing",
+            "values": {"none": 0.1582, "graph_laplacian": 0.0799, "permuted_graph": 0.0711, "temporal_smooth": 0.0642},
+        },
+        {
+            "budget": "quick_ep5",
+            "k": 12,
+            "label": "generic_smoothing",
+            "values": {"none": 0.9367, "graph_laplacian": 0.8210, "permuted_graph": 0.8017, "temporal_smooth": 0.8834},
+        },
+        {
+            "budget": "standard_ep20",
+            "k": 12,
+            "label": "temporal_sufficient",
+            "values": {"none": 0.1460, "graph_laplacian": 0.0763, "permuted_graph": 0.0946, "temporal_smooth": 0.0487},
+        },
+    ]
+    by_panel = {(row["budget"], row["k"]): row for row in rows}
 
-    fig, axes = plt.subplots(1, len(datasets), figsize=(10.0, 3.8), sharex=True)
-    if len(datasets) == 1:
-        axes = [axes]
+    fig, axes = plt.subplots(2, 3, figsize=(11.2, 6.6), sharey="row")
+    budgets = [("quick_ep5", "quick ep5"), ("standard_ep20", "standard ep20")]
+    ks = [4, 8, 12]
+    x = list(range(len(priors)))
+    for row_idx, (budget_key, budget_label) in enumerate(budgets):
+        for col_idx, k_value in enumerate(ks):
+            ax = axes[row_idx][col_idx]
+            panel = by_panel[(budget_key, k_value)]
+            values = [panel["values"][prior] for prior in priors]
+            best_idx = min(range(len(values)), key=lambda idx: values[idx])
+            edge_widths = [1.5 if idx == best_idx else 0.4 for idx in x]
+            ax.bar(
+                x,
+                values,
+                color=[PRIOR_COLOR[prior] for prior in priors],
+                edgecolor="black",
+                linewidth=edge_widths,
+                width=0.72,
+            )
+            ax.set_title(f"k={k_value}", fontsize=10)
+            ax.set_xticks(x)
+            ax.set_xticklabels(["None", "Graph", "Perm.", "Temp."], fontsize=8)
+            ax.grid(axis="y", color="#e5e7eb", linewidth=0.8)
+            ax.tick_params(axis="y", labelsize=8)
+            ax.text(
+                0.04,
+                0.94,
+                panel["label"].replace(" / ", "\n/ "),
+                transform=ax.transAxes,
+                ha="left",
+                va="top",
+                fontsize=7.8,
+                color="#111827",
+                bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "edgecolor": "#d1d5db", "alpha": 0.92},
+            )
+            if col_idx == 0:
+                ax.set_ylabel(f"{budget_label}\nH=32 rollout error", fontsize=9)
 
-    for ax, dataset in zip(axes, datasets):
-        subset = [r for r in rows if r["display_case"] == dataset]
-        for prior in priors:
-            prior_rows = sorted(
-                [r for r in subset if r["prior_family"] == prior],
-                key=lambda r: int(r["epochs"]),
-            )
-            xs = [int(r["epochs"]) for r in prior_rows]
-            ys = [as_float(r["h32_rollout"]) or 0.0 for r in prior_rows]
-            ax.plot(
-                xs,
-                ys,
-                marker="o",
-                linewidth=1.8,
-                label=PRIOR_LABEL[prior],
-                color=PRIOR_COLOR[prior],
-            )
-        ax.set_title(dataset)
-        ax.set_xticks([5, 20])
-        ax.set_xlabel("Epochs")
-        ax.grid(color="#e5e7eb", linewidth=0.8)
-    axes[0].set_ylabel("H=32 rollout error")
-    axes[-1].legend(fontsize=8, loc="upper right")
-    fig.suptitle("Prior recommendations are training-budget dependent", y=1.03)
+    fig.suptitle("N-body recommendations depend on graph construction and budget", y=0.995, fontsize=12)
     savefig(fig, "fig5_training_budget_dependence.png")
 
 
