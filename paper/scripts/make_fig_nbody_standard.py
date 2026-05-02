@@ -69,7 +69,7 @@ def main():
         ax.grid(axis="y", alpha=0.3, linewidth=0.5)
         ax.set_axisbelow(True)
 
-    axes[0].set_ylabel(r"$H{=}32$ rollout error (mean $\pm$ 95% CI)", fontsize=10)
+    axes[0].set_ylabel(r"$H{=}32$ rollout error (mean; 95% CI error bars)", fontsize=10)
 
     fig.suptitle(
         "N-body standard ep20: graph improves over no-prior, "
