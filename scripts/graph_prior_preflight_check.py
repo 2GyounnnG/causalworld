@@ -30,6 +30,7 @@ from scripts.train_cycle0 import (
     graph_prior_loss,
     latent_diagnostics,
     move_obs,
+    node_feature_tensor,
     select_device,
     set_seed,
 )
@@ -1913,6 +1914,16 @@ def prior_metadata(prior: str) -> dict[str, Any]:
     }
 
 
+def apply_transition_args(config: Cycle3HOConfig, args: argparse.Namespace | None) -> Cycle3HOConfig:
+    if args is None:
+        return config
+    config.transition_type = str(getattr(args, "transition_type", "mlp_pooled"))
+    config.transition_gnn_layers = int(getattr(args, "transition_gnn_layers", 1))
+    config.decode_loss_weight = float(getattr(args, "decode_loss_weight", 1.0))
+    config.node_feature_dim = int(getattr(args, "node_feature_dim", 4))
+    return config
+
+
 def preflight_train_batch(
     model: Cycle0LatentDynamics,
     transitions: list[dict[str, Any]],
@@ -1931,8 +1942,21 @@ def preflight_train_batch(
         else:
             with torch.no_grad():
                 z_next, h_next = model.encode(next_obs)
-        z_pred = model.step_latent(z)
-        transition_losses.append(torch.nn.functional.mse_loss(z_pred, z_next.detach()))
+        if model.transition_type == "graph_node_sage":
+            if h is None or h_next is None:
+                raise ValueError("graph_node_sage transition requires node-wise encoder states")
+            edge_index = obs["atom", "bonded", "atom"].edge_index
+            h_pred = model.step_node_states(h, edge_index)
+            latent_loss = torch.nn.functional.mse_loss(h_pred, h_next.detach())
+            x_pred = model.decode_node_features(h_pred)
+            x_next = node_feature_tensor(next_obs).to(device=x_pred.device, dtype=x_pred.dtype)
+            if x_pred.shape != x_next.shape:
+                raise ValueError(f"Decoded node feature shape {tuple(x_pred.shape)} does not match target {tuple(x_next.shape)}")
+            decode_weight = float(getattr(config, "decode_loss_weight", 1.0))
+            transition_losses.append(latent_loss + decode_weight * torch.nn.functional.mse_loss(x_pred, x_next))
+        else:
+            z_pred = model.step_latent(z)
+            transition_losses.append(torch.nn.functional.mse_loss(z_pred, z_next.detach()))
         z_values.append(z)
         if config.prior in {"graph", "permuted_graph", "random_graph"}:
             prior_losses.append(
@@ -2004,6 +2028,7 @@ def mini_train(
     adapter: DatasetAdapter,
     args: argparse.Namespace | None = None,
 ) -> tuple[dict[str, Any], Cycle0LatentDynamics | None, torch.device]:
+    config = apply_transition_args(config, args)
     set_seed(config.seed)
     device = select_device(config.device)
     train_transitions = adapter.sample_transitions(
@@ -2114,6 +2139,9 @@ def mini_train(
             "config": asdict(config),
             "diagnostics": diagnostics,
             **{f"H{horizon}": rollout_errors.get(str(horizon)) for horizon in config.eval_horizons},
+            **{f"H{horizon}_node_fro": rollout_errors.get(f"{horizon}_node_fro", float("nan")) for horizon in config.eval_horizons},
+            **{f"H{horizon}_pooled": rollout_errors.get(f"{horizon}_pooled", float("nan")) for horizon in config.eval_horizons},
+            **{f"X{horizon}_rmse": rollout_errors.get(f"{horizon}_x_rmse", float("nan")) for horizon in config.eval_horizons},
             "final_train_loss": diagnostics["final_train_loss"],
             "prior_loss_mean": diagnostics["prior_loss_mean"],
             "effective_prior_contribution_mean": float(effective_prior_weight) * float(diagnostics["prior_loss_mean"]),
@@ -2171,6 +2199,12 @@ def stage1_mini_training(
                         "error": str(exc),
                         "H16": float("nan"),
                         "H32": float("nan"),
+                        "H16_node_fro": float("nan"),
+                        "H32_node_fro": float("nan"),
+                        "H16_pooled": float("nan"),
+                        "H32_pooled": float("nan"),
+                        "X16_rmse": float("nan"),
+                        "X32_rmse": float("nan"),
                     }
                 )
                 print(f"FAILED {config.run_name}: {exc}", flush=True)
@@ -2360,6 +2394,121 @@ def classify(stage1_rows: list[dict[str, Any]], stage2_rows: list[dict[str, Any]
     return "candidate_topology_specific", metrics
 
 
+def strict_rollout_label(args: argparse.Namespace, metrics: dict[str, float]) -> str:
+    none_h32 = metrics.get("none_h32", float("nan"))
+    graph_h32 = metrics.get("graph_h32", float("nan"))
+    permuted_h32 = metrics.get("permuted_h32", float("nan"))
+    temporal_h32 = metrics.get("temporal_smooth_h32", float("nan"))
+    mode = str(getattr(args, "mode", "") or getattr(args, "analysis_mode", "")).lower()
+    epochs = int(getattr(args, "epochs", 0) or 0)
+
+    if not finite(graph_h32):
+        return "inconclusive"
+    if finite(none_h32) and float(graph_h32) >= float(none_h32):
+        return "no_graph_gain"
+    if finite(permuted_h32) and float(graph_h32) >= float(permuted_h32):
+        return "generic_smoothing"
+    if finite(temporal_h32) and float(graph_h32) >= float(temporal_h32):
+        return "temporal_sufficient"
+    if mode == "quick" or epochs <= 5:
+        return "quick_topology_signal"
+    if mode == "standard" or epochs >= 20:
+        return "candidate_topology_specific_candidate"
+    return "inconclusive"
+
+
+def dataset_family(args: argparse.Namespace, metadata: dict[str, Any]) -> str:
+    dataset = str(metadata.get("dataset") or getattr(args, "dataset", "")).lower()
+    domain = str(metadata.get("domain", "")).lower()
+    topology = str(metadata.get("topology") or getattr(args, "topology", "")).lower()
+    if dataset == "metr_la" or domain == "traffic":
+        return "metr_la"
+    if dataset.startswith("graph_heat") or domain == "graph_heat":
+        return "graph_heat"
+    if dataset == "nbody_distance" or domain == "nbody_distance":
+        return "nbody_distance"
+    if dataset == "ho_lattice" and topology == "lattice":
+        return "ho_lattice"
+    return dataset
+
+
+def diagnostic_interpretation(
+    args: argparse.Namespace,
+    classification: str,
+    metrics: dict[str, float],
+    metadata: dict[str, Any],
+) -> dict[str, str]:
+    strict_label = strict_rollout_label(args, metrics)
+    family = dataset_family(args, metadata)
+    graph_h32 = metrics.get("graph_h32", float("nan"))
+    none_h32 = metrics.get("none_h32", float("nan"))
+
+    failure_by_label = {
+        "no_graph_gain": "candidate_prior_not_useful_under_tested_condition",
+        "generic_smoothing": "topology_not_isolated_from_spectral_smoothing",
+        "temporal_sufficient": "graph_free_temporal_smoothing_explains_gain",
+        "quick_topology_signal": "quick_budget_candidate_signal_requires_persistence_check",
+        "candidate_topology_specific_candidate": "standard_budget_candidate_graph_favorable_requires_robustness_and_audit",
+        "inconclusive": "missing_controls_or_insufficient_evidence",
+    }
+    next_by_label = {
+        "no_graph_gain": "skip_prior_or_test_alternative_graph_construction",
+        "generic_smoothing": "test_simpler_smoothing_controls_or_alternative_graph_construction",
+        "temporal_sufficient": "prefer_calibrated_temporal_smoothing_unless_topology_attribution_is_goal",
+        "quick_topology_signal": "run_standard_budget_persistence_check_with_same_controls",
+        "candidate_topology_specific_candidate": "run_multi_seed_validation_and_optional_latent_audit",
+        "inconclusive": "run_missing_controls_or_collect_required_artifacts",
+    }
+    boundary_by_label = {
+        "no_graph_gain": "No evidence that the tested prior is useful under this model condition; does not rule out other priors or budgets.",
+        "generic_smoothing": "Graph-style regularization helps, but topology-specific attribution is not isolated.",
+        "temporal_sufficient": "Graph-free temporal smoothing explains the gain; graph structure is not necessary under this condition.",
+        "quick_topology_signal": "Screening outcome only; not final topology-specific attribution.",
+        "candidate_topology_specific_candidate": "Candidate graph is favorable under this construction and budget; does not prove true physical graph and requires robustness/audit.",
+        "inconclusive": "Missing controls or artifacts prevent a stronger claim.",
+    }
+
+    diagnostic_failure_mode = failure_by_label.get(strict_label, "missing_controls_or_insufficient_evidence")
+    recommended_next_experiment = next_by_label.get(strict_label, "run_missing_controls_or_collect_required_artifacts")
+    claim_boundary = boundary_by_label.get(strict_label, "Missing controls or artifacts prevent a stronger claim.")
+
+    if family == "metr_la":
+        if strict_label in {"no_graph_gain", "generic_smoothing"}:
+            diagnostic_failure_mode = "candidate_graph_construction_risk"
+        recommended_next_experiment = "test_official_road_adjacency_road_distance_or_learned_traffic_graph"
+        claim_boundary = "Applies only to the tested correlation-derived graph, not all traffic graphs."
+    elif family == "graph_heat":
+        if strict_label == "no_graph_gain" or classification == "overconstrained" or (
+            finite(graph_h32) and finite(none_h32) and float(graph_h32) > float(none_h32)
+        ):
+            diagnostic_failure_mode = "prior_form_operator_mismatch_possible"
+        recommended_next_experiment = "test_operator_aligned_heat_prior_or_first_order_heat_residual"
+        claim_boundary = "True graph provenance alone is insufficient; the tested prior form may be mismatched to the physical operator."
+    elif family == "nbody_distance":
+        nbody_failure = {
+            "no_graph_gain": "distance_knn_graph_not_useful_for_this_k_and_budget",
+            "generic_smoothing": "distance_knn_topology_not_isolated_from_spectral_control",
+            "temporal_sufficient": "temporal_smoothing_explains_gain_for_this_k_and_budget",
+            "quick_topology_signal": "quick_signal_requires_standard_and_graph_construction_validation",
+            "candidate_topology_specific_candidate": "candidate_graph_favorable_for_this_k_and_budget_only",
+            "inconclusive": "missing_controls_or_insufficient_evidence",
+        }
+        diagnostic_failure_mode = nbody_failure.get(strict_label, diagnostic_failure_mode)
+        recommended_next_experiment = "run_multi_seed_validation_and_soft_radial_or_inverse_distance_graph_sweep"
+        claim_boundary = "Applies only to this distance-kNN construction, seed, budget, and model condition."
+    elif family == "ho_lattice" and classification == "topology_aligned_latent_smoothing":
+        diagnostic_failure_mode = "controlled_audit_positive_case"
+        recommended_next_experiment = "use_as_controlled_positive_case_then_test_unknown_topology_audit_cases"
+        claim_boundary = "Controlled positive case, not evidence that audit triggers reliably in unknown-topology regimes."
+
+    return {
+        "strict_label": strict_label,
+        "diagnostic_failure_mode": diagnostic_failure_mode,
+        "recommended_next_experiment": recommended_next_experiment,
+        "claim_boundary": claim_boundary,
+    }
+
+
 def write_summary_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fieldnames: list[str] = []
@@ -2471,6 +2620,7 @@ def write_report(
     stage2_rows: list[dict[str, Any]],
     classification: str,
     class_metrics: dict[str, float],
+    diagnostic_fields: dict[str, str],
     oracle_row: dict[str, Any] | None = None,
 ) -> None:
     log_progress(f"Report writing start: {rel_to_root(path)}")
@@ -2507,6 +2657,10 @@ def write_report(
                 ["train transitions", args.train_transitions],
                 ["eval transitions", args.eval_transitions],
                 ["horizons", ",".join(str(value) for value in args.horizons)],
+                ["transition type", args.transition_type],
+                ["transition GNN layers", args.transition_gnn_layers],
+                ["decode loss weight", args.decode_loss_weight],
+                ["node feature dim", args.node_feature_dim],
                 ["raw normalization", args.laplacian_normalization],
                 ["N permuted graphs", args.n_permuted],
                 ["M random graphs", 0 if args.skip_random_graph else args.n_random],
@@ -2649,6 +2803,21 @@ def write_report(
         )
     lines.extend(
         [
+            "## Strict Protocol Interpretation",
+            "",
+            *report_table(
+                ["field", "value"],
+                [
+                    ["Legacy automatic classification", classification],
+                    ["Strict manuscript label", diagnostic_fields.get("strict_label", "inconclusive")],
+                    ["Diagnostic failure mode", diagnostic_fields.get("diagnostic_failure_mode", "missing_controls_or_insufficient_evidence")],
+                    ["Recommended next experiment", diagnostic_fields.get("recommended_next_experiment", "run_missing_controls_or_collect_required_artifacts")],
+                    ["Claim boundary", diagnostic_fields.get("claim_boundary", "Missing controls or artifacts prevent a stronger claim.")],
+                ],
+            ),
+            "",
+            "The strict label follows the staged manuscript hierarchy and should be preferred over the legacy automatic classification when they disagree.",
+            "",
             "## Final Classification",
             "",
             f"`{classification}`",
@@ -3058,6 +3227,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--prior-weight", type=float, default=0.1)
     parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--transition-type", default="mlp_pooled", choices=["mlp_pooled", "graph_node_sage"])
+    parser.add_argument("--transition-gnn-layers", type=int, default=1)
+    parser.add_argument("--decode-loss-weight", type=float, default=1.0)
+    parser.add_argument("--node-feature-dim", type=int, default=4)
     parser.add_argument("--device", default="auto")
     parser.add_argument("--force-latent-audit", action="store_true")
     parser.add_argument("--include-temporal-prior", action="store_true")
@@ -3239,6 +3412,7 @@ def main() -> None:
     audit = bool(args.force_latent_audit or should_run_latent_audit(stage1_rows))
     stage2_rows = stage2_latent_audit(args, adapter, models, devices) if audit else []
     classification, class_metrics = classify(stage1_rows, stage2_rows)
+    diagnostic_fields = diagnostic_interpretation(args, classification, class_metrics, adapter.metadata())
     oracle_row = graph_heat_oracle_metrics(args, adapter)
 
     all_rows: list[dict[str, Any]] = []
@@ -3255,12 +3429,13 @@ def main() -> None:
             "dataset": adapter.name,
             "topology": args.topology,
             "classification": classification,
+            **diagnostic_fields,
             **class_metrics,
             **{f"metadata_{key}": value for key, value in adapter.metadata().items()},
         }
     )
     write_summary_csv(args.summary, all_rows)
-    write_report(args.report, args, raw_rows, stage1_rows, stage2_rows, classification, class_metrics, oracle_row)
+    write_report(args.report, args, raw_rows, stage1_rows, stage2_rows, classification, class_metrics, diagnostic_fields, oracle_row)
     print(f"Wrote {rel_to_root(args.report)}")
     print(f"Wrote {rel_to_root(args.summary)} ({len(all_rows)} rows)")
 

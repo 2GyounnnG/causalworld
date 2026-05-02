@@ -66,6 +66,10 @@ class Cycle3HOConfig:
     batch_size: int = 32
     lr: float = 1e-3
     prior_weight: float = 0.1
+    transition_type: str = "mlp_pooled"
+    transition_gnn_layers: int = 1
+    decode_loss_weight: float = 1.0
+    node_feature_dim: int = 4
     sigreg_num_slices: int = 8
     device: str = "auto"
     data_root: str = str(DEFAULT_DATA_ROOT)

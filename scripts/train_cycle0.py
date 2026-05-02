@@ -58,6 +58,10 @@ class Cycle0Config:
     batch_size: int = 16
     lr: float = 1e-3
     prior_weight: float = 0.1
+    transition_type: str = "mlp_pooled"
+    transition_gnn_layers: int = 1
+    decode_loss_weight: float = 1.0
+    node_feature_dim: int = 4
     sigreg_num_slices: int = 8
     device: str = "auto"
     data_root: str = str(DEFAULT_DATA_ROOT)
@@ -200,22 +204,78 @@ class GNNNodeEncoder(nn.Module):
         return node_states.mean(dim=0), node_states
 
 
+class GraphNodeTransition(nn.Module):
+    """Residual graph-aware transition over node states H in R^{N x m}."""
+
+    def __init__(self, node_dim: int, hidden_dim: int, num_layers: int = 1):
+        super().__init__()
+        if int(num_layers) < 1:
+            raise ValueError("transition_gnn_layers must be at least 1")
+        self.graph_steps = nn.ModuleList([SAGEConv(node_dim, node_dim) for _ in range(int(num_layers))])
+        self.local_mlp = nn.Sequential(
+            nn.Linear(node_dim + 1, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, node_dim),
+        )
+        self.mix = nn.Sequential(
+            nn.Linear(2 * node_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, node_dim),
+        )
+        self.norm = nn.LayerNorm(node_dim)
+
+    def forward(self, h: Tensor, edge_index: Tensor, action: Tensor | None = None) -> Tensor:
+        if action is None:
+            action = h.new_zeros((1,))
+        if action.dim() == 0:
+            action = action.view(1)
+        action_node = action.to(device=h.device, dtype=h.dtype).view(1, -1).expand(h.shape[0], -1)
+        graph_delta = h
+        for graph_step in self.graph_steps:
+            graph_delta = F.relu(graph_step(graph_delta, edge_index))
+        local_delta = self.local_mlp(torch.cat([h, action_node], dim=-1))
+        delta = self.mix(torch.cat([graph_delta, local_delta], dim=-1))
+        return self.norm(h + delta)
+
+
+def node_feature_tensor(obs: HeteroData) -> Tensor:
+    """Return the 4-channel node feature tensor used by GNNNodeEncoder."""
+    pos = obs["atom"].pos
+    z_atom = obs["atom"].atomic_number.to(dtype=pos.dtype, device=pos.device).view(-1, 1) / 10.0
+    return torch.cat([z_atom, pos], dim=-1)
+
+
 class Cycle0LatentDynamics(nn.Module):
     def __init__(self, config: Cycle0Config, n_atoms: int):
         super().__init__()
+        self.transition_type = str(getattr(config, "transition_type", "mlp_pooled"))
+        self.node_feature_dim = int(getattr(config, "node_feature_dim", 4))
         if config.encoder == "mlp_global":
             self.encoder = MLPGlobalEncoder(n_atoms, config.latent_dim, config.hidden_dim)
         elif config.encoder == "gnn_node":
             self.encoder = GNNNodeEncoder(config.latent_dim, config.node_dim, config.hidden_dim)
         else:
             raise ValueError("encoder must be 'mlp_global' or 'gnn_node'")
-        self.transition = nn.Sequential(
-            nn.Linear(config.latent_dim + 1, config.transition_hidden_dim),
-            nn.ReLU(),
-            nn.Linear(config.transition_hidden_dim, config.transition_hidden_dim),
-            nn.ReLU(),
-            nn.Linear(config.transition_hidden_dim, config.latent_dim),
-        )
+        if self.transition_type == "mlp_pooled":
+            self.transition = nn.Sequential(
+                nn.Linear(config.latent_dim + 1, config.transition_hidden_dim),
+                nn.ReLU(),
+                nn.Linear(config.transition_hidden_dim, config.transition_hidden_dim),
+                nn.ReLU(),
+                nn.Linear(config.transition_hidden_dim, config.latent_dim),
+            )
+            self.node_decoder = None
+        elif self.transition_type == "graph_node_sage":
+            if config.encoder != "gnn_node":
+                raise ValueError("transition_type='graph_node_sage' requires encoder='gnn_node'")
+            self.transition = GraphNodeTransition(
+                config.node_dim,
+                config.transition_hidden_dim,
+                num_layers=int(getattr(config, "transition_gnn_layers", 1)),
+            )
+            self.node_decoder = nn.Linear(config.node_dim, self.node_feature_dim)
+        else:
+            raise ValueError("transition_type must be 'mlp_pooled' or 'graph_node_sage'")
 
     @property
     def emits_node_states(self) -> bool:
@@ -225,6 +285,8 @@ class Cycle0LatentDynamics(nn.Module):
         return self.encoder(obs)
 
     def step_latent(self, z: Tensor, action: Tensor | None = None) -> Tensor:
+        if self.transition_type != "mlp_pooled":
+            raise RuntimeError("step_latent is only available for transition_type='mlp_pooled'")
         if action is None:
             action = z.new_zeros((1,))
         if action.dim() == 0:
@@ -232,12 +294,39 @@ class Cycle0LatentDynamics(nn.Module):
         return z + self.transition(torch.cat([z, action.to(device=z.device, dtype=z.dtype)], dim=-1))
 
     def rollout_latent(self, z0: Tensor, horizon: int) -> Tensor:
+        if self.transition_type != "mlp_pooled":
+            raise RuntimeError("rollout_latent is only available for transition_type='mlp_pooled'")
         latents = [z0]
         z = z0
         for _ in range(horizon):
             z = self.step_latent(z)
             latents.append(z)
         return torch.stack(latents, dim=0)
+
+    def step_node_states(self, h: Tensor, edge_index: Tensor, action: Tensor | None = None) -> Tensor:
+        if self.transition_type != "graph_node_sage":
+            raise RuntimeError("step_node_states requires transition_type='graph_node_sage'")
+        return self.transition(h, edge_index, action)
+
+    def decode_node_features(self, h: Tensor) -> Tensor:
+        if self.node_decoder is None:
+            raise RuntimeError("decode_node_features requires transition_type='graph_node_sage'")
+        return self.node_decoder(h)
+
+    def rollout_node_states(
+        self,
+        h0: Tensor,
+        edge_index: Tensor,
+        horizon: int,
+        actions: list[Tensor] | tuple[Tensor, ...] | None = None,
+    ) -> Tensor:
+        states = [h0]
+        h = h0
+        for step in range(horizon):
+            action = None if actions is None else actions[step]
+            h = self.step_node_states(h, edge_index, action)
+            states.append(h)
+        return torch.stack(states, dim=0)
 
 
 def covariance_penalty(z_batch: Tensor) -> Tensor:
@@ -429,9 +518,22 @@ def train_batch(
         next_obs = move_obs(transition["next_obs"], device)
         z, h = model.encode(obs)
         with torch.no_grad():
-            z_next, _ = model.encode(next_obs)
-        z_pred = model.step_latent(z)
-        transition_losses.append(F.mse_loss(z_pred, z_next))
+            z_next, h_next = model.encode(next_obs)
+        if model.transition_type == "graph_node_sage":
+            if h is None or h_next is None:
+                raise ValueError("graph_node_sage transition requires node-wise encoder states")
+            edge_index = obs["atom", "bonded", "atom"].edge_index
+            h_pred = model.step_node_states(h, edge_index)
+            latent_loss = F.mse_loss(h_pred, h_next)
+            x_pred = model.decode_node_features(h_pred)
+            x_next = node_feature_tensor(next_obs).to(device=x_pred.device, dtype=x_pred.dtype)
+            if x_pred.shape != x_next.shape:
+                raise ValueError(f"Decoded node feature shape {tuple(x_pred.shape)} does not match target {tuple(x_next.shape)}")
+            decode_weight = float(getattr(config, "decode_loss_weight", 1.0))
+            transition_losses.append(latent_loss + decode_weight * F.mse_loss(x_pred, x_next))
+        else:
+            z_pred = model.step_latent(z)
+            transition_losses.append(F.mse_loss(z_pred, z_next))
         z_values.append(z)
         if config.prior in GRAPH_PRIORS:
             prior_losses.append(
@@ -475,16 +577,40 @@ def evaluate_rollout(
     with torch.no_grad():
         for horizon in horizons:
             errors: list[float] = []
+            pooled_errors: list[float] = []
+            node_fro_errors: list[float] = []
+            x_rmse_errors: list[float] = []
             for transition in eval_transitions:
                 frame_idx = int(transition["frame_idx"])
                 if frame_idx + max_h >= traj.n_frames:
                     continue
                 obs0 = move_obs(traj[frame_idx], device)
                 obs_h = move_obs(traj[frame_idx + horizon], device)
-                z0, _ = model.encode(obs0)
-                z_pred = model.rollout_latent(z0, horizon)[-1]
-                z_true, _ = model.encode(obs_h)
-                errors.append(float((torch.norm(z_pred - z_true, p=2) / math.sqrt(latent_dim)).detach().cpu()))
+                z0, h0 = model.encode(obs0)
+                z_true, h_true = model.encode(obs_h)
+                if model.transition_type == "graph_node_sage":
+                    if h0 is None or h_true is None:
+                        raise ValueError("graph_node_sage evaluation requires node-wise encoder states")
+                    edge_index = obs0["atom", "bonded", "atom"].edge_index
+                    h_pred = model.rollout_node_states(h0, edge_index, horizon)[-1]
+                    z_pred = h_pred.mean(dim=0)
+                    pooled_errors.append(float((torch.norm(z_pred - z_true, p=2) / math.sqrt(latent_dim)).detach().cpu()))
+                    node_fro_errors.append(
+                        float((torch.norm(h_pred - h_true, p="fro") / math.sqrt(h_true.numel())).detach().cpu())
+                    )
+                    x_pred = model.decode_node_features(h_pred)
+                    x_true = node_feature_tensor(obs_h).to(device=x_pred.device, dtype=x_pred.dtype)
+                    x_rmse_errors.append(float(torch.sqrt(torch.mean((x_pred - x_true) ** 2)).detach().cpu()))
+                else:
+                    z_pred = model.rollout_latent(z0, horizon)[-1]
+                    pooled_errors.append(float((torch.norm(z_pred - z_true, p=2) / math.sqrt(latent_dim)).detach().cpu()))
+            if model.transition_type == "graph_node_sage":
+                errors = node_fro_errors
+                out[f"{horizon}_node_fro"] = float(np.mean(node_fro_errors)) if node_fro_errors else float("nan")
+                out[f"{horizon}_x_rmse"] = float(np.mean(x_rmse_errors)) if x_rmse_errors else float("nan")
+            else:
+                errors = pooled_errors
+            out[f"{horizon}_pooled"] = float(np.mean(pooled_errors)) if pooled_errors else float("nan")
             out[str(horizon)] = float(np.mean(errors)) if errors else float("nan")
     if was_training:
         model.train()
