@@ -1,0 +1,18 @@
+{
+  "created_at": "2026-05-01T23:02:31.284201+00:00",
+  "out_root": "/home/user/projects/causalworld/analysis_out/preflight_runs/ho_audit_5seed",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "priors": [
+    "graph",
+    "permuted_graph",
+    "random_graph"
+  ],
+  "complete": false,
+  "completion_reason": "missing result json"
+}
