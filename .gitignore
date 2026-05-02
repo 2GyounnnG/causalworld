@@ -37,3 +37,144 @@ data/
 analysis_out/preflight_runs/**/artifacts/
 *.pt
 *.pth
+
+# Local working notes — not for submission
+analysis_out/full_drift_audit.md
+analysis_out/abstract_and_terminology_applied.md
+analysis_out/discussion_correction_applied.md
+analysis_out/discussion_remaining_overclaims.md
+analysis_out/data_tables_added.md
+analysis_out/pdflatex_post_tables.log
+# === JCS submission cleanup (added 2026-05-02) ===
+
+# Old figure files: keep local for reference, never push
+paper/figures/fig1_protocol_schematic.pdf
+paper/figures/fig1_protocol_schematic.png
+paper/figures/fig1_protocol_schematic_revised.pdf
+paper/figures/fig1_protocol_schematic_revised.png
+paper/figures/fig1_protocol_schematic.md
+paper/figures/fig2_decision_logic.pdf
+paper/figures/fig2_decision_logic.png
+paper/figures/fig2_decision_logic_revised.pdf
+paper/figures/fig2_decision_logic_revised.png
+paper/figures/fig2_laplacian_smoothing_mechanism.md
+paper/figures/fig3_preflight_classification_overview.pdf
+paper/figures/fig3_preflight_classification_overview.png
+paper/figures/fig4_prior_family_comparison.pdf
+paper/figures/fig4_prior_family_comparison.png
+paper/figures/fig5_training_budget_dependence.pdf
+paper/figures/fig5_training_budget_dependence.png
+paper/figures/sample/
+paper/figures/archived/
+paper/figures_pdf/
+
+# Stale figure captions (current captions are inline in .tex)
+paper/captions/
+
+# Early markdown drafts
+paper/jcs_abstract.md
+paper/jcs_algorithm_box.md
+paper/jcs_appendix.md
+paper/jcs_contributions.md
+paper/jcs_draft_intro.md
+paper/jcs_draft_methods.md
+paper/jcs_figures_tables_plan.md
+paper/jcs_limitations.md
+paper/jcs_outline.md
+paper/jcs_results_narrative.md
+paper/jcs_manuscript_asset_index.md
+paper/figures_plan.md
+paper/model_conditioned_preflight_protocol.md
+paper/preflight_revision_defensive_experiment_plan.md
+paper/prism_integration_notes.md
+paper/sota_extension_plan.md
+paper/submission_checklist.md
+paper/tool_readme_draft.md
+
+# Stale tables and snippets
+paper/tables/archived/
+paper/tables/master_multiseed_summary_v1_with_quick.md
+paper/snippets/
+
+# Stale draft PDFs
+paper/jcs_submission_draft.pdf
+
+# LaTeX build artifacts
+paper/jcs_main.aux
+paper/jcs_main.bbl
+paper/jcs_main.blg
+paper/jcs_main.log
+paper/jcs_main.out
+paper/jcs_main.spl
+
+# Other journal submission attempts
+paper/applied_intelligence/
+
+# Findings working notes
+paper/findings/
+
+# Top-level work checklist
+LAUNCH_CHECKLIST.md
+
+# Forensic-risk working notes
+analysis_out/incorrect_nbody_claims.md
+analysis_out/paper_correction_plan.md
+analysis_out/quick_mode_references_to_remove.md
+analysis_out/rmd17_references_in_paper.md
+analysis_out/section7_figures_map.md
+analysis_out/section7_rewrite_applied.md
+analysis_out/section7_rewrite_map.md
+analysis_out/terminology_corrections.md
+analysis_out/terminology_corrections_applied.md
+analysis_out/validation_sanity_check.md
+
+# Other working notes
+analysis_out/effect_size_analysis.md
+analysis_out/full_campaign.log
+analysis_out/model_condition_inventory.md
+analysis_out/nbody_k04_phase4prime_report.md
+analysis_out/rmd17_historical_summary.md
+analysis_out/rmd17_reconnaissance.md
+analysis_out/spring_mass_phase4_report.md
+analysis_out/transition_instability_diagnosis.md
+analysis_out/transition_layernorm_validation.md
+analysis_out/transition_redesign_proposal.md
+analysis_out/validation_seed0_snapshot/
+analysis_out/preflight_runs/nbody_k04_phase4prime/
+analysis_out/preflight_runs/nbody_k04_phase4prime_sanity/
+analysis_out/preflight_runs/nbody_robustness_pre_multiseed_snapshot/
+analysis_out/preflight_runs/spring_mass_phase4/
+analysis_out/preflight_runs/spring_mass_phase4_sanity/
+analysis_out/preflight_runs/spring_mass_smoke_graph_node_sage/
+analysis_out/preflight_runs/spring_mass_smoke_horizon_sweep/
+analysis_out/preflight_runs/spring_mass_smoke_layernorm/
+
+# All pdflatex logs
+analysis_out/pdflatex_*.log
+
+# === Additional cleanup (2026-05-02 round 2) ===
+
+# Compute-value scripts and tables (quick-mode era, dropped from paper)
+scripts/analyze_compute_value.py
+paper/tables/preflight_compute_cost.md
+
+# Stale markdown tables (current tables are inline LaTeX in jcs_main.tex)
+paper/tables/evidence_map.md
+paper/tables/table2_prior_families.md
+paper/tables/table3_benchmark_regimes.md
+paper/tables/table4_claims_evidence.md
+paper/tables/table5_limitations_boundaries.md
+
+# Earlier nbody robustness run (superseded by *_5seed)
+analysis_out/preflight_runs/nbody_robustness/
+
+# Round 2 cleanup
+scripts/analyze_compute_value.py
+paper/tables/preflight_compute_cost.md
+paper/tables/evidence_map.md
+paper/tables/table2_prior_families.md
+paper/tables/table3_benchmark_regimes.md
+paper/tables/table4_claims_evidence.md
+paper/tables/table5_limitations_boundaries.md
+analysis_out/preflight_runs/nbody_robustness/
+scripts/make_fig_generic_regularization.py
